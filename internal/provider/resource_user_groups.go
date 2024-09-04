@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/validation"
 	uaa "github.com/cloudfoundry-community/go-uaa"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"

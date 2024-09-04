@@ -1,6 +1,6 @@
 # Migration Guide
 
- Although the definitions look similar the Terraform providers of the [cloudfoundry-community](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) and [SAP](https://github.com/SAP/terraform-provider-cloudfoundry) are not the same. They differ in the definition as well as the state structure especially due to the usage if the V3 API in the newer provider.
+ Although the definitions look similar the Terraform providers of the [cloudfoundry-community](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) and [SAP](https://github.com/cloudfoundry/terraform-provider-cloudfoundry) are not the same. They differ in the definition as well as the state structure especially due to the usage if the V3 API in the newer provider.
 
 Therefore, the providers cannot be simply interchanged. If you want to switch you must rewrite your configuration. Additionally you must import the resources to create a state consistent with the new provider.
 
@@ -9,7 +9,7 @@ Therefore, the providers cannot be simply interchanged. If you want to switch yo
 
 The newer V3 APIs have brought in changes to certain parameters of the existing resources and data sources to enhance the functionality and optimize the way the APIs behave. This impacts the parameters available in the resources i.e., some of the parameters might have been removed and newer parameters might have been added. Please refer to the [V3 API Specifications](https://v3-apidocs.cloudfoundry.org/version/3.166.0/index.html) for details.
 
-This migration guide helps one in transitioning from the existing [community CF provider](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) to the [current CF provider](https://github.com/SAP/terraform-provider-cloudfoundry) and states the difference between them.
+This migration guide helps one in transitioning from the existing [community CF provider](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) to the [current CF provider](https://github.com/cloudfoundry/terraform-provider-cloudfoundry) and states the difference between them.
 
 ## Maintaining both providers
 

@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
 	cfconfig "github.com/cloudfoundry/go-cfclient/v3/config"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/path"

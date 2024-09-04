@@ -2,7 +2,7 @@
 
 Gets information on Cloud Foundry users with a given username.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_user" "myuser" {</br>  name = "myuser"</br>}</br></pre>|<pre>data "cloudfoundry_user" "myuser" {</br>    name = "myuser"    </br>}</br></pre> |  
 

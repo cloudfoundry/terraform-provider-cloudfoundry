@@ -1,4 +1,4 @@
-module github.com/SAP/terraform-provider-cloudfoundry
+module github.com/cloudfoundry/terraform-provider-cloudfoundry
 
 go 1.22
 

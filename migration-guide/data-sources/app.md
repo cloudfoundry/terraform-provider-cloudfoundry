@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry application.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_app" "my-app" {</br>  name  = "my-app"</br>  space_name = "tf-space-1"</br>  org_name   = "PerformanceTeamBLR"</br>}</br></pre>|<pre>data "cloudfoundry_app" "my-app" {</br>    name_or_id = "my-app"</br>    space      = "106a411e-3ea3-4d1b-a30d-54a6802bed27"</br>}</br></pre> |  
 

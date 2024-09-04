@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry route.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_route" "bruh" {</br>  domain = "a25ca0c1-353a-40f9-bcf4-d2a0adf4112b"</br>  host = "my-host"</br>  space  = "b45da1f2-353a-40f9-bcf4-d2a0adf4112b"</br>}</br></pre>|<pre></br>data "cloudfoundry_route" "my-route" {</br>    domain   = "a25ca0c1-353a-40f9-bcf4-d2a0adf4112b"</br>    hostname = "my-host"</br>}</br></pre> |  
 

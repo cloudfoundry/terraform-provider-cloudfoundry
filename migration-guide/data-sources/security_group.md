@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry application security group. Named as [`cloudfoundry_asg`](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/blob/main/docs/data-sources/asg.md) in the community provider.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_security_group" "public" {</br>  name = "public_networks"</br>}</br></pre>|<pre>data "cloudfoundry_asg" "public" {</br>    name = "public_networks"</br>}</br></pre> |  
 

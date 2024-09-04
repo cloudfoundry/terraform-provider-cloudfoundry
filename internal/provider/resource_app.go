@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3operation "github.com/cloudfoundry/go-cfclient/v3/operation"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-validators/boolvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"

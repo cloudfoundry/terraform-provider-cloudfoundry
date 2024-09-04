@@ -3,7 +3,7 @@
 Provides a Cloud Foundry resource for managing Cloud Foundry organizations
 
 
-|  SAP Cloud Foundry Provider |Community Cloud Foundry Provider |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 |  <pre>resource "cloudfoundry_org" "org" {</br>  name      = "tf-test"</br>  suspended = false</br>}</br></pre> |<pre>resource "cloudfoundry_org" "org" {</br>    name = "tf-test"</br>    quota = cloudfoundry_quota.runaway.id</br>}</br></pre> |
 

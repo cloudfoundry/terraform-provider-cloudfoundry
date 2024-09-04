@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry domain.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_domain" "mydomain" {</br>  name = "test.cfapps.stagingazure.hanavlab.ondemand.com"</br>}</br></pre>|<pre>data "cloudfoundry_domain" "mydomain" {</br>    sub_domain = "test"</br>    domain = "cfapps.stagingazure.hanavlab.ondemand.com"</br>}</br></pre> |  
 

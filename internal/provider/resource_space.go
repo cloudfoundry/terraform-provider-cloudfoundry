@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/validation"
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"

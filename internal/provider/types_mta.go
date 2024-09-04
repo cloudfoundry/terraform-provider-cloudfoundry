@@ -3,7 +3,7 @@ package provider
 import (
 	"context"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/mta"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/mta"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"

@@ -8,8 +8,8 @@ import (
 	"flag"
 	"log"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/version"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/version"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
