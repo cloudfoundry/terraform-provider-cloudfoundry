@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry space.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_space" "space" {</br>  name = "myspace"</br>  org  = "ca721b24-e24d-4171-83e1-1ef6bd836b38"</br>}</br></pre>|<pre>data "cloudfoundry_space" "space" {</br>    name = "myspace"</br>    org_name = "org"</br>}</br></pre> | 
 

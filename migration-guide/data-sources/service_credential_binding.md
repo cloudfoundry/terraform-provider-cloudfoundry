@@ -2,7 +2,7 @@
 
 Gets information on Service Credential Bindings for a given service instance. Combines [`cloudfoundry_service_key`](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/blob/main/docs/data-sources/service_key.md) in the community provider and querying for app app credential_bindings.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_service_credential_binding" "scbd" {</br>  service_instance = "5e2976bb-332e-41e1-8be3-53baafea9296"</br>  app              = "ec6ac2b3-fb79-43c4-9734-000d4299bd59"</br>}</br></br>data "cloudfoundry_service_credential_binding" "my-key" {</br>    name             = "my-service-key"</br>    service_instance = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"</br>}</br></pre>|<pre>data "cloudfoundry_service_key" "my-key" {</br>    name             = "my-service-key"</br>    service_instance = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"</br>}</br></pre> |
 

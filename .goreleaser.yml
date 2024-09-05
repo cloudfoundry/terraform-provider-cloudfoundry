@@ -14,7 +14,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - "-s -w -X 'github.com/SAP/terraform-provider-cloudfoundry/internal/version.ProviderVersion={{.Version}}'"
+      - "-s -w -X 'github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/version.ProviderVersion={{.Version}}'"
     goos:
       - freebsd
       - windows

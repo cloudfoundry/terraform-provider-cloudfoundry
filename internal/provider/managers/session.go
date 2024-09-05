@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/version"
 	"github.com/cloudfoundry/go-cfclient/v3/client"
 	config "github.com/cloudfoundry/go-cfclient/v3/config"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/version"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 )
 

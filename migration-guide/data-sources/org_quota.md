@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry organization quota.  
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_org_quota" "org_quota" {</br>  name = "myquota"</br>}</br></pre>|<pre>data "cloudfoundry_org_quota" "org_quota" {</br>  name = "myquota"</br>}</br></pre> |  
 

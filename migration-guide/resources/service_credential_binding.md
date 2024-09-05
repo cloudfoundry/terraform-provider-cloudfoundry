@@ -2,7 +2,7 @@
 
 Provides a resource for managing service credential bindings in Cloud Foundry. Combines [`cloudfoundry_service_key`](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/blob/main/docs/resources/service_key.md) in the community provider and app service binding to resemble service credential binding resource as provided in V3 API.
 
-|  SAP Cloud Foundry Provider |Community Cloud Foundry Provider |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 |  <pre>resource "cloudfoundry_service_credential_binding" "scb1" {</br>  type             = "key"</br>  name             = "hifi"</br>  service_instance = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"</br>}</br></br>resource "cloudfoundry_service_credential_binding" "scb7" {</br>  type             = "app"</br>  name             = "hifi"</br>  service_instance = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"</br>  app              = "ec6ac2b3-fb79-43c4-9734-000d4299bd59"</br>}</br></pre> |<pre>resource "cloudfoundry_service_key" "redis1-key1" {</br>  name = "hifi"</br>  service_instance = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"</br>}</br></pre> |
 

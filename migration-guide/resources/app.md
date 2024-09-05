@@ -2,7 +2,7 @@
 
 Provides a Cloud Foundry resource to manage applications.
 
-|  SAP Cloud Foundry Provider |Community Cloud Foundry Provider |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 |  <pre>resource "cloudfoundry_app" "my-app" {</br>  name       = "my-app"</br>  space_name = "tf-space-1"</br>  org_name   = "PerformanceTeamBLR"</br>  buildpacks = ["nodejs_buildpack"]</br>  memory     = "512M"</br>  path       = "something.zip"</br>  service_bindings = [</br>    {</br>      service_instance = "xsuaa-tf"</br>    }</br>  ]</br>  routes = [</br>    {</br>      route = my-app.hello.world.example..com"</br>    }</br>  ]</br>}</br></pre> |<pre>resource "cloudfoundry_app" "my-app" {</br>  name       = "my-app"</br>  space      = "e6886bba-e263-4b52-aaf1-85d410f15fc8"</br>  buildpack = "nodejs_buildpack"</br>  memory     = 512</br>  path       = "something.zip"</br>  service_binding {</br>      service_instance = "xsuaa-tf"</br>  }</br>  routes = {</br>      route = my-app.hello.world.example..com"</br>  }</br>}</br></pre> |
 

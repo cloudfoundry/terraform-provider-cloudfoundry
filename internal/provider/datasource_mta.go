@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/mta"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/validation"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/mta"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"

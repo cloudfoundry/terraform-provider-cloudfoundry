@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/validation"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/samber/lo"
 

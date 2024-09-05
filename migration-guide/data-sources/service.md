@@ -2,7 +2,7 @@
 
 Get Service Offering and its related plans.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_service" "redis" {</br>  name = "p-redis"</br>}</br></pre>|<pre>data "cloudfoundry_service" "redis" {</br>    name = "p-redis"    </br>}</br></pre> |
 

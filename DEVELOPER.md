@@ -56,7 +56,7 @@ provider_installation {
 The last step is then to clone the repository on your machine via:
 
 ```bash
-git clone https://github.com/SAP/terraform-provider-cloudfoundry.git
+git clone https://github.com/cloudfoundry/terraform-provider-cloudfoundry.git
 ```
 
 Navigate into the directory of the cloned repository.
@@ -97,7 +97,7 @@ If the setup was successful you should see the following message:
 Success! The configuration is valid, but there were some validation warnings as shown above.
 ```
 
-In case of errors, please check first that you executed the previous steps correctly. If you are still stuck, feel free to ask for support by raising a [question](https://github.com/SAP/terraform-provider-cloudfoundry/discussions/categories/q-a) in the [GitHub Discussions](https://github.com/SAP/terraform-provider-cloudfoundry/discussions/categories/q-a) of this repository.
+In case of errors, please check first that you executed the previous steps correctly. If you are still stuck, feel free to ask for support by raising a [question](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/discussions/categories/q-a) in the [GitHub Discussions](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/discussions/categories/q-a) of this repository.
 
 > **Note**: Be aware that when using the development override you must not use the `terraform init`command. It is not necessary and may error unexpectedly. Refer [authentication](./Authentication.md) to login to the environment.
 
@@ -109,7 +109,7 @@ In case of errors, please check first that you executed the previous steps corre
 First, you must clone the repository:
 
 ```bash
-git clone https://github.com/SAP/terraform-provider-cloudfoundry.git
+git clone https://github.com/cloudfoundry/terraform-provider-cloudfoundry.git
 ```
 
 Then open the cloned repository in [Visual Studio Code](https://code.visualstudio.com/). Within Visual Studio Code, press the "Open a remote Window" button in the lower left corner:

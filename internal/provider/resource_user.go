@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SAP/terraform-provider-cloudfoundry/internal/provider/managers"
 	uaa "github.com/cloudfoundry-community/go-uaa"
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"

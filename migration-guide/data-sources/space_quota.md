@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry space quota.
 
-|  SAP Cloud Foundry Provider | Community Cloud Foundry Provider  |
+| cloudfoundry/cloudfoundry | cloudfoundry-community/cloudfoundry |
 | -- | -- |
 | <pre>data "cloudfoundry_space_quota" "my_space_quota" {</br>  name = "tf-test-do-not-delete"</br>  org  = "ca721b24-e24d-4171-83e1-1ef6bd836b38"</br>}</br></pre>|<pre>data "cloudfoundry_space_quota" "my_space_quota" {</br>  name = "tf-test-do-not-delete"</br>  org  = "ca721b24-e24d-4171-83e1-1ef6bd836b38"</br>}</br></pre> |  
 
