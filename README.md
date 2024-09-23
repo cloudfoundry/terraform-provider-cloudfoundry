@@ -1,6 +1,6 @@
 # Terraform Provider for Cloud Foundry
 
-![Golang](https://img.shields.io/badge/Go-1.22-informational)
+![Golang](https://img.shields.io/badge/Go-1.23-informational)
 [![REUSE status](https://api.reuse.software/badge/github.com/cloudfoundry/terraform-provider-cloudfoundry)](https://api.reuse.software/info/github.com/cloudfoundry/terraform-provider-cloudfoundry)
 ## About This Project
 

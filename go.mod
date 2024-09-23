@@ -1,6 +1,6 @@
 module github.com/cloudfoundry/terraform-provider-cloudfoundry
 
-go 1.22
+go 1.23
 
 require (
 	github.com/cloudfoundry-community/go-uaa v0.3.4-0.20240727153833-d675ee37e6c9
