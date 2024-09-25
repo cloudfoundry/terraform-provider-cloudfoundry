@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     cloudfoundry = {
-      source = "sap/cloudfoundry"
+      source = "cloudfoundry/cloudfoundry"
     }
     zipper = {
       source = "ArthurHlt/zipper"

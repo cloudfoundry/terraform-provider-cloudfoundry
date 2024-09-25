@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     cloudfoundry = {
-      source = "SAP/cloudfoundry"
+      source = "cloudfoundry/cloudfoundry"
     }
   }
 }
