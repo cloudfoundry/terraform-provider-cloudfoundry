@@ -15,7 +15,7 @@ Provides a Cloud Foundry resource to manage org quota definitions.
 terraform {
   required_providers {
     cloudfoundry = {
-      source = "SAP/cloudfoundry"
+      source = "cloudfoundry/cloudfoundry"
     }
   }
 }

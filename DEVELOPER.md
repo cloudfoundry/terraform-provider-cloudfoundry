@@ -44,7 +44,7 @@ The configuration should look similar to this:
 ```hcl
 provider_installation {
   dev_overrides {
-    "SAP/cloudfoundry" = "/path/to/go/bin" # the GOBIN directory can be found in the folder which `go env GOPATH` returns
+    "cloudfoundry/cloudfoundry" = "/path/to/go/bin" # the GOBIN directory can be found in the folder which `go env GOPATH` returns
   }
 
   direct {}
@@ -90,7 +90,7 @@ If the setup was successful you should see the following message:
 │ Warning: Provider development overrides are in effect
 │ 
 │ The following provider development overrides are set in the CLI configuration:
-│  - SAP/cloudfoundry in /go/bin
+│  - cloudfoundry/cloudfoundry in /go/bin
 │ 
 │ The behavior may therefore not match any released version of the provider and applying changes may cause the state to become incompatible with published releases.
 ╵
