@@ -15,7 +15,7 @@ Provides a Cloud Foundry resource to manage applications.
 terraform {
   required_providers {
     cloudfoundry = {
-      source = "sap/cloudfoundry"
+      source = "cloudfoundry/cloudfoundry"
     }
     zipper = {
       source = "ArthurHlt/zipper"

@@ -74,7 +74,7 @@ interactions:
         host: deploy-service.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: "--0c9d831b4dbdff020fb6b3042db286630dd7e319fc7637a67990119b2f46\r\nContent-Disposition: form-data; name=\"file\"; filename=\"provider-config-local.txt\"\r\nContent-Type: application/octet-stream\r\n\r\nprovider_installation {\n  dev_overrides {\n    \"SAP/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\r\n--0c9d831b4dbdff020fb6b3042db286630dd7e319fc7637a67990119b2f46--\r\n"
+        body: "--0c9d831b4dbdff020fb6b3042db286630dd7e319fc7637a67990119b2f46\r\nContent-Disposition: form-data; name=\"file\"; filename=\"provider-config-local.txt\"\r\nContent-Type: application/octet-stream\r\n\r\nprovider_installation {\n  dev_overrides {\n    \"cloudfoundry/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\r\n--0c9d831b4dbdff020fb6b3042db286630dd7e319fc7637a67990119b2f46--\r\n"
         form: {}
         headers:
             Authorization:
@@ -582,7 +582,7 @@ interactions:
         host: deploy-service.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: "--15e976bca81b9af843b9c73f3c865c3bebfb8a4a8d40d8ad5f3432708763\r\nContent-Disposition: form-data; name=\"file\"; filename=\"provider-config-local.txt\"\r\nContent-Type: application/octet-stream\r\n\r\nprovider_installation {\n  dev_overrides {\n    \"SAP/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\r\n--15e976bca81b9af843b9c73f3c865c3bebfb8a4a8d40d8ad5f3432708763--\r\n"
+        body: "--15e976bca81b9af843b9c73f3c865c3bebfb8a4a8d40d8ad5f3432708763\r\nContent-Disposition: form-data; name=\"file\"; filename=\"provider-config-local.txt\"\r\nContent-Type: application/octet-stream\r\n\r\nprovider_installation {\n  dev_overrides {\n    \"cloudfoundry/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\r\n--15e976bca81b9af843b9c73f3c865c3bebfb8a4a8d40d8ad5f3432708763--\r\n"
         form: {}
         headers:
             Authorization:
@@ -853,7 +853,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: true
-        body: '{"processId":"95cc8835-549e-11ef-9de9-eeee0a88e5d6","processType":"DEPLOY","startedAt":"2024-08-07T09:22:37.625Z[UTC]","endedAt":"2024-08-07T09:32:35.363Z[UTC]","spaceId":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","mtaId":"a.cf.app","user":"debaditya.ray@sap.com","acquiredLock":false,"state":"ABORTED","messages":[{"id":211713866,"text":"Operation ID: 95cc8835-549e-11ef-9de9-eeee0a88e5d6","timestamp":"2024-08-07T09:22:36.658Z[UTC]","type":"INFO"},{"id":211713880,"text":"Deploying in org \"PerformanceTeamBLR\" and space \"tf-space-1\"","timestamp":"2024-08-07T09:22:44.635Z[UTC]","type":"INFO"},{"id":211713899,"text":"Error processing MTA extension descriptors: org.cloudfoundry.multiapps.controller.persistence.services.FileStorageException: org.cloudfoundry.multiapps.common.ParsingException: Error while parsing YAML string: \nprovider_installation {\n  dev_overrides {\n    \"SAP/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\nclass java.lang.String cannot be cast to class java.util.Map (java.lang.String and java.util.Map are in module java.base of loader ''bootstrap'') ","timestamp":"2024-08-07T09:23:07.645Z[UTC]","type":"ERROR"}],"parameters":{}}'
+        body: '{"processId":"95cc8835-549e-11ef-9de9-eeee0a88e5d6","processType":"DEPLOY","startedAt":"2024-08-07T09:22:37.625Z[UTC]","endedAt":"2024-08-07T09:32:35.363Z[UTC]","spaceId":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","mtaId":"a.cf.app","user":"debaditya.ray@sap.com","acquiredLock":false,"state":"ABORTED","messages":[{"id":211713866,"text":"Operation ID: 95cc8835-549e-11ef-9de9-eeee0a88e5d6","timestamp":"2024-08-07T09:22:36.658Z[UTC]","type":"INFO"},{"id":211713880,"text":"Deploying in org \"PerformanceTeamBLR\" and space \"tf-space-1\"","timestamp":"2024-08-07T09:22:44.635Z[UTC]","type":"INFO"},{"id":211713899,"text":"Error processing MTA extension descriptors: org.cloudfoundry.multiapps.controller.persistence.services.FileStorageException: org.cloudfoundry.multiapps.common.ParsingException: Error while parsing YAML string: \nprovider_installation {\n  dev_overrides {\n    \"cloudfoundry/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\nclass java.lang.String cannot be cast to class java.util.Map (java.lang.String and java.util.Map are in module java.base of loader ''bootstrap'') ","timestamp":"2024-08-07T09:23:07.645Z[UTC]","type":"ERROR"}],"parameters":{}}'
         headers:
             Cache-Control:
                 - no-cache, no-store, max-age=0, must-revalidate
@@ -1045,7 +1045,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: true
-        body: '{"processId":"fca0e28d-549f-11ef-84bc-eeee0a83078e","processType":"DEPLOY","startedAt":"2024-08-07T09:32:38.686Z[UTC]","spaceId":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","mtaId":"a.cf.app","user":"debaditya.ray@sap.com","acquiredLock":true,"state":"ERROR","errorType":"CONTENT","messages":[{"id":211715479,"text":"Operation ID: fca0e28d-549f-11ef-84bc-eeee0a83078e","timestamp":"2024-08-07T09:32:38.674Z[UTC]","type":"INFO"},{"id":211715482,"text":"Deploying in org \"PerformanceTeamBLR\" and space \"tf-space-1\"","timestamp":"2024-08-07T09:32:38.846Z[UTC]","type":"INFO"},{"id":211715485,"text":"Error processing MTA extension descriptors: org.cloudfoundry.multiapps.controller.persistence.services.FileStorageException: org.cloudfoundry.multiapps.common.ParsingException: Error while parsing YAML string: \nprovider_installation {\n  dev_overrides {\n    \"SAP/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\nclass java.lang.String cannot be cast to class java.util.Map (java.lang.String and java.util.Map are in module java.base of loader ''bootstrap'') ","timestamp":"2024-08-07T09:32:39.273Z[UTC]","type":"ERROR"}],"parameters":{}}'
+        body: '{"processId":"fca0e28d-549f-11ef-84bc-eeee0a83078e","processType":"DEPLOY","startedAt":"2024-08-07T09:32:38.686Z[UTC]","spaceId":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","mtaId":"a.cf.app","user":"debaditya.ray@sap.com","acquiredLock":true,"state":"ERROR","errorType":"CONTENT","messages":[{"id":211715479,"text":"Operation ID: fca0e28d-549f-11ef-84bc-eeee0a83078e","timestamp":"2024-08-07T09:32:38.674Z[UTC]","type":"INFO"},{"id":211715482,"text":"Deploying in org \"PerformanceTeamBLR\" and space \"tf-space-1\"","timestamp":"2024-08-07T09:32:38.846Z[UTC]","type":"INFO"},{"id":211715485,"text":"Error processing MTA extension descriptors: org.cloudfoundry.multiapps.controller.persistence.services.FileStorageException: org.cloudfoundry.multiapps.common.ParsingException: Error while parsing YAML string: \nprovider_installation {\n  dev_overrides {\n    \"cloudfoundry/cloudfoundry\" = \"/go/bin\"\n  }\n\n  direct {}\n}\nclass java.lang.String cannot be cast to class java.util.Map (java.lang.String and java.util.Map are in module java.base of loader ''bootstrap'') ","timestamp":"2024-08-07T09:32:39.273Z[UTC]","type":"ERROR"}],"parameters":{}}'
         headers:
             Cache-Control:
                 - no-cache, no-store, max-age=0, must-revalidate
