@@ -96,7 +96,7 @@ terraform {
     
     #Add new provider
     cloudfoundry-v3-new = {
-      source = "SAP/cloudfoundry"
+      source = "cloudfoundry/cloudfoundry"
       version = "0.2.0-beta"
     }
   }
