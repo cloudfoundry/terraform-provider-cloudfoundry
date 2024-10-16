@@ -1,6 +1,6 @@
 # Migration Guide
 
- Although the definitions look similar the Terraform providers of the [cloudfoundry-community](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) and [SAP](https://github.com/cloudfoundry/terraform-provider-cloudfoundry) are not the same. They differ in the definition as well as the state structure especially due to the usage if the V3 API in the newer provider.
+ Although the definitions look similar the Terraform providers of the [cloudfoundry-community](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) and [cloudfoundry](https://github.com/cloudfoundry/terraform-provider-cloudfoundry) are not the same. They differ in the definition as well as the state structure especially due to the usage if the V3 API in the newer provider.
 
 Therefore, the providers cannot be simply interchanged. If you want to switch you must rewrite your configuration. Additionally you must import the resources to create a state consistent with the new provider.
 
@@ -194,7 +194,8 @@ Few resources required a major change in functionality or the way the resources 
 
 The below mentioned dataSources have been newly added in the current provider.
 
-- [Multi Target Application Deployment](../docs/data-sources/mta.md)
+- [Multi Target Applications](../docs/data-sources/mta.md)
+- [Multi Target Applications](../docs/data-sources/mtas.md)
 - [Isolation Segment Entitlement](../docs/data-sources/isolation_segment_entitlement.md)
 - [Role](../docs/data-sources/role.md)
 - [Users](../docs/data-sources/users.md)

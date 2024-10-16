@@ -327,6 +327,7 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 		NewDomainDataSource,
 		NewAppDataSource,
 		NewServiceCredentialBindingDataSource,
+		NewMtasDataSource,
 		NewMtaDataSource,
 		NewIsolationSegmentDataSource,
 		NewIsolationSegmentEntitlementDataSource,

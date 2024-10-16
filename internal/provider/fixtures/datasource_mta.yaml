@@ -6,21 +6,25 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 0
+        content_length: 73
         transfer_encoding: []
         trailer: {}
-        host: deploy-service.x.x.x.x.com
+        host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: ""
-        form: {}
+        body: grant_type=refresh_token&refresh_token=0e95bc4339d94b6c8caf5d712d4274ef-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0e95bc4339d94b6c8caf5d712d4274ef-r
         headers:
             Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app
-        method: GET
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
       response:
         proto: HTTP/2.0
         proto_major: 2
@@ -28,39 +32,32 @@ interactions:
         transfer_encoding: []
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"o"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"o-my-cf-app","providedDendencyNames":[],"services":[],"uris":["o-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"1.0.0"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"my-cf-app","providedDendencyNames":[],"services":[],"uris":["performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"hi"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"hi-my-cf-app","providedDendencyNames":[],"services":[],"uris":["hi-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0e95bc4339d94b6c8caf5d712d4274ef-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"6ebf5cb24be04f8eb58862bb53fd927e"}'
         headers:
             Cache-Control:
-                - no-cache, no-store, max-age=0, must-revalidate
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
             Content-Type:
-                - application/json
+                - application/json;charset=UTF-8
             Date:
-                - Wed, 22 May 2024 05:57:31 GMT
-            Expires:
-                - "0"
+                - Wed, 16 Oct 2024 10:38:52 GMT
             Pragma:
                 - no-cache
-            Server:
-                - ""
-            Set-Cookie:
-                - JSESSIONID=FCE300340E1A7834D64A873DA8965CBA; Path=/; Secure; HttpOnly
-                - __VCAP_ID__=1fc8ac61-8593-496b-559c-2a4e; Path=/; HttpOnly; Secure
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
-            Vary:
-                - accept-encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - dc557d3a-71f8-4461-6b38-f162f71ad2b9
+                - 66ff4597-9b34-4bfa-7bb3-476541074630
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 1.652181s
+        duration: 1.107861833s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -69,7 +66,7 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: deploy-service.x.x.x.x.com
+        host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
         body: ""
@@ -79,7 +76,7 @@ interactions:
                 - Bearer redacted
             User-Agent:
                 - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
         method: GET
       response:
         proto: HTTP/2.0
@@ -87,40 +84,47 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
-        uncompressed: true
-        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"o"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"o-my-cf-app","providedDendencyNames":[],"services":[],"uris":["o-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"1.0.0"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"my-cf-app","providedDendencyNames":[],"services":[],"uris":["performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"hi"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"hi-my-cf-app","providedDendencyNames":[],"services":[],"uris":["hi-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
         headers:
-            Cache-Control:
-                - no-cache, no-store, max-age=0, must-revalidate
+            Content-Length:
+                - "818"
             Content-Type:
-                - application/json
+                - application/json; charset=utf-8
             Date:
-                - Wed, 22 May 2024 05:57:33 GMT
-            Expires:
-                - "0"
-            Pragma:
-                - no-cache
-            Server:
-                - ""
-            Set-Cookie:
-                - JSESSIONID=AFF6AE8234CA81BD442A24712AB9549E; Path=/; Secure; HttpOnly
-                - __VCAP_ID__=2034bff3-5c1c-4e01-43df-f2b1; Path=/; HttpOnly; Secure
+                - Wed, 16 Oct 2024 10:38:53 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
-            Vary:
-                - accept-encoding
+            X-B3-Spanid:
+                - 7e899fd8a131684d
+            X-B3-Traceid:
+                - f40321906b5943a47e899fd8a131684d
             X-Content-Type-Options:
                 - nosniff
+            X-Download-Options:
+                - noopen
             X-Frame-Options:
-                - DENY
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729076588"
+            X-Runtime:
+                - "0.014684"
             X-Vcap-Request-Id:
-                - ad3a42b8-00a6-44c8-4ace-7f1e024cf4ac
+                - f4032190-6b59-43a4-7e89-9fd8a131684d::3d6c1b7a-aba4-4ea0-855b-43df172ebf28
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 1.550469625s
+        duration: 689.831375ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -139,7 +143,7 @@ interactions:
                 - Bearer redacted
             User-Agent:
                 - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app&namespace=test
         method: GET
       response:
         proto: HTTP/2.0
@@ -149,14 +153,14 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: true
-        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"o"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"o-my-cf-app","providedDendencyNames":[],"services":[],"uris":["o-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"1.0.0"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"my-cf-app","providedDendencyNames":[],"services":[],"uris":["performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]},{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"hi"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"hi-my-cf-app","providedDendencyNames":[],"services":[],"uris":["hi-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
+        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"test"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"test-my-cf-app","providedDendencyNames":[],"services":[],"uris":["test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
         headers:
             Cache-Control:
                 - no-cache, no-store, max-age=0, must-revalidate
             Content-Type:
                 - application/json
             Date:
-                - Wed, 22 May 2024 05:57:33 GMT
+                - Wed, 16 Oct 2024 10:38:54 GMT
             Expires:
                 - "0"
             Pragma:
@@ -164,8 +168,8 @@ interactions:
             Server:
                 - ""
             Set-Cookie:
-                - JSESSIONID=DC921FCABC43B54E4CB099B50D328A6F; Path=/; Secure; HttpOnly
-                - __VCAP_ID__=1fc8ac61-8593-496b-559c-2a4e; Path=/; HttpOnly; Secure
+                - JSESSIONID=D9D250861A4BF9467AFD40491E02C8E0; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=928de032-65ac-412d-5030-0b46; Path=/; HttpOnly; Secure
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             Vary:
@@ -175,9 +179,377 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 1b027a41-746a-4888-43ee-1096f4b0f7d5
+                - 079de90c-bfb7-44e0-7bd8-39e09eda26dd
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 571.22675ms
+        duration: 1.508419916s
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0e95bc4339d94b6c8caf5d712d4274ef-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0e95bc4339d94b6c8caf5d712d4274ef-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0e95bc4339d94b6c8caf5d712d4274ef-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"b36a3f5857f64ca98aa3d2410c3d0db0"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Wed, 16 Oct 2024 10:38:55 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 0e032b6a-752f-40d1-7896-3a34a5b42905
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 215.924125ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 16 Oct 2024 10:38:55 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4db25aa381afcfca
+            X-B3-Traceid:
+                - b5e12d3b425f42984db25aa381afcfca
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729076588"
+            X-Runtime:
+                - "0.010884"
+            X-Vcap-Request-Id:
+                - b5e12d3b-425f-4298-4db2-5aa381afcfca::f8868cbc-a20b-4f11-8b4c-3e9e68f4b673
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 199.08ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: deploy-service.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app&namespace=test
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: true
+        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"test"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"test-my-cf-app","providedDendencyNames":[],"services":[],"uris":["test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
+        headers:
+            Cache-Control:
+                - no-cache, no-store, max-age=0, must-revalidate
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 16 Oct 2024 10:38:59 GMT
+            Expires:
+                - "0"
+            Pragma:
+                - no-cache
+            Server:
+                - ""
+            Set-Cookie:
+                - JSESSIONID=BFFF726091E6CA8A2C54A7AC2C606A14; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=85e091fe-0c8b-4f90-74f4-711c; Path=/; HttpOnly; Secure
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            Vary:
+                - accept-encoding
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 14c87e31-0f9f-4737-4041-5a1daf28dcbc
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 4.596987375s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0e95bc4339d94b6c8caf5d712d4274ef-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0e95bc4339d94b6c8caf5d712d4274ef-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0e95bc4339d94b6c8caf5d712d4274ef-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"a2faadcf879b4fdab65f6d31182422c8"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Wed, 16 Oct 2024 10:38:59 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 5ec3c268-1a27-4967-5cc8-1f22cb40f793
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 197.908083ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 16 Oct 2024 10:39:00 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6237792856b9f9d8
+            X-B3-Traceid:
+                - f22e9872cf214f7e6237792856b9f9d8
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729076588"
+            X-Runtime:
+                - "0.008546"
+            X-Vcap-Request-Id:
+                - f22e9872-cf21-4f7e-6237-792856b9f9d8::79ef4c4e-5566-4725-a9db-19f66e405198
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 196.929583ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: deploy-service.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app&namespace=test
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: true
+        body: '[{"metadata":{"id":"a.cf.app","version":"0.0.0","namespace":"test"},"modules":[{"moduleName":"my-mta-managed-app-module","appName":"test-my-cf-app","providedDendencyNames":[],"services":[],"uris":["test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"]}],"services":[]}]'
+        headers:
+            Cache-Control:
+                - no-cache, no-store, max-age=0, must-revalidate
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 16 Oct 2024 10:39:00 GMT
+            Expires:
+                - "0"
+            Pragma:
+                - no-cache
+            Server:
+                - ""
+            Set-Cookie:
+                - JSESSIONID=349696212CC79DA6800220FA4BADC332; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=928de032-65ac-412d-5030-0b46; Path=/; HttpOnly; Secure
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            Vary:
+                - accept-encoding
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - abc90fb8-4f30-49b2-41f8-b4c3b1b6c809
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 649.705666ms
