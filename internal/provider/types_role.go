@@ -41,10 +41,18 @@ type orgRoleType struct {
 	UpdatedAt    types.String `tfsdk:"updated_at"`
 }
 
-type roleDatasourceType struct {
+type spaceRoleDatasourceType struct {
+	Type      types.String `tfsdk:"type"`
+	User      types.String `tfsdk:"user"`
+	Space     types.String `tfsdk:"space"`
+	Id        types.String `tfsdk:"id"`
+	CreatedAt types.String `tfsdk:"created_at"`
+	UpdatedAt types.String `tfsdk:"updated_at"`
+}
+
+type orgRoleDatasourceType struct {
 	Type         types.String `tfsdk:"type"`
 	User         types.String `tfsdk:"user"`
-	Space        types.String `tfsdk:"space"`
 	Id           types.String `tfsdk:"id"`
 	Organization types.String `tfsdk:"org"`
 	CreatedAt    types.String `tfsdk:"created_at"`
@@ -53,8 +61,14 @@ type roleDatasourceType struct {
 
 // Reduce function to reduce roleType to roleDatasourceType
 // This is used to reuse mapRoleValuesToType in both resource and datasource.
-func (a *roleType) ReduceToDataSource() roleDatasourceType {
-	var reduced roleDatasourceType
+func (a *roleType) ReduceToSpaceRoleDataSource() spaceRoleDatasourceType {
+	var reduced spaceRoleDatasourceType
+	copyFields(&reduced, a)
+	return reduced
+}
+
+func (a *roleType) ReduceToOrgRoleDataSource() orgRoleDatasourceType {
+	var reduced orgRoleDatasourceType
 	copyFields(&reduced, a)
 	return reduced
 }

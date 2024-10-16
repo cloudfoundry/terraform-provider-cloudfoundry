@@ -9,22 +9,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 )
 
-type RoleModelPtr struct {
-	HclType       string
-	HclObjectName string
-	Type          *string
-	User          *string
-	Space         *string
-	Id            *string
-	Organization  *string
-	CreatedAt     *string
-	UpdatedAt     *string
-}
-
-func hclRole(rrmp *RoleModelPtr) string {
+func hclOrgRoleDataSource(rrmp *RoleModelPtr) string {
 	if rrmp != nil {
 		s := `
-		{{.HclType}} "cloudfoundry_role" {{.HclObjectName}} {
+		{{.HclType}} "cloudfoundry_org_role" {{.HclObjectName}} {
 			{{- if .Type}}
 				type = "{{.Type}}"
 			{{- end -}}
@@ -36,9 +24,6 @@ func hclRole(rrmp *RoleModelPtr) string {
 			{{- end -}}
 			{{if .Organization}}
 				org = "{{.Organization}}"
-			{{- end -}}
-			{{if .Space}}
-				space = "{{.Space}}"
 			{{- end -}}
 			{{if .CreatedAt}}
 				created_at = "{{.CreatedAt}}"
@@ -58,16 +43,17 @@ func hclRole(rrmp *RoleModelPtr) string {
 		}
 		return buf.String()
 	}
-	return rrmp.HclType + ` "cloudfoundry_role "` + rrmp.HclObjectName + ` {}`
+	return rrmp.HclType + ` "cloudfoundry_org_role" ` + rrmp.HclObjectName + ` {}`
 }
 
-func TestRoleDataSource_Configure(t *testing.T) {
-	testRoleGUID := "34ffe894-6026-4774-93e4-bf9a8e827558"
+func TestOrgRoleDataSource_Configure(t *testing.T) {
+	testSpaceRoleGUID := "fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"
+	testOrgRoleGUID := "4c6849f2-6407-4385-a556-0840369f336b"
 	t.Parallel()
-	dataSourceName := "data.cloudfoundry_role.ds"
-	t.Run("happy path - read role", func(t *testing.T) {
+	dataSourceName := "data.cloudfoundry_org_role.ds"
+	t.Run("happy path - read org role", func(t *testing.T) {
 		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/datasource_role")
+		rec := cfg.SetupVCR(t, "fixtures/datasource_org_role")
 		defer stopQuietly(rec)
 
 		resource.Test(t, resource.TestCase{
@@ -75,15 +61,15 @@ func TestRoleDataSource_Configure(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclRole(&RoleModelPtr{
+					Config: hclProvider(nil) + hclOrgRoleDataSource(&RoleModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Id:            strtostrptr(testRoleGUID),
+						Id:            strtostrptr(testOrgRoleGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "id", testRoleGUID),
-						resource.TestCheckResourceAttr(dataSourceName, "org", testOrg2GUID),
-						resource.TestCheckResourceAttr(dataSourceName, "user", testUser2GUID),
+						resource.TestMatchResourceAttr(dataSourceName, "id", regexpValidUUID),
+						resource.TestMatchResourceAttr(dataSourceName, "org", regexpValidUUID),
+						resource.TestMatchResourceAttr(dataSourceName, "user", regexpValidUUID),
 					),
 				},
 			},
@@ -91,7 +77,7 @@ func TestRoleDataSource_Configure(t *testing.T) {
 	})
 	t.Run("error path - role does not exist", func(t *testing.T) {
 		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/datasource_role_invalid")
+		rec := cfg.SetupVCR(t, "fixtures/datasource_org_role_invalid")
 		defer stopQuietly(rec)
 
 		resource.Test(t, resource.TestCase{
@@ -99,7 +85,15 @@ func TestRoleDataSource_Configure(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclRole(&RoleModelPtr{
+					Config: hclProvider(nil) + hclOrgRoleDataSource(&RoleModelPtr{
+						HclType:       hclObjectDataSource,
+						HclObjectName: "ds",
+						Id:            strtostrptr(testSpaceRoleGUID),
+					}),
+					ExpectError: regexp.MustCompile(`Invalid Org Role`),
+				},
+				{
+					Config: hclProvider(nil) + hclOrgRoleDataSource(&RoleModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
 						Id:            strtostrptr(invalidOrgGUID),

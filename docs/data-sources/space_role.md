@@ -1,23 +1,23 @@
 ---
-page_title: "cloudfoundry_role Data Source - terraform-provider-cloudfoundry"
+page_title: "cloudfoundry_space_role Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Gets information on a Cloud Foundry role with a given role ID.
+  Gets information on a Cloud Foundry space role with a given role ID.
 ---
 
-# cloudfoundry_role (Data Source)
+# cloudfoundry_space_role (Data Source)
 
-Gets information on a Cloud Foundry role with a given role ID.
+Gets information on a Cloud Foundry space role with a given role ID.
 
 ## Example Usage
 
 ```terraform
-data "cloudfoundry_role" "my_role" {
-  id = "e17839d9-cd4f-4e4b-baf0-18786f12fede"
+data "cloudfoundry_space_role" "my_role" {
+  id = "4c6849f2-6407-4385-a556-0840369f336b"
 }
 
 output "role_object" {
-  value = data.cloudfoundry_role.my_role
+  value = data.cloudfoundry_space_role.my_role
 }
 ```
 
@@ -31,7 +31,6 @@ output "role_object" {
 ### Read-Only
 
 - `created_at` (String) The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
-- `org` (String) The guid of the organization the role is assigned to
 - `space` (String) The guid of the space the role is assigned to
 - `type` (String) Role type; see [Valid role types](https://v3-apidocs.cloudfoundry.org/version/3.154.0/index.html#valid-role-types)
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
