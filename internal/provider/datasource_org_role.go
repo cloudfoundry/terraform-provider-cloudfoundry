@@ -15,25 +15,25 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &RoleDataSource{}
-	_ datasource.DataSourceWithConfigure = &RoleDataSource{}
+	_ datasource.DataSource              = &OrgRoleDataSource{}
+	_ datasource.DataSourceWithConfigure = &OrgRoleDataSource{}
 )
 
-// Instantiates a role data source.
-func NewRoleDataSource() datasource.DataSource {
-	return &RoleDataSource{}
+// Instantiates a space role data source.
+func NewOrgRoleDataSource() datasource.DataSource {
+	return &OrgRoleDataSource{}
 }
 
 // Contains reference to the v3 client to be used for making the API calls.
-type RoleDataSource struct {
+type OrgRoleDataSource struct {
 	cfClient *client.Client
 }
 
-func (d *RoleDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_role"
+func (d *OrgRoleDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_org_role"
 }
 
-func (d *RoleDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *OrgRoleDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
 		return
@@ -49,9 +49,9 @@ func (d *RoleDataSource) Configure(ctx context.Context, req datasource.Configure
 	d.cfClient = session.CFClient
 }
 
-func (d *RoleDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *OrgRoleDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on a Cloud Foundry role with a given role ID.",
+		MarkdownDescription: "Gets information on a Cloud Foundry org role with a given role ID.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				MarkdownDescription: "The guid for the role",
@@ -72,18 +72,14 @@ func (d *RoleDataSource) Schema(ctx context.Context, req datasource.SchemaReques
 				MarkdownDescription: "The guid of the organization the role is assigned to",
 				Computed:            true,
 			},
-			"space": schema.StringAttribute{
-				MarkdownDescription: "The guid of the space the role is assigned to",
-				Computed:            true,
-			},
 			createdAtKey: createdAtSchema(),
 			updatedAtKey: updatedAtSchema(),
 		},
 	}
 }
 
-func (d *RoleDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data roleDatasourceType
+func (d *OrgRoleDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data orgRoleDatasourceType
 	diags := req.Config.Get(ctx, &data)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -99,10 +95,18 @@ func (d *RoleDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		return
 	}
 
-	roleTypeResponse := mapRoleValuesToType(role)
-	datasourceRoleTypeResp := roleTypeResponse.ReduceToDataSource()
+	if role.Relationships.Space.Data != nil {
+		resp.Diagnostics.AddError(
+			"Invalid Org Role",
+			"Encountered a space role. Kindly provide a valid org role ID",
+		)
+		return
+	}
 
-	tflog.Trace(ctx, "read a role data source")
+	roleTypeResponse := mapRoleValuesToType(role)
+	datasourceRoleTypeResp := roleTypeResponse.ReduceToOrgRoleDataSource()
+
+	tflog.Trace(ctx, "read an org role data source")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &datasourceRoleTypeResp)...)
 
 }
