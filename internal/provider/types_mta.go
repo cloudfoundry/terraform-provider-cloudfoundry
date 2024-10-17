@@ -21,11 +21,19 @@ type MtarType struct {
 	SourceCodeHash       types.String `tfsdk:"source_code_hash"`
 }
 
-type MtarDataSourceType struct {
+type MtasDataSourceType struct {
 	Space     types.String `tfsdk:"space"`
 	Id        types.String `tfsdk:"id"`
 	Namespace types.String `tfsdk:"namespace"`
 	Mtas      types.List   `tfsdk:"mtas"`
+	DeployUrl types.String `tfsdk:"deploy_url"`
+}
+
+type MtaDataSourceType struct {
+	Space     types.String `tfsdk:"space"`
+	Id        types.String `tfsdk:"id"`
+	Namespace types.String `tfsdk:"namespace"`
+	Mta       types.Object `tfsdk:"mta"`
 	DeployUrl types.String `tfsdk:"deploy_url"`
 }
 
@@ -92,9 +100,9 @@ var mtaModuleObjType = types.ObjectType{
 }
 
 // Sets the terraform struct values from the mta resource returned by the mta-client.
-func mapMtasValuesToType(ctx context.Context, data MtarDataSourceType, mtas []mta.Mta) (MtarDataSourceType, diag.Diagnostics) {
+func mapMtasValuesToType(ctx context.Context, data MtasDataSourceType, mtas []mta.Mta) (MtasDataSourceType, diag.Diagnostics) {
 
-	mtarDataSourceType := MtarDataSourceType{
+	mtarDataSourceType := MtasDataSourceType{
 		Space:     data.Space,
 		Id:        data.Id,
 		Namespace: data.Namespace,

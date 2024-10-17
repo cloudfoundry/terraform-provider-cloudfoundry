@@ -15,22 +15,8 @@ type MtaDataSourceModelPtr struct {
 	Space         *string
 	Id            *string
 	Namespace     *string
-	Mtas          *string
+	Mta           *string
 	DeployUrl     *string
-}
-
-type MtaResourceModelPtr struct {
-	HclType              string
-	HclObjectName        string
-	MtarPath             *string
-	MtarUrl              *string
-	ExtensionDescriptors *string
-	DeployUrl            *string
-	Space                *string
-	Mta                  *string
-	Namespace            *string
-	Id                   *string
-	SourceCodeHash       *string
 }
 
 func hclDataSourceMta(mdsmp *MtaDataSourceModelPtr) string {
@@ -44,10 +30,10 @@ func hclDataSourceMta(mdsmp *MtaDataSourceModelPtr) string {
 				id = "{{.Id}}"
 			{{- end -}}
 			{{if .Namespace}}
-				namespace = {{.Namespace}}
+				namespace = "{{.Namespace}}"
 			{{- end -}}
-			{{if .Mtas}}
-				mtas = "{{.Mtas}}"
+			{{if .Mta}}
+				mta = "{{.Mta}}"
 			{{- end -}}
 			{{if .DeployUrl}}
 				deploy_url = "{{.DeployUrl}}"
@@ -64,53 +50,7 @@ func hclDataSourceMta(mdsmp *MtaDataSourceModelPtr) string {
 		}
 		return buf.String()
 	}
-	return mdsmp.HclType + ` "cloudfoundry_mta "` + mdsmp.HclObjectName + ` {}`
-}
-
-func hclResourceMta(mrmp *MtaResourceModelPtr) string {
-	if mrmp != nil {
-		s := `
-		{{.HclType}} "cloudfoundry_mta" {{.HclObjectName}} {
-			{{- if .Space}}
-				space = "{{.Space}}"
-			{{- end -}}
-			{{if .Id}}
-				id = "{{.Id}}"
-			{{- end -}}
-			{{if .Namespace}}
-				namespace = "{{.Namespace}}"
-			{{- end -}}
-			{{if .Mta}}
-				mta = "{{.Mta}}"
-			{{- end -}}
-			{{if .MtarPath}}
-				mtar_path = "{{.MtarPath}}"
-			{{- end -}}
-			{{if .MtarUrl}}
-				mtar_url = "{{.MtarUrl}}"
-			{{- end -}}
-			{{if .ExtensionDescriptors}}
-				extension_descriptors = {{.ExtensionDescriptors}}
-			{{- end -}}
-			{{if .SourceCodeHash}}
-				source_code_hash = "{{.SourceCodeHash}}"
-			{{- end -}}
-			{{if .DeployUrl}}
-				deploy_url = "{{.DeployUrl}}"
-			{{- end }}
-			}`
-		tmpl, err := template.New("resource_mtar").Parse(s)
-		if err != nil {
-			panic(err)
-		}
-		buf := new(bytes.Buffer)
-		err = tmpl.Execute(buf, mrmp)
-		if err != nil {
-			panic(err)
-		}
-		return buf.String()
-	}
-	return mrmp.HclType + ` "cloudfoundry_mta "` + mrmp.HclObjectName + ` {}`
+	return mdsmp.HclType + ` "cloudfoundry_mta" ` + mdsmp.HclObjectName + ` {}`
 }
 
 func TestMtaDataSource_Configure(t *testing.T) {
@@ -118,10 +58,11 @@ func TestMtaDataSource_Configure(t *testing.T) {
 		//canary->tf-space-1
 		mtaId     = "a.cf.app"
 		spaceGuid = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
+		namespace = "test"
 	)
 	t.Parallel()
 	dataSourceName := "data.cloudfoundry_mta.ds"
-	t.Run("happy path - read mtar", func(t *testing.T) {
+	t.Run("happy path - read mta", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_mta")
 		defer stopQuietly(rec)
@@ -134,11 +75,12 @@ func TestMtaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceMta(&MtaDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(spaceGuid),
-						Id:            strtostrptr(mtaId),
+						Space:         &spaceGuid,
+						Id:            &mtaId,
+						Namespace:     &namespace,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "mtas.0.metadata.id", mtaId),
+						resource.TestCheckResourceAttr(dataSourceName, "mta.metadata.id", mtaId),
 						resource.TestCheckResourceAttr(dataSourceName, "space", spaceGuid),
 						resource.TestCheckNoResourceAttr(dataSourceName, "deploy_url"),
 					),
@@ -146,7 +88,7 @@ func TestMtaDataSource_Configure(t *testing.T) {
 			},
 		})
 	})
-	t.Run("error path - mtar does not exist", func(t *testing.T) {
+	t.Run("error path - mta does not exist", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_mta_invalid")
 		defer stopQuietly(rec)
@@ -159,8 +101,17 @@ func TestMtaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceMta(&MtaDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(spaceGuid),
-						Id:            strtostrptr(invalidOrgGUID),
+						Space:         &invalidOrgGUID,
+						Id:            &mtaId,
+					}),
+					ExpectError: regexp.MustCompile(`Unable to fetch Space details`),
+				},
+				{
+					Config: hclProvider(nil) + hclDataSourceMta(&MtaDataSourceModelPtr{
+						HclType:       hclObjectDataSource,
+						HclObjectName: "ds",
+						Space:         &spaceGuid,
+						Id:            &mtaId,
 					}),
 					ExpectError: regexp.MustCompile(`Unable to fetch MTA details`),
 				},

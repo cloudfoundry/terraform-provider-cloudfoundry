@@ -6,6 +6,254 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0e95bc4339d94b6c8caf5d712d4274ef-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0e95bc4339d94b6c8caf5d712d4274ef-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0e95bc4339d94b6c8caf5d712d4274ef-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"ffbc93bad133467bb88e51e5f89e1780"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Wed, 16 Oct 2024 10:39:01 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 568f6d05-376c-4fbc-5db2-7274410072b5
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 206.228917ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/40b73419-5e01-4be0-baea-932d46cea45b
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 84
+        uncompressed: false
+        body: '{"errors":[{"detail":"Space not found","title":"CF-ResourceNotFound","code":10010}]}'
+        headers:
+            Content-Length:
+                - "84"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 16 Oct 2024 10:39:02 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 566bbc24a98d195a
+            X-B3-Traceid:
+                - 8c8936ce29934a9b566bbc24a98d195a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729076588"
+            X-Runtime:
+                - "0.002600"
+            X-Vcap-Request-Id:
+                - 8c8936ce-2993-4a9b-566b-bc24a98d195a::3efa5d1e-b81f-4cf4-82b0-bf9e6936d0e6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 404 Not Found
+        code: 404
+        duration: 188.395958ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0e95bc4339d94b6c8caf5d712d4274ef-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0e95bc4339d94b6c8caf5d712d4274ef-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0e95bc4339d94b6c8caf5d712d4274ef-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"bf79735a04494dc7b70c6df4ad473162"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Wed, 16 Oct 2024 10:39:01 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 1eee1980-9888-442e-6f6c-4b70be01d28a
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 201.0835ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 16 Oct 2024 10:39:02 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 65f68c68379b6b7c
+            X-B3-Traceid:
+                - af27a5a8f05f439765f68c68379b6b7c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729076587"
+            X-Runtime:
+                - "0.009205"
+            X-Vcap-Request-Id:
+                - af27a5a8-f05f-4397-65f6-8c68379b6b7c::c903a975-229e-4c1f-805a-3403bfc3cd81
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 198.560958ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         content_length: 0
         transfer_encoding: []
         trailer: {}
@@ -19,7 +267,7 @@ interactions:
                 - Bearer redacted
             User-Agent:
                 - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=40b73419-5e01-4be0-baea-932d46cea45b
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/mtas?name=a.cf.app&namespace=
         method: GET
       response:
         proto: HTTP/2.0
@@ -27,18 +275,18 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 66
+        content_length: 56
         uncompressed: false
-        body: MTAs with name "40b73419-5e01-4be0-baea-932d46cea45b" do not exist
+        body: MTA with name "a.cf.app" and namespace "" does not exist
         headers:
             Cache-Control:
                 - no-cache, no-store, max-age=0, must-revalidate
             Content-Length:
-                - "66"
+                - "56"
             Content-Type:
                 - text/plain;charset=UTF-8
             Date:
-                - Wed, 22 May 2024 05:57:34 GMT
+                - Wed, 16 Oct 2024 10:39:03 GMT
             Expires:
                 - "0"
             Pragma:
@@ -46,8 +294,8 @@ interactions:
             Server:
                 - ""
             Set-Cookie:
-                - JSESSIONID=9D4392A968402D6D1ABEA5B247BE44A8; Path=/; Secure; HttpOnly
-                - __VCAP_ID__=4244dfe0-f7aa-43bc-68df-2ac7; Path=/; HttpOnly; Secure
+                - JSESSIONID=85BF23638536F0501A01460017A332D9; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=6007630c-c336-484a-7b90-4f13; Path=/; HttpOnly; Secure
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-Content-Type-Options:
@@ -55,9 +303,9 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - a67faaa4-d3a9-4535-5d2e-18af3e1ad4ed
+                - fa8e28c6-a05e-4fb9-67e2-9032ab01dc22
             X-Xss-Protection:
                 - 1; mode=block
         status: 404 Not Found
         code: 404
-        duration: 365.966042ms
+        duration: 1.117378459s

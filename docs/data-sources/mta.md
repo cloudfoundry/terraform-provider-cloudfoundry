@@ -2,23 +2,23 @@
 page_title: "cloudfoundry_mta Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Gets information on Multi Target Applications present in a space.
+  Gets information on a Multi Target Application present in a space.
 ---
 
 # cloudfoundry_mta (Data Source)
 
-Gets information on Multi Target Applications present in a space.
+Gets information on a Multi Target Application present in a space.
 
 ## Example Usage
 
 ```terraform
-data "cloudfoundry_mta" "mtars" {
-  space     = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
-  namespace = "test"
+data "cloudfoundry_mta" "mta" {
+  space = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
+  id    = "a.cf.app"
 }
 
 output "data" {
-  value = data.cloudfoundry_mtar.mtars
+  value = data.cloudfoundry_mta.mta
 }
 ```
 
@@ -27,29 +27,29 @@ output "data" {
 
 ### Required
 
+- `id` (String) The MTA ID to search for
 - `space` (String) The GUID of the space where the MTA's are deployed
 
 ### Optional
 
 - `deploy_url` (String) The URL of the deploy service, if a custom one has been used(should be present in the same landscape). By default 'deploy-service.<system-domain>'
-- `id` (String) The MTA ID to filter by
 - `namespace` (String) The namespace of the MTA to filter by
 
 ### Read-Only
 
-- `mtas` (Attributes List) The list of MTA's (see [below for nested schema](#nestedatt--mtas))
+- `mta` (Attributes) contains the details of the MTA object (see [below for nested schema](#nestedatt--mta))
 
-<a id="nestedatt--mtas"></a>
-### Nested Schema for `mtas`
+<a id="nestedatt--mta"></a>
+### Nested Schema for `mta`
 
 Read-Only:
 
-- `metadata` (Attributes) an identifier, version and namespace that uniquely identify the MTA (see [below for nested schema](#nestedatt--mtas--metadata))
-- `modules` (Attributes List) the deployable parts contained in the MTA deployment archive, most commonly Cloud Foundry applications or content (see [below for nested schema](#nestedatt--mtas--modules))
+- `metadata` (Attributes) an identifier, version and namespace that uniquely identify the MTA (see [below for nested schema](#nestedatt--mta--metadata))
+- `modules` (Attributes List) the deployable parts contained in the MTA deployment archive, most commonly Cloud Foundry applications or content (see [below for nested schema](#nestedatt--mta--modules))
 - `services` (List of String)
 
-<a id="nestedatt--mtas--metadata"></a>
-### Nested Schema for `mtas.metadata`
+<a id="nestedatt--mta--metadata"></a>
+### Nested Schema for `mta.metadata`
 
 Read-Only:
 
@@ -58,8 +58,8 @@ Read-Only:
 - `version` (String)
 
 
-<a id="nestedatt--mtas--modules"></a>
-### Nested Schema for `mtas.modules`
+<a id="nestedatt--mta--modules"></a>
+### Nested Schema for `mta.modules`
 
 Read-Only:
 

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/mta"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
@@ -19,26 +18,25 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &MtaDataSource{}
-	_ datasource.DataSourceWithConfigure = &MtaDataSource{}
+	_ datasource.DataSource              = &MtasDataSource{}
+	_ datasource.DataSourceWithConfigure = &MtasDataSource{}
 )
 
 // Instantiates a mtar data source.
-func NewMtaDataSource() datasource.DataSource {
-	return &MtaDataSource{}
+func NewMtasDataSource() datasource.DataSource {
+	return &MtasDataSource{}
 }
 
 // Contains reference to the mta client to be used for making the API calls.
-type MtaDataSource struct {
+type MtasDataSource struct {
 	mtaClient *mta.APIClient
-	cfClient  *cfv3client.Client
 }
 
-func (d *MtaDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_mta"
+func (d *MtasDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_mtas"
 }
 
-func (d *MtaDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *MtasDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
 	}
@@ -50,7 +48,7 @@ func (d *MtaDataSource) Configure(ctx context.Context, req datasource.ConfigureR
 		)
 		return
 	}
-	d.cfClient = session.CFClient
+
 	apiEndpointURL := session.CFClient.ApiURL("")
 	conf := mta.NewConfiguration(apiEndpointURL, session.CFClient.UserAgent(), session.CFClient.HTTPAuthClient())
 	d.mtaClient = mta.NewAPIClient(conf)
@@ -63,9 +61,9 @@ func (d *MtaDataSource) Configure(ctx context.Context, req datasource.ConfigureR
 	d.mtaClient.ChangeBasePath(deployURL)
 }
 
-func (d *MtaDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *MtasDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on a Multi Target Application present in a space.",
+		MarkdownDescription: "Gets information on Multi Target Applications present in a space.",
 
 		Attributes: map[string]schema.Attribute{
 			"deploy_url": schema.StringAttribute{
@@ -84,66 +82,68 @@ func (d *MtaDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 				Optional:            true,
 			},
 			"id": schema.StringAttribute{
-				MarkdownDescription: "The MTA ID to search for",
-				Required:            true,
+				MarkdownDescription: "The MTA ID to filter by",
+				Optional:            true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
 				},
 			},
-			"mta": schema.SingleNestedAttribute{
-				MarkdownDescription: "contains the details of the MTA object",
+			"mtas": schema.ListNestedAttribute{
+				MarkdownDescription: "The list of MTA's",
 				Computed:            true,
-				Attributes: map[string]schema.Attribute{
-					"metadata": schema.SingleNestedAttribute{
-						MarkdownDescription: "an identifier, version and namespace that uniquely identify the MTA",
-						Computed:            true,
-						Attributes: map[string]schema.Attribute{
-							"id": schema.StringAttribute{
-								Computed: true,
-							},
-							"version": schema.StringAttribute{
-								Computed: true,
-							},
-							"namespace": schema.StringAttribute{
-								Computed: true,
-							},
-						},
-					},
-					"modules": schema.ListNestedAttribute{
-						MarkdownDescription: "the deployable parts contained in the MTA deployment archive, most commonly Cloud Foundry applications or content",
-						Computed:            true,
-						NestedObject: schema.NestedAttributeObject{
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"metadata": schema.SingleNestedAttribute{
+							MarkdownDescription: "an identifier, version and namespace that uniquely identify the MTA",
+							Computed:            true,
 							Attributes: map[string]schema.Attribute{
-								"module_name": schema.StringAttribute{
+								"id": schema.StringAttribute{
 									Computed: true,
 								},
-								"app_name": schema.StringAttribute{
+								"version": schema.StringAttribute{
 									Computed: true,
 								},
-								"created_on": schema.StringAttribute{
+								"namespace": schema.StringAttribute{
 									Computed: true,
-								},
-								"updated_on": schema.StringAttribute{
-									Computed: true,
-								},
-								"provided_dendency_names": schema.ListAttribute{
-									ElementType: types.StringType,
-									Computed:    true,
-								},
-								"services": schema.ListAttribute{
-									ElementType: types.StringType,
-									Computed:    true,
-								},
-								"uris": schema.ListAttribute{
-									ElementType: types.StringType,
-									Computed:    true,
 								},
 							},
 						},
-					},
-					"services": schema.ListAttribute{
-						Computed:    true,
-						ElementType: types.StringType,
+						"modules": schema.ListNestedAttribute{
+							MarkdownDescription: "the deployable parts contained in the MTA deployment archive, most commonly Cloud Foundry applications or content",
+							Computed:            true,
+							NestedObject: schema.NestedAttributeObject{
+								Attributes: map[string]schema.Attribute{
+									"module_name": schema.StringAttribute{
+										Computed: true,
+									},
+									"app_name": schema.StringAttribute{
+										Computed: true,
+									},
+									"created_on": schema.StringAttribute{
+										Computed: true,
+									},
+									"updated_on": schema.StringAttribute{
+										Computed: true,
+									},
+									"provided_dendency_names": schema.ListAttribute{
+										ElementType: types.StringType,
+										Computed:    true,
+									},
+									"services": schema.ListAttribute{
+										ElementType: types.StringType,
+										Computed:    true,
+									},
+									"uris": schema.ListAttribute{
+										ElementType: types.StringType,
+										Computed:    true,
+									},
+								},
+							},
+						},
+						"services": schema.ListAttribute{
+							Computed:    true,
+							ElementType: types.StringType,
+						},
 					},
 				},
 			},
@@ -151,9 +151,10 @@ func (d *MtaDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 	}
 }
 
-func (d *MtaDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+func (d *MtasDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 	var (
-		data MtaDataSourceType
+		data      MtasDataSourceType
+		namespace *string
 	)
 	diags := req.Config.Get(ctx, &data)
 	resp.Diagnostics.Append(diags...)
@@ -165,18 +166,12 @@ func (d *MtaDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 		d.mtaClient.ChangeBasePath(data.DeployUrl.ValueString())
 	}
 
-	//get details of MTA
-	_, err := d.cfClient.Spaces.Get(ctx, data.Space.ValueString())
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Unable to fetch Space details",
-			fmt.Sprintf("Request failed with %s ", err.Error()),
-		)
-		return
+	if !data.Namespace.IsNull() {
+		namespace = strtostrptr(data.Namespace.ValueString())
 	}
 
 	//get details of MTA
-	mtaObject, _, err := d.mtaClient.DefaultApi.GetMta(ctx, data.Space.ValueString(), data.Id.ValueString(), data.Namespace.ValueString())
+	mtas, _, err := d.mtaClient.DefaultApi.GetMtas(ctx, data.Space.ValueString(), namespace, data.Id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch MTA details",
@@ -184,12 +179,9 @@ func (d *MtaDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 		)
 		return
 	}
-
-	mtaTfType, diags := mapMtaValuesToType(ctx, mtaObject)
-	resp.Diagnostics.Append(diags...)
-	data.Mta, diags = types.ObjectValueFrom(ctx, mtaObjAttributes, mtaTfType)
+	data, diags = mapMtasValuesToType(ctx, data, mtas)
 	resp.Diagnostics.Append(diags...)
 
-	tflog.Trace(ctx, "read a mta datasource")
+	tflog.Trace(ctx, "read a mtas datasource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
