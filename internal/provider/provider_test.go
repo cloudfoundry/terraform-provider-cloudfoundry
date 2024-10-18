@@ -302,7 +302,6 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_users",
 		"cloudfoundry_security_group",
 		"cloudfoundry_service_instance",
-		"cloudfoundry_service",
 		"cloudfoundry_route",
 		"cloudfoundry_domain",
 		"cloudfoundry_app",
@@ -313,6 +312,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_isolation_segment_entitlement",
 		"cloudfoundry_stack",
 		"cloudfoundry_remote_mtar_hash",
+		"cloudfoundry_service_plans",
 	}
 
 	ctx := context.Background()
