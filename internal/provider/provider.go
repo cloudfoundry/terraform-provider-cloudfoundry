@@ -322,7 +322,6 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 		NewOrgRoleDataSource,
 		NewUsersDataSource,
 		NewServiceInstanceDataSource,
-		NewServiceDataSource,
 		NewSecurityGroupDataSource,
 		NewRouteDataSource,
 		NewDomainDataSource,
@@ -334,6 +333,7 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 		NewIsolationSegmentEntitlementDataSource,
 		NewStackDataSource,
 		NewRemoteMtarHashDataSource,
+		NewServicePlansDataSource,
 	}
 }
 

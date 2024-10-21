@@ -3,25 +3,27 @@ data "cloudfoundry_org" "team_org" {
 }
 
 data "cloudfoundry_space" "team_space" {
-  name = "PerformanceTeamBLR"
+  name = "tf-space-1"
   org  = data.cloudfoundry_org.team_org.id
 }
 
-data "cloudfoundry_service" "xsuaa_svc" {
-  name = "xsuaa"
+data "cloudfoundry_service_plans" "xsuaa_svc" {
+  name                  = "application"
+  service_offering_name = "xsuaa"
 }
-data "cloudfoundry_service" "autoscaler_svc" {
-  name = "autoscaler"
+data "cloudfoundry_service_plans" "autoscaler_svc" {
+  name                  = "standard"
+  service_offering_name = "autoscaler"
 }
 resource "cloudfoundry_service_instance" "xsuaa_svc" {
-  name         = "xsuaa_svc"
+  name         = "xsuaa_sv1"
   type         = "managed"
   tags         = ["terraform-test", "test1"]
   space        = data.cloudfoundry_space.team_space.id
-  service_plan = data.cloudfoundry_service.xsuaa_svc.service_plans["application"]
+  service_plan = data.cloudfoundry_service_plans.xsuaa_svc.service_plans[0].id
   parameters   = <<EOT
   {
-  "xsappname": "tf-test23",
+  "xsappname": "tf-test2",
   "tenant-mode": "dedicated",
   "description": "tf test123",
   "foreign-scope-references": ["user_attributes"],
@@ -48,14 +50,14 @@ resource "cloudfoundry_service_instance" "dev-autoscaler" {
   type         = "managed"
   tags         = ["terraform-test", "autoscaler"]
   space        = data.cloudfoundry_space.team_space.id
-  service_plan = data.cloudfoundry_service.autoscaler_svc.service_plans["standard"]
+  service_plan = data.cloudfoundry_service_plans.autoscaler_svc.service_plans[0].id
   timeouts = {
     create = "10m"
   }
 }
 # User provided service instance
 resource "cloudfoundry_service_instance" "dev-usp" {
-  name        = "tf-usp-test"
+  name        = "tf-usp-test1"
   type        = "user-provided"
   tags        = ["terraform-test", "usp"]
   space       = data.cloudfoundry_space.team_space.id
