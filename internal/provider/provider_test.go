@@ -314,6 +314,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_remote_mtar_hash",
 		"cloudfoundry_spaces",
 		"cloudfoundry_service_plans",
+		"cloudfoundry_orgs",
 	}
 
 	ctx := context.Background()

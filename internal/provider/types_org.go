@@ -20,6 +20,11 @@ type orgType struct {
 	Quota       types.String `tfsdk:"quota"`
 }
 
+type orgsType struct {
+	Name types.String `tfsdk:"name"`
+	Orgs []orgType    `tfsdk:"orgs"`
+}
+
 func mapOrgValuesToType(ctx context.Context, value *resource.Organization) (orgType, diag.Diagnostics) {
 	orgType := orgType{
 		Name:      types.StringValue(value.Name),
@@ -36,4 +41,18 @@ func mapOrgValuesToType(ctx context.Context, value *resource.Organization) (orgT
 	diagnostics.Append(diags...)
 
 	return orgType, diagnostics
+}
+
+func mapOrgsValuesToType(ctx context.Context, orgs []*resource.Organization) ([]orgType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	orgsList := []orgType{}
+	for _, org := range orgs {
+		orgValue, diags := mapOrgValuesToType(ctx, org)
+		diagnostics.Append(diags...)
+		orgsList = append(orgsList, orgValue)
+	}
+
+	return orgsList, diagnostics
+
 }
