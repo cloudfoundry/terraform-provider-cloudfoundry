@@ -200,6 +200,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Org Role](../docs/data-sources/org_role.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
 - [Space Role](../docs/data-sources/space_role.md)
+- [Spaces](./data-sources/spaces.md)
 - [Users](../docs/data-sources/users.md)
 
 While most dataSources have  maintained the same structure, some dataSources needed minor changes in schema to follow the V3 API structure. Following is a list of datasources whose schema have changed

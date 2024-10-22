@@ -24,6 +24,13 @@ type spaceType struct {
 	UpdatedAt        types.String `tfsdk:"updated_at"`
 }
 
+// Terraform struct for storing values for spaces data.
+type spacesType struct {
+	Name   types.String `tfsdk:"name"`
+	OrgId  types.String `tfsdk:"org"`
+	Spaces []spaceType  `tfsdk:"spaces"`
+}
+
 // Sets the space resource values for creation with cf-client from the terraform struct values.
 func (data *spaceType) mapCreateSpaceTypeToValues(ctx context.Context) (resource.SpaceCreate, diag.Diagnostics) {
 
