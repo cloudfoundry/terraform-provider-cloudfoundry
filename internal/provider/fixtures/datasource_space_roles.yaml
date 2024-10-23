@@ -1,0 +1,807 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:34 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 49c3213e4e8ae29c
+            X-B3-Traceid:
+                - 6ea554e24a374d5d49c3213e4e8ae29c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.008442"
+            X-Vcap-Request-Id:
+                - 6ea554e2-4a37-4d5d-49c3-213e4e8ae29c::9d0d2e39-e7c7-40cb-bd75-677fbeb0834e
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.171311042s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 5517
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"2801eb18-2ef7-4d30-83c2-be92566f0a07","created_at":"2024-02-12T11:31:49Z","updated_at":"2024-02-12T11:31:49Z","type":"space_manager","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/2801eb18-2ef7-4d30-83c2-be92566f0a07"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6886126b-579d-476e-8812-8d8c03c232da","created_at":"2024-02-27T11:13:25Z","updated_at":"2024-02-27T11:13:25Z","type":"space_manager","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6886126b-579d-476e-8812-8d8c03c232da"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f4c1cd4c-b8a3-4339-afad-00250d79a213","created_at":"2024-04-02T04:31:21Z","updated_at":"2024-04-02T04:31:21Z","type":"space_supporter","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f4c1cd4c-b8a3-4339-afad-00250d79a213"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "5517"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:34 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5130e31c27de9a44
+            X-B3-Traceid:
+                - 4043a2a4af1749c05130e31c27de9a44
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.057691"
+            X-Vcap-Request-Id:
+                - 4043a2a4-af17-49c0-5130-e31c27de9a44::035fa970-914a-4dee-bbb0-04f60a017613
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 290.022166ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:35 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 505a83bafc8a8d0b
+            X-B3-Traceid:
+                - e5bf5c993fe84758505a83bafc8a8d0b
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.009598"
+            X-Vcap-Request-Id:
+                - e5bf5c99-3fe8-4758-505a-83bafc8a8d0b::4ad394f7-fdc6-465d-9f66-383e5387446f
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 239.102417ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 5517
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"2801eb18-2ef7-4d30-83c2-be92566f0a07","created_at":"2024-02-12T11:31:49Z","updated_at":"2024-02-12T11:31:49Z","type":"space_manager","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/2801eb18-2ef7-4d30-83c2-be92566f0a07"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6886126b-579d-476e-8812-8d8c03c232da","created_at":"2024-02-27T11:13:25Z","updated_at":"2024-02-27T11:13:25Z","type":"space_manager","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6886126b-579d-476e-8812-8d8c03c232da"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f4c1cd4c-b8a3-4339-afad-00250d79a213","created_at":"2024-04-02T04:31:21Z","updated_at":"2024-04-02T04:31:21Z","type":"space_supporter","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f4c1cd4c-b8a3-4339-afad-00250d79a213"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "5517"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:35 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 67f18fd35bf15f32
+            X-B3-Traceid:
+                - f5768fa473d54c1567f18fd35bf15f32
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.055704"
+            X-Vcap-Request-Id:
+                - f5768fa4-73d5-4c15-67f1-8fd35bf15f32::8f520f95-0574-4811-9bd2-b2917bd30a75
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 285.780292ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:35 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4369dab7f444c418
+            X-B3-Traceid:
+                - a53c8b4ad25a4cad4369dab7f444c418
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.008513"
+            X-Vcap-Request-Id:
+                - a53c8b4a-d25a-4cad-4369-dab7f444c418::38844dd3-dafd-40a3-9f8e-b6c5d904e193
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 235.101ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 5517
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"2801eb18-2ef7-4d30-83c2-be92566f0a07","created_at":"2024-02-12T11:31:49Z","updated_at":"2024-02-12T11:31:49Z","type":"space_manager","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/2801eb18-2ef7-4d30-83c2-be92566f0a07"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6886126b-579d-476e-8812-8d8c03c232da","created_at":"2024-02-27T11:13:25Z","updated_at":"2024-02-27T11:13:25Z","type":"space_manager","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6886126b-579d-476e-8812-8d8c03c232da"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f4c1cd4c-b8a3-4339-afad-00250d79a213","created_at":"2024-04-02T04:31:21Z","updated_at":"2024-04-02T04:31:21Z","type":"space_supporter","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f4c1cd4c-b8a3-4339-afad-00250d79a213"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "5517"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:36 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7d908b99bcfd4eda
+            X-B3-Traceid:
+                - dd3e6baddfe74d747d908b99bcfd4eda
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.056747"
+            X-Vcap-Request-Id:
+                - dd3e6bad-dfe7-4d74-7d90-8b99bcfd4eda::b7ac3999-6732-46b0-8df0-c0b5c67d5117
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 284.408708ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:36 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 61f11decc5899361
+            X-B3-Traceid:
+                - 7eb01f102f0442be61f11decc5899361
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.006576"
+            X-Vcap-Request-Id:
+                - 7eb01f10-2f04-42be-61f1-1decc5899361::535e87d3-fbe4-4140-9dca-24f775bd4d54
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 232.506917ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143&types=space_developer
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 3667
+        uncompressed: false
+        body: '{"pagination":{"total_results":5,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "3667"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:36 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6cf284db13a10a81
+            X-B3-Traceid:
+                - fd311140246d47d86cf284db13a10a81
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.057797"
+            X-Vcap-Request-Id:
+                - fd311140-246d-47d8-6cf2-84db13a10a81::bef88788-1ae1-4d71-8e06-da6517701334
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 288.740958ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:37 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5bee0371beb38513
+            X-B3-Traceid:
+                - 82cf978506dc43d65bee0371beb38513
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661589"
+            X-Runtime:
+                - "0.012396"
+            X-Vcap-Request-Id:
+                - 82cf9785-06dc-43d6-5bee-0371beb38513::398673d8-5fd6-4f18-904f-83d6d9adde08
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 239.39725ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143&types=space_developer
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 3667
+        uncompressed: false
+        body: '{"pagination":{"total_results":5,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "3667"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:37 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5fe9ae30619e68a4
+            X-B3-Traceid:
+                - 4ce994367bed41665fe9ae30619e68a4
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.057203"
+            X-Vcap-Request-Id:
+                - 4ce99436-7bed-4166-5fe9-ae30619e68a4::c0c8b70c-9da9-4406-8e0c-cb6c7f68f165
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 289.144292ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 818
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}}}'
+        headers:
+            Content-Length:
+                - "818"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:37 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7436d3be59ac62d2
+            X-B3-Traceid:
+                - 40fd3e9183704d137436d3be59ac62d2
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.010091"
+            X-Vcap-Request-Id:
+                - 40fd3e91-8370-4d13-7436-d3be59ac62d2::621c4e08-71f8-4f24-8fae-d47ebc52f456
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 237.940459ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/roles?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143&types=space_developer
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 3667
+        uncompressed: false
+        body: '{"pagination":{"total_results":5,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"last":{"href":"https://api.x.x.x.x.com/v3/roles?order_by=%2Bcreated_at\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143\u0026types=space_developer"},"next":null,"previous":null},"resources":[{"guid":"fcbadcb4-6d6c-41c8-a033-98fe24e41ff6","created_at":"2024-02-12T11:31:48Z","updated_at":"2024-02-12T11:31:48Z","type":"space_developer","relationships":{"user":{"data":{"guid":"1f263e00-9a07-42d8-be71-b18be6d10b45"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/fcbadcb4-6d6c-41c8-a033-98fe24e41ff6"},"user":{"href":"https://api.x.x.x.x.com/v3/users/1f263e00-9a07-42d8-be71-b18be6d10b45"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"912cc035-b61a-483f-8ea5-de711a90ba60","created_at":"2024-02-14T13:54:47Z","updated_at":"2024-02-14T13:54:47Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4595acb0-8a59-4461-83fc-989f0e0c42d7"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/912cc035-b61a-483f-8ea5-de711a90ba60"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4595acb0-8a59-4461-83fc-989f0e0c42d7"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"f2b71c76-fc2f-4a85-bf67-e29a14a405dc","created_at":"2024-02-27T11:13:24Z","updated_at":"2024-02-27T11:13:24Z","type":"space_developer","relationships":{"user":{"data":{"guid":"efed91b4-d808-40fb-b4b8-7a9449ff1e15"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/f2b71c76-fc2f-4a85-bf67-e29a14a405dc"},"user":{"href":"https://api.x.x.x.x.com/v3/users/efed91b4-d808-40fb-b4b8-7a9449ff1e15"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"e564aadf-f230-4a8e-b64b-aed35fcf742b","created_at":"2024-05-03T09:04:50Z","updated_at":"2024-05-03T09:04:50Z","type":"space_developer","relationships":{"user":{"data":{"guid":"083ac523-1fab-48be-b4a3-28aeb4eb1db2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/e564aadf-f230-4a8e-b64b-aed35fcf742b"},"user":{"href":"https://api.x.x.x.x.com/v3/users/083ac523-1fab-48be-b4a3-28aeb4eb1db2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"6ae707e0-d64a-43c8-826d-0f2d66ab77b1","created_at":"2024-10-16T06:06:25Z","updated_at":"2024-10-16T06:06:25Z","type":"space_developer","relationships":{"user":{"data":{"guid":"4467eb10-a5dd-4c46-904f-d5a1c86f05a2"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"organization":{"data":null}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/roles/6ae707e0-d64a-43c8-826d-0f2d66ab77b1"},"user":{"href":"https://api.x.x.x.x.com/v3/users/4467eb10-a5dd-4c46-904f-d5a1c86f05a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "3667"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 23 Oct 2024 05:31:38 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 46062431b559812e
+            X-B3-Traceid:
+                - d749608722a6484b46062431b559812e
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1729661588"
+            X-Runtime:
+                - "0.051113"
+            X-Vcap-Request-Id:
+                - d7496087-22a6-484b-4606-2431b559812e::68455e0b-7d2b-4704-b421-f83f35a856fb
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 291.128458ms
