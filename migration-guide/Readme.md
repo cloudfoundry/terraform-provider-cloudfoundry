@@ -201,6 +201,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Organizations](../docs/data-sources/orgs.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
 - [Space Role](../docs/data-sources/space_role.md)
+- [Space Roles](../docs/data-sources/space_roles.md)
 - [Spaces](./data-sources/spaces.md)
 - [Users](../docs/data-sources/users.md)
 
