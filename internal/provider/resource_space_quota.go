@@ -61,7 +61,7 @@ func (r *spaceQuotaResource) Schema(_ context.Context, _ resource.SchemaRequest,
 				Optional:            true,
 			},
 			"total_route_ports": schema.Int64Attribute{
-				MarkdownDescription: "Maximum routes with reserved ports.",
+				MarkdownDescription: "Total number of ports that are reservable by routes in a space.",
 				Optional:            true,
 			},
 			"total_memory": schema.Int64Attribute{
