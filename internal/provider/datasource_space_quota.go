@@ -57,7 +57,7 @@ func (d *SpaceQuotaDataSource) Schema(ctx context.Context, req datasource.Schema
 				Computed:            true,
 			},
 			"total_route_ports": schema.Int64Attribute{
-				MarkdownDescription: "Maximum routes with reserved ports",
+				MarkdownDescription: "Total number of ports that are reservable by routes in a space",
 				Computed:            true,
 			},
 			"total_memory": schema.Int64Attribute{
