@@ -91,6 +91,13 @@ type DatasourceAppType struct {
 	Annotations                           types.Map          `tfsdk:"annotations"`
 }
 
+type DatasourceAppsType struct {
+	Space types.String        `tfsdk:"space"`
+	Org   types.String        `tfsdk:"org"`
+	Name  types.String        `tfsdk:"name"`
+	Apps  []DatasourceAppType `tfsdk:"apps"`
+}
+
 // Reduce function to reduce AppType to DatasourceAppType
 // This is used to reuse mapAppValuesToType in both resource and datasource.
 func (a *AppType) Reduce() DatasourceAppType {
@@ -437,7 +444,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					appType.Command = types.StringValue(process.Command)
 				}
 				if process.DiskQuota != "" {
-					if !reqPlanType.DiskQuota.IsNull() && !reqPlanType.DiskQuota.IsUnknown() {
+					if reqPlanType != nil && !reqPlanType.DiskQuota.IsNull() && !reqPlanType.DiskQuota.IsUnknown() {
 						result, err := getDesiredType(process.DiskQuota, reqPlanType.DiskQuota.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting disk quota", err.Error())
@@ -459,7 +466,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				}
 				appType.Instances = types.Int64Value(int64(*process.Instances))
 				if process.Memory != "" {
-					if !reqPlanType.Memory.IsNull() && !reqPlanType.Memory.IsUnknown() {
+					if reqPlanType != nil && !reqPlanType.Memory.IsNull() && !reqPlanType.Memory.IsUnknown() {
 						result, err := getDesiredType(process.Memory, reqPlanType.Memory.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting memory", err.Error())
@@ -489,7 +496,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					appType.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
 				}
 				if process.LogRateLimitPerSecond != "" {
-					if !reqPlanType.LogRateLimitPerSecond.IsNull() && !reqPlanType.LogRateLimitPerSecond.IsUnknown() {
+					if reqPlanType != nil && !reqPlanType.LogRateLimitPerSecond.IsNull() && !reqPlanType.LogRateLimitPerSecond.IsUnknown() {
 						result, err := getDesiredType(process.LogRateLimitPerSecond, reqPlanType.LogRateLimitPerSecond.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting log_rate_limit", err.Error())
@@ -590,7 +597,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				s.ProcessTypes = types.SetNull(types.StringType)
 			}
 			if sidecar.Memory != "" {
-				if !reqPlanType.Sidecars[i].Memory.IsUnknown() {
+				if reqPlanType != nil && !reqPlanType.Sidecars[i].Memory.IsUnknown() {
 					result, err := getDesiredType(sidecar.Memory, reqPlanType.Sidecars[i].Memory.ValueString())
 					if err != nil {
 						tempDiags.AddError("Error converting memory", err.Error())

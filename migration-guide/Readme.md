@@ -194,6 +194,7 @@ Few resources required a major change in functionality or the way the resources 
 
 The below mentioned dataSources have been newly added in the current provider.
 
+- [Applications](../docs/data-sources/apps.md)
 - [Multi Target Applications](../docs/data-sources/mta.md)
 - [Multi Target Applications](../docs/data-sources/mtas.md)
 - [Isolation Segment Entitlement](../docs/data-sources/isolation_segment_entitlement.md)
@@ -201,7 +202,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Organizations](../docs/data-sources/orgs.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
 - [Space Role](../docs/data-sources/space_role.md)
-- [Spaces](./data-sources/spaces.md)
+- [Spaces](../docs/data-sources/spaces.md)
 - [Users](../docs/data-sources/users.md)
 
 While most dataSources have  maintained the same structure, some dataSources needed minor changes in schema to follow the V3 API structure. Following is a list of datasources whose schema have changed
