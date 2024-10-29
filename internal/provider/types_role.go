@@ -59,13 +59,6 @@ type orgRoleDatasourceType struct {
 	UpdatedAt    types.String `tfsdk:"updated_at"`
 }
 
-type orgRolesDatasourceType struct {
-	Type  types.String            `tfsdk:"type"`
-	User  types.String            `tfsdk:"user"`
-	Org   types.String            `tfsdk:"org"`
-	Roles []orgRoleDatasourceType `tfsdk:"roles"`
-}
-
 // Reduce function to reduce roleType to roleDatasourceType
 // This is used to reuse mapRoleValuesToType in both resource and datasource.
 func (a *roleType) ReduceToSpaceRoleDataSource() spaceRoleDatasourceType {
@@ -148,15 +141,4 @@ func mapRoleValuesToType(role *resource.Role) roleType {
 	}
 
 	return roleType
-}
-
-func mapOrgRolesValuesToType(roles []*resource.Role) []orgRoleDatasourceType {
-
-	orgRolesList := []orgRoleDatasourceType{}
-	for _, orgRole := range roles {
-		orgRoleValue := mapRoleValuesToType(orgRole)
-		orgRolesList = append(orgRolesList, orgRoleValue.ReduceToOrgRoleDataSource())
-	}
-
-	return orgRolesList
 }

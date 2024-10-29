@@ -198,7 +198,6 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Multi Target Applications](../docs/data-sources/mtas.md)
 - [Isolation Segment Entitlement](../docs/data-sources/isolation_segment_entitlement.md)
 - [Org Role](../docs/data-sources/org_role.md)
-- [Org Roles](../docs/data-sources/org_roles.md)
 - [Organizations](../docs/data-sources/orgs.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
 - [Space Role](../docs/data-sources/space_role.md)
@@ -209,6 +208,7 @@ While most dataSources have  maintained the same structure, some dataSources nee
 
 - [Application](./data-sources/app.md)
 - [Domain](./data-sources/domain.md)
+- [Domains](./data-sources/domains.md)
 - [Org Quota](./data-sources/org_quota.md)
 - [Organisation](./data-sources/org.md)
 - [Route](./data-sources/route.md)

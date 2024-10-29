@@ -1,0 +1,177 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.x.x.x.x.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.x.x.x.x.com"},"cloud_controller_v2":{"href":"https://api.x.x.x.x.com/v2","meta":{"version":"2.243.0"}},"cloud_controller_v3":{"href":"https://api.x.x.x.x.com/v3","meta":{"version":"3.178.0"}},"network_policy_v0":{"href":"https://api.x.x.x.x.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.x.x.x.x.com/networking/v1/external"},"login":{"href":"https://login.x.x.x.x.com"},"uaa":{"href":"https://uaa.x.x.x.x.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.x.x.x.x.com:443"},"log_cache":{"href":"https://log-cache.x.x.x.x.com"},"log_stream":{"href":"https://log-stream.x.x.x.x.com"},"app_ssh":{"href":"ssh.x.x.x.x.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Tue, 29 Oct 2024 10:26:42 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 42b74b332f234230
+            X-B3-Traceid:
+                - 6459dd9a37a54aa542b74b332f234230
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 6459dd9a-37a5-4aa5-42b7-4b332f234230::7223304b-bcbe-405b-9057-5870093a1123
+        status: 200 OK
+        code: 200
+        duration: 707.716375ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Onlinesap%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Onlinesap@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"cf9cd6d6be3145309fb7864508a911fc-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"12f97e87df3e4ddcaae1407cded18db5"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 29 Oct 2024 10:26:42 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=OTgyMmFjNTYtZDFhMS00OTcyLWE2MzgtOTBjMzA1NDI0MzZi; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=700cd9a0-99e6-4960-7bed-228f6e416473; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 7fb9d803-a08b-483d-56ce-d523af0865a2
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.237895333s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/organizations/40b73419-5e01-4be0-baea-932d46cea45b
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 91
+        uncompressed: false
+        body: '{"errors":[{"detail":"Organization not found","title":"CF-ResourceNotFound","code":10010}]}'
+        headers:
+            Content-Length:
+                - "91"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 29 Oct 2024 10:26:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 78791ea7475ca1e9
+            X-B3-Traceid:
+                - e06bc44c5922486e78791ea7475ca1e9
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730197684"
+            X-Runtime:
+                - "0.004051"
+            X-Vcap-Request-Id:
+                - e06bc44c-5922-486e-7879-1ea7475ca1e9::198febbc-a825-4138-aa5a-93d34944ecd5
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 404 Not Found
+        code: 404
+        duration: 250.446083ms
