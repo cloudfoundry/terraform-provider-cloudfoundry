@@ -88,13 +88,13 @@ func (d *StackDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 		return
 	}
 
-	stacks, err := d.cfClient.Stacks.ListAll(ctx, &client.StackListOptions{
-		Names: client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+	stlo := client.NewStackListOptions()
+	stlo.Names = client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-	})
+	}
+	stacks, err := d.cfClient.Stacks.ListAll(ctx, stlo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Stack",

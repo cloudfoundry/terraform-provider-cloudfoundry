@@ -89,7 +89,7 @@ func (d *OrgsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		return
 	}
 
-	orgsListOptions := &cfv3client.OrganizationListOptions{}
+	orgsListOptions := cfv3client.NewOrganizationListOptions()
 	if !data.Name.IsNull() {
 		orgsListOptions.Names = cfv3client.Filter{
 			Values: []string{

@@ -117,14 +117,19 @@ func (d *ServiceInstanceDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	svcInstances, err := d.cfClient.ServiceInstances.ListAll(ctx, &cfv3client.ServiceInstanceListOptions{
-		Names: cfv3client.Filter{
-			Values: []string{data.Name.ValueString()},
+	getOptions := cfv3client.NewServiceInstanceListOptions()
+	getOptions.Names = cfv3client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-		SpaceGUIDs: cfv3client.Filter{
-			Values: []string{data.Space.ValueString()},
+	}
+	getOptions.SpaceGUIDs = cfv3client.Filter{
+		Values: []string{
+			data.Space.ValueString(),
 		},
-	})
+	}
+
+	svcInstances, err := d.cfClient.ServiceInstances.ListAll(ctx, getOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error to fetch service instance data.",

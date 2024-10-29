@@ -113,11 +113,10 @@ func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datas
 		return
 	}
 
-	getOptions := cfv3client.ServiceCredentialBindingListOptions{
-		ServiceInstanceGUIDs: cfv3client.Filter{
-			Values: []string{
-				data.ServiceInstance.ValueString(),
-			},
+	getOptions := cfv3client.NewServiceCredentialBindingListOptions()
+	getOptions.ServiceInstanceGUIDs = cfv3client.Filter{
+		Values: []string{
+			data.ServiceInstance.ValueString(),
 		},
 	}
 
@@ -136,7 +135,7 @@ func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datas
 		}
 	}
 
-	svcCredentialBindings, err := d.cfClient.ServiceCredentialBindings.ListAll(ctx, &getOptions)
+	svcCredentialBindings, err := d.cfClient.ServiceCredentialBindings.ListAll(ctx, getOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Service Credential Binding.",

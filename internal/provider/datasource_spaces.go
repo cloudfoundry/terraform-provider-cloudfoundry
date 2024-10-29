@@ -122,11 +122,10 @@ func (d *SpacesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	spacesListOptions := client.SpaceListOptions{
-		OrganizationGUIDs: client.Filter{
-			Values: []string{
-				data.OrgId.ValueString(),
-			},
+	spacesListOptions := client.NewSpaceListOptions()
+	spacesListOptions.OrganizationGUIDs = client.Filter{
+		Values: []string{
+			data.OrgId.ValueString(),
 		},
 	}
 
@@ -139,7 +138,7 @@ func (d *SpacesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	}
 
 	//Filtering for spaces under the org with GUID
-	spaces, err := d.cfClient.Spaces.ListAll(ctx, &spacesListOptions)
+	spaces, err := d.cfClient.Spaces.ListAll(ctx, spacesListOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Spaces",
