@@ -123,11 +123,10 @@ func (d *OrgRolesDataSource) Read(ctx context.Context, req datasource.ReadReques
 		return
 	}
 
-	orgRolesListOptions := client.RoleListOptions{
-		OrganizationGUIDs: client.Filter{
-			Values: []string{
-				data.Org.ValueString(),
-			},
+	orgRolesListOptions := client.NewRoleListOptions()
+	orgRolesListOptions.OrganizationGUIDs = client.Filter{
+		Values: []string{
+			data.Org.ValueString(),
 		},
 	}
 
@@ -146,7 +145,7 @@ func (d *OrgRolesDataSource) Read(ctx context.Context, req datasource.ReadReques
 		}
 	}
 
-	roles, err := d.cfClient.Roles.ListAll(ctx, &orgRolesListOptions)
+	roles, err := d.cfClient.Roles.ListAll(ctx, orgRolesListOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch org roles data.",
