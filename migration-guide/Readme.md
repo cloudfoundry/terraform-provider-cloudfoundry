@@ -205,6 +205,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Service Broker](../docs/data-sources/service_broker.md)
 - [Service Instances](../docs/data-sources/service_instances.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
+- [Service Route Bindings](../docs/data-sources/service_route_bindings.md)
 - [Space Role](../docs/data-sources/space_role.md)
 - [Spaces](../docs/data-sources/spaces.md)
 - [Space Roles](../docs/data-sources/space_roles.md)

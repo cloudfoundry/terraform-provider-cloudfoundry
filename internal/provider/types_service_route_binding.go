@@ -24,6 +24,24 @@ type serviceRouteBindingType struct {
 	LastOperation   types.Object         `tfsdk:"last_operation"` //LastOperationType
 }
 
+type datasourceserviceRouteBindingType struct {
+	ID              types.String `tfsdk:"id"`
+	Route           types.String `tfsdk:"route"`
+	RouteServiceURL types.String `tfsdk:"route_service_url"`
+	ServiceInstance types.String `tfsdk:"service_instance"`
+	Labels          types.Map    `tfsdk:"labels"`
+	Annotations     types.Map    `tfsdk:"annotations"`
+	CreatedAt       types.String `tfsdk:"created_at"`
+	UpdatedAt       types.String `tfsdk:"updated_at"`
+	LastOperation   types.Object `tfsdk:"last_operation"` //LastOperationType
+}
+
+type datasourceserviceRouteBindingsType struct {
+	ServiceInstance types.String                        `tfsdk:"service_instance"`
+	Route           types.String                        `tfsdk:"route"`
+	RouteBindings   []datasourceserviceRouteBindingType `tfsdk:"route_bindings"`
+}
+
 func mapServiceRouteBindingValuesToType(ctx context.Context, value *resource.ServiceRouteBinding) (serviceRouteBindingType, diag.Diagnostics) {
 	var diags, diagnostics diag.Diagnostics
 	serviceRouteBinding := serviceRouteBindingType{
@@ -77,4 +95,23 @@ func (plan *serviceRouteBindingType) mapUpdateServiceRouteBindingTypeToValues(ct
 	updateRouteBinding.Metadata, diagnostics = setClientMetadataForUpdate(ctx, state.Labels, state.Annotations, plan.Labels, plan.Annotations)
 
 	return *updateRouteBinding, diagnostics
+}
+
+func (a *serviceRouteBindingType) Reduce() datasourceserviceRouteBindingType {
+	var reduced datasourceserviceRouteBindingType
+	copyFields(&reduced, a)
+	return reduced
+}
+
+func mapDataSourceServiceRouteBindingsValuesToType(ctx context.Context, svcRouteBindings []*resource.ServiceRouteBinding) ([]datasourceserviceRouteBindingType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	svcRouteBindingsList := []datasourceserviceRouteBindingType{}
+	for _, svcRouteBinding := range svcRouteBindings {
+		bindingValue, diags := mapServiceRouteBindingValuesToType(ctx, svcRouteBinding)
+		diagnostics.Append(diags...)
+		svcRouteBindingsList = append(svcRouteBindingsList, bindingValue.Reduce())
+	}
+
+	return svcRouteBindingsList, diagnostics
 }
