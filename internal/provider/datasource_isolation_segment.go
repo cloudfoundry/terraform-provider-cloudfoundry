@@ -73,15 +73,14 @@ func (d *IsolationSegmentDataSource) Read(ctx context.Context, req datasource.Re
 		return
 	}
 
-	getOptions := cfv3client.IsolationSegmentListOptions{
-		Names: cfv3client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+	getOptions := cfv3client.NewIsolationSegmentOptions()
+	getOptions.Names = cfv3client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
 	}
 
-	isolationSegments, err := d.cfClient.IsolationSegments.ListAll(ctx, &getOptions)
+	isolationSegments, err := d.cfClient.IsolationSegments.ListAll(ctx, getOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Isolation Segment.",

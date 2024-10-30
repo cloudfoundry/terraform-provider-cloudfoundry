@@ -209,7 +209,7 @@ func (d *ServicePlansDataSource) Read(ctx context.Context, req datasource.ReadRe
 		return
 	}
 
-	svcPlanOpts := &cfv3client.ServicePlanListOptions{}
+	svcPlanOpts := cfv3client.NewServicePlanListOptions()
 
 	if !data.Name.IsNull() {
 		svcPlanOpts.Names = cfv3client.Filter{
