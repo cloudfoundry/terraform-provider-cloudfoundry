@@ -337,6 +337,9 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 		NewServicePlansDataSource,
 		NewOrgsDataSource,
 		NewOrgRolesDataSource,
+		NewSpaceQuotasDataSource,
+		NewAppsDataSource,
+		NewSpaceRolesDataSource,
 	}
 }
 

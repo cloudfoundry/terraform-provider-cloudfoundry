@@ -93,13 +93,13 @@ func (d *UserDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		return
 	}
 
-	users, err := d.cfClient.Users.ListAll(ctx, &client.UserListOptions{
-		UserNames: client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+	uslo := client.NewUserListOptions()
+	uslo.UserNames = client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-	})
+	}
+	users, err := d.cfClient.Users.ListAll(ctx, uslo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Users",

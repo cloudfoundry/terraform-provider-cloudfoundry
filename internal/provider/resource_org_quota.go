@@ -156,11 +156,14 @@ func (r *orgQuotaResource) Read(ctx context.Context, req resource.ReadRequest, r
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	orgsQuotas, err := r.cfClient.OrganizationQuotas.ListAll(ctx, &cfv3client.OrganizationQuotaListOptions{
-		GUIDs: cfv3client.Filter{
-			Values: []string{orgQuotaTypeState.ID.ValueString()},
+
+	orgqulo := cfv3client.NewOrganizationQuotaListOptions()
+	orgqulo.GUIDs = cfv3client.Filter{
+		Values: []string{
+			orgQuotaTypeState.ID.ValueString(),
 		},
-	})
+	}
+	orgsQuotas, err := r.cfClient.OrganizationQuotas.ListAll(ctx, orgqulo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch org quota data",

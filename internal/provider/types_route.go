@@ -163,11 +163,10 @@ func mapDestinationValuesToSetType(ctx context.Context, destinations *[]resource
 // Sets the route list options for reading with cf-client from the terraform struct values.
 func (data *datasourceRouteType) mapReadRouteTypeToValues() client.RouteListOptions {
 
-	routeListOptions := client.RouteListOptions{
-		DomainGUIDs: client.Filter{
-			Values: []string{
-				data.Domain.ValueString(),
-			},
+	routeListOptions := client.NewRouteListOptions()
+	routeListOptions.DomainGUIDs = client.Filter{
+		Values: []string{
+			data.Domain.ValueString(),
 		},
 	}
 
@@ -187,7 +186,7 @@ func (data *datasourceRouteType) mapReadRouteTypeToValues() client.RouteListOpti
 		routeListOptions.OrganizationGUIDs = client.Filter{Values: []string{data.Org.ValueString()}}
 	}
 
-	return routeListOptions
+	return *routeListOptions
 }
 
 // Sets the route resource values for creation with cf-client from the terraform struct values.

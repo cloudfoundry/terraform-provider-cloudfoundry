@@ -28,6 +28,12 @@ type spaceQuotaType struct {
 	UpdatedAt             types.String `tfsdk:"updated_at"`
 }
 
+type spaceQuotasDatasourceType struct {
+	Name        types.String     `tfsdk:"name"`
+	Org         types.String     `tfsdk:"org"`
+	SpaceQuotas []spaceQuotaType `tfsdk:"space_quotas"`
+}
+
 func (spaceQuotaType *spaceQuotaType) mapSpaceQuotaTypeToValues(ctx context.Context) (*cfv3resource.SpaceQuotaCreateOrUpdate, diag.Diagnostics) {
 	var diags diag.Diagnostics
 	spaceQuota := cfv3resource.NewSpaceQuotaCreate(spaceQuotaType.Name.ValueString(), spaceQuotaType.Org.ValueString())
@@ -110,4 +116,17 @@ func mapSpaceQuotaValuesToType(value *cfv3resource.SpaceQuota) (spaceQuotaType, 
 	spaceQuotaType.Org = types.StringValue(value.Relationships.Organization.Data.GUID)
 	spaceQuotaType.Spaces, diags = setRelationshipToTFSet(value.Relationships.Spaces.Data)
 	return spaceQuotaType, diags
+}
+
+func mapSpaceQuotasValuesToType(spaceQuotas []*cfv3resource.SpaceQuota) ([]spaceQuotaType, diag.Diagnostics) {
+
+	var diagnostics diag.Diagnostics
+	spaceQuotasList := []spaceQuotaType{}
+	for _, spaceQuota := range spaceQuotas {
+		spaceQuotaValue, diags := mapSpaceQuotaValuesToType(spaceQuota)
+		diagnostics.Append(diags...)
+		spaceQuotasList = append(spaceQuotasList, spaceQuotaValue)
+	}
+
+	return spaceQuotasList, diagnostics
 }

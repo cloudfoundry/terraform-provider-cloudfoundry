@@ -108,19 +108,19 @@ func (d *SpaceDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 		return
 	}
 
+	splo := client.NewSpaceListOptions()
+	splo.OrganizationGUIDs = client.Filter{
+		Values: []string{
+			data.OrgId.ValueString(),
+		},
+	}
+	splo.Names = client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
+		},
+	}
 	//Filtering for spaces under the org with GUID
-	spaces, err := d.cfClient.Spaces.ListAll(ctx, &client.SpaceListOptions{
-		OrganizationGUIDs: client.Filter{
-			Values: []string{
-				data.OrgId.ValueString(),
-			},
-		},
-		Names: client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
-		},
-	})
+	spaces, err := d.cfClient.Spaces.ListAll(ctx, splo)
 
 	if err != nil {
 		resp.Diagnostics.AddError(

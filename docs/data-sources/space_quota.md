@@ -44,7 +44,7 @@ output "id" {
 - `total_app_log_rate_limit` (Number) Maximum log rate allowed for all the started processes and running tasks in bytes/second.
 - `total_app_tasks` (Number) Maximum tasks allowed per app
 - `total_memory` (Number) Maximum memory usage allowed
-- `total_route_ports` (Number) Maximum routes with reserved ports
+- `total_route_ports` (Number) Total number of ports that are reservable by routes in a space
 - `total_routes` (Number) Maximum routes allowed
 - `total_service_keys` (Number) Maximum service keys allowed
 - `total_services` (Number) Maximum services allowed

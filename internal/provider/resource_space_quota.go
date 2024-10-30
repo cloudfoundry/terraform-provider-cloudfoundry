@@ -61,7 +61,7 @@ func (r *spaceQuotaResource) Schema(_ context.Context, _ resource.SchemaRequest,
 				Optional:            true,
 			},
 			"total_route_ports": schema.Int64Attribute{
-				MarkdownDescription: "Maximum routes with reserved ports.",
+				MarkdownDescription: "Total number of ports that are reservable by routes in a space.",
 				Optional:            true,
 			},
 			"total_memory": schema.Int64Attribute{
@@ -164,11 +164,14 @@ func (r *spaceQuotaResource) Read(ctx context.Context, req resource.ReadRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	spacesQuotas, err := r.cfClient.SpaceQuotas.ListAll(ctx, &cfv3client.SpaceQuotaListOptions{
-		GUIDs: cfv3client.Filter{
-			Values: []string{spaceQuotaTypeState.ID.ValueString()},
+
+	spqulo := cfv3client.NewSpaceQuotaListOptions()
+	spqulo.GUIDs = cfv3client.Filter{
+		Values: []string{
+			spaceQuotaTypeState.ID.ValueString(),
 		},
-	})
+	}
+	spacesQuotas, err := r.cfClient.SpaceQuotas.ListAll(ctx, spqulo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch space quota data",

@@ -84,13 +84,14 @@ func (d *OrgDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	orgs, err := d.cfClient.Organizations.ListAll(ctx, &cfv3client.OrganizationListOptions{
-		Names: cfv3client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+
+	getOptions := cfv3client.NewOrganizationListOptions()
+	getOptions.Names = cfv3client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-	})
+	}
+	orgs, err := d.cfClient.Organizations.ListAll(ctx, getOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch org data.",
