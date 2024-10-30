@@ -62,7 +62,7 @@ func (d *RouteDataSource) Schema(ctx context.Context, req datasource.SchemaReque
 			},
 			"domain": schema.StringAttribute{
 				MarkdownDescription: "The domain guid associated to the route.",
-				Required:            true,
+				Optional:            true,
 				Validators: []validator.String{
 					validation.ValidUUID(),
 				},
@@ -173,7 +173,7 @@ func (d *RouteDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Route",
-			"Could not get route with domain ID "+data.Domain.ValueString()+" : "+err.Error(),
+			"Could not get routes : "+err.Error(),
 		)
 		return
 	}
@@ -181,7 +181,7 @@ func (d *RouteDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 	if len(routes) == 0 {
 		resp.Diagnostics.AddError(
 			"Unable to find route in list",
-			"Given domain "+data.Domain.ValueString()+" and entered values does not have any associated routes present",
+			"Given criteria does not have any associated routes present",
 		)
 		return
 	}
