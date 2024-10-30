@@ -59,6 +59,13 @@ type orgRoleDatasourceType struct {
 	UpdatedAt    types.String `tfsdk:"updated_at"`
 }
 
+type orgRolesDatasourceType struct {
+	Type  types.String            `tfsdk:"type"`
+	User  types.String            `tfsdk:"user"`
+	Org   types.String            `tfsdk:"org"`
+	Roles []orgRoleDatasourceType `tfsdk:"roles"`
+}
+
 type spaceRolesDatasourceType struct {
 	Type  types.String              `tfsdk:"type"`
 	User  types.String              `tfsdk:"user"`
@@ -148,6 +155,17 @@ func mapRoleValuesToType(role *resource.Role) roleType {
 	}
 
 	return roleType
+}
+
+func mapOrgRolesValuesToType(roles []*resource.Role) []orgRoleDatasourceType {
+
+	orgRolesList := []orgRoleDatasourceType{}
+	for _, orgRole := range roles {
+		orgRoleValue := mapRoleValuesToType(orgRole)
+		orgRolesList = append(orgRolesList, orgRoleValue.ReduceToOrgRoleDataSource())
+	}
+
+	return orgRolesList
 }
 
 func mapSpaceRolesValuesToType(roles []*resource.Role) []spaceRoleDatasourceType {
