@@ -22,6 +22,23 @@ type serviceBrokerType struct {
 	UpdatedAt   types.String `tfsdk:"updated_at"`
 }
 
+type datasourceServiceBrokerType struct {
+	Name        types.String `tfsdk:"name"`
+	ID          types.String `tfsdk:"id"`
+	Url         types.String `tfsdk:"url"`
+	Space       types.String `tfsdk:"space"`
+	Labels      types.Map    `tfsdk:"labels"`
+	Annotations types.Map    `tfsdk:"annotations"`
+	CreatedAt   types.String `tfsdk:"created_at"`
+	UpdatedAt   types.String `tfsdk:"updated_at"`
+}
+
+func (a *serviceBrokerType) Reduce() datasourceServiceBrokerType {
+	var reduced datasourceServiceBrokerType
+	copyFields(&reduced, a)
+	return reduced
+}
+
 func mapServiceBrokerValuesToType(ctx context.Context, value *resource.ServiceBroker) (serviceBrokerType, diag.Diagnostics) {
 	var diagnostics, diags diag.Diagnostics
 	serviceBrokerType := serviceBrokerType{

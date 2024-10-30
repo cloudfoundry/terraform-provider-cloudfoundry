@@ -1,0 +1,375 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=717a4fc677bd40218559c2c02ad83787-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 717a4fc677bd40218559c2c02ad83787-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"717a4fc677bd40218559c2c02ad83787-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"ba62502874f743b1b952cd403cee672f"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:37 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 90260229-72f7-4361-7899-dde17e8124f0
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 792.295208ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:38 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6cd2e6ed41b4dea0
+            X-B3-Traceid:
+                - 663233bc952b466e6cd2e6ed41b4dea0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730374388"
+            X-Runtime:
+                - "0.029413"
+            X-Vcap-Request-Id:
+                - 663233bc-952b-466e-6cd2-e6ed41b4dea0::80c3048f-e6bd-4881-a392-8a081974fbdd
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 678.293459ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=717a4fc677bd40218559c2c02ad83787-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 717a4fc677bd40218559c2c02ad83787-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"717a4fc677bd40218559c2c02ad83787-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"5615f8abd23f451099c78b42d7cee807"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:37 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 152c4dce-49b9-4532-4d31-226473d7b4dd
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 206.022ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:38 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 550a55864966ee24
+            X-B3-Traceid:
+                - 59853e68757e404d550a55864966ee24
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730374388"
+            X-Runtime:
+                - "0.030643"
+            X-Vcap-Request-Id:
+                - 59853e68-757e-404d-550a-55864966ee24::13455165-d1b0-423f-a309-cc1fac7b8af4
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 209.270542ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=717a4fc677bd40218559c2c02ad83787-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 717a4fc677bd40218559c2c02ad83787-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"717a4fc677bd40218559c2c02ad83787-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"30ca0abd95204e619a3b0a094e5161a7"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:38 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 48e0e91e-02ac-424e-518d-ee3f3ad0da0a
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 199.867459ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 31 Oct 2024 11:27:39 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6c6f89625eb7111a
+            X-B3-Traceid:
+                - 97067e69f5554df26c6f89625eb7111a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730374388"
+            X-Runtime:
+                - "0.030130"
+            X-Vcap-Request-Id:
+                - 97067e69-f555-4df2-6c6f-89625eb7111a::4100e87f-6773-40e8-8b0b-8b79e4daf988
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 208.156667ms
