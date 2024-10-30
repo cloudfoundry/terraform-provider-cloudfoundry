@@ -113,7 +113,7 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 				MarkdownDescription: "List of configurations for individual process types.",
 				Computed:            true,
 				NestedObject: schema.NestedAttributeObject{
-					Attributes: d.ProcessSchemaAttributes(),
+					Attributes: datasourceProcessSchemaAttributes(),
 				},
 			},
 			"sidecars": schema.SetNestedAttribute{
@@ -148,27 +148,27 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 			updatedAtKey:   updatedAtSchema(),
 		},
 	}
-	for k, v := range d.ProcessAppCommonSchema() {
+	for k, v := range datasourceProcessAppCommonSchema() {
 		if _, ok := resp.Schema.Attributes[k]; !ok {
 			resp.Schema.Attributes[k] = v
 		}
 	}
 }
-func (d *appDataSource) ProcessSchemaAttributes() map[string]schema.Attribute {
+func datasourceProcessSchemaAttributes() map[string]schema.Attribute {
 	pSchema := map[string]schema.Attribute{
 		"type": schema.StringAttribute{
 			MarkdownDescription: "The process type. Can be web or worker.",
 			Computed:            true,
 		},
 	}
-	for k, v := range d.ProcessAppCommonSchema() {
+	for k, v := range datasourceProcessAppCommonSchema() {
 		if _, ok := pSchema[k]; !ok {
 			pSchema[k] = v
 		}
 	}
 	return pSchema
 }
-func (d *appDataSource) ProcessAppCommonSchema() map[string]schema.Attribute {
+func datasourceProcessAppCommonSchema() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"command": schema.StringAttribute{
 			MarkdownDescription: "A custom start command for the application. This overrides the start command provided by the buildpack.",
@@ -306,7 +306,7 @@ func (d *appDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 	datasourceAppTypeResp.Org = datasourceAppType.Org
 	datasourceAppTypeResp.Space = datasourceAppType.Space
 
-	tflog.Trace(ctx, "read a data source")
+	tflog.Trace(ctx, "read an app data source")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &datasourceAppTypeResp)...)
 }

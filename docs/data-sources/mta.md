@@ -3,11 +3,16 @@ page_title: "cloudfoundry_mta Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
   Gets information on a Multi Target Application present in a space.
+  Further documentation:
+  Multitarget Applications in the Cloud Foundry Environment https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment
 ---
 
 # cloudfoundry_mta (Data Source)
 
 Gets information on a Multi Target Application present in a space.
+		
+__Further documentation:__ 
+ [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment)
 
 ## Example Usage
 

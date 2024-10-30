@@ -164,11 +164,14 @@ func (r *spaceQuotaResource) Read(ctx context.Context, req resource.ReadRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	spacesQuotas, err := r.cfClient.SpaceQuotas.ListAll(ctx, &cfv3client.SpaceQuotaListOptions{
-		GUIDs: cfv3client.Filter{
-			Values: []string{spaceQuotaTypeState.ID.ValueString()},
+
+	spqulo := cfv3client.NewSpaceQuotaListOptions()
+	spqulo.GUIDs = cfv3client.Filter{
+		Values: []string{
+			spaceQuotaTypeState.ID.ValueString(),
 		},
-	})
+	}
+	spacesQuotas, err := r.cfClient.SpaceQuotas.ListAll(ctx, spqulo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to fetch space quota data",

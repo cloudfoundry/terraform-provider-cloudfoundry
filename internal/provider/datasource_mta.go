@@ -65,7 +65,11 @@ func (d *MtaDataSource) Configure(ctx context.Context, req datasource.ConfigureR
 
 func (d *MtaDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on a Multi Target Application present in a space.",
+		MarkdownDescription: `Gets information on a Multi Target Application present in a space.
+		
+__Further documentation:__ 
+ [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment)
+ `,
 
 		Attributes: map[string]schema.Attribute{
 			"deploy_url": schema.StringAttribute{
