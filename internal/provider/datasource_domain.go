@@ -97,13 +97,13 @@ func (d *DomainDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	domains, err := d.cfClient.Domains.ListAll(ctx, &client.DomainListOptions{
-		Names: client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+	domainListOptions := client.NewDomainListOptions()
+	domainListOptions.Names = client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-	})
+	}
+	domains, err := d.cfClient.Domains.ListAll(ctx, domainListOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Domain",

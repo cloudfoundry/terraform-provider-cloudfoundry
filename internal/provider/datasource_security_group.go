@@ -127,13 +127,14 @@ func (d *SecurityGroupDataSource) Read(ctx context.Context, req datasource.ReadR
 		return
 	}
 
-	securityGroups, err := d.cfClient.SecurityGroups.ListAll(ctx, &client.SecurityGroupListOptions{
-		Names: client.Filter{
-			Values: []string{
-				data.Name.ValueString(),
-			},
+	getOptions := client.NewSecurityGroupListOptions()
+	getOptions.Names = client.Filter{
+		Values: []string{
+			data.Name.ValueString(),
 		},
-	})
+	}
+
+	securityGroups, err := d.cfClient.SecurityGroups.ListAll(ctx, getOptions)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Security Group",

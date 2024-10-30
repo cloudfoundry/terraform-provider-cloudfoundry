@@ -122,11 +122,13 @@ func (d *SpaceQuotaDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	sqlo := &cfv3client.SpaceQuotaListOptions{
-		Names: cfv3client.Filter{
-			Values: []string{spaceQuotaType.Name.ValueString()},
+	sqlo := cfv3client.NewSpaceQuotaListOptions()
+	sqlo.Names = cfv3client.Filter{
+		Values: []string{
+			spaceQuotaType.Name.ValueString(),
 		},
 	}
+
 	if !spaceQuotaType.Org.IsNull() {
 		sqlo.OrganizationGUIDs = cfv3client.Filter{
 			Values: []string{spaceQuotaType.Org.ValueString()},
