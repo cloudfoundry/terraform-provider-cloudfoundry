@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
+	"github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -57,7 +58,7 @@ func (d *DomainsDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 		Attributes: map[string]schema.Attribute{
 			"org": schema.StringAttribute{
 				MarkdownDescription: "The ID of the Org within which to find the domains",
-				Required:            true,
+				Optional:            true,
 				Validators: []validator.String{
 					validation.ValidUUID(),
 				},
@@ -118,24 +119,28 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		return
 	}
 
-	_, err := d.cfClient.Organizations.Get(ctx, data.Org.ValueString())
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"API Error Fetching Organization",
-			"Could not get details of the Organization with ID "+data.Org.ValueString()+" : "+err.Error(),
-		)
-		return
-	}
-
+	var domains []*resource.Domain
+	var err error
 	dlo := cfv3client.NewDomainListOptions()
+	if len(data.Org.ValueString()) > 0 {
 
-	dlo.OrganizationGUIDs = cfv3client.Filter{
-		Values: []string{
-			data.Org.ValueString(),
-		},
+		_, err := d.cfClient.Organizations.Get(ctx, data.Org.ValueString())
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"API Error Fetching Organization",
+				"Could not get details of the Organization with ID "+data.Org.ValueString()+" : "+err.Error(),
+			)
+			return
+		}
+
+		dlo.OrganizationGUIDs = cfv3client.Filter{
+			Values: []string{
+				data.Org.ValueString(),
+			},
+		}
 	}
 
-	domains, err := d.cfClient.Domains.ListAll(ctx, dlo)
+	domains, err = d.cfClient.Domains.ListAll(ctx, dlo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Domains",
