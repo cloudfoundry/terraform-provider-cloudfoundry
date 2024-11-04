@@ -94,7 +94,7 @@ func hclResourceRoute(rrmp *RouteResourceModelPtr) string {
 		}
 		return buf.String()
 	}
-	return rrmp.HclType + ` "cloudfoundry_route "` + rrmp.HclObjectName + ` {}`
+	return rrmp.HclType + ` "cloudfoundry_route" ` + rrmp.HclObjectName + ` {}`
 }
 
 func hclDataSourceRoute(rrmp *RouteDataSourceModelPtr) string {
@@ -134,7 +134,7 @@ func hclDataSourceRoute(rrmp *RouteDataSourceModelPtr) string {
 		}
 		return buf.String()
 	}
-	return rrmp.HclType + ` "cloudfoundry_route "` + rrmp.HclObjectName + ` {}`
+	return rrmp.HclType + ` "cloudfoundry_route" ` + rrmp.HclObjectName + ` {}`
 }
 
 func TestRouteDataSource_Configure(t *testing.T) {

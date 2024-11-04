@@ -164,12 +164,10 @@ func mapDestinationValuesToSetType(ctx context.Context, destinations *[]resource
 func (data *datasourceRouteType) mapReadRouteTypeToValues() client.RouteListOptions {
 
 	routeListOptions := client.NewRouteListOptions()
-	routeListOptions.DomainGUIDs = client.Filter{
-		Values: []string{
-			data.Domain.ValueString(),
-		},
-	}
 
+	if !data.Domain.IsNull() {
+		routeListOptions.DomainGUIDs = client.Filter{Values: []string{data.Domain.ValueString()}}
+	}
 	if !data.Space.IsNull() {
 		routeListOptions.SpaceGUIDs = client.Filter{Values: []string{data.Space.ValueString()}}
 	}
