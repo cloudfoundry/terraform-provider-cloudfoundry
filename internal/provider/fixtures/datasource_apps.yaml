@@ -1,0 +1,3537 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:46 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7f8d20a29c7616d6
+            X-B3-Traceid:
+                - 9fefebeaf3204c7b7f8d20a29c7616d6
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.011305"
+            X-Vcap-Request-Id:
+                - 9fefebea-f320-4c7b-7f8d-20a29c7616d6::aba94e9c-0cee-413d-93a5-536f5cb70de3
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 790.558333ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 19262
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"e61536de-f863-4da3-9772-a8538e1bad3d","created_at":"2024-04-30T03:56:21Z","updated_at":"2024-04-30T03:56:56Z","name":"tf-test-do-not-delete-nodejs","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d9c1d8ed-9777-48b1-a6ed-c3ce51a87a48"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/features"}}},{"guid":"49cf129e-66f5-4929-bad4-963c0ff95454","created_at":"2024-05-15T04:47:23Z","updated_at":"2024-05-15T04:48:18Z","name":"hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"e40e6463-6ab3-47e2-88bd-ab8cac35e43d"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/features"}}},{"guid":"f9ed8370-7800-4cbc-90b4-413ede177b83","created_at":"2024-05-15T04:48:35Z","updated_at":"2024-05-15T04:49:06Z","name":"hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"24974494-53ea-4e80-94d7-18651a259aa1"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_id":"hello","mta_version":"1.0.0","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/features"}}},{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}},{"guid":"2ce853d9-0570-4643-aa96-fe98f87ff187","created_at":"2024-05-15T04:50:46Z","updated_at":"2024-05-15T04:51:16Z","name":"foo-hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"17e76ab4-43cc-4331-b284-4f07ba35d90e"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/features"}}},{"guid":"ac3fb0ad-8c59-4971-84e2-3e437a12596d","created_at":"2024-06-19T06:46:09Z","updated_at":"2024-06-19T07:44:57Z","name":"tf-test-stack","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d8803038-e588-4ee4-a369-d0d8236c3393"}}},"metadata":{"labels":{"sap.com/cflinuxfs4_stack_migration_state":"succeeded"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/features"}}},{"guid":"141274f9-d94e-4c51-a10e-1b61793d4568","created_at":"2024-08-06T09:08:42Z","updated_at":"2024-08-06T09:09:12Z","name":"hello-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"7060182e-4fa3-4239-9fa9-e60e8316645c"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"hello","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/features"}}},{"guid":"189dc98f-9621-4713-9094-62d7f575ab71","created_at":"2024-08-27T04:51:25Z","updated_at":"2024-08-27T04:51:49Z","name":"test-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"5d36278d-a692-41b4-8d36-57d684617465"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"098f6bcd4621d373cade4e832627b4f6"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"test","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/features"}}}]}'
+        headers:
+            Content-Length:
+                - "19262"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:46 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 546e9e1d6e976126
+            X-B3-Traceid:
+                - ba7fdba029784a82546e9e1d6e976126
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.078759"
+            X-Vcap-Request-Id:
+                - ba7fdba0-2978-4a82-546e-9e1d6e976126::a1cf4b41-3663-4055-979a-8d52a74e69ee
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 547.692708ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 432
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-do-not-delete-nodejs
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "432"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:46 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7ac5e1d9af141be7
+            X-B3-Traceid:
+                - aae97d43900d43117ac5e1d9af141be7
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.032829"
+            X-Vcap-Request-Id:
+                - aae97d43-900d-4311-7ac5-e1d9af141be7::791fb274-87d6-4fa3-9654-f62b4118078a
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 269.061583ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 839
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "839"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:47 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7e44561a28c5d421
+            X-B3-Traceid:
+                - faaf74c8d6f14e237e44561a28c5d421
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.032547"
+            X-Vcap-Request-Id:
+                - faaf74c8-d6f1-4e23-7e44-561a28c5d421::5c16448e-df01-4a36-adb0-0464ffa54a17
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 268.7845ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 946
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "946"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:47 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 456c816a300cd77a
+            X-B3-Traceid:
+                - fc488337bae1434c456c816a300cd77a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.026109"
+            X-Vcap-Request-Id:
+                - fc488337-bae1-434c-456c-816a300cd77a::4b923644-cb92-4034-8377-63c67fc83451
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 265.319292ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:47 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7bba80e143774d0c
+            X-B3-Traceid:
+                - 0f570110311b4aee7bba80e143774d0c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.020681"
+            X-Vcap-Request-Id:
+                - 0f570110-311b-4aee-7bba-80e143774d0c::167e44dc-24ba-4940-b15c-069afbbd22fc
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 290.839833ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1041
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "1041"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:48 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7ca5240efdd55961
+            X-B3-Traceid:
+                - 05eeeb966cb0447a7ca5240efdd55961
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.028011"
+            X-Vcap-Request-Id:
+                - 05eeeb96-6cb0-447a-7ca5-240efdd55961::41aa4f26-900a-4d7b-bd4a-74506c7c4eb2
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 307.082084ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 499
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-stack
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  sap.com/cflinuxfs4_stack_migration_state: succeeded
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "499"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:48 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4a19c0c029eae22d
+            X-B3-Traceid:
+                - 596bc685fa694dcd4a19c0c029eae22d
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.024170"
+            X-Vcap-Request-Id:
+                - 596bc685-fa69-4dcd-4a19-c0c029eae22d::cba36e38-8249-4c25-9c42-973f817983ee
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 306.788ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1277
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: hello
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1277"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:48 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 75d4023797aaf4b0
+            X-B3-Traceid:
+                - 4d2256456f26462675d4023797aaf4b0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.021306"
+            X-Vcap-Request-Id:
+                - 4d225645-6f26-4626-75d4-023797aaf4b0::6e6d454e-8290-4ff1-aa18-3fb7544d70a6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 258.507708ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1275
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: test-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: '098f6bcd4621d373cade4e832627b4f6'
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: test
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1275"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:48 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 565ccf35d1389ca9
+            X-B3-Traceid:
+                - afa07ae2ff8940bc565ccf35d1389ca9
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089987"
+            X-Runtime:
+                - "0.025864"
+            X-Vcap-Request-Id:
+                - afa07ae2-ff89-40bc-565c-cf35d1389ca9::c0a3b7a5-dd74-4a8e-ac35-d7e820c17359
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 271.251333ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:49 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 429d4ba6bef742ba
+            X-B3-Traceid:
+                - 652ed49c32c64f28429d4ba6bef742ba
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.016837"
+            X-Vcap-Request-Id:
+                - 652ed49c-32c6-4f28-429d-4ba6bef742ba::afe441a3-161c-4298-8caa-5530397dbcdf
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 461.679167ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 19262
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"e61536de-f863-4da3-9772-a8538e1bad3d","created_at":"2024-04-30T03:56:21Z","updated_at":"2024-04-30T03:56:56Z","name":"tf-test-do-not-delete-nodejs","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d9c1d8ed-9777-48b1-a6ed-c3ce51a87a48"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/features"}}},{"guid":"49cf129e-66f5-4929-bad4-963c0ff95454","created_at":"2024-05-15T04:47:23Z","updated_at":"2024-05-15T04:48:18Z","name":"hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"e40e6463-6ab3-47e2-88bd-ab8cac35e43d"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/features"}}},{"guid":"f9ed8370-7800-4cbc-90b4-413ede177b83","created_at":"2024-05-15T04:48:35Z","updated_at":"2024-05-15T04:49:06Z","name":"hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"24974494-53ea-4e80-94d7-18651a259aa1"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_id":"hello","mta_version":"1.0.0","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/features"}}},{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}},{"guid":"2ce853d9-0570-4643-aa96-fe98f87ff187","created_at":"2024-05-15T04:50:46Z","updated_at":"2024-05-15T04:51:16Z","name":"foo-hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"17e76ab4-43cc-4331-b284-4f07ba35d90e"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/features"}}},{"guid":"ac3fb0ad-8c59-4971-84e2-3e437a12596d","created_at":"2024-06-19T06:46:09Z","updated_at":"2024-06-19T07:44:57Z","name":"tf-test-stack","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d8803038-e588-4ee4-a369-d0d8236c3393"}}},"metadata":{"labels":{"sap.com/cflinuxfs4_stack_migration_state":"succeeded"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/features"}}},{"guid":"141274f9-d94e-4c51-a10e-1b61793d4568","created_at":"2024-08-06T09:08:42Z","updated_at":"2024-08-06T09:09:12Z","name":"hello-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"7060182e-4fa3-4239-9fa9-e60e8316645c"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"hello","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/features"}}},{"guid":"189dc98f-9621-4713-9094-62d7f575ab71","created_at":"2024-08-27T04:51:25Z","updated_at":"2024-08-27T04:51:49Z","name":"test-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"5d36278d-a692-41b4-8d36-57d684617465"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"098f6bcd4621d373cade4e832627b4f6"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"test","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/features"}}}]}'
+        headers:
+            Content-Length:
+                - "19262"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:49 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6797de5895b18972
+            X-B3-Traceid:
+                - e52b927f171749206797de5895b18972
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.080530"
+            X-Vcap-Request-Id:
+                - e52b927f-1717-4920-6797-de5895b18972::50c7f60e-37ce-4b71-aee6-52219317609b
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 318.1015ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 432
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-do-not-delete-nodejs
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "432"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:50 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6665687f4557755a
+            X-B3-Traceid:
+                - e8ecb84cdb8c4bb66665687f4557755a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.029364"
+            X-Vcap-Request-Id:
+                - e8ecb84c-db8c-4bb6-6665-687f4557755a::98e809bd-5d5c-42eb-be32-aacb86949316
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 270.883833ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 839
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "839"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:50 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 490e477150c3d7ef
+            X-B3-Traceid:
+                - c0bc2eba76c74f17490e477150c3d7ef
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.021995"
+            X-Vcap-Request-Id:
+                - c0bc2eba-76c7-4f17-490e-477150c3d7ef::4afdd5ce-397d-43b4-a3b1-25c5ceb9d849
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 328.528125ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 946
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "946"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:50 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4c45b11a994881ea
+            X-B3-Traceid:
+                - 4620e59fbc94421e4c45b11a994881ea
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089987"
+            X-Runtime:
+                - "0.026709"
+            X-Vcap-Request-Id:
+                - 4620e59f-bc94-421e-4c45-b11a994881ea::9967b588-143c-4cfa-8547-b455e68c089b
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 262.84625ms
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:50 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6e5e060a6fe6e116
+            X-B3-Traceid:
+                - deb49150883b4fd26e5e060a6fe6e116
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.018006"
+            X-Vcap-Request-Id:
+                - deb49150-883b-4fd2-6e5e-060a6fe6e116::db714791-6eb9-4566-8576-1016bc66056d
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 255.776709ms
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1041
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "1041"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:51 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5b1320e8c69ba50a
+            X-B3-Traceid:
+                - 5892a0e1d8b841845b1320e8c69ba50a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.023395"
+            X-Vcap-Request-Id:
+                - 5892a0e1-d8b8-4184-5b13-20e8c69ba50a::26cde333-daa3-4460-8582-2295e553ecfa
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 272.191375ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 499
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-stack
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  sap.com/cflinuxfs4_stack_migration_state: succeeded
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "499"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:51 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6e1cda34b5a730d0
+            X-B3-Traceid:
+                - 79b8f84d1731459b6e1cda34b5a730d0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.022006"
+            X-Vcap-Request-Id:
+                - 79b8f84d-1731-459b-6e1c-da34b5a730d0::fa9f4a94-f543-4dae-af5d-c8438fdfa2ba
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 332.416667ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1277
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: hello
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1277"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:51 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 507f347798cd3576
+            X-B3-Traceid:
+                - a0c2bc51f1fd4c82507f347798cd3576
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.024482"
+            X-Vcap-Request-Id:
+                - a0c2bc51-f1fd-4c82-507f-347798cd3576::d9997713-4058-4b0f-ab34-1470d763de19
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 307.014709ms
+    - id: 19
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1275
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: test-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: '098f6bcd4621d373cade4e832627b4f6'
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: test
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1275"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:52 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 593d83de8842900c
+            X-B3-Traceid:
+                - 31920d9aa911455f593d83de8842900c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.022448"
+            X-Vcap-Request-Id:
+                - 31920d9a-a911-455f-593d-83de8842900c::8013a4f7-8cb7-4063-b4d3-3a5d5323a6be
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 259.036625ms
+    - id: 20
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:52 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 64328aa7cf1cc4e3
+            X-B3-Traceid:
+                - 72507d8e98b849fb64328aa7cf1cc4e3
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.014738"
+            X-Vcap-Request-Id:
+                - 72507d8e-98b8-49fb-6432-8aa7cf1cc4e3::191de442-9092-4a03-a8d7-08a6d7d871a3
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 256.589333ms
+    - id: 21
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 19262
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"e61536de-f863-4da3-9772-a8538e1bad3d","created_at":"2024-04-30T03:56:21Z","updated_at":"2024-04-30T03:56:56Z","name":"tf-test-do-not-delete-nodejs","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d9c1d8ed-9777-48b1-a6ed-c3ce51a87a48"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/features"}}},{"guid":"49cf129e-66f5-4929-bad4-963c0ff95454","created_at":"2024-05-15T04:47:23Z","updated_at":"2024-05-15T04:48:18Z","name":"hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"e40e6463-6ab3-47e2-88bd-ab8cac35e43d"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/features"}}},{"guid":"f9ed8370-7800-4cbc-90b4-413ede177b83","created_at":"2024-05-15T04:48:35Z","updated_at":"2024-05-15T04:49:06Z","name":"hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"24974494-53ea-4e80-94d7-18651a259aa1"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_id":"hello","mta_version":"1.0.0","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/features"}}},{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}},{"guid":"2ce853d9-0570-4643-aa96-fe98f87ff187","created_at":"2024-05-15T04:50:46Z","updated_at":"2024-05-15T04:51:16Z","name":"foo-hello-router","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"17e76ab4-43cc-4331-b284-4f07ba35d90e"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-router\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/features"}}},{"guid":"ac3fb0ad-8c59-4971-84e2-3e437a12596d","created_at":"2024-06-19T06:46:09Z","updated_at":"2024-06-19T07:44:57Z","name":"tf-test-stack","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":[],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"d8803038-e588-4ee4-a369-d0d8236c3393"}}},"metadata":{"labels":{"sap.com/cflinuxfs4_stack_migration_state":"succeeded"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/features"}}},{"guid":"141274f9-d94e-4c51-a10e-1b61793d4568","created_at":"2024-08-06T09:08:42Z","updated_at":"2024-08-06T09:09:12Z","name":"hello-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"7060182e-4fa3-4239-9fa9-e60e8316645c"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"5d41402abc4b2a76b9719d911017c592"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"hello","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/features"}}},{"guid":"189dc98f-9621-4713-9094-62d7f575ab71","created_at":"2024-08-27T04:51:25Z","updated_at":"2024-08-27T04:51:49Z","name":"test-my-cf-app","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["staticfile_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"5d36278d-a692-41b4-8d36-57d684617465"}}},"metadata":{"labels":{"mta_id":"551a5eac090e859a6f18d2617790c225","mta_namespace":"098f6bcd4621d373cade4e832627b4f6"},"annotations":{"mta_id":"a.cf.app","mta_version":"0.0.0","mta_namespace":"test","mta_module":"{\"name\":\"my-mta-managed-app-module\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/features"}}}]}'
+        headers:
+            Content-Length:
+                - "19262"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:52 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4254e4b54a932de1
+            X-B3-Traceid:
+                - 96bc895ae26a45354254e4b54a932de1
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.074672"
+            X-Vcap-Request-Id:
+                - 96bc895a-e26a-4535-4254-e4b54a932de1::b76c7992-8dde-4230-890a-413ad6e71a87
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 311.595334ms
+    - id: 22
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/e61536de-f863-4da3-9772-a8538e1bad3d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 432
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-do-not-delete-nodejs
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "432"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:53 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5adff2001bf3882c
+            X-B3-Traceid:
+                - 2e6f650a76b340365adff2001bf3882c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.029000"
+            X-Vcap-Request-Id:
+                - 2e6f650a-76b3-4036-5adf-f2001bf3882c::5e83aaa0-4034-4ac1-babb-79ecedc8c18c
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 264.634125ms
+    - id: 23
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/49cf129e-66f5-4929-bad4-963c0ff95454/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 839
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "839"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:53 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7337ef62304fab46
+            X-B3-Traceid:
+                - 604ea7b79e6f4d647337ef62304fab46
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.018078"
+            X-Vcap-Request-Id:
+                - 604ea7b7-9e6f-4d64-7337-ef62304fab46::98346b2b-55ad-4d43-9e97-6aa7a5a71e39
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 253.519334ms
+    - id: 24
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/f9ed8370-7800-4cbc-90b4-413ede177b83/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 946
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "946"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:53 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7e4cd8b7e76cd4dc
+            X-B3-Traceid:
+                - f40837e6e2b145cc7e4cd8b7e76cd4dc
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.017871"
+            X-Vcap-Request-Id:
+                - f40837e6-e2b1-45cc-7e4c-d8b7e76cd4dc::6079acb5-b8a9-438e-b036-c1dae9717419
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 258.27125ms
+    - id: 25
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:54 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5d0b93f96f9eaf5b
+            X-B3-Traceid:
+                - 0587041696234fb25d0b93f96f9eaf5b
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089989"
+            X-Runtime:
+                - "0.020953"
+            X-Vcap-Request-Id:
+                - 05870416-9623-4fb2-5d0b-93f96f9eaf5b::8374a308-f223-4f8c-88c1-8a16f734306e
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 658.171334ms
+    - id: 26
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/2ce853d9-0570-4643-aa96-fe98f87ff187/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1041
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-router
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                backend: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                name: backend
+                url: https://foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-router.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-router"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "1041"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:54 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4b731f141f84fbc4
+            X-B3-Traceid:
+                - 401b6362f8e6467a4b731f141f84fbc4
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.023773"
+            X-Vcap-Request-Id:
+                - 401b6362-f8e6-467a-4b73-1f141f84fbc4::5704061a-5148-4a3a-bc6f-031920813ca8
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 260.445375ms
+    - id: 27
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/ac3fb0ad-8c59-4971-84e2-3e437a12596d/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 499
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: tf-test-stack
+              env:
+                MY_ENV: red
+              lifecycle: buildpack
+              stack: cflinuxfs4
+              services:
+              - xsuaa-tf
+              routes:
+              - route: tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  sap.com/cflinuxfs4_stack_migration_state: succeeded
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "499"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:54 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4782999cfda326e6
+            X-B3-Traceid:
+                - 8ae597116fb44a4f4782999cfda326e6
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.027744"
+            X-Vcap-Request-Id:
+                - 8ae59711-6fb4-4a4f-4782-999cfda326e6::5fa6238d-5e4d-4ce2-9f37-d43c5f8076a9
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 263.740042ms
+    - id: 28
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/141274f9-d94e-4c51-a10e-1b61793d4568/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1277
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: hello-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: hello-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: 5d41402abc4b2a76b9719d911017c592
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: hello
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1277"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:55 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6c25b63784a8833f
+            X-B3-Traceid:
+                - 3ca4046b1a1640426c25b63784a8833f
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.024350"
+            X-Vcap-Request-Id:
+                - 3ca4046b-1a16-4042-6c25-b63784a8833f::e6ccbbcd-d738-40e2-8063-6f53e9c501e4
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 345.4305ms
+    - id: 29
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/189dc98f-9621-4713-9094-62d7f575ab71/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1275
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: test-my-cf-app
+              env:
+                A_MORE_COMPLEX_VAR: '{ "can be an entire":"json object", "with": [ "nested": {
+                  "elements": "https://test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com"
+                  } ]'
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "B0FF19ED574D37E24C1FB7AE57B81806",
+                    "no-start" : false,
+                    "upload-timeout" : 180
+                  }
+                MY_CF_APP_ENV_VARIABLE: HELLO MTA
+              lifecycle: buildpack
+              buildpacks:
+              - staticfile_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: test-performanceteamblr-tf-space-1-my-mta-managed-app-module.cfapps.sap.hana.ondemand.com
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 551a5eac090e859a6f18d2617790c225
+                  mta_namespace: '098f6bcd4621d373cade4e832627b4f6'
+                annotations:
+                  mta_id: a.cf.app
+                  mta_version: 0.0.0
+                  mta_namespace: test
+                  mta_module: '{"name":"my-mta-managed-app-module"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 1024M
+                disk_quota: 1024M
+                log-rate-limit-per-second: -1
+                health-check-type: http
+                health-check-http-endpoint: "/index"
+                readiness-health-check-type: process
+                timeout: 180
+        headers:
+            Content-Length:
+                - "1275"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:55 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6a25d62da08819c4
+            X-B3-Traceid:
+                - 614fb4ae849b44606a25d62da08819c4
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.021631"
+            X-Vcap-Request-Id:
+                - 614fb4ae-849b-4460-6a25-d62da08819c4::82c71124-448b-473c-9eda-998fc0a80237
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 308.571667ms
+    - id: 30
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:55 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6c773fa9bf5a9a8a
+            X-B3-Traceid:
+                - b969c26b6135422e6c773fa9bf5a9a8a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.014732"
+            X-Vcap-Request-Id:
+                - b969c26b-6135-422e-6c77-3fa9bf5a9a8a::eaad153e-508f-4dac-9d44-36261e737b50
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 250.344625ms
+    - id: 31
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2873
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}}]}'
+        headers:
+            Content-Length:
+                - "2873"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:56 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4a32279f97e63860
+            X-B3-Traceid:
+                - e3eb0648636b44544a32279f97e63860
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.079412"
+            X-Vcap-Request-Id:
+                - e3eb0648-636b-4454-4a32-279f97e63860::a2908b00-2b89-4345-8750-3eabcf413e87
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 337.831ms
+    - id: 32
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:56 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7474950d1ec5b6b9
+            X-B3-Traceid:
+                - ddee1d4e72864fb47474950d1ec5b6b9
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.030241"
+            X-Vcap-Request-Id:
+                - ddee1d4e-7286-4fb4-7474-950d1ec5b6b9::80974897-27dd-4ea2-b0e5-d6748ac36b86
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 307.371542ms
+    - id: 33
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:56 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6c436942618f37df
+            X-B3-Traceid:
+                - 472945c4f0a648c66c436942618f37df
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.011691"
+            X-Vcap-Request-Id:
+                - 472945c4-f0a6-48c6-6c43-6942618f37df::28e1ee6f-2596-4f03-adb5-7e64dd9a8fd5
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 246.756333ms
+    - id: 34
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2873
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}}]}'
+        headers:
+            Content-Length:
+                - "2873"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:57 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6a637d8374205eeb
+            X-B3-Traceid:
+                - 132c2a5ab9824d2c6a637d8374205eeb
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.080360"
+            X-Vcap-Request-Id:
+                - 132c2a5a-b982-4d2c-6a63-7d8374205eeb::4515c68a-1106-4ed5-95b0-3bb3e7c2df7a
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 325.974959ms
+    - id: 35
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:57 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 67569f5a74b367c0
+            X-B3-Traceid:
+                - 24d704af290349ed67569f5a74b367c0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.026307"
+            X-Vcap-Request-Id:
+                - 24d704af-2903-49ed-6756-9f5a74b367c0::10b1a63f-0f25-44da-9d21-b5714d3f85a7
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 307.357875ms
+    - id: 36
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143?include=organization
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1644
+        uncompressed: false
+        body: '{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143","created_at":"2024-02-08T08:26:00Z","updated_at":"2024-02-08T08:26:00Z","name":"tf-space-1","relationships":{"organization":{"data":{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56"}},"quota":{"data":null}},"metadata":{"labels":{"purpose":"prod","test":"pass"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"features":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/features"},"apply_manifest":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/actions/apply_manifest","method":"POST"}},"included":{"organizations":[{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}]}}'
+        headers:
+            Content-Length:
+                - "1644"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:57 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6c58a4c65cee9b23
+            X-B3-Traceid:
+                - a8bb6ea6a37a40236c58a4c65cee9b23
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.023631"
+            X-Vcap-Request-Id:
+                - a8bb6ea6-a37a-4023-6c58-a4c65cee9b23::2821ca77-1224-49fc-aae4-25f70d13da0f
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 260.072667ms
+    - id: 37
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2873
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/apps?names=foo-hello-backend\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"be2bec49-6df9-4ac2-a160-eb0ce3eb0025","created_at":"2024-05-15T04:49:55Z","updated_at":"2024-05-15T04:50:26Z","name":"foo-hello-backend","state":"STARTED","lifecycle":{"type":"buildpack","data":{"buildpacks":["sap_java_buildpack"],"stack":"cflinuxfs4"}},"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"current_droplet":{"data":{"guid":"3d8c1190-bc2a-405d-81c6-2da6d9885566"}}},"metadata":{"labels":{"mta_id":"5d41402abc4b2a76b9719d911017c592","mta_namespace":"acbd18db4cc2f85cedef654fccc4a4d8"},"annotations":{"mta_id":"hello","mta_version":"1.0.0","mta_namespace":"foo","mta_module":"{\"name\":\"hello-backend\"}","mta_module_provided_dependencies":"[]","mta_bound_services":"[]"}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025"},"environment_variables":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/environment_variables"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"processes":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/processes"},"packages":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/packages"},"current_droplet":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets/current"},"droplets":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/droplets"},"tasks":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/tasks"},"start":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/start","method":"POST"},"stop":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/stop","method":"POST"},"clear_buildpack_cache":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/actions/clear_buildpack_cache","method":"POST"},"revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions"},"deployed_revisions":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/revisions/deployed"},"features":{"href":"https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/features"}}}]}'
+        headers:
+            Content-Length:
+                - "2873"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:58 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 67b9b350e07c2caf
+            X-B3-Traceid:
+                - eeef7c867e3c49a467b9b350e07c2caf
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089989"
+            X-Runtime:
+                - "0.070349"
+            X-Vcap-Request-Id:
+                - eeef7c86-7e3c-49a4-67b9-b350e07c2caf::33d92f2b-96f7-4f1d-8392-683dc26e97e4
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 309.075583ms
+    - id: 38
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/apps/be2bec49-6df9-4ac2-a160-eb0ce3eb0025/manifest
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 930
+        uncompressed: false
+        body: |
+            ---
+            applications:
+            - name: foo-hello-backend
+              env:
+                MEMORY_CALCULATOR_V1: 'true'
+                message: Hello, from foo-hello-backend!
+                DEPLOY_ATTRIBUTES: |-
+                  {
+                    "app-content-digest" : "73CC2934A2B9D7274BB9C65C9C80E3D2"
+                  }
+              lifecycle: buildpack
+              buildpacks:
+              - sap_java_buildpack
+              stack: cflinuxfs4
+              routes:
+              - route: foo-hello-backend.cfapps.sap.hana.ondemand.com/content
+                protocol: http1
+              metadata:
+                labels:
+                  mta_id: 5d41402abc4b2a76b9719d911017c592
+                  mta_namespace: acbd18db4cc2f85cedef654fccc4a4d8
+                annotations:
+                  mta_id: hello
+                  mta_version: 1.0.0
+                  mta_namespace: foo
+                  mta_module: '{"name":"hello-backend"}'
+                  mta_module_provided_dependencies: "[]"
+                  mta_bound_services: "[]"
+              processes:
+              - type: web
+                instances: 1
+                memory: 256M
+                disk_quota: 256M
+                log-rate-limit-per-second: -1
+                health-check-type: port
+                readiness-health-check-type: process
+        headers:
+            Content-Length:
+                - "930"
+            Content-Type:
+                - application/x-yaml; charset=utf-8
+            Date:
+                - Mon, 28 Oct 2024 04:11:58 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5b833048e58eae04
+            X-B3-Traceid:
+                - a9662a0a853e43265b833048e58eae04
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730089988"
+            X-Runtime:
+                - "0.022950"
+            X-Vcap-Request-Id:
+                - a9662a0a-853e-4326-5b83-3048e58eae04::63c6efc5-aa57-49f6-8252-6e96f5ba1cf9
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 257.231875ms

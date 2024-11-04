@@ -57,7 +57,7 @@ func (d *SpaceQuotaDataSource) Schema(ctx context.Context, req datasource.Schema
 				Computed:            true,
 			},
 			"total_route_ports": schema.Int64Attribute{
-				MarkdownDescription: "Maximum routes with reserved ports",
+				MarkdownDescription: "Total number of ports that are reservable by routes in a space",
 				Computed:            true,
 			},
 			"total_memory": schema.Int64Attribute{
@@ -122,11 +122,13 @@ func (d *SpaceQuotaDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	sqlo := &cfv3client.SpaceQuotaListOptions{
-		Names: cfv3client.Filter{
-			Values: []string{spaceQuotaType.Name.ValueString()},
+	sqlo := cfv3client.NewSpaceQuotaListOptions()
+	sqlo.Names = cfv3client.Filter{
+		Values: []string{
+			spaceQuotaType.Name.ValueString(),
 		},
 	}
+
 	if !spaceQuotaType.Org.IsNull() {
 		sqlo.OrganizationGUIDs = cfv3client.Filter{
 			Values: []string{spaceQuotaType.Org.ValueString()},

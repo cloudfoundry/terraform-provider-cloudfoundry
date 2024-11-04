@@ -3,11 +3,17 @@ page_title: "cloudfoundry_mtas Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
   Gets information on Multi Target Applications present in a space.
+  Further documentation:
+  Multitarget Applications in the Cloud Foundry Environment https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment
 ---
 
 # cloudfoundry_mtas (Data Source)
 
 Gets information on Multi Target Applications present in a space.
+		
+		
+__Further documentation:__ 
+ [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment)
 
 ## Example Usage
 

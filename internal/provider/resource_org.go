@@ -151,14 +151,13 @@ func (r *orgResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	orgs, err := r.cfClient.Organizations.ListAll(ctx, &cfv3client.OrganizationListOptions{
-		// will filter by ID as it already exists in state
-		GUIDs: cfv3client.Filter{
-			Values: []string{
-				data.ID.ValueString(),
-			},
+	orglo := cfv3client.NewOrganizationListOptions()
+	orglo.GUIDs = cfv3client.Filter{
+		Values: []string{
+			data.ID.ValueString(),
 		},
-	})
+	}
+	orgs, err := r.cfClient.Organizations.ListAll(ctx, orglo)
 	if err != nil {
 		handleReadErrors(ctx, resp, err, "org", data.ID.ValueString())
 		return
