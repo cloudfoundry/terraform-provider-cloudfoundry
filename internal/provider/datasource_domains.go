@@ -53,7 +53,7 @@ func (d *DomainsDataSource) Configure(ctx context.Context, req datasource.Config
 
 func (d *DomainsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information of private Cloud Foundry domains within the organization.",
+		MarkdownDescription: "Gets information of Cloud Foundry domains. If an organization is specified, it will return the private domains associated with that cloud foundry organization",
 		Attributes: map[string]schema.Attribute{
 			"org": schema.StringAttribute{
 				MarkdownDescription: "The ID of the Org within which to find the domains",
@@ -69,7 +69,7 @@ func (d *DomainsDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 					Attributes: map[string]schema.Attribute{
 						idKey: guidSchema(),
 						"name": schema.StringAttribute{
-							MarkdownDescription: "This value will be computed based on the sub_domain or domain attributes.",
+							MarkdownDescription: "The name of the cloud foundry domain.",
 							Computed:            true,
 						},
 						"org": schema.StringAttribute{
@@ -157,6 +157,6 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	data.Domains, diags = mapDomainsValuesToType(ctx, domains)
 	resp.Diagnostics.Append(diags...)
 
-	tflog.Trace(ctx, "read a domain data source")
+	tflog.Trace(ctx, "read the domains data source")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
