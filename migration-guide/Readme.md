@@ -213,6 +213,7 @@ While most dataSources have  maintained the same structure, some dataSources nee
 
 - [Application](./data-sources/app.md)
 - [Domain](./data-sources/domain.md)
+- [Domains](./data-sources/domains.md)
 - [Org Quota](./data-sources/org_quota.md)
 - [Organisation](./data-sources/org.md)
 - [Route](./data-sources/route.md)
