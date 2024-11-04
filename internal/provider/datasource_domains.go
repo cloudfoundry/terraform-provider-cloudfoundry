@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
-	"github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -119,8 +118,6 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		return
 	}
 
-	var domains []*resource.Domain
-	var err error
 	dlo := cfv3client.NewDomainListOptions()
 	if len(data.Org.ValueString()) > 0 {
 
@@ -140,7 +137,7 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		}
 	}
 
-	domains, err = d.cfClient.Domains.ListAll(ctx, dlo)
+	domains, err := d.cfClient.Domains.ListAll(ctx, dlo)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Domains",
