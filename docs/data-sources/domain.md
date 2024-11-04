@@ -22,7 +22,7 @@ data "cloudfoundry_domain" "mydomain" {
 
 ### Required
 
-- `name` (String) This value will be computed based on the sub_domain or domain attributes. If provided then this argument will be used as the full domain name.
+- `name` (String) The name of the cloud foundry domain
 
 ### Read-Only
 

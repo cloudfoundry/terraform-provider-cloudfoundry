@@ -56,7 +56,7 @@ func (d *DomainDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 		Attributes: map[string]schema.Attribute{
 			idKey: guidSchema(),
 			"name": schema.StringAttribute{
-				MarkdownDescription: "This value will be computed based on the sub_domain or domain attributes. If provided then this argument will be used as the full domain name.",
+				MarkdownDescription: "The name of the cloud foundry domain",
 				Required:            true,
 			},
 			"org": schema.StringAttribute{
