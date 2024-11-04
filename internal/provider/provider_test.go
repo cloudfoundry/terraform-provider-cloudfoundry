@@ -322,6 +322,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_space_roles",
 		"cloudfoundry_domains",
 		"cloudfoundry_routes",
+		"cloudfoundry_service_broker",
 	}
 
 	ctx := context.Background()
