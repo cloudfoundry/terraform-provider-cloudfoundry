@@ -54,6 +54,13 @@ type datasourceServiceInstanceType struct {
 	UpdatedAt        types.String `tfsdk:"updated_at"`
 }
 
+type datasourceServiceInstancesType struct {
+	Org              types.String                    `tfsdk:"org"`
+	Space            types.String                    `tfsdk:"space"`
+	Name             types.String                    `tfsdk:"name"`
+	ServiceInstances []datasourceServiceInstanceType `tfsdk:"service_instances"`
+}
+
 type lastOperationType struct {
 	Type        types.String `tfsdk:"type"`
 	State       types.String `tfsdk:"state"`
@@ -134,6 +141,20 @@ func mapDataSourceServiceInstanceValuesToType(ctx context.Context, value *resour
 	}
 
 	return dsServiceInstanceType, diagnostics
+}
+
+func mapDataSourceServiceInstancesValuesToType(ctx context.Context, svcInstances []*resource.ServiceInstance) ([]datasourceServiceInstanceType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	svcInstancesList := []datasourceServiceInstanceType{}
+	for _, svcInstance := range svcInstances {
+		svcInstanceValue, diags := mapDataSourceServiceInstanceValuesToType(ctx, svcInstance)
+		diagnostics.Append(diags...)
+		svcInstancesList = append(svcInstancesList, svcInstanceValue)
+	}
+
+	return svcInstancesList, diagnostics
+
 }
 
 func mapResourceServiceInstanceValuesToType(ctx context.Context, value *resource.ServiceInstance, paramCreds jsontypes.Normalized) (serviceInstanceType, diag.Diagnostics) {
