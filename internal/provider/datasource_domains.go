@@ -53,7 +53,7 @@ func (d *DomainsDataSource) Configure(ctx context.Context, req datasource.Config
 
 func (d *DomainsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information of Cloud Foundry domains. If an organization is specified, it will return the private domains associated with that cloud foundry organization",
+		MarkdownDescription: "Gets information of Cloud Foundry domains. If an organization is specified, it will return the private domains associated with that cloud foundry organization.",
 		Attributes: map[string]schema.Attribute{
 			"org": schema.StringAttribute{
 				MarkdownDescription: "The ID of the Org within which to find the domains",

@@ -2,12 +2,12 @@
 page_title: "cloudfoundry_domains Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Gets information of private Cloud Foundry domains within the organization.
+  Gets information of Cloud Foundry domains. If an organization is specified, it will return the private domains associated with that cloud foundry organization.
 ---
 
 # cloudfoundry_domains (Data Source)
 
-Gets information of private Cloud Foundry domains within the organization.
+Gets information of Cloud Foundry domains. If an organization is specified, it will return the private domains associated with that cloud foundry organization.
 
 ## Example Usage
 
@@ -38,7 +38,7 @@ Read-Only:
 - `id` (String) The GUID of the object.
 - `internal` (Boolean) Whether the domain is used for internal (container-to-container) traffic, or external (user-to-container) traffic
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
-- `name` (String) This value will be computed based on the sub_domain or domain attributes.
+- `name` (String) The name of the cloud foundry domain.
 - `org` (String) The organization the domain is scoped to
 - `router_group` (String) The guid of the desired router group to route tcp traffic through.
 - `shared_orgs` (Set of String) Organizations the domain is shared with
