@@ -58,7 +58,6 @@ func (p *CloudFoundryProvider) Schema(ctx context.Context, req provider.SchemaRe
 			"user": schema.StringAttribute{
 				MarkdownDescription: "A unique identifier associated with an individual or entity for authentication & authorization purposes.",
 				Optional:            true,
-				Sensitive:           true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
 				},
@@ -73,7 +72,6 @@ func (p *CloudFoundryProvider) Schema(ctx context.Context, req provider.SchemaRe
 			},
 			"cf_client_id": schema.StringAttribute{
 				Optional:            true,
-				Sensitive:           true,
 				MarkdownDescription: "Unique identifier for a client application used in authentication and authorization processes",
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
@@ -101,6 +99,7 @@ func (p *CloudFoundryProvider) Schema(ctx context.Context, req provider.SchemaRe
 			"access_token": schema.StringAttribute{
 				MarkdownDescription: "OAuth token to authenticate with Cloud Foundry",
 				Optional:            true,
+				Sensitive:           true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
 				},
@@ -108,6 +107,7 @@ func (p *CloudFoundryProvider) Schema(ctx context.Context, req provider.SchemaRe
 			"refresh_token": schema.StringAttribute{
 				MarkdownDescription: "Token to refresh the access token, requires access_token",
 				Optional:            true,
+				Sensitive:           true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
 				},
