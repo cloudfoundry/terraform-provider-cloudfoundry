@@ -33,6 +33,12 @@ type datasourceServiceBrokerType struct {
 	UpdatedAt   types.String `tfsdk:"updated_at"`
 }
 
+type datasourceServiceBrokersType struct {
+	Name           types.String                  `tfsdk:"name"`
+	Space          types.String                  `tfsdk:"space"`
+	ServiceBrokers []datasourceServiceBrokerType `tfsdk:"service_brokers"`
+}
+
 func (a *serviceBrokerType) Reduce() datasourceServiceBrokerType {
 	var reduced datasourceServiceBrokerType
 	copyFields(&reduced, a)
@@ -58,6 +64,21 @@ func mapServiceBrokerValuesToType(ctx context.Context, value *resource.ServiceBr
 	diagnostics.Append(diags...)
 
 	return serviceBrokerType, diagnostics
+}
+
+func mapDataSourceServiceBrokersValuesToType(ctx context.Context, svcBrokers []*resource.ServiceBroker) ([]datasourceServiceBrokerType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	svcBrokersList := []datasourceServiceBrokerType{}
+	for _, svcBroker := range svcBrokers {
+		svcBrokerValue, diags := mapServiceBrokerValuesToType(ctx, svcBroker)
+		diagnostics.Append(diags...)
+		svcBrokerReduced := svcBrokerValue.Reduce()
+		svcBrokersList = append(svcBrokersList, svcBrokerReduced)
+	}
+
+	return svcBrokersList, diagnostics
+
 }
 
 func (data *serviceBrokerType) mapCreateServiceBrokerTypeToValues(ctx context.Context) (resource.ServiceBrokerCreate, diag.Diagnostics) {
