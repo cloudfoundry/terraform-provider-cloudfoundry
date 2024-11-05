@@ -1,0 +1,747 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"c20b74ad641840b58270c1f41d294cd7"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:56 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - eca14bf4-65a7-4074-66cc-4ef9bb2a096f
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 918.6075ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2376
+        uncompressed: false
+        body: '{"pagination":{"total_results":3,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"44faadbe-f56b-4ee2-bf40-e31113aa7324","created_at":"2020-08-25T14:10:06Z","updated_at":"2023-02-16T01:46:29Z","name":"url-broker","url":"https://sb-i513578.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/44faadbe-f56b-4ee2-bf40-e31113aa7324"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=44faadbe-f56b-4ee2-bf40-e31113aa7324"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}},{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"3e19acc4-95dc-44b7-aa2c-4eac5057504c","created_at":"2024-10-25T05:59:29Z","updated_at":"2024-10-25T05:59:31Z","name":"hdb-dumm","url":"https://hana-dummy-sb.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}}]}'
+        headers:
+            Content-Length:
+                - "2376"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:57 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 764f0b1cb105f582
+            X-B3-Traceid:
+                - aa991fb80f7b471d764f0b1cb105f582
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.042893"
+            X-Vcap-Request-Id:
+                - aa991fb8-0f7b-471d-764f-0b1cb105f582::d18afc1e-6baa-40f4-a2ef-1808f6749916
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 806.555541ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"806a2969fa9746abb7ee62db362e87c7"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:57 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 9b8a05d8-1257-4100-63aa-4102f5e3520b
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 289.844459ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2376
+        uncompressed: false
+        body: '{"pagination":{"total_results":3,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"44faadbe-f56b-4ee2-bf40-e31113aa7324","created_at":"2020-08-25T14:10:06Z","updated_at":"2023-02-16T01:46:29Z","name":"url-broker","url":"https://sb-i513578.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/44faadbe-f56b-4ee2-bf40-e31113aa7324"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=44faadbe-f56b-4ee2-bf40-e31113aa7324"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}},{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"3e19acc4-95dc-44b7-aa2c-4eac5057504c","created_at":"2024-10-25T05:59:29Z","updated_at":"2024-10-25T05:59:31Z","name":"hdb-dumm","url":"https://hana-dummy-sb.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}}]}'
+        headers:
+            Content-Length:
+                - "2376"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:57 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 64314cf036feefcd
+            X-B3-Traceid:
+                - 9eafdc30f2994f7864314cf036feefcd
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.057529"
+            X-Vcap-Request-Id:
+                - 9eafdc30-f299-4f78-6431-4cf036feefcd::945b84da-8bce-41be-b6e8-870ab2728e10
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 289.991833ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"e119e90c271249f7be81e476ecbed4c6"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:57 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 704a877b-d887-451d-7c17-5f6d7aaf2655
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 269.375333ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2376
+        uncompressed: false
+        body: '{"pagination":{"total_results":3,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"44faadbe-f56b-4ee2-bf40-e31113aa7324","created_at":"2020-08-25T14:10:06Z","updated_at":"2023-02-16T01:46:29Z","name":"url-broker","url":"https://sb-i513578.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/44faadbe-f56b-4ee2-bf40-e31113aa7324"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=44faadbe-f56b-4ee2-bf40-e31113aa7324"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}},{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},{"guid":"3e19acc4-95dc-44b7-aa2c-4eac5057504c","created_at":"2024-10-25T05:59:29Z","updated_at":"2024-10-25T05:59:31Z","name":"hdb-dumm","url":"https://hana-dummy-sb.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"dd457c79-f7c9-4828-862b-35843d3b646d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=3e19acc4-95dc-44b7-aa2c-4eac5057504c"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/dd457c79-f7c9-4828-862b-35843d3b646d"}}}]}'
+        headers:
+            Content-Length:
+                - "2376"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:58 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 68acd941aed404a4
+            X-B3-Traceid:
+                - 3be7c660accf49b068acd941aed404a4
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.036159"
+            X-Vcap-Request-Id:
+                - 3be7c660-accf-49b0-68ac-d941aed404a4::01b38eb0-a835-46f2-92cd-c280372b00fc
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 279.360334ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"22e8fbca0e724c3b95ba586e7d619d11"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:58 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 7bd03913-e82a-4369-78bc-cf835e4b64ce
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 306.721583ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:59 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 52ac750314a6850a
+            X-B3-Traceid:
+                - 20610896b6ca4e9c52ac750314a6850a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.031734"
+            X-Vcap-Request-Id:
+                - 20610896-b6ca-4e9c-52ac-750314a6850a::c53ca2e9-7db3-4dda-958f-4f4128a0514d
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 305.930083ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"ce4a410502ff4b678646501dda373b38"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:58 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 03dcece1-2345-4eda-7324-e5d1b9411a8d
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 256.644125ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:59 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7d67e25dbd63c764
+            X-B3-Traceid:
+                - bea8fe69f5f244f27d67e25dbd63c764
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.033440"
+            X-Vcap-Request-Id:
+                - bea8fe69-f5f2-44f2-7d67-e25dbd63c764::0e69321f-4ebd-49de-93cd-ae047110dbcb
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 263.978166ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=bacbee5af0514e12bec2abcee6437dbb-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - bacbee5af0514e12bec2abcee6437dbb-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"bacbee5af0514e12bec2abcee6437dbb-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"26ea2cb53eb247eb80a928fc99dcc80d"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 05 Nov 2024 06:36:59 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 6bad8ed4-1e98-44ec-7fd0-c2bf6ff56d28
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 268.128792ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?names=hi&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1019
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?names=hi\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"71203fb7-558a-4dd7-b87d-ddc289c5c85f","created_at":"2024-06-24T04:53:36Z","updated_at":"2024-06-24T04:53:36Z","name":"hi","url":"https://tf-test-do-not-delete-nodejs.cfapps.sap.hana.ondemand.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=71203fb7-558a-4dd7-b87d-ddc289c5c85f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}}]}'
+        headers:
+            Content-Length:
+                - "1019"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 06:37:00 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7b54e3b654220f25
+            X-B3-Traceid:
+                - 3dfdfcc8e0c24c6c7b54e3b654220f25
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730790188"
+            X-Runtime:
+                - "0.034227"
+            X-Vcap-Request-Id:
+                - 3dfdfcc8-e0c2-4c6c-7b54-e3b654220f25::78a2eaaa-f045-42d4-a98c-047f2a1d209f
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 298.132ms
