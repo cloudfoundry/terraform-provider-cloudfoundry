@@ -31,15 +31,15 @@ provider "cloudfoundry" {
 
 ### Optional
 
-- `access_token` (String) OAuth token to authenticate with Cloud Foundry
+- `access_token` (String, Sensitive) OAuth token to authenticate with Cloud Foundry
 - `api_url` (String) Specific URL representing the entry point for communication between the client and a Cloud Foundry instance.
-- `cf_client_id` (String, Sensitive) Unique identifier for a client application used in authentication and authorization processes
+- `cf_client_id` (String) Unique identifier for a client application used in authentication and authorization processes
 - `cf_client_secret` (String, Sensitive) A confidential string used by a client application for secure authentication and authorization, requires cf_client_id to authenticate
 - `origin` (String) Indicates the identity provider to be used for login
 - `password` (String, Sensitive) A confidential alphanumeric code associated with a user account on the Cloud Foundry platform, requires user to authenticate.
-- `refresh_token` (String) Token to refresh the access token, requires access_token
+- `refresh_token` (String, Sensitive) Token to refresh the access token, requires access_token
 - `skip_ssl_validation` (Boolean) Allows the client to disregard SSL certificate validation when connecting to the Cloud Foundry API
-- `user` (String, Sensitive) A unique identifier associated with an individual or entity for authentication & authorization purposes.
+- `user` (String) A unique identifier associated with an individual or entity for authentication & authorization purposes.
 
 **Note** 
 
