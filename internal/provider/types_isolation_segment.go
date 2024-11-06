@@ -32,6 +32,11 @@ type IsolationSegmentEntitlementDataSourceType struct {
 	Orgs    types.Set    `tfsdk:"orgs"`
 }
 
+type IsolationSegmentsType struct {
+	Name              types.String           `tfsdk:"name"`
+	IsolationSegments []IsolationSegmentType `tfsdk:"isolation_segments"`
+}
+
 // Sets the isolation segment resource values for creation with cf-client from the terraform struct values.
 func (data *IsolationSegmentType) mapCreateIsolationSegmentTypeToValues(ctx context.Context) (resource.IsolationSegmentCreate, diag.Diagnostics) {
 
@@ -93,4 +98,17 @@ func (plan *IsolationSegmentEntitlementType) mapIsolationSegmentEntitlementValue
 	plan.Default = makeDefaultSegment
 
 	return diagnostics
+}
+
+func mapIsolationSegmentsValuesToType(ctx context.Context, isoSegs []*resource.IsolationSegment) ([]IsolationSegmentType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	isoSegsList := []IsolationSegmentType{}
+	for _, isoSeg := range isoSegs {
+		isoSegValue, diags := mapIsolationSegmentValuesToType(ctx, isoSeg)
+		diagnostics.Append(diags...)
+		isoSegsList = append(isoSegsList, isoSegValue)
+	}
+
+	return isoSegsList, diagnostics
 }
