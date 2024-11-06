@@ -26,6 +26,33 @@ type buildpackType struct {
 	SourceCodeHash types.String `tfsdk:"source_code_hash"`
 }
 
+type datasourceBuildpackType struct {
+	Name        types.String `tfsdk:"name"`
+	Id          types.String `tfsdk:"id"`
+	State       types.String `tfsdk:"state"`
+	Stack       types.String `tfsdk:"stack"`
+	Filename    types.String `tfsdk:"filename"`
+	Position    types.Int64  `tfsdk:"position"`
+	Enabled     types.Bool   `tfsdk:"enabled"`
+	Locked      types.Bool   `tfsdk:"locked"`
+	Labels      types.Map    `tfsdk:"labels"`
+	Annotations types.Map    `tfsdk:"annotations"`
+	CreatedAt   types.String `tfsdk:"created_at"`
+	UpdatedAt   types.String `tfsdk:"updated_at"`
+}
+
+type datasourceBuildpacksType struct {
+	Name       types.String              `tfsdk:"name"`
+	Stack      types.String              `tfsdk:"stack"`
+	Buildpacks []datasourceBuildpackType `tfsdk:"buildpacks"`
+}
+
+func (a *buildpackType) Reduce() datasourceBuildpackType {
+	var reduced datasourceBuildpackType
+	copyFields(&reduced, a)
+	return reduced
+}
+
 // Sets the terraform struct values from the buildpack resource returned by the cf-client.
 func mapBuildpackValuesToType(ctx context.Context, buildpack *resource.Buildpack) (buildpackType, diag.Diagnostics) {
 
@@ -53,6 +80,19 @@ func mapBuildpackValuesToType(ctx context.Context, buildpack *resource.Buildpack
 	diagnostics.Append(diags...)
 
 	return buildpackType, diagnostics
+}
+
+func mapBuildpacksValuesToType(ctx context.Context, buildpacks []*resource.Buildpack) ([]datasourceBuildpackType, diag.Diagnostics) {
+
+	var diagnostics diag.Diagnostics
+	buildpackList := []datasourceBuildpackType{}
+	for _, buildpack := range buildpacks {
+		buildpackValue, diags := mapBuildpackValuesToType(ctx, buildpack)
+		diagnostics.Append(diags...)
+		buildpackList = append(buildpackList, buildpackValue.Reduce())
+	}
+
+	return buildpackList, diagnostics
 }
 
 // Sets the buildpack resource values for creation with cf-client from the terraform struct values.

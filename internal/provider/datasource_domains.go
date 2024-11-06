@@ -141,7 +141,7 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Fetching Domains",
-			"Could not get domains for organization "+data.Org.ValueString()+" : "+err.Error(),
+			"Could not get domains : "+err.Error(),
 		)
 		return
 	}
@@ -149,7 +149,7 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	if len(domains) == 0 {
 		resp.Diagnostics.AddError(
 			"Unable to find any domain in the list",
-			fmt.Sprintf("No domain present under org %s with mentioned criteria", data.Org.ValueString()),
+			"No domain present with mentioned criteria",
 		)
 		return
 	}
