@@ -54,5 +54,4 @@ func mapOrgsValuesToType(ctx context.Context, orgs []*resource.Organization) ([]
 	}
 
 	return orgsList, diagnostics
-
 }

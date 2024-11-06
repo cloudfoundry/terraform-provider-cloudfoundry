@@ -200,6 +200,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Multi Target Application](../docs/data-sources/mta.md)
 - [Multi Target Applications](../docs/data-sources/mtas.md)
 - [Isolation Segment Entitlement](../docs/data-sources/isolation_segment_entitlement.md)
+- [Isolation Segments](../docs/data-sources/isolation_segments.md)
 - [Org Role](../docs/data-sources/org_role.md)
 - [Org Roles](../docs/data-sources/org_roles.md)
 - [Organizations](../docs/data-sources/orgs.md)
