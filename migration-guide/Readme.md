@@ -195,6 +195,7 @@ Few resources required a major change in functionality or the way the resources 
 The below mentioned dataSources have been newly added in the current provider.
 
 - [Applications](../docs/data-sources/apps.md)
+- [Buildpacks](../docs/data-sources/buildpacks.md)
 - [Domains](../docs/data-sources/domains.md)
 - [Multi Target Application](../docs/data-sources/mta.md)
 - [Multi Target Applications](../docs/data-sources/mtas.md)
