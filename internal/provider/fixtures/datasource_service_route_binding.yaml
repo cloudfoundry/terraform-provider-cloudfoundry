@@ -1,0 +1,204 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 899
+        uncompressed: false
+        body: '{"guid":"6961bc50-a694-4255-a5da-3ce4cdba7e54","route_service_url":"https://nginx-route-service.cfapps.sap.hana.ondemand.com","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z","last_operation":{"type":"create","state":"succeeded","description":"","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z"},"metadata":{"labels":{},"annotations":{}},"relationships":{"service_instance":{"data":{"guid":"ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"}},"route":{"data":{"guid":"8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54"},"service_instance":{"href":"https://api.x.x.x.x.com/v3/service_instances/ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"},"route":{"href":"https://api.x.x.x.x.com/v3/routes/8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}}'
+        headers:
+            Content-Length:
+                - "899"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 09:46:31 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4d0f5441125393b9
+            X-B3-Traceid:
+                - 59be36c6e2c349b14d0f5441125393b9
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730800988"
+            X-Runtime:
+                - "0.016427"
+            X-Vcap-Request-Id:
+                - 59be36c6-e2c3-49b1-4d0f-5441125393b9::9d904a08-0b41-47e8-b138-821bc369b1ff
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 747.189334ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 899
+        uncompressed: false
+        body: '{"guid":"6961bc50-a694-4255-a5da-3ce4cdba7e54","route_service_url":"https://nginx-route-service.cfapps.sap.hana.ondemand.com","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z","last_operation":{"type":"create","state":"succeeded","description":"","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z"},"metadata":{"labels":{},"annotations":{}},"relationships":{"service_instance":{"data":{"guid":"ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"}},"route":{"data":{"guid":"8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54"},"service_instance":{"href":"https://api.x.x.x.x.com/v3/service_instances/ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"},"route":{"href":"https://api.x.x.x.x.com/v3/routes/8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}}'
+        headers:
+            Content-Length:
+                - "899"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 09:46:31 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 703899ecc8a1b685
+            X-B3-Traceid:
+                - a788c3161f384309703899ecc8a1b685
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730800988"
+            X-Runtime:
+                - "0.014711"
+            X-Vcap-Request-Id:
+                - a788c316-1f38-4309-7038-99ecc8a1b685::81324f82-4d1f-4789-b759-27dcd7ad0f10
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 246.933ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 899
+        uncompressed: false
+        body: '{"guid":"6961bc50-a694-4255-a5da-3ce4cdba7e54","route_service_url":"https://nginx-route-service.cfapps.sap.hana.ondemand.com","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z","last_operation":{"type":"create","state":"succeeded","description":"","created_at":"2022-03-30T03:47:03Z","updated_at":"2022-03-30T03:47:03Z"},"metadata":{"labels":{},"annotations":{}},"relationships":{"service_instance":{"data":{"guid":"ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"}},"route":{"data":{"guid":"8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings/6961bc50-a694-4255-a5da-3ce4cdba7e54"},"service_instance":{"href":"https://api.x.x.x.x.com/v3/service_instances/ab65cad9-73fa-4dd4-9c09-87f89b2e77ec"},"route":{"href":"https://api.x.x.x.x.com/v3/routes/8c7cdbd4-98ef-4e2f-97d1-4704f435022d"}}}'
+        headers:
+            Content-Length:
+                - "899"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 09:46:32 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 793ca8d3e76c4f2c
+            X-B3-Traceid:
+                - 88c066148dd3449e793ca8d3e76c4f2c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730800988"
+            X-Runtime:
+                - "0.014144"
+            X-Vcap-Request-Id:
+                - 88c06614-8dd3-449e-793c-a8d3e76c4f2c::5a9be9cf-b8da-425a-8b47-e4df9035c9a5
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 245.355208ms
