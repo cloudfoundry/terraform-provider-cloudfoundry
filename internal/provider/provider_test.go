@@ -328,7 +328,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_service_route_binding",
 		"cloudfoundry_buildpacks",
 		"cloudfoundry_isolation_segments",
-    "cloudfoundry_org_quotas",
+		"cloudfoundry_org_quotas",
 	}
 
 	ctx := context.Background()
