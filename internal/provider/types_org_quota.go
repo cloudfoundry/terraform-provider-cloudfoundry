@@ -28,6 +28,11 @@ type OrgQuotaType struct {
 	UpdatedAt             types.String `tfsdk:"updated_at"`
 }
 
+type orgQuotasDatasourceType struct {
+	Org       types.String   `tfsdk:"org"`
+	OrgQuotas []OrgQuotaType `tfsdk:"org_quotas"`
+}
+
 func (orgQuotaType *OrgQuotaType) mapOrgQuotaTypeToValues(ctx context.Context) (*cfv3resource.OrganizationQuotaCreateOrUpdate, diag.Diagnostics) {
 	var diags diag.Diagnostics
 	orgQuota := cfv3resource.NewOrganizationQuotaCreate(orgQuotaType.Name.ValueString())
@@ -115,4 +120,17 @@ func mapOrgQuotaValuesToType(value *cfv3resource.OrganizationQuota) (OrgQuotaTyp
 	}
 	orgQuotaType.Organizations, diags = setRelationshipToTFSet(value.Relationships.Organizations.Data)
 	return orgQuotaType, diags
+}
+
+func mapOrgQuotasValuesToType(orgQuotas []*cfv3resource.OrganizationQuota) ([]OrgQuotaType, diag.Diagnostics) {
+
+	var diagnostics diag.Diagnostics
+	orgQuotasList := []OrgQuotaType{}
+	for _, orgQuota := range orgQuotas {
+		orgQuotaValue, diags := mapOrgQuotaValuesToType(orgQuota)
+		diagnostics.Append(diags...)
+		orgQuotasList = append(orgQuotasList, orgQuotaValue)
+	}
+
+	return orgQuotasList, diagnostics
 }
