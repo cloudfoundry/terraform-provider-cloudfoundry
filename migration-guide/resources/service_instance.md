@@ -11,7 +11,7 @@ Provides a resource for managing service instances in Cloud Foundry. Combines [`
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | type | 🔵 | 🔴 | Need to specify whether instance is of type managed or user-provided. |
 | labels | 🟢 | 🔴 | - |

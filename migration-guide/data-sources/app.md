@@ -11,7 +11,7 @@ Gets information on a Cloud Foundry application.
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | name_or_id |  🔴 | 🟢 | Only application name has to be specified in `name` |
 | name | 🔵 | 🟠 | - |

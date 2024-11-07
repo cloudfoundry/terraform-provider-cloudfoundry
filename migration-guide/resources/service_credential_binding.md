@@ -11,7 +11,7 @@ Provides a resource for managing service credential bindings in Cloud Foundry. C
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | credentials | 🔴 | 🟠 | Attribute not returned as part of V3 API resource. However, it is obtainable from `credential_binding` attribute of data source [`cloudfoundry_service_credential_binding`](/docs/data-sources/service_credential_binding.md). |
 | type | 🔵 | 🔴 | Need to specify whether binding is of type app or key. |

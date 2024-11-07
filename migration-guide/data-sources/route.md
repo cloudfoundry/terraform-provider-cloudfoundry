@@ -11,7 +11,7 @@ Gets information on a Cloud Foundry route.
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | id | 🔴 | 🟠 |  The current provider returns multiple routes if available with same domain name in the `routes` attribute unlike the community provider. Therefore the id is present in the respective route resources in `routes` output |
 | hostname | 🔴 | 🟢 | `hostname` has been changed to `host`  to maintain conformity with V3 API |
