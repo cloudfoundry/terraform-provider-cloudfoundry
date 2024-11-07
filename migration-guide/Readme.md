@@ -195,9 +195,12 @@ Few resources required a major change in functionality or the way the resources 
 The below mentioned dataSources have been newly added in the current provider.
 
 - [Applications](../docs/data-sources/apps.md)
+- [Buildpacks](../docs/data-sources/buildpacks.md)
+- [Domains](../docs/data-sources/domains.md)
 - [Multi Target Application](../docs/data-sources/mta.md)
 - [Multi Target Applications](../docs/data-sources/mtas.md)
 - [Isolation Segment Entitlement](../docs/data-sources/isolation_segment_entitlement.md)
+- [Isolation Segments](../docs/data-sources/isolation_segments.md)
 - [Org Role](../docs/data-sources/org_role.md)
 - [Org Roles](../docs/data-sources/org_roles.md)
 - [Organizations](../docs/data-sources/orgs.md)
@@ -206,6 +209,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Service Brokers](../docs/data-sources/service_brokers.md)
 - [Service Instances](../docs/data-sources/service_instances.md)
 - [Service Plans](../docs/data-sources/service_plans.md)
+- [Service Route Binding](../docs/data-sources/service_route_binding.md)
 - [Service Route Bindings](../docs/data-sources/service_route_bindings.md)
 - [Space Role](../docs/data-sources/space_role.md)
 - [Spaces](../docs/data-sources/spaces.md)
@@ -216,7 +220,6 @@ While most dataSources have  maintained the same structure, some dataSources nee
 
 - [Application](./data-sources/app.md)
 - [Domain](./data-sources/domain.md)
-- [Domains](./data-sources/domains.md)
 - [Org Quota](./data-sources/org_quota.md)
 - [Organisation](./data-sources/org.md)
 - [Route](./data-sources/route.md)

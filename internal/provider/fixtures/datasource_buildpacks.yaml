@@ -1,0 +1,405 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1472
+        uncompressed: false
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"a7b75648-ba6e-41c5-b87b-9134beefe8c6","created_at":"2018-12-11T21:17:59Z","updated_at":"2023-05-25T19:26:44Z","name":"java_buildpack","stack":"cflinuxfs3","state":"READY","filename":"java_buildpack-cached-cflinuxfs3-v4.58.zip","position":10,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "1472"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:14 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 56dadf460db3e801
+            X-B3-Traceid:
+                - 7324ec2770ca46da56dadf460db3e801
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.008379"
+            X-Vcap-Request-Id:
+                - 7324ec27-70ca-46da-56da-df460db3e801::6091aaf1-3f38-428b-9dc4-bdb4167a6ae1
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 244.564875ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1472
+        uncompressed: false
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"a7b75648-ba6e-41c5-b87b-9134beefe8c6","created_at":"2018-12-11T21:17:59Z","updated_at":"2023-05-25T19:26:44Z","name":"java_buildpack","stack":"cflinuxfs3","state":"READY","filename":"java_buildpack-cached-cflinuxfs3-v4.58.zip","position":10,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "1472"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:14 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 463079cc20096f47
+            X-B3-Traceid:
+                - fd53a996c0824560463079cc20096f47
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.008019"
+            X-Vcap-Request-Id:
+                - fd53a996-c082-4560-4630-79cc20096f47::634e94ce-5d83-460f-b701-152a26fd0195
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 241.234917ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1472
+        uncompressed: false
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=java_buildpack\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"a7b75648-ba6e-41c5-b87b-9134beefe8c6","created_at":"2018-12-11T21:17:59Z","updated_at":"2023-05-25T19:26:44Z","name":"java_buildpack","stack":"cflinuxfs3","state":"READY","filename":"java_buildpack-cached-cflinuxfs3-v4.58.zip","position":10,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/a7b75648-ba6e-41c5-b87b-9134beefe8c6/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "1472"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:14 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7f619f3128518633
+            X-B3-Traceid:
+                - 2820668fc1c449967f619f3128518633
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.006547"
+            X-Vcap-Request-Id:
+                - 2820668f-c1c4-4996-7f61-9f3128518633::73397d20-0e46-40c4-998e-c9c2f3cccae8
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 246.107166ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?page=1&per_page=50&stacks=cflinuxfs4
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 4915
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"next":null,"previous":null},"resources":[{"guid":"89ec5bd7-9f3a-4cbb-8f78-01074a56acf0","created_at":"2023-03-16T01:11:39Z","updated_at":"2024-10-09T10:14:15Z","name":"staticfile_buildpack","stack":"cflinuxfs4","state":"READY","filename":"staticfile_buildpack-cached-cflinuxfs4-v1.6.17.zip","position":1,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0/upload","method":"POST"}}},{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"198a5fba-bbf1-4467-91a9-b98b36de81ca","created_at":"2022-12-22T01:51:44Z","updated_at":"2024-10-09T10:14:30Z","name":"nodejs_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nodejs_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":5,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca/upload","method":"POST"}}},{"guid":"c82da378-285d-4f3c-a80b-c6a63db36315","created_at":"2023-01-19T18:31:16Z","updated_at":"2024-10-09T10:14:41Z","name":"go_buildpack","stack":"cflinuxfs4","state":"READY","filename":"go_buildpack-cached-cflinuxfs4-v1.10.23.zip","position":6,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315/upload","method":"POST"}}},{"guid":"8cdd0491-8e80-45b2-b1da-56db51349c56","created_at":"2022-12-22T01:50:51Z","updated_at":"2024-10-09T10:14:59Z","name":"python_buildpack","stack":"cflinuxfs4","state":"READY","filename":"python_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":7,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56/upload","method":"POST"}}},{"guid":"66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7","created_at":"2023-03-31T20:58:01Z","updated_at":"2024-09-26T02:44:19Z","name":"php_buildpack","stack":"cflinuxfs4","state":"READY","filename":"php_buildpack-cached-cflinuxfs4-v4.6.23.zip","position":8,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7/upload","method":"POST"}}},{"guid":"7ad12dbf-21bf-4a39-97bb-7d34e378efa9","created_at":"2023-03-16T01:12:49Z","updated_at":"2024-10-09T10:15:03Z","name":"nginx_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nginx_buildpack-cached-cflinuxfs4-v1.2.19.zip","position":9,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9/upload","method":"POST"}}},{"guid":"8a5a46a4-3f5d-4133-a18f-458e1ab158a1","created_at":"2023-01-19T18:32:21Z","updated_at":"2024-10-09T10:15:07Z","name":"binary_buildpack","stack":"cflinuxfs4","state":"READY","filename":"binary_buildpack-cached-cflinuxfs4-v1.1.14.zip","position":11,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "4915"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:15 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 74f2a46485f79b91
+            X-B3-Traceid:
+                - 6c5b5cac604e4fc174f2a46485f79b91
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.009746"
+            X-Vcap-Request-Id:
+                - 6c5b5cac-604e-4fc1-74f2-a46485f79b91::f15852b0-b13f-4a55-9464-ef83a8af725d
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 245.682375ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?page=1&per_page=50&stacks=cflinuxfs4
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 4915
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"next":null,"previous":null},"resources":[{"guid":"89ec5bd7-9f3a-4cbb-8f78-01074a56acf0","created_at":"2023-03-16T01:11:39Z","updated_at":"2024-10-09T10:14:15Z","name":"staticfile_buildpack","stack":"cflinuxfs4","state":"READY","filename":"staticfile_buildpack-cached-cflinuxfs4-v1.6.17.zip","position":1,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0/upload","method":"POST"}}},{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"198a5fba-bbf1-4467-91a9-b98b36de81ca","created_at":"2022-12-22T01:51:44Z","updated_at":"2024-10-09T10:14:30Z","name":"nodejs_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nodejs_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":5,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca/upload","method":"POST"}}},{"guid":"c82da378-285d-4f3c-a80b-c6a63db36315","created_at":"2023-01-19T18:31:16Z","updated_at":"2024-10-09T10:14:41Z","name":"go_buildpack","stack":"cflinuxfs4","state":"READY","filename":"go_buildpack-cached-cflinuxfs4-v1.10.23.zip","position":6,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315/upload","method":"POST"}}},{"guid":"8cdd0491-8e80-45b2-b1da-56db51349c56","created_at":"2022-12-22T01:50:51Z","updated_at":"2024-10-09T10:14:59Z","name":"python_buildpack","stack":"cflinuxfs4","state":"READY","filename":"python_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":7,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56/upload","method":"POST"}}},{"guid":"66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7","created_at":"2023-03-31T20:58:01Z","updated_at":"2024-09-26T02:44:19Z","name":"php_buildpack","stack":"cflinuxfs4","state":"READY","filename":"php_buildpack-cached-cflinuxfs4-v4.6.23.zip","position":8,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7/upload","method":"POST"}}},{"guid":"7ad12dbf-21bf-4a39-97bb-7d34e378efa9","created_at":"2023-03-16T01:12:49Z","updated_at":"2024-10-09T10:15:03Z","name":"nginx_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nginx_buildpack-cached-cflinuxfs4-v1.2.19.zip","position":9,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9/upload","method":"POST"}}},{"guid":"8a5a46a4-3f5d-4133-a18f-458e1ab158a1","created_at":"2023-01-19T18:32:21Z","updated_at":"2024-10-09T10:15:07Z","name":"binary_buildpack","stack":"cflinuxfs4","state":"READY","filename":"binary_buildpack-cached-cflinuxfs4-v1.1.14.zip","position":11,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "4915"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:15 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 578fdb4d32360727
+            X-B3-Traceid:
+                - 52939ec1abc048d7578fdb4d32360727
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.014068"
+            X-Vcap-Request-Id:
+                - 52939ec1-abc0-48d7-578f-db4d32360727::8a772434-5ef2-4772-b617-f1dd65b791a3
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 251.831291ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?page=1&per_page=50&stacks=cflinuxfs4
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 4915
+        uncompressed: false
+        body: '{"pagination":{"total_results":8,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"next":null,"previous":null},"resources":[{"guid":"89ec5bd7-9f3a-4cbb-8f78-01074a56acf0","created_at":"2023-03-16T01:11:39Z","updated_at":"2024-10-09T10:14:15Z","name":"staticfile_buildpack","stack":"cflinuxfs4","state":"READY","filename":"staticfile_buildpack-cached-cflinuxfs4-v1.6.17.zip","position":1,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/89ec5bd7-9f3a-4cbb-8f78-01074a56acf0/upload","method":"POST"}}},{"guid":"45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9","created_at":"2023-03-02T04:06:04Z","updated_at":"2024-08-28T13:02:25Z","name":"java_buildpack","stack":"cflinuxfs4","state":"READY","filename":"java_buildpack-cached-cflinuxfs4-v4.71.0.zip","position":2,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/45a5e8b9-f9a1-4bc0-8ea8-4467ef0d14c9/upload","method":"POST"}}},{"guid":"198a5fba-bbf1-4467-91a9-b98b36de81ca","created_at":"2022-12-22T01:51:44Z","updated_at":"2024-10-09T10:14:30Z","name":"nodejs_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nodejs_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":5,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/198a5fba-bbf1-4467-91a9-b98b36de81ca/upload","method":"POST"}}},{"guid":"c82da378-285d-4f3c-a80b-c6a63db36315","created_at":"2023-01-19T18:31:16Z","updated_at":"2024-10-09T10:14:41Z","name":"go_buildpack","stack":"cflinuxfs4","state":"READY","filename":"go_buildpack-cached-cflinuxfs4-v1.10.23.zip","position":6,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c82da378-285d-4f3c-a80b-c6a63db36315/upload","method":"POST"}}},{"guid":"8cdd0491-8e80-45b2-b1da-56db51349c56","created_at":"2022-12-22T01:50:51Z","updated_at":"2024-10-09T10:14:59Z","name":"python_buildpack","stack":"cflinuxfs4","state":"READY","filename":"python_buildpack-cached-cflinuxfs4-v1.8.29.zip","position":7,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8cdd0491-8e80-45b2-b1da-56db51349c56/upload","method":"POST"}}},{"guid":"66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7","created_at":"2023-03-31T20:58:01Z","updated_at":"2024-09-26T02:44:19Z","name":"php_buildpack","stack":"cflinuxfs4","state":"READY","filename":"php_buildpack-cached-cflinuxfs4-v4.6.23.zip","position":8,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/66c3c1a4-ae6b-48b9-86b5-d7e8c071b8f7/upload","method":"POST"}}},{"guid":"7ad12dbf-21bf-4a39-97bb-7d34e378efa9","created_at":"2023-03-16T01:12:49Z","updated_at":"2024-10-09T10:15:03Z","name":"nginx_buildpack","stack":"cflinuxfs4","state":"READY","filename":"nginx_buildpack-cached-cflinuxfs4-v1.2.19.zip","position":9,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/7ad12dbf-21bf-4a39-97bb-7d34e378efa9/upload","method":"POST"}}},{"guid":"8a5a46a4-3f5d-4133-a18f-458e1ab158a1","created_at":"2023-01-19T18:32:21Z","updated_at":"2024-10-09T10:15:07Z","name":"binary_buildpack","stack":"cflinuxfs4","state":"READY","filename":"binary_buildpack-cached-cflinuxfs4-v1.1.14.zip","position":11,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/8a5a46a4-3f5d-4133-a18f-458e1ab158a1/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "4915"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:15 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 59f5c4695f5f60d5
+            X-B3-Traceid:
+                - 53c733471a6b484c59f5c4695f5f60d5
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.014530"
+            X-Vcap-Request-Id:
+                - 53c73347-1a6b-484c-59f5-c4695f5f60d5::fe219149-f30c-4e54-b104-86f05760ce2c
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 258.964667ms

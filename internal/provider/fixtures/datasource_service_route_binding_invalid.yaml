@@ -1,0 +1,70 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_route_bindings/40b73419-5e01-4be0-baea-932d46cea45b
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 100
+        uncompressed: false
+        body: '{"errors":[{"detail":"Service route binding not found","title":"CF-ResourceNotFound","code":10010}]}'
+        headers:
+            Content-Length:
+                - "100"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 05 Nov 2024 09:46:32 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 53070de2c3cf9e31
+            X-B3-Traceid:
+                - 0b1ff37a8c28448053070de2c3cf9e31
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730800988"
+            X-Runtime:
+                - "0.003395"
+            X-Vcap-Request-Id:
+                - 0b1ff37a-8c28-4480-5307-0de2c3cf9e31::5e1bffac-cefe-4a8a-9e72-40c0e04ad7cd
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 404 Not Found
+        code: 404
+        duration: 269.53ms

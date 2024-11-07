@@ -1,0 +1,70 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?names=40b73419-5e01-4be0-baea-932d46cea45b&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 376
+        uncompressed: false
+        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=40b73419-5e01-4be0-baea-932d46cea45b\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?names=40b73419-5e01-4be0-baea-932d46cea45b\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        headers:
+            Content-Length:
+                - "376"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 06 Nov 2024 08:39:13 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5c2b3c314dea206b
+            X-B3-Traceid:
+                - c4dd3e0dc58944545c2b3c314dea206b
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1730883788"
+            X-Runtime:
+                - "0.004359"
+            X-Vcap-Request-Id:
+                - c4dd3e0d-c589-4454-5c2b-3c314dea206b::351fe609-9dcf-4d21-b47f-18365902dc90
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 744.018625ms
