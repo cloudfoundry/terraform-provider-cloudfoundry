@@ -31,10 +31,6 @@ data "cloudfoundry_stacks" "all" {
 <a id="nestedatt--stacks"></a>
 ### Nested Schema for `stacks`
 
-Required:
-
-- `name` (String) The name of the stack
-
 Read-Only:
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources.
@@ -44,5 +40,6 @@ Read-Only:
 - `description` (String) The description of the stack
 - `id` (String) The GUID of the object.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
+- `name` (String) The name of the stack
 - `run_rootfs_image` (String) The name of the stack image associated with running Apps + Tasks. If a stack does not have unique images, this will be the same as the stack name.
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.

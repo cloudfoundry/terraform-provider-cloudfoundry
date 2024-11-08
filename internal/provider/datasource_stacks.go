@@ -58,7 +58,7 @@ func (d *stacksDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 						idKey: guidSchema(),
 						"name": schema.StringAttribute{
 							MarkdownDescription: "The name of the stack",
-							Required:            true,
+							Computed:            true,
 						},
 						"description": schema.StringAttribute{
 							MarkdownDescription: "The description of the stack",
