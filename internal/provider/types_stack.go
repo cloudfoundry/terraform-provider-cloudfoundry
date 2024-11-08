@@ -22,6 +22,11 @@ type stackType struct {
 	UpdatedAt        types.String `tfsdk:"updated_at"`
 }
 
+type stacksDatasourceType struct {
+	Name   types.String `tfsdk:"name"`
+	Stacks []stackType  `tfsdk:"stacks"`
+}
+
 func mapStackValuesToType(ctx context.Context, value *resource.Stack) (stackType, diag.Diagnostics) {
 	var diagnostics, diags diag.Diagnostics
 	stackType := stackType{
@@ -43,4 +48,17 @@ func mapStackValuesToType(ctx context.Context, value *resource.Stack) (stackType
 	diagnostics.Append(diags...)
 
 	return stackType, diagnostics
+}
+
+func mapStacksValuesToType(ctx context.Context, stacks []*resource.Stack) ([]stackType, diag.Diagnostics) {
+
+	var diagnostics diag.Diagnostics
+	stacksList := []stackType{}
+	for _, stack := range stacks {
+		spaceQuotaValue, diags := mapStackValuesToType(ctx, stack)
+		diagnostics.Append(diags...)
+		stacksList = append(stacksList, spaceQuotaValue)
+	}
+
+	return stacksList, diagnostics
 }
