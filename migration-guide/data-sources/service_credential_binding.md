@@ -11,7 +11,7 @@ Gets information on Service Credential Bindings for a given service instance. Co
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | name | 🟢 | 🔵 | Since `cloudfoundry_service_key` resource in community provider can only query for service keys and not app bindings, name has been made optional now as app bindings need not have names. |
 | app | 🟢 | 🔴 | One can query for a specific app credential_binding by providing its GUID |

@@ -12,7 +12,7 @@ Provides a Cloud Foundry resource for managing Cloud Foundry organizations
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | quota | 🟠| 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota use resource [`cloudfoundry_org_quota`](/docs/resources/org_quota.md). |
 | suspended | 🟢 | 🔴 | - |

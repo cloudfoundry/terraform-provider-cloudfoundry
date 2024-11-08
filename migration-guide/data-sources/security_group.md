@@ -11,7 +11,7 @@ Gets information on a Cloud Foundry application security group. Named as [`cloud
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | globally_enabled_running | 🟠| 🔴 | - |
 | globally_enabled_staging | 🟠| 🔴 | - |

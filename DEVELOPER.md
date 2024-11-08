@@ -133,7 +133,7 @@ Refer [authentication](./Authentication.md) to login to the environment.
 
 **Step 1:** Open the repository in GitHub Codespaces via the button:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/SAP/terraform-provider-cloudfoundry)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/cloudfoundry/terraform-provider-cloudfoundry)
 
 **Step 2:** There is no step 2 😎.
 

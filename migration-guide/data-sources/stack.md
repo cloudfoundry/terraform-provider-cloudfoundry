@@ -2,7 +2,7 @@
 
 Gets information on a Cloud Foundry stack.
 
-|  SAP Cloudfoundry Provider | Community Cloudfoundry Provider  |
+|  Cloud Foundry Provider | Community Cloudfoundry Provider  |
 | -- | -- |
 | <pre>data "cloudfoundry_stack" "mystack" {</br>    name = "my_custom_stack"</br>}</br></pre>|<pre>data "cloudfoundry_stack" "mystack" {</br>    name = "my_custom_stack"</br>}</br></pre> |  
 
@@ -10,7 +10,7 @@ Gets information on a Cloud Foundry stack.
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name|  SAP Cloudfoundry Provider(new)| Community Provider(old) |Description
+| Attribute name| Cloud Foundry Provider| Community Provider(old) |Description
 |---| ---| ---| ---| 
 |build_rootfs_image | 🟠|🔴|  - |
 |run_rootfs_image | 🟠|🔴|  - |

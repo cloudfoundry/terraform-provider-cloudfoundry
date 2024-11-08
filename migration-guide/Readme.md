@@ -109,7 +109,7 @@ provider "cloudfoundry" {
   password = "your-password"            
 }
 
-#Configure the new SAP Terraform Cloud foundry provider with alias
+#Configure the new Terraform Cloud foundry provider with alias
 provider "cloudfoundry-v3-new" {  
   api_url = "https://api.example.com"   
   username = "your-username"            

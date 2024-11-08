@@ -11,7 +11,7 @@ Provides a Cloud Foundry resource to manage applications.
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | org_name| 🔵 | 🔴 | Organization name where space is present has to be specified. |
 | space_name | 🔵 | 🔴 | Instead of specifying guid for `space` attribute in the old community provider, user should specify space name in `space_name` attribute for the new provider. |
