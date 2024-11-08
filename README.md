@@ -1,7 +1,7 @@
 # Terraform Provider for Cloud Foundry
 
 ![Golang](https://img.shields.io/badge/Go-1.23-informational)
-[![REUSE status](https://api.reuse.software/badge/github.com/cloudfoundry/terraform-provider-cloudfoundry)](https://api.reuse.software/info/github.com/cloudfoundry/terraform-provider-cloudfoundry)
+
 ## About This Project
 
 The Terraform provider for [Cloud Foundry](https://www.cloudfoundry.org/) allows the management of resources via [Terraform](https://terraform.io/).
@@ -37,7 +37,3 @@ If you find any bug that may be a security problem, please follow our [instructi
 ## Code of Conduct
 
 Members, contributors, and leaders pledge to make participation in our community a harassment-free experience. By participating in this project, you agree to always abide by its [Code of Conduct](https://www.cloudfoundry.org/wp-content/uploads/2015/09/CFF_Code_of_Conduct.pdf).
-
-## Licensing
-
-Copyright 2024 SAP SE or an SAP affiliate company and `terraform-provider-cloudfoundry` contributors. See our [LICENSE](LICENSE) for copyright and license information. Detailed information, including third-party components and their licensing/copyright information, is available [via the REUSE tool](https://api.reuse.software/info/github.com/cloudfoundry/terraform-provider-cloudfoundry).

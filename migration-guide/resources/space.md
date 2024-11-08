@@ -11,7 +11,7 @@ Provides a Cloud Foundry resource for managing Cloud Foundry spaces within organ
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | quota | 🟠 | 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota  use resource [`cloudfoundry_space_quota`](/docs/resources/space_quota.md). |
 | asgs| 🔴 | 🟢 | Security groups not present in space resource as part of V3 API Spec. One can however set it with `running_spaces` attribute from resource [`cloudfoundry_security_group`](/docs/resources/security_group.md). |

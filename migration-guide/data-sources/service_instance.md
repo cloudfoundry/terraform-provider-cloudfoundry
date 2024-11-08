@@ -11,7 +11,7 @@ Provides a data source for fetching information of a service instance in Cloud F
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | name_or_id | 🔴 | 🟢 | Only service instance name has to be specified in `name` |
 | labels | 🟠 | 🔴 | - |

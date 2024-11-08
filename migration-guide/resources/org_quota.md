@@ -11,7 +11,7 @@ Provides a Cloud Foundry resource to manage org quota definitions. Orgs can be b
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | orgs | 🟢 | 🔴 | Orgs to which the org quota applies has to be set here. |
 | total_app_log_rate_limit | 🟢 | 🔴 | - |

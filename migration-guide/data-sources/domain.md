@@ -11,7 +11,7 @@ Gets information on a Cloud Foundry domain.
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | sub_domain | 🔴 | 🟢 | `sub_domain` and `domain` attributes from community provider values need to be combined to a FQDN and value should be set in `name` attribute in the format of 'sub_domain.domain' |
 | domain | 🔴| 🟢 | Refer above |

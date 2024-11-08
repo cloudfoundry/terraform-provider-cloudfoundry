@@ -11,7 +11,7 @@ Provides an application security group resource for Cloud Foundry. Named as [`cl
 > [!NOTE]  
 > 🔵 Required  🟢 Optional 🟠 Computed  🔴 Not present
 
-| Attribute name | SAP Cloud Foundry Provider (new)|  Community Cloud Foundry Provider (old) | Description |
+| Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
 | globally_enabled_running | 🟢 | 🔴 | Achieves functionality of [`cloudfoundry_default_asg`](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/blob/main/docs/resources/default_asg.md) in the community provider with attribute `name=running`. |
 | globally_enabled_staging | 🟢 | 🔴 | Achieves functionality of [`cloudfoundry_default_asg`](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/blob/main/docs/resources/default_asg.md) in the community provider with attribute `name=staging`. |
