@@ -205,6 +205,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Org Roles](../docs/data-sources/org_roles.md)
 - [Organizations](../docs/data-sources/orgs.md)
 - [Routes](../docs/data-sources/routes.md)
+- [Security Groups](../docs/data-sources/security_groups.md)
 - [Service Broker](../docs/data-sources/service_broker.md)
 - [Service Brokers](../docs/data-sources/service_brokers.md)
 - [Service Instances](../docs/data-sources/service_instances.md)
