@@ -216,6 +216,7 @@ The below mentioned dataSources have been newly added in the current provider.
 - [Spaces](../docs/data-sources/spaces.md)
 - [Space Roles](../docs/data-sources/space_roles.md)
 - [Users](../docs/data-sources/users.md)
+- [Stacks](./data-sources/stacks.md)
 
 While most dataSources have  maintained the same structure, some dataSources needed minor changes in schema to follow the V3 API structure. Following is a list of datasources whose schema have changed
 
@@ -230,5 +231,4 @@ While most dataSources have  maintained the same structure, some dataSources nee
 - [Space Quota](./data-sources/space_quota.md)
 - [Space](./data-sources/space.md)
 - [Stack](./data-sources/stack.md)
-- [Stacks](./data-sources/stacks.md)
 - [User](./data-sources/user.md)
