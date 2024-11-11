@@ -42,7 +42,7 @@ func hclBuildpacks(ddsmp *BuildpacksModelPtr) string {
 		}
 		return buf.String()
 	}
-	return ddsmp.HclType + ` cloudfoundry_Buildpacks" ` + ddsmp.HclObjectName + `  {}`
+	return ddsmp.HclType + ` "cloudfoundry_buildpacks" ` + ddsmp.HclObjectName + `  {}`
 }
 func TestBuildpacksDataSource_Configure(t *testing.T) {
 	resourceName := "data.cloudfoundry_buildpacks.ds"
