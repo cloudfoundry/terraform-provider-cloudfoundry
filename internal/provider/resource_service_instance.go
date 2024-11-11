@@ -440,8 +440,9 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 	switch plan.Type.ValueString() {
 	case managedSerivceInstance:
 
-		updateServiceInstance := cfv3resource.ServiceInstanceManagedUpdate{
-			Name: plan.Name.ValueStringPointer(),
+		updateServiceInstance := cfv3resource.ServiceInstanceManagedUpdate{}
+		if plan.Name.ValueString() != previousState.Name.ValueString() {
+			updateServiceInstance.Name = plan.Name.ValueStringPointer()
 		}
 		// Check if the service plan is different from the previous state
 		if plan.ServicePlan.ValueString() != previousState.ServicePlan.ValueString() {
@@ -500,6 +501,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 				"API Error in updating managed service instance",
 				"Unable to update service instance "+plan.Name.ValueString()+": "+err.Error(),
 			)
+			return
 		}
 		if jobID != "" {
 			if err := pollJob(ctx, *r.cfClient, jobID, updateTimeout); err != nil {
@@ -520,8 +522,9 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		resp.Diagnostics.Append(diags...)
 	case userProvidedServiceInstance:
 
-		updateServiceInstance := cfv3resource.ServiceInstanceUserProvidedUpdate{
-			Name: plan.Name.ValueStringPointer(),
+		updateServiceInstance := cfv3resource.ServiceInstanceUserProvidedUpdate{}
+		if plan.Name.ValueString() != previousState.Name.ValueString() {
+			updateServiceInstance.Name = plan.Name.ValueStringPointer()
 		}
 		if !plan.Credentials.IsNull() {
 			var credentials json.RawMessage
@@ -554,6 +557,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 				"API Error in updating user-provided service instance",
 				"Unable to update service instance "+plan.Name.ValueString()+": "+err.Error(),
 			)
+			return
 		}
 		serviceInstance, err := r.cfClient.ServiceInstances.Get(ctx, plan.ID.ValueString())
 		if err != nil {
