@@ -22,6 +22,13 @@ type securityGroupType struct {
 	UpdatedAt              types.String `tfsdk:"updated_at"`
 }
 
+type securityGroupsType struct {
+	Name           types.String        `tfsdk:"name"`
+	RunningSpace   types.String        `tfsdk:"running_space"`
+	StagingSpace   types.String        `tfsdk:"staging_space"`
+	SecurityGroups []securityGroupType `tfsdk:"security_groups"`
+}
+
 type ruleType struct {
 	Protocol    types.String `tfsdk:"protocol"`
 	Destination types.String `tfsdk:"destination"`
@@ -222,4 +229,18 @@ func (plan *securityGroupType) mapUpdateSecurityGroupTypeToValues(ctx context.Co
 	}
 
 	return *updateSecurityGroup, diagnostics
+}
+
+func mapDataSourceSecurityGroupsValuesToType(ctx context.Context, securityGroups []*resource.SecurityGroup) ([]securityGroupType, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	securityGroupsList := []securityGroupType{}
+	for _, securityGroup := range securityGroups {
+		securityGroupsValue, diags := mapSecurityGroupValuesToType(ctx, securityGroup)
+		diagnostics.Append(diags...)
+		securityGroupsList = append(securityGroupsList, securityGroupsValue)
+	}
+
+	return securityGroupsList, diagnostics
+
 }

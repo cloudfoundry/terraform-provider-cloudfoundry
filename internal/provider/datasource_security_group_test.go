@@ -66,7 +66,7 @@ func hclSecurityGroup(sgmp *SecurityGroupModelPtr) string {
 		}
 		return buf.String()
 	}
-	return sgmp.HclType + ` "cloudfoundry_security_group "` + sgmp.HclObjectName + ` {}`
+	return sgmp.HclType + ` "cloudfoundry_security_group" ` + sgmp.HclObjectName + ` {}`
 }
 
 func TestSecurityGroupDataSource_Configure(t *testing.T) {
