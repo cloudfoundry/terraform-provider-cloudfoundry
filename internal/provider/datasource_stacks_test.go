@@ -38,7 +38,7 @@ func hclStacks(sdsmp *StacksModelPtr) string {
 		}
 		return buf.String()
 	}
-	return sdsmp.HclType + ` cloudfoundry_Stacks" ` + sdsmp.HclObjectName + `  {}`
+	return sdsmp.HclType + ` "cloudfoundry_stacks" ` + sdsmp.HclObjectName + `  {}`
 }
 func TestStacksDataSource_Configure(t *testing.T) {
 	resourceName := "data.cloudfoundry_stacks.ds"
