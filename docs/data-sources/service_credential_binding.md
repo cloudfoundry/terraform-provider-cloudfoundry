@@ -52,6 +52,7 @@ Read-Only:
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
 - `last_operation` (Attributes) The details of the last operation performed on the resource (see [below for nested schema](#nestedatt--credential_bindings--last_operation))
 - `name` (String) Name of the service credential binding
+- `parameters` (String, Sensitive) A JSON object that is passed to the service broker.
 - `service_instance` (String) The GUID of the service instance
 - `type` (String) Type of the service credential binding
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.

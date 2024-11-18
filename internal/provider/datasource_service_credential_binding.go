@@ -74,6 +74,12 @@ func (d *ServiceCredentialBindingDataSource) Schema(ctx context.Context, req dat
 							Sensitive:           true,
 							CustomType:          jsontypes.NormalizedType{},
 						},
+						"parameters": schema.StringAttribute{
+							MarkdownDescription: "A JSON object that is passed to the service broker.",
+							Computed:            true,
+							Sensitive:           true,
+							CustomType:          jsontypes.NormalizedType{},
+						},
 						"last_operation": lastOperationSchema(),
 						idKey:            guidSchema(),
 						labelsKey:        datasourceLabelsSchema(),
@@ -154,9 +160,11 @@ func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datas
 
 	bindingValues := []serviceCredentialBindingTypeWithCredentials{}
 	for _, svcBinding := range svcCredentialBindings {
+
 		bindingValue, diags := mapServiceCredentialBindingValuesToType(ctx, svcBinding)
 		resp.Diagnostics.Append(diags...)
 		bindingWithCredentials := bindingValue.Reduce()
+
 		credentialDetails, err := d.cfClient.ServiceCredentialBindings.GetDetails(ctx, bindingWithCredentials.ID.ValueString())
 		if err != nil {
 			resp.Diagnostics.AddWarning(
@@ -168,6 +176,19 @@ func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datas
 			credentialJSON, _ := json.Marshal(credentialDetails)
 			bindingWithCredentials.Credentials = jsontypes.NewNormalizedValue(string(credentialJSON))
 		}
+
+		parameterDetails, err := d.cfClient.ServiceCredentialBindings.GetParameters(ctx, bindingWithCredentials.ID.ValueString())
+		if err != nil {
+			resp.Diagnostics.AddWarning(
+				"Unable to fetch Parameters.",
+				fmt.Sprintf("Request failed with %s.", err.Error()),
+			)
+			bindingWithCredentials.Parameters = jsontypes.NewNormalizedNull()
+		} else {
+			credentialJSON, _ := json.Marshal(parameterDetails)
+			bindingWithCredentials.Parameters = jsontypes.NewNormalizedValue(string(credentialJSON))
+		}
+
 		bindingValues = append(bindingValues, bindingWithCredentials)
 	}
 
