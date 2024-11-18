@@ -37,6 +37,7 @@ type serviceCredentialBindingTypeWithCredentials struct {
 	Type            types.String         `tfsdk:"type"`
 	ServiceInstance types.String         `tfsdk:"service_instance"`
 	Credentials     jsontypes.Normalized `tfsdk:"credential_binding"`
+	Parameters      jsontypes.Normalized `tfsdk:"parameters"`
 	App             types.String         `tfsdk:"app"`
 	LastOperation   types.Object         `tfsdk:"last_operation"` //LastOperationType
 	Labels          types.Map            `tfsdk:"labels"`

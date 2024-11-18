@@ -50,7 +50,7 @@ func TestServiceCredentialBindingDataSource(t *testing.T) {
 		// in canary -> PerformanceTeamBLR -> tf-space-1
 		testManagedServiceInstanceGUID      = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"
 		testUserProvidedServiceInstanceGUID = "5e2976bb-332e-41e1-8be3-53baafea9296"
-		testAppGUID                         = "ec6ac2b3-fb79-43c4-9734-000d4299bd59"
+		testAppGUID                         = "e61536de-f863-4da3-9772-a8538e1bad3d"
 		testServiceKeyName                  = "hifi"
 	)
 	t.Parallel()
