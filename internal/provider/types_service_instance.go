@@ -35,6 +35,27 @@ type serviceInstanceType struct {
 	Timeouts         timeouts.Value       `tfsdk:"timeouts"`
 }
 
+type singleDatasourceServiceInstanceType struct {
+	Name             types.String         `tfsdk:"name"`
+	ID               types.String         `tfsdk:"id"`
+	Type             types.String         `tfsdk:"type"`
+	Space            types.String         `tfsdk:"space"`
+	ServicePlan      types.String         `tfsdk:"service_plan"`
+	Parameters       jsontypes.Normalized `tfsdk:"parameters"`
+	LastOperation    types.Object         `tfsdk:"last_operation"` //LastOperationType
+	Tags             types.List           `tfsdk:"tags"`
+	DashboardURL     types.String         `tfsdk:"dashboard_url"`
+	Credentials      jsontypes.Normalized `tfsdk:"credentials"`
+	SyslogDrainURL   types.String         `tfsdk:"syslog_drain_url"`
+	RouteServiceURL  types.String         `tfsdk:"route_service_url"`
+	MaintenanceInfo  types.Object         `tfsdk:"maintenance_info"` //maintenanceInfoType
+	UpgradeAvailable types.Bool           `tfsdk:"upgrade_available"`
+	Labels           types.Map            `tfsdk:"labels"`
+	Annotations      types.Map            `tfsdk:"annotations"`
+	CreatedAt        types.String         `tfsdk:"created_at"`
+	UpdatedAt        types.String         `tfsdk:"updated_at"`
+}
+
 type datasourceServiceInstanceType struct {
 	Name             types.String `tfsdk:"name"`
 	ID               types.String `tfsdk:"id"`
@@ -85,6 +106,12 @@ var lastOperationAttrTypes = map[string]attr.Type{
 	"description": types.StringType,
 	"created_at":  types.StringType,
 	"updated_at":  types.StringType,
+}
+
+func (a *serviceInstanceType) Reduce() singleDatasourceServiceInstanceType {
+	var reduced singleDatasourceServiceInstanceType
+	copyFields(&reduced, a)
+	return reduced
 }
 
 func mapDataSourceServiceInstanceValuesToType(ctx context.Context, value *resource.ServiceInstance) (datasourceServiceInstanceType, diag.Diagnostics) {

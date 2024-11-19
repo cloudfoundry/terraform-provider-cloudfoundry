@@ -28,22 +28,24 @@ output "guid" {
 ### Required
 
 - `name` (String) The name of the service instance to look up
-- `space` (String) The ID of the space in which to create the service instance
+- `space` (String) The ID of the space in which to query the service instance
 
 ### Read-Only
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources.
 - `created_at` (String) The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
+- `credentials` (String, Sensitive) A JSON object that is made available to apps bound to this service instance of type user-provided.
 - `dashboard_url` (String) The URL to the service instance dashboard (or null if there is none); only shown when type is managed.
 - `id` (String) The GUID of the object.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
 - `last_operation` (Attributes) The details of the last operation performed on the resource (see [below for nested schema](#nestedatt--last_operation))
 - `maintenance_info` (Attributes) Information about the version of this service instance; only shown when type is managed (see [below for nested schema](#nestedatt--maintenance_info))
+- `parameters` (String, Sensitive) A JSON object that is passed to the service broker for managed service instance.
 - `route_service_url` (String) URL to which requests for bound routes will be forwarded; only shown when type is user-provided.
 - `service_plan` (String) The ID of the service plan from which the service instance was created, only shown when type is managed
 - `syslog_drain_url` (String) URL to which logs for bound applications will be streamed; only shown when type is user-provided.
 - `tags` (List of String) List of tags used by apps to identify service instances. They are shown in the app VCAP_SERVICES env.
-- `type` (String) Type of the service instnace. Either managed or user-provided.
+- `type` (String) Type of the service instance. Either managed or user-provided.
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
 - `upgrade_available` (Boolean) Whether or not an upgrade of this service instance is available on the current Service Plan; details are available in the maintenance_info object; Only shown when type is managed
 
