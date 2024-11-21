@@ -42,7 +42,7 @@ func hclIsolationSegmentEntitlement(isemp *IsolationSegmentEntitlementModelPtr) 
 		}
 		return buf.String()
 	}
-	return isemp.HclType + ` "cloudfoundry_isolation_segment_entitlement "` + isemp.HclObjectName + ` {}`
+	return isemp.HclType + ` "cloudfoundry_isolation_segment_entitlement" ` + isemp.HclObjectName + ` {}`
 }
 
 func TestIsolationSegmentEntitlementResource_Configure(t *testing.T) {

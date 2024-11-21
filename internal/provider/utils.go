@@ -139,6 +139,14 @@ func setRelationshipToTFSet(r []cfv3resource.Relationship) (basetypes.SetValue, 
 	return bt, diags
 }
 
+// Take array of relationships from cfclient and return array of GUID's.
+func setRelationshipToSlice(r []cfv3resource.Relationship) (values []string) {
+	for _, val := range r {
+		values = append(values, val.GUID)
+	}
+	return values
+}
+
 // Returns removed and added element in the new plan which existed in state.
 func findChangedRelationsFromTFState(ctx context.Context, planSet basetypes.SetValue, stateSet basetypes.SetValue) ([]string, []string, diag.Diagnostics) {
 	var diags diag.Diagnostics
