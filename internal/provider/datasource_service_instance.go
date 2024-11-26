@@ -2,11 +2,13 @@ package provider
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -35,11 +37,11 @@ func (d *ServiceInstanceDataSource) Schema(ctx context.Context, req datasource.S
 				Required:            true,
 			},
 			"space": schema.StringAttribute{
-				MarkdownDescription: "The ID of the space in which to create the service instance",
+				MarkdownDescription: "The ID of the space in which to query the service instance",
 				Required:            true,
 			},
 			"type": schema.StringAttribute{
-				MarkdownDescription: "Type of the service instnace. Either managed or user-provided.",
+				MarkdownDescription: "Type of the service instance. Either managed or user-provided.",
 				Computed:            true,
 			},
 			"service_plan": schema.StringAttribute{
@@ -81,6 +83,18 @@ func (d *ServiceInstanceDataSource) Schema(ctx context.Context, req datasource.S
 				MarkdownDescription: "The URL to the service instance dashboard (or null if there is none); only shown when type is managed.",
 				Computed:            true,
 			},
+			"parameters": schema.StringAttribute{
+				MarkdownDescription: "A JSON object that is passed to the service broker for managed service instance.",
+				Computed:            true,
+				Sensitive:           true,
+				CustomType:          jsontypes.NormalizedType{},
+			},
+			"credentials": schema.StringAttribute{
+				MarkdownDescription: "A JSON object that is made available to apps bound to this service instance of type user-provided.",
+				Computed:            true,
+				Sensitive:           true,
+				CustomType:          jsontypes.NormalizedType{},
+			},
 			"last_operation": lastOperationSchema(),
 			idKey:            guidSchema(),
 			labelsKey:        datasourceLabelsSchema(),
@@ -109,7 +123,10 @@ func (d *ServiceInstanceDataSource) Configure(ctx context.Context, req datasourc
 
 func (d *ServiceInstanceDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 
-	var data datasourceServiceInstanceType
+	var (
+		data       singleDatasourceServiceInstanceType
+		paramCreds *json.RawMessage
+	)
 
 	diags := req.Config.Get(ctx, &data)
 	resp.Diagnostics.Append(diags...)
@@ -148,7 +165,27 @@ func (d *ServiceInstanceDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	data, diags = mapDataSourceServiceInstanceValuesToType(ctx, svcInstance)
+	if svcInstance.Type == managedSerivceInstance {
+		paramCreds, err = d.cfClient.ServiceInstances.GetManagedParameters(ctx, svcInstance.GUID)
+		if err != nil {
+			resp.Diagnostics.AddWarning(
+				"API Error Fetching Parameters.",
+				fmt.Sprintf("Request failed with %s.", err.Error()),
+			)
+		}
+	} else if svcInstance.Type == userProvidedServiceInstance {
+		paramCreds, err = d.cfClient.ServiceInstances.GetUserProvidedCredentials(ctx, svcInstance.GUID)
+		if err != nil {
+			resp.Diagnostics.AddWarning(
+				"API Error Fetching Credentials.",
+				fmt.Sprintf("Request failed with %s.", err.Error()),
+			)
+		}
+	}
+	credentialJSON, _ := json.Marshal(paramCreds)
+
+	stuff, diags := mapResourceServiceInstanceValuesToType(ctx, svcInstance, jsontypes.NewNormalizedValue(string(credentialJSON)))
+	data = stuff.Reduce()
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }

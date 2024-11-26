@@ -18,8 +18,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Go-CF-Client/3.0
-        url: https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name&page=1&per_page=50&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
         method: GET
       response:
         proto: HTTP/2.0
@@ -27,24 +27,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
+        content_length: 484
         uncompressed: false
-        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=invalid-service-instance-name\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[]}'
         headers:
+            Content-Length:
+                - "484"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 13 Mar 2024 16:07:08 GMT
+                - Tue, 19 Nov 2024 04:11:24 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7d9ce5674eea139d
+                - 5c51bb82a6770997
             X-B3-Traceid:
-                - b9bd036a651a4ca27d9ce5674eea139d
+                - 9566369d7c264cef5c51bb82a6770997
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -58,13 +58,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1710346073"
+                - "1731990789"
             X-Runtime:
-                - "0.003863"
+                - "0.006558"
             X-Vcap-Request-Id:
-                - b9bd036a-651a-4ca2-7d9c-e5674eea139d::d52d9e50-9c80-4846-867d-04766212c3da
+                - 9566369d-7c26-4cef-5c51-bb82a6770997::051729a1-9df6-430b-9031-0ff820d67dee
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 182.097625ms
+        duration: 239.426ms
