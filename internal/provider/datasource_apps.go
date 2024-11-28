@@ -91,7 +91,7 @@ func datasourceAppsSchema() map[string]schema.Attribute {
 			MarkdownDescription: "The name of the stack the application will be deployed to.",
 			Computed:            true,
 		},
-		"buildpacks": schema.SetAttribute{
+		"buildpacks": schema.ListAttribute{
 			MarkdownDescription: "Multiple buildpacks used to stage the application.",
 			ElementType:         types.StringType,
 			Computed:            true,

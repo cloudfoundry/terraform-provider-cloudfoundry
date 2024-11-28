@@ -23,7 +23,7 @@ type AppType struct {
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
 	Stack                                 types.String       `tfsdk:"stack"`
-	Buildpacks                            types.Set          `tfsdk:"buildpacks"`
+	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	Path                                  types.String       `tfsdk:"path"`
 	SourceCodeHash                        types.String       `tfsdk:"source_code_hash"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
@@ -62,7 +62,7 @@ type DatasourceAppType struct {
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
 	Stack                                 types.String       `tfsdk:"stack"`
-	Buildpacks                            types.Set          `tfsdk:"buildpacks"`
+	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
 	ServiceBindings                       []ServiceBinding   `tfsdk:"service_bindings"`
@@ -377,10 +377,10 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	appType.Name = types.StringValue(appManifest.Name)
 	appType.Stack = types.StringValue(appManifest.Stack)
 	if len(appManifest.Buildpacks) != 0 {
-		appType.Buildpacks, tempDiags = types.SetValueFrom(ctx, types.StringType, appManifest.Buildpacks)
+		appType.Buildpacks, tempDiags = types.ListValueFrom(ctx, types.StringType, appManifest.Buildpacks)
 		diags = append(diags, tempDiags...)
 	} else {
-		appType.Buildpacks = types.SetNull(types.StringType)
+		appType.Buildpacks = types.ListNull(types.StringType)
 	}
 	if appManifest.Docker != nil {
 		appType.DockerImage = types.StringValue(appManifest.Docker.Image)
