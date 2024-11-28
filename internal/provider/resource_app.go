@@ -11,6 +11,7 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-validators/boolvalidator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/objectvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
@@ -76,12 +77,12 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Optional:            true,
 				Computed:            true,
 			},
-			"buildpacks": schema.SetAttribute{
+			"buildpacks": schema.ListAttribute{
 				MarkdownDescription: "Multiple buildpacks used to stage the application.",
 				ElementType:         types.StringType,
 				Computed:            true,
-				Validators: []validator.Set{
-					setvalidator.SizeAtLeast(1),
+				Validators: []validator.List{
+					listvalidator.SizeAtLeast(1),
 				},
 				Optional: true,
 			},

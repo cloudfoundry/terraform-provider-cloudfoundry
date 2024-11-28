@@ -134,7 +134,7 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 ### Optional
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
-- `buildpacks` (Set of String) Multiple buildpacks used to stage the application.
+- `buildpacks` (List of String) Multiple buildpacks used to stage the application.
 - `command` (String) A custom start command for the application. This overrides the start command provided by the buildpack.
 - `disk_quota` (String) The disk space to be allocated for each application instance.
 - `docker_credentials` (Attributes) Defines login credentials for private docker repositories (see [below for nested schema](#nestedatt--docker_credentials))

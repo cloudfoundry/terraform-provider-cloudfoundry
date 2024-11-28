@@ -64,7 +64,7 @@ output "service_bindings" {
 ### Read-Only
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources.
-- `buildpacks` (Set of String) Multiple buildpacks used to stage the application.
+- `buildpacks` (List of String) Multiple buildpacks used to stage the application.
 - `command` (String) A custom start command for the application. This overrides the start command provided by the buildpack.
 - `created_at` (String) The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
 - `disk_quota` (String) The disk space to be allocated for each application instance.
