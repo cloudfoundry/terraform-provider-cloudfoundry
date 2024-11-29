@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/samber/lo"
 )
 
 type securityGroupType struct {
@@ -27,6 +28,13 @@ type securityGroupsType struct {
 	RunningSpace   types.String        `tfsdk:"running_space"`
 	StagingSpace   types.String        `tfsdk:"staging_space"`
 	SecurityGroups []securityGroupType `tfsdk:"security_groups"`
+}
+
+// Terraform struct for storing values for isolation segment entitlement resource.
+type securityGroupSpacesType struct {
+	SecurityGroup types.String `tfsdk:"security_group"`
+	RunningSpaces types.Set    `tfsdk:"running_spaces"`
+	StagingSpaces types.Set    `tfsdk:"staging_spaces"`
 }
 
 type ruleType struct {
@@ -243,4 +251,31 @@ func mapDataSourceSecurityGroupsValuesToType(ctx context.Context, securityGroups
 
 	return securityGroupsList, diagnostics
 
+}
+
+func (plan *securityGroupSpacesType) mapSecurityGroupSpacesValuestoType(ctx context.Context, runningSpaces []string, stagingSpaces []string) diag.Diagnostics {
+	var diags, diagnostics diag.Diagnostics
+	var runningSpacesPlanned, stagingSpacesPlanned []string
+
+	diags = plan.RunningSpaces.ElementsAs(ctx, &runningSpacesPlanned, false)
+	diagnostics.Append(diags...)
+	diags = plan.StagingSpaces.ElementsAs(ctx, &stagingSpacesPlanned, false)
+	diagnostics.Append(diags...)
+	sameRunningSpaces := lo.Intersect(runningSpaces, runningSpacesPlanned)
+	sameStagingSpaces := lo.Intersect(stagingSpaces, stagingSpacesPlanned)
+
+	if len(sameRunningSpaces) == 0 {
+		plan.RunningSpaces = types.SetNull(types.StringType)
+	} else {
+		plan.RunningSpaces, diags = types.SetValueFrom(ctx, types.StringType, sameRunningSpaces)
+		diagnostics.Append(diags...)
+	}
+	if len(sameStagingSpaces) == 0 {
+		plan.StagingSpaces = types.SetNull(types.StringType)
+	} else {
+		plan.StagingSpaces, diags = types.SetValueFrom(ctx, types.StringType, sameStagingSpaces)
+		diagnostics.Append(diags...)
+	}
+
+	return diagnostics
 }

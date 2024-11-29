@@ -188,6 +188,7 @@ While most resources have maintained the same structure, some resources needed m
 Few resources required a major change in functionality or the way the resources were created which are mentioned below.
 
 - [Org Role](./resources/org_role.md)
+- [Security Group Spaces](./resources/security_group_spaces.md)
 - [Space Role](./resources/space_role.md)
 
 ### Changed DataSources

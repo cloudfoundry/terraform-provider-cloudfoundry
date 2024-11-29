@@ -1,0 +1,73 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 107
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},{"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}]}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/security_groups/40b73419-5e01-4be0-baea-932d46cea45b/relationships/running_spaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 93
+        uncompressed: false
+        body: '{"errors":[{"detail":"Security group not found","title":"CF-ResourceNotFound","code":10010}]}'
+        headers:
+            Content-Length:
+                - "93"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 21 Nov 2024 13:30:40 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 59a0a7b0c1c25424
+            X-B3-Traceid:
+                - 3d304f56730941bb59a0a7b0c1c25424
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1732195988"
+            X-Runtime:
+                - "0.051411"
+            X-Vcap-Request-Id:
+                - 3d304f56-7309-41bb-59a0-a7b0c1c25424::4f69956a-93f5-48f1-be94-e3cd053ff1d9
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 404 Not Found
+        code: 404
+        duration: 235.999209ms
