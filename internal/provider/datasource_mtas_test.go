@@ -31,6 +31,7 @@ type MtaResourceModelPtr struct {
 	Namespace            *string
 	Id                   *string
 	SourceCodeHash       *string
+	DeployStrategy       *string
 }
 
 func hclDataSourceMtas(mdsmp *MtasDataSourceModelPtr) string {
@@ -94,6 +95,9 @@ func hclResourceMta(mrmp *MtaResourceModelPtr) string {
 			{{- end -}}
 			{{if .SourceCodeHash}}
 				source_code_hash = "{{.SourceCodeHash}}"
+			{{- end -}}
+			{{if .DeployStrategy}}
+				deploy_strategy = "{{.DeployStrategy}}"
 			{{- end -}}
 			{{if .DeployUrl}}
 				deploy_url = "{{.DeployUrl}}"
