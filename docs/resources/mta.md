@@ -23,6 +23,7 @@ resource "cloudfoundry_mta" "mtar" {
   extension_descriptors = ["./prod.mtaext", "prod-scale-vertically.mtaext"]
   namespace             = "test"
   source_code_hash      = join("", [filesha256("./my-mta_1.0.0.mtar"), filesha256("./prod.mtaext"), filesha256("prod-scale-vertically.mtaext")])
+  deploy_strategy       = "blue-green-deploy"
 }
 ```
 
@@ -31,6 +32,7 @@ resource "cloudfoundry_mta" "mtar" {
 
 ### Required
 
+- `deploy_strategy` (String) The strategy for deploying the MTA.
 - `space` (String) The GUID of the space where the MTA will be deployed
 
 ### Optional
