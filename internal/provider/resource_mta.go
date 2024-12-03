@@ -99,6 +99,13 @@ __Further documentation:__
 				MarkdownDescription: "The MTA ID of the deployment",
 				Computed:            true,
 			},
+			"deploy_strategy": schema.StringAttribute{
+				MarkdownDescription: "The strategy for deploying the MTA. If attribute value is not provided by default normal deploy strategy is used.",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("deploy", "blue-green-deploy"),
+				},
+			},
 			"mta": schema.SingleNestedAttribute{
 				MarkdownDescription: "contains the details of the MTA object",
 				Computed:            true,
@@ -307,12 +314,20 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	}
 
 	operationParams := mta.Operation{
-		ProcessType: "DEPLOY",
-		Namespace:   namespace,
+		Namespace: namespace,
 		Parameters: map[string]interface{}{
 			"appArchiveId": uploadedFile.Id,
 			"mtaId":        mtaId,
 		},
+	}
+
+	if mtarType.DeployStrategy.ValueString() == "blue-green-deploy" {
+		operationParams.ProcessType = "BLUE_GREEN_DEPLOY"
+		operationParams.Parameters["noConfirm"] = true
+		operationParams.Parameters["skipIdleStart"] = true
+		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
+	} else {
+		operationParams.ProcessType = "DEPLOY"
 	}
 
 	if extensionDescriptors != "" {
