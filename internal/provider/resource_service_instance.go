@@ -9,6 +9,7 @@ import (
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
@@ -76,10 +77,16 @@ https://docs.cloudfoundry.org/devguide/services`,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
+				Validators: []validator.String{
+					validation.ValidUUID(),
+				},
 			},
 			"service_plan": schema.StringAttribute{
 				MarkdownDescription: "The ID of the service plan from which to create the service instance",
 				Optional:            true,
+				Validators: []validator.String{
+					validation.ValidUUID(),
+				},
 			},
 			"parameters": schema.StringAttribute{
 				MarkdownDescription: "A JSON object that is passed to the service broker for managed service instance.",
