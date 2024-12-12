@@ -417,9 +417,16 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		resp.Diagnostics.AddError("Error unmarshalling app", err.Error())
 		return
 	}
+	space, org, err := r.cfClient.Spaces.GetIncludeOrganization(ctx, appResp.Relationships.Space.Data.GUID)
+	if err != nil {
+		resp.Diagnostics.AddError("Error fetching space and org details : ", err.Error())
+		return
+	}
 	plan, diags := mapAppValuesToType(ctx, appManifest.Applications[0], appResp, &appType)
 	resp.Diagnostics.Append(diags...)
 	plan.CopyConfigAttributes(&appType)
+	plan.Space = types.StringValue(space.Name)
+	plan.Org = types.StringValue(org.Name)
 	resp.State.Set(ctx, &plan)
 }
 
