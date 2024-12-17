@@ -17,6 +17,8 @@ func TestMtaResource_Configure(t *testing.T) {
 		mtarUrl              = "https://github.com/Dray56/mtar-archive/releases/download/v1.0.0/a.cf.app.mtar"
 		extensionDescriptors = `["../../assets/prod.mtaext","../../assets/prod-scale-vertically.mtaext"]`
 		sourceCodeHash       = "fca8f8d1c499a1d0561c274ab974faf09355d513bb36475fe67577d850562801"
+		normalDeploy         = "deploy"
+		bgDeploy             = "blue-green-deploy"
 	)
 	t.Parallel()
 	t.Run("happy path - create/update/delete mta from path", func(t *testing.T) {
@@ -31,11 +33,12 @@ func TestMtaResource_Configure(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						MtarPath:      strtostrptr(mtarPath),
-						Space:         strtostrptr(spaceGuid),
-						Namespace:     strtostrptr(namespace),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						MtarPath:       strtostrptr(mtarPath),
+						Space:          strtostrptr(spaceGuid),
+						Namespace:      strtostrptr(namespace),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath),
@@ -45,11 +48,12 @@ func TestMtaResource_Configure(t *testing.T) {
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						MtarUrl:       strtostrptr(mtarUrl),
-						Space:         strtostrptr(spaceGuid),
-						Namespace:     strtostrptr(namespace),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						MtarUrl:        strtostrptr(mtarUrl),
+						Space:          strtostrptr(spaceGuid),
+						Namespace:      strtostrptr(namespace),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_url", mtarUrl),
@@ -66,6 +70,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:                strtostrptr(spaceGuid),
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
+						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Error: New MTA ID`),
 				},
@@ -90,6 +95,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:                strtostrptr(spaceGuid),
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
+						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
@@ -106,6 +112,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						SourceCodeHash:       strtostrptr(sourceCodeHash),
+						DeployStrategy:       strtostrptr(bgDeploy),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
@@ -129,28 +136,31 @@ func TestMtaResource_Configure(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						Space:         strtostrptr(spaceGuid),
-						MtarPath:      strtostrptr(invalidOrgGUID),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						Space:          strtostrptr(spaceGuid),
+						MtarPath:       strtostrptr(invalidOrgGUID),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mtar file`),
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						Space:         strtostrptr(spaceGuid),
-						MtarPath:      strtostrptr(""),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						Space:          strtostrptr(spaceGuid),
+						MtarPath:       strtostrptr(""),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mtar file`),
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						Space:         strtostrptr(spaceGuid),
-						MtarPath:      strtostrptr("../../assets/provider-config-local.txt"),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						Space:          strtostrptr(spaceGuid),
+						MtarPath:       strtostrptr("../../assets/provider-config-local.txt"),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`MTA ID missing`),
 				},
@@ -161,6 +171,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`["../../assets/pr"]`),
+						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mta extension descriptor`),
 				},
@@ -171,6 +182,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`[""]`),
+						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mta extension descriptor`),
 				},
@@ -181,6 +193,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`["../../assets/provider-config-local.txt"]`),
+						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Failure in polling MTA operation`),
 				},
@@ -198,11 +211,12 @@ func TestMtaResource_Configure(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						MtarPath:      strtostrptr(mtarPath),
-						Space:         strtostrptr(spaceGuid),
-						Namespace:     strtostrptr("Hello"),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						MtarPath:       strtostrptr(mtarPath),
+						Space:          strtostrptr(spaceGuid),
+						Namespace:      strtostrptr("Hello"),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Failure in polling MTA operation`),
 				},
@@ -220,10 +234,11 @@ func TestMtaResource_Configure(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:       hclObjectResource,
-						HclObjectName: "rs",
-						Space:         strtostrptr(spaceGuid),
-						MtarUrl:       strtostrptr(""),
+						HclType:        hclObjectResource,
+						HclObjectName:  "rs",
+						Space:          strtostrptr(spaceGuid),
+						MtarUrl:        strtostrptr(""),
+						DeployStrategy: strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload remote mtar file`),
 				},

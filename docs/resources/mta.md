@@ -23,6 +23,7 @@ resource "cloudfoundry_mta" "mtar" {
   extension_descriptors = ["./prod.mtaext", "prod-scale-vertically.mtaext"]
   namespace             = "test"
   source_code_hash      = join("", [filesha256("./my-mta_1.0.0.mtar"), filesha256("./prod.mtaext"), filesha256("prod-scale-vertically.mtaext")])
+  deploy_strategy       = "blue-green-deploy"
 }
 ```
 
@@ -35,6 +36,7 @@ resource "cloudfoundry_mta" "mtar" {
 
 ### Optional
 
+- `deploy_strategy` (String) The strategy for deploying the MTA. If attribute value is not provided by default normal deploy strategy is used.
 - `deploy_url` (String) The URL of the deploy service, if a custom one has been used(should be present in the same landscape). By default 'deploy-service.<system-domain>'
 - `extension_descriptors` (Set of String) The paths for the MTA deployment extension files.
 - `mtar_path` (String) The local path where the MTA archive is present. Either this attribute or mtar_url need to be set.
