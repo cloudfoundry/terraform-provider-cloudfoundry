@@ -51,6 +51,7 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 	t.Run("happy path - read spaces", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_spaces")
+		orgGuid := "261e5031-3e54-4b12-b316-94b3195b5f8e"
 		defer stopQuietly(rec)
 
 		resource.Test(t, resource.TestCase{
@@ -61,22 +62,22 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						OrgId:         strtostrptr(testOrg2GUID),
+						OrgId:         strtostrptr(orgGuid),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "org", testOrg2GUID),
-						resource.TestCheckResourceAttr(dataSourceName, "spaces.#", "16"),
+						resource.TestCheckResourceAttr(dataSourceName, "org", orgGuid),
+						resource.TestCheckResourceAttr(dataSourceName, "spaces.#", "2"),
 					),
 				},
 				{
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						OrgId:         strtostrptr(testOrg2GUID),
-						Name:          strtostrptr("wow"),
+						OrgId:         strtostrptr(orgGuid),
+						Name:          strtostrptr("test-space"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "org", testOrg2GUID),
+						resource.TestCheckResourceAttr(dataSourceName, "org", orgGuid),
 						resource.TestCheckResourceAttr(dataSourceName, "spaces.#", "1"),
 					),
 				},
@@ -107,6 +108,8 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_spaces_invalid_space")
 		defer stopQuietly(rec)
+		testSpace := "wrong-space-name"
+		orgGuid := "261e5031-3e54-4b12-b316-94b3195b5f8e"
 
 		resource.Test(t, resource.TestCase{
 			IsUnitTest:               true,
@@ -117,9 +120,11 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
 						Name:          strtostrptr(testSpace),
-						OrgId:         strtostrptr(testOrg2GUID),
+						OrgId:         strtostrptr(orgGuid),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any space in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "spaces.#", "0"),
+					),
 				},
 			},
 		})

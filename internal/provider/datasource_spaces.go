@@ -148,10 +148,9 @@ func (d *SpacesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	}
 
 	if len(spaces) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any space in list",
-			fmt.Sprintf("No space present under org %s with mentioned criteria", data.OrgId.ValueString()),
-		)
+
+		data.Spaces = []spaceType{}
+		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 		return
 	}
 

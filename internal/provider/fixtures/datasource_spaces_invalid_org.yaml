@@ -9,7 +9,114 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:08 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 403937e842880941
+            X-B3-Traceid:
+                - c3761add3f88461b403937e842880941
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - c3761add-3f88-461b-4039-37e842880941::7b22e557-9e5c-4d57-ac15-9e32ddbd2806
+        status: 200 OK
+        code: 200
+        duration: 213.26625ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c37d56a32a8848799fdac10ef8a6547b-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"8222c670f9804c728751c612f840d5b7"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:08 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=Y2FjYjM4MGYtYjQxYy00N2NhLTk2NTUtMTAxNjY4MGM0N2Vl; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=d6e7e96a-d880-4a93-50d8-a762fbe0a6e5; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 09501684-406f-4217-50e2-6fbe03999849
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 729.408458ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
@@ -18,8 +125,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/organizations/40b73419-5e01-4be0-baea-932d46cea45b
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/organizations/40b73419-5e01-4be0-baea-932d46cea45b
         method: GET
       response:
         proto: HTTP/2.0
@@ -36,15 +143,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Mon, 21 Oct 2024 09:36:06 GMT
+                - Thu, 02 Jan 2025 08:43:09 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 56a9b5c37b121c57
+                - 5222ebd1c0f91e48
             X-B3-Traceid:
-                - 0537b929b72e467756a9b5c37b121c57
+                - 2d823b8c26be45445222ebd1c0f91e48
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -58,13 +165,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1729504988"
+                - "1735808284"
             X-Runtime:
-                - "0.003222"
+                - "0.003717"
             X-Vcap-Request-Id:
-                - 0537b929-b72e-4677-56a9-b5c37b121c57::8c15148f-db85-4d0b-b75d-620e1b19cf18
+                - 2d823b8c-26be-4544-5222-ebd1c0f91e48::363a989f-b3ba-4dc1-8a87-84c3b86f1b0c
             X-Xss-Protection:
                 - 1; mode=block
         status: 404 Not Found
         code: 404
-        duration: 236.75ms
+        duration: 219.865084ms

@@ -9,17 +9,13 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
         method: GET
       response:
         proto: HTTP/2.0
@@ -27,48 +23,92 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 794
+        content_length: 963
         uncompressed: false
-        body: '{"guid":"784b4cd0-4771-4e4d-9052-a07e178bae56","created_at":"2017-07-04T10:43:11Z","updated_at":"2024-01-08T15:08:31Z","name":"PerformanceTeamBLR","suspended":false,"relationships":{"quota":{"data":{"guid":"c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}},"metadata":{"labels":{"env":"canary"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56"},"domains":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains"},"default_domain":{"href":"https://api.x.x.x.x.com/v3/organizations/784b4cd0-4771-4e4d-9052-a07e178bae56/domains/default"},"quota":{"href":"https://api.x.x.x.x.com/v3/organization_quotas/c17f045b-cebf-451a-b2d8-6c885fd9dbfc"}}}'
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
         headers:
             Content-Length:
-                - "794"
+                - "963"
             Content-Type:
-                - application/json; charset=utf-8
+                - application/json;charset=utf-8
             Date:
-                - Mon, 21 Oct 2024 09:36:06 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
+                - Thu, 02 Jan 2025 08:43:09 GMT
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 65020145d5cf72cc
+                - 7b9f86551a85e128
             X-B3-Traceid:
-                - 69d63bcec7514e8665020145d5cf72cc
+                - c284460169924d3c7b9f86551a85e128
             X-Content-Type-Options:
                 - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1729504988"
-            X-Runtime:
-                - "0.009059"
             X-Vcap-Request-Id:
-                - 69d63bce-c751-4e86-6502-0145d5cf72cc::a721fbb7-5aa8-44e0-ad92-6b858e1fd8f4
+                - c2844601-6992-4d3c-7b9f-86551a85e128::ae96658c-ae7c-46fe-aca9-2d901bd5e4be
+        status: 200 OK
+        code: 200
+        duration: 189.759459ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"70c4ab04af004ab4a16355052bfc5a86-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"1a3a8c8cc1294e39b21624e513c760a2"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:10 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=NTJhNzYwZmYtNjBlNy00N2QwLTkyYTYtY2ZiYmJkYWQyNWJk; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=8092a2ed-dfba-4bee-416d-d542e007246c; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - bbb78f42-543b-4e6d-4461-694c5e3c0d6c
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 244.490541ms
-    - id: 1
+        duration: 942.991208ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -76,7 +116,7 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
@@ -85,8 +125,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/spaces?names=tf-test-do-not-delete&organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e
         method: GET
       response:
         proto: HTTP/2.0
@@ -94,24 +134,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 460
+        content_length: 817
         uncompressed: false
-        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/spaces?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/spaces?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        body: '{"guid":"261e5031-3e54-4b12-b316-94b3195b5f8e","created_at":"2024-10-22T19:52:22Z","updated_at":"2024-10-22T19:52:22Z","name":"terraform-integration-prod_demo-tfexporter-m1tnmlap","suspended":false,"relationships":{"quota":{"data":{"guid":"60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e"},"domains":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains"},"default_domain":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains/default"},"quota":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organization_quotas/60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}}'
         headers:
             Content-Length:
-                - "460"
+                - "817"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Mon, 21 Oct 2024 09:36:07 GMT
+                - Thu, 02 Jan 2025 08:43:10 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 6f9b5116cc77296e
+                - 6471149851ea5c28
             X-B3-Traceid:
-                - b2c60153c9424ab86f9b5116cc77296e
+                - da68d70188e245a76471149851ea5c28
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -125,13 +165,669 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1729504988"
+                - "1735808283"
             X-Runtime:
-                - "0.069493"
+                - "0.009614"
             X-Vcap-Request-Id:
-                - b2c60153-c942-4ab8-6f9b-5116cc77296e::cc2dca1d-72e6-4844-92f3-d0c0a5ea5726
+                - da68d701-88e2-45a7-6471-149851ea5c28::a02798f8-37e0-48f6-a9e0-a68cb05c5675
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 301.393542ms
+        duration: 216.410542ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name&organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 452
+        uncompressed: false
+        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        headers:
+            Content-Length:
+                - "452"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:10 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 71c8054843c82d4d
+            X-B3-Traceid:
+                - e4d215a7df764b1e71c8054843c82d4d
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1735808283"
+            X-Runtime:
+                - "0.083479"
+            X-Vcap-Request-Id:
+                - e4d215a7-df76-4b1e-71c8-054843c82d4d::a07dfa56-a3db-420a-af77-a927d5a773f7
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 285.0845ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:11 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5a9d6cec089c1313
+            X-B3-Traceid:
+                - 6b66ae1cc6af4b4a5a9d6cec089c1313
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 6b66ae1c-c6af-4b4a-5a9d-6cec089c1313::a53b117e-d460-46de-95a9-2d6af7ee49c0
+        status: 200 OK
+        code: 200
+        duration: 191.097ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2f7f7b6e42074df4b6812b58280abb9b-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"4ba0dc58965e4e608e70ae31f55a362d"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:13 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=ZDhmMzJiMzEtM2Y3NC00ZGRhLTkwOWQtMTc5NjgyNGIxZGM5; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=1f8fa598-40c8-4a3d-44c2-efd1a53efd53; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 21978850-bd82-4cc0-47a4-2d6aea8cab42
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.895449584s
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 817
+        uncompressed: false
+        body: '{"guid":"261e5031-3e54-4b12-b316-94b3195b5f8e","created_at":"2024-10-22T19:52:22Z","updated_at":"2024-10-22T19:52:22Z","name":"terraform-integration-prod_demo-tfexporter-m1tnmlap","suspended":false,"relationships":{"quota":{"data":{"guid":"60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e"},"domains":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains"},"default_domain":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains/default"},"quota":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organization_quotas/60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}}'
+        headers:
+            Content-Length:
+                - "817"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:13 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5be02d451e79c4ce
+            X-B3-Traceid:
+                - ed4e138230fe4ca65be02d451e79c4ce
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1735808284"
+            X-Runtime:
+                - "0.008600"
+            X-Vcap-Request-Id:
+                - ed4e1382-30fe-4ca6-5be0-2d451e79c4ce::cb646843-23e7-43f7-97f3-5fc9f4b039d7
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 230.855667ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name&organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 452
+        uncompressed: false
+        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        headers:
+            Content-Length:
+                - "452"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:13 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 596d9976fd114c21
+            X-B3-Traceid:
+                - 667e8e2fe26c4226596d9976fd114c21
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1735808284"
+            X-Runtime:
+                - "0.078867"
+            X-Vcap-Request-Id:
+                - 667e8e2f-e26c-4226-596d-9976fd114c21::7bef0e02-2f24-46bb-9f5b-fbb635359ea6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 290.815ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:13 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4d20a11604cb4d56
+            X-B3-Traceid:
+                - 4ac2d92bb0994efd4d20a11604cb4d56
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 4ac2d92b-b099-4efd-4d20-a11604cb4d56::ecdedf84-2fd1-4db5-ac05-b845da4a5bd6
+        status: 200 OK
+        code: 200
+        duration: 194.361833ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"6020821cc7f6483eab10a55b90922c96-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"3381de9787a4473e9489b1846a69ba2d"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:15 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=NTFlYTgyYzMtZjE4ZC00NjAyLWE2MTEtZTVlZDU5MzEzMzA0; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=beb36a64-7ccc-4869-6eb1-7659dcea1d8a; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - a393ab7d-8e74-4ee8-6cc5-db1f74f59c26
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.763564668s
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 817
+        uncompressed: false
+        body: '{"guid":"261e5031-3e54-4b12-b316-94b3195b5f8e","created_at":"2024-10-22T19:52:22Z","updated_at":"2024-10-22T19:52:22Z","name":"terraform-integration-prod_demo-tfexporter-m1tnmlap","suspended":false,"relationships":{"quota":{"data":{"guid":"60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e"},"domains":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains"},"default_domain":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organizations/261e5031-3e54-4b12-b316-94b3195b5f8e/domains/default"},"quota":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/organization_quotas/60c00c3a-b8d1-49b1-b7a0-e9d2bfddc2da"}}}'
+        headers:
+            Content-Length:
+                - "817"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:15 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 486fe16a8625e9bc
+            X-B3-Traceid:
+                - 8976c10a95e749e9486fe16a8625e9bc
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1735808283"
+            X-Runtime:
+                - "0.008508"
+            X-Vcap-Request-Id:
+                - 8976c10a-95e7-49e9-486f-e16a8625e9bc::25e68834-3995-40cf-8066-181aa6a450f7
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 249.89075ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name&organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 452
+        uncompressed: false
+        body: '{"pagination":{"total_results":0,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/spaces?names=wrong-space-name\u0026organization_guids=261e5031-3e54-4b12-b316-94b3195b5f8e\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[]}'
+        headers:
+            Content-Length:
+                - "452"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:16 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6e9ecfe36ef862c0
+            X-B3-Traceid:
+                - b4bc9180fd674ea06e9ecfe36ef862c0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1735808285"
+            X-Runtime:
+                - "0.083952"
+            X-Vcap-Request-Id:
+                - b4bc9180-fd67-4ea0-6e9e-cfe36ef862c0::71130425-c38e-4ff1-bd37-7561fcc6d2b5
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 367.433125ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:16 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 615846aaa6cdb9ac
+            X-B3-Traceid:
+                - 6ff4d72b3bfd4786615846aaa6cdb9ac
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 6ff4d72b-3bfd-4786-6158-46aaa6cdb9ac::be9d8cbf-9b98-49a2-b088-c04443853c9f
+        status: 200 OK
+        code: 200
+        duration: 307.4985ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"71b02ae5151d4189bb93ef9de462b25d-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"9e2512b85d5d411f903eb74681b1c31d"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Thu, 02 Jan 2025 08:43:18 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=NTRhNWY5NjctOTNlNy00OWM4LWJjMTItMWY1MDdjYzc4NDg3; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=dad4f78d-e41a-4d35-78f0-2f5ea5a82a89; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - f55b4e8f-c71a-48e0-787d-7a38d91de8ad
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.622033959s
