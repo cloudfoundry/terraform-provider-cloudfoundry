@@ -161,13 +161,6 @@ func (d *OrgQuotasDataSource) Read(ctx context.Context, req datasource.ReadReque
 		)
 		return
 	}
-	if len(orgQuotas) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any org quota",
-			fmt.Sprintf("No org quota present under org %s with mentioned criteria", data.Org.ValueString()),
-		)
-		return
-	}
 
 	data.OrgQuotas, diags = mapOrgQuotasValuesToType(orgQuotas)
 	resp.Diagnostics.Append(diags...)
