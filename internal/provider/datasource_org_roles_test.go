@@ -70,7 +70,7 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", testOrgGuid),
-						resource.TestCheckResourceAttr(dataSourceName, "roles.#", "2")),
+						resource.TestCheckResourceAttr(dataSourceName, "roles.#", "5")),
 				},
 				{
 					Config: hclProvider(nil) + hclOrgRolesDataSource(&OrgRolesModelPtr{
@@ -81,7 +81,7 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", testOrgGuid),
-						resource.TestCheckResourceAttr(dataSourceName, "roles.#", "1")),
+						resource.TestCheckResourceAttr(dataSourceName, "roles.#", "2")),
 				},
 			},
 		})
