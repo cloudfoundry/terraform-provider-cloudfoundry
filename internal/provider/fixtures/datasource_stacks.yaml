@@ -6,24 +6,71 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
+        content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: uaa.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=66209766bd8c4a469b2866361b1ada3e-r
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:46 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 53d1e6006527940a
+            X-B3-Traceid:
+                - 5d643dda15a243db53d1e6006527940a
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 5d643dda-15a2-43db-53d1-e6006527940a::de31b4be-1334-476e-ba9e-0f089fd4d9d7
+        status: 200 OK
+        code: 200
+        duration: 209.801459ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
         form:
             grant_type:
-                - refresh_token
-            refresh_token:
-                - 66209766bd8c4a469b2866361b1ada3e-r
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
         headers:
             Authorization:
                 - Basic Y2Y6
             Content-Type:
                 - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
         method: POST
       response:
         proto: HTTP/2.0
@@ -33,7 +80,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"66209766bd8c4a469b2866361b1ada3e-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"2f897b18a19842498aa0460bc4b1f2a2"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"52788e713116416cb169e673663ad9c9-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"bd40c56a403a4fb88c29a65e166a80ff"}'
         headers:
             Cache-Control:
                 - no-store
@@ -42,9 +89,12 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Fri, 08 Nov 2024 09:54:03 GMT
+                - Tue, 07 Jan 2025 06:36:46 GMT
             Pragma:
                 - no-cache
+            Set-Cookie:
+                - JSESSIONID=ZTdjOGM0ZGMtMWMzNy00ZDJhLWI0YzEtZGFhNWZhZDNkNDk2; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=ab912396-4bcd-4eb4-59d5-38e41c6c3a90; Path=/; HttpOnly; Secure; SameSite=None
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-Content-Type-Options:
@@ -52,13 +102,13 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 5f87f23f-ed27-4aa9-749e-271d94e34d36
+                - d80a5b3a-022f-496e-4eff-1cb6fba1a223
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 257.293958ms
-    - id: 1
+        duration: 737.963042ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -66,7 +116,7 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
@@ -75,8 +125,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.9.4 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
         method: GET
       response:
         proto: HTTP/2.0
@@ -86,22 +136,22 @@ interactions:
         trailer: {}
         content_length: 761
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
         headers:
             Content-Length:
                 - "761"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 08 Nov 2024 09:54:04 GMT
+                - Tue, 07 Jan 2025 06:36:47 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7f41c2de7e8fba92
+                - 77a53dca16db280c
             X-B3-Traceid:
-                - 7ebbf7bc172f4d997f41c2de7e8fba92
+                - 7b9b4d3c211a466677a53dca16db280c
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -115,73 +165,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1731059885"
+                - "1736233084"
             X-Runtime:
-                - "0.008100"
+                - "0.008718"
             X-Vcap-Request-Id:
-                - 7ebbf7bc-172f-4d99-7f41-c2de7e8fba92::c40f7666-1618-4822-b775-d0251235c906
+                - 7b9b4d3c-211a-4666-77a5-3dca16db280c::d873c7e7-fe6c-4845-bb45-622f2b4f321b
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 198.57525ms
-    - id: 2
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=66209766bd8c4a469b2866361b1ada3e-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - 66209766bd8c4a469b2866361b1ada3e-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"66209766bd8c4a469b2866361b1ada3e-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"771f827b4f1b4c678a605651cbd353d7"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json;charset=UTF-8
-            Date:
-                - Fri, 08 Nov 2024 09:54:04 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 18af9ff0-89a5-428e-50b4-35b53e9e1bcc
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 226.217125ms
+        duration: 212.974709ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -190,17 +183,13 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.9.4 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
         method: GET
       response:
         proto: HTTP/2.0
@@ -208,70 +197,54 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 761
+        content_length: 963
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
         headers:
             Content-Length:
-                - "761"
+                - "963"
             Content-Type:
-                - application/json; charset=utf-8
+                - application/json;charset=utf-8
             Date:
-                - Fri, 08 Nov 2024 09:54:05 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
+                - Tue, 07 Jan 2025 06:36:47 GMT
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 67d4f33a94235d72
+                - 4b2032b2026a7bda
             X-B3-Traceid:
-                - eccf43950cdd477367d4f33a94235d72
+                - e0ef7b5310b347154b2032b2026a7bda
             X-Content-Type-Options:
                 - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1731059884"
-            X-Runtime:
-                - "0.007530"
             X-Vcap-Request-Id:
-                - eccf4395-0cdd-4773-67d4-f33a94235d72::e04fea67-29ed-40ff-8feb-cd1c14ccda73
-            X-Xss-Protection:
-                - 1; mode=block
+                - e0ef7b53-10b3-4715-4b20-32b2026a7bda::be32ea1d-4431-407e-a925-30b795dbc122
         status: 200 OK
         code: 200
-        duration: 209.454667ms
+        duration: 188.599333ms
     - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
+        content_length: 81
         transfer_encoding: []
         trailer: {}
-        host: uaa.x.x.x.x.com
+        host: uaa.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=66209766bd8c4a469b2866361b1ada3e-r
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
         form:
             grant_type:
-                - refresh_token
-            refresh_token:
-                - 66209766bd8c4a469b2866361b1ada3e-r
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
         headers:
             Authorization:
                 - Basic Y2Y6
             Content-Type:
                 - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
         method: POST
       response:
         proto: HTTP/2.0
@@ -281,7 +254,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"66209766bd8c4a469b2866361b1ada3e-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"890e56c649f54f43a7a3c369f82819f8"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"1c447e1fff1e4be685190e7c3f499f03-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"1e786fe454b240b4a631fd5d3aff0621"}'
         headers:
             Cache-Control:
                 - no-store
@@ -290,9 +263,12 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Fri, 08 Nov 2024 09:54:05 GMT
+                - Tue, 07 Jan 2025 06:36:48 GMT
             Pragma:
                 - no-cache
+            Set-Cookie:
+                - JSESSIONID=ZDZiMjk5ZGItNDZlMy00MzUzLTgwMDEtZWYyZjA2YTJmNjMz; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=2e612353-bcba-4c12-7192-0a850dc1437b; Path=/; HttpOnly; Secure; SameSite=None
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-Content-Type-Options:
@@ -300,12 +276,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 1849c188-ec32-4254-6032-68e89936ffb8
+                - 4fb2d6ee-3aa0-41d0-61f0-69c428f0e66e
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 237.152666ms
+        duration: 513.958792ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -314,7 +290,7 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: api.cf.eu10.hana.ondemand.com
         remote_addr: ""
         request_uri: ""
         body: ""
@@ -323,8 +299,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.9.4 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
         method: GET
       response:
         proto: HTTP/2.0
@@ -334,22 +310,22 @@ interactions:
         trailer: {}
         content_length: 761
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
         headers:
             Content-Length:
                 - "761"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 08 Nov 2024 09:54:05 GMT
+                - Tue, 07 Jan 2025 06:36:48 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 5fae6f0b435f3cc5
+                - 72f23fc57248a85a
             X-B3-Traceid:
-                - 0f4e0b61343048da5fae6f0b435f3cc5
+                - 79db2f274b7c4ab372f23fc57248a85a
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -363,13 +339,294 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1731059884"
+                - "1736233084"
             X-Runtime:
-                - "0.005824"
+                - "0.007692"
             X-Vcap-Request-Id:
-                - 0f4e0b61-3430-48da-5fae-6f0b435f3cc5::3d31cc5d-85c1-47d5-a423-d5206a50eb3f
+                - 79db2f27-4b7c-4ab3-72f2-3fc57248a85a::bea09d8e-6865-4b49-9d1c-5616c12ff8ef
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 197.432417ms
+        duration: 207.395083ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:48 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5aa42c17966ff9c3
+            X-B3-Traceid:
+                - 6a2c2309eb164bd65aa42c17966ff9c3
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 6a2c2309-eb16-4bd6-5aa4-2c17966ff9c3::6a12ecff-71ff-4cfd-8fc9-a580812b368b
+        status: 200 OK
+        code: 200
+        duration: 196.749792ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"206e07a1f3394ae698ecddef044f639d-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"3d83c635227d4357bbcd5f5011ade4cc"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:49 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=NGVkNTY1ZTYtM2ZmMi00YTFjLWE4NzItNTU3ZDlkZDlmYzQ5; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=f060d2ff-782e-4411-517c-44998e930251; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - a92ca608-374d-4fe0-7051-3eebdd206cac
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 536.915667ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.9.7 terraform-provider-cloudfoundry/dev
+        url: https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 761
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks?names=cflinuxfs4\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"4bc294a9-f0be-4b6f-a29f-3c747a797e61","created_at":"2023-01-12T05:06:45Z","updated_at":"2023-01-12T05:06:45Z","name":"cflinuxfs4","description":"Cloud Foundry Linux-based filesystem (Ubuntu 22.04)","run_rootfs_image":"cflinuxfs4","build_rootfs_image":"cflinuxfs4","default":true,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com/v3/stacks/4bc294a9-f0be-4b6f-a29f-3c747a797e61"}}}]}'
+        headers:
+            Content-Length:
+                - "761"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:49 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5fc3a3c6d9318024
+            X-B3-Traceid:
+                - ab5a4ffc2d124d195fc3a3c6d9318024
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1736233084"
+            X-Runtime:
+                - "0.010826"
+            X-Vcap-Request-Id:
+                - ab5a4ffc-2d12-4d19-5fc3-a3c6d9318024::38f07570-5099-4352-8aed-f3d1782b1d22
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 212.854125ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers: {}
+        url: https://api.cf.eu10.hana.ondemand.com/
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 963
+        uncompressed: false
+        body: '{"links":{"self":{"href":"https://api.cf.eu10.hana.ondemand.com"},"cloud_controller_v3":{"href":"https://api.cf.eu10.hana.ondemand.com/v3","meta":{"version":"3.181.0"}},"network_policy_v0":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v0/external"},"network_policy_v1":{"href":"https://api.cf.eu10.hana.ondemand.com/networking/v1/external"},"login":{"href":"https://login.cf.eu10.hana.ondemand.com"},"uaa":{"href":"https://uaa.cf.eu10.hana.ondemand.com"},"credhub":null,"routing":null,"logging":{"href":"wss://doppler.cf.eu10.hana.ondemand.com:443"},"log_cache":{"href":"https://log-cache.cf.eu10.hana.ondemand.com"},"log_stream":{"href":"https://log-stream.cf.eu10.hana.ondemand.com"},"app_ssh":{"href":"ssh.cf.eu10.hana.ondemand.com:2222","meta":{"host_key_fingerprint":"TD1dRQINLi2KxilVLzAI8tXB2h8MP79oyVJnUwshjdc","oauth_client":"ssh-proxy"}},"cloud_controller_v2":{"href":"https://api.cf.eu10.hana.ondemand.com/v2","meta":{"version":"2.246.0"}}}}'
+        headers:
+            Content-Length:
+                - "963"
+            Content-Type:
+                - application/json;charset=utf-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:49 GMT
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 65b16e6da9a4bf3e
+            X-B3-Traceid:
+                - 4eabc6dbde6645c665b16e6da9a4bf3e
+            X-Content-Type-Options:
+                - nosniff
+            X-Vcap-Request-Id:
+                - 4eabc6db-de66-45c6-65b1-6e6da9a4bf3e::43942fe2-38a0-4ce2-a7d3-359486f02645
+        status: 200 OK
+        code: 200
+        duration: 191.656541ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 81
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.cf.eu10.hana.ondemand.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=password&password=Saponline%40%401234&username=anugrah.gupta%40sap.com
+        form:
+            grant_type:
+                - password
+            password:
+                - Saponline@@1234
+            username:
+                - anugrah.gupta@sap.com
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.cf.eu10.hana.ondemand.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"a223895b480a4980b30cdbd26d1f41b7-r","expires_in":1199,"scope":"cloud_controller.write openid uaa.user cloud_controller.read password.write","jti":"aec3ec50836141979937b3ecc361bcdf"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json;charset=UTF-8
+            Date:
+                - Tue, 07 Jan 2025 06:36:50 GMT
+            Pragma:
+                - no-cache
+            Set-Cookie:
+                - JSESSIONID=MmNhYjVhNTAtMDJiYy00Y2ViLThmOTctOTU3ZGIyZjZhNzAz; Path=/; Secure; HttpOnly; SameSite=None
+                - __VCAP_ID__=26d5e2c9-baf0-4de6-57d7-b34aee8b3309; Path=/; HttpOnly; Secure; SameSite=None
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 2a9b1cf4-de85-4ddb-5cb3-b01f0dddea1e
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.316582834s

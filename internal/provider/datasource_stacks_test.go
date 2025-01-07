@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -57,9 +56,12 @@ func TestStacksDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclStacks(&StacksModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          &invalidOrgGUID,
+						Name:          strtostrptr("invalid-stack-name"),
 					}),
-					ExpectError: regexp.MustCompile(`No stack present with mentioned criteria`),
+					//ExpectError: regexp.MustCompile(`No stack present with mentioned criteria`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "stacks.#", "0"),
+					),
 				},
 			},
 		})

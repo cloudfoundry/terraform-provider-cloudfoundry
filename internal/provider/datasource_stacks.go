@@ -116,14 +116,6 @@ func (d *stacksDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if len(stacks) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any stack in the list",
-			"No stack present with mentioned criteria",
-		)
-		return
-	}
-
 	data.Stacks, diags = mapStacksValuesToType(ctx, stacks)
 	resp.Diagnostics.Append(diags...)
 
