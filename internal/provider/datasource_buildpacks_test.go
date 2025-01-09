@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -64,7 +63,9 @@ func TestBuildpacksDataSource_Configure(t *testing.T) {
 						HclObjectName: "ds",
 						Name:          &invalidOrgGUID,
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any buildpack in the list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "buildpacks.#", "0"),
+					),
 				},
 			},
 		})

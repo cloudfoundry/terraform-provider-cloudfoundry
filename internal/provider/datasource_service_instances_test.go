@@ -92,6 +92,7 @@ func TestServiceInstancesDataSource(t *testing.T) {
 	t.Run("error path - get unavailable service instance", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_instances_invalid")
+		dataSourceName := "data.cloudfoundry_service_instances.ds"
 		defer stopQuietly(rec)
 		// Create a Terraform configuration that uses the data source
 		// and run `terraform apply`. The data source should not be found.
@@ -114,7 +115,9 @@ func TestServiceInstancesDataSource(t *testing.T) {
 						Org:           &testOrg2GUID,
 						Name:          strtostrptr("hi"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any service instance in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "0"),
+					),
 				},
 			},
 		})

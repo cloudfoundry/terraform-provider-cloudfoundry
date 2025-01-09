@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -85,7 +84,9 @@ func TestIsolationSegmentsDataSource_Configure(t *testing.T) {
 						HclObjectName: "ds",
 						Name:          strtostrptr("testunavailable"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any Isolation Segment in given list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "isolation_segments.#", "0"),
+					),
 				},
 			},
 		})

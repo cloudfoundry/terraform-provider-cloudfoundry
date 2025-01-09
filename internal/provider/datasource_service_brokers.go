@@ -112,13 +112,6 @@ func (d *ServiceBrokersDataSource) Read(ctx context.Context, req datasource.Read
 		)
 		return
 	}
-	if len(svcBrokers) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any service broker in list",
-			"No service brokers present with mentioned criteria",
-		)
-		return
-	}
 
 	data.ServiceBrokers, diags = mapDataSourceServiceBrokersValuesToType(ctx, svcBrokers)
 	resp.Diagnostics.Append(diags...)

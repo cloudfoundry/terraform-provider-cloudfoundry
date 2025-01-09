@@ -270,10 +270,8 @@ func (d *appsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 	}
 
 	if len(apps) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any app in list",
-			"No app present with mentioned criteria",
-		)
+		data.Apps = []DatasourceAppType{}
+		resp.State.Set(ctx, &data)
 		return
 	}
 

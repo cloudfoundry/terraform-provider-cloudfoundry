@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -91,7 +90,9 @@ func TestRoutesDataSource_Configure(t *testing.T) {
 						Domain:        strtostrptr(testDomainRouteGUID),
 						Space:         strtostrptr(testSpaceRouteGUID),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find route in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "routes.#", "0"),
+					),
 				},
 			},
 		})

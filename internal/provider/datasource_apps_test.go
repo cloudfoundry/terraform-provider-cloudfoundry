@@ -1,7 +1,6 @@
 package provider
 
 import (
-	"regexp"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -42,6 +41,7 @@ func TestAppsDataSource_Configure(t *testing.T) {
 	})
 	t.Run("error path - get unavailable apps", func(t *testing.T) {
 		cfg := getCFHomeConf()
+		resourceName := "data.cloudfoundry_apps.apps"
 		rec := cfg.SetupVCR(t, "fixtures/datasource_apps_invalid")
 		defer stopQuietly(rec)
 		resource.Test(t, resource.TestCase{
@@ -54,7 +54,9 @@ func TestAppsDataSource_Configure(t *testing.T) {
 							space = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
 							name = "blah"
 						}`,
-					ExpectError: regexp.MustCompile(`Unable to find any app in list`),
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "apps.#", "0"),
+					),
 				},
 			},
 		})

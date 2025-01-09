@@ -102,14 +102,6 @@ func (d *IsolationSegmentsDataSource) Read(ctx context.Context, req datasource.R
 		return
 	}
 
-	if len(isolationSegments) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any Isolation Segment in given list",
-			"No isolation segment found with given criteria",
-		)
-		return
-	}
-
 	data.IsolationSegments, diags = mapIsolationSegmentsValuesToType(ctx, isolationSegments)
 	resp.Diagnostics.Append(diags...)
 

@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -75,6 +74,7 @@ func TestServiceRouteBindingsDataSource(t *testing.T) {
 	t.Run("error path - get unavailable route bindings", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_route_bindings_invalid")
+		dataSourceName := "data.cloudfoundry_service_route_bindings.ds"
 		defer stopQuietly(rec)
 		resource.UnitTest(t, resource.TestCase{
 			IsUnitTest:               true,
@@ -86,7 +86,9 @@ func TestServiceRouteBindingsDataSource(t *testing.T) {
 						HclObjectName: "ds",
 						Route:         &ServiceInstanceGUID,
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any route bindings in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "route_bindings.#", "0"),
+					),
 				},
 			},
 		})

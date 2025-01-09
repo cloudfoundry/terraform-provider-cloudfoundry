@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -52,6 +51,7 @@ func hclServicePlans(smp *ServicePlansModelPtr) string {
 func TestDatasourceServicePlans(t *testing.T) {
 	t.Parallel()
 	datasourceName := "data.cloudfoundry_service_plans.test"
+	dataSourceName := "data.cloudfoundry_service_plans.ds"
 	t.Run("error path - get unavailable service plan", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_plans_invalid")
@@ -69,7 +69,9 @@ func TestDatasourceServicePlans(t *testing.T) {
 						HclObjectName: "test",
 						Name:          strtostrptr("invalid-service-name"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any service plans in the list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "service_plans.#", "0"),
+					),
 				},
 			},
 		})
