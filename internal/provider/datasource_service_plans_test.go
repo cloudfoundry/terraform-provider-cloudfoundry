@@ -51,7 +51,6 @@ func hclServicePlans(smp *ServicePlansModelPtr) string {
 func TestDatasourceServicePlans(t *testing.T) {
 	t.Parallel()
 	datasourceName := "data.cloudfoundry_service_plans.test"
-	dataSourceName := "data.cloudfoundry_service_plans.ds"
 	t.Run("error path - get unavailable service plan", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_plans_invalid")
@@ -70,7 +69,7 @@ func TestDatasourceServicePlans(t *testing.T) {
 						Name:          strtostrptr("invalid-service-name"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "service_plans.#", "0"),
+						resource.TestCheckResourceAttr(datasourceName, "service_plans.#", "0"),
 					),
 				},
 			},

@@ -12,12 +12,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -33,7 +33,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"01fdbb77fe124e52b5cedcaf8946f024"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"a434e65a9f5f4022abb999e8504d4de2"}'
         headers:
             Cache-Control:
                 - no-store
@@ -42,7 +42,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:21 GMT
+                - Thu, 09 Jan 2025 09:56:11 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -52,12 +52,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 6dcb3ea0-cbd7-48f7-6ec1-8a21f971e854
+                - 42890271-87c7-4ff3-5f78-ea7fd390b55a
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 773.720084ms
+        duration: 666.39725ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -93,15 +93,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:22 GMT
+                - Thu, 09 Jan 2025 09:56:12 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 65d18b1c6f309947
+                - 7578f08db52f4cd5
             X-B3-Traceid:
-                - 448011c8c847419d65d18b1c6f309947
+                - 70dd93db7a294b9f7578f08db52f4cd5
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -115,16 +115,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.008463"
+                - "0.008298"
             X-Vcap-Request-Id:
-                - 448011c8-c847-419d-65d1-8b1c6f309947::90ada661-829a-4401-b93e-b06de9184308
+                - 70dd93db-7a29-4b9f-7578-f08db52f4cd5::816c962c-c7cf-470e-bdea-58c6132581d9
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 788.569458ms
+        duration: 685.037667ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -151,24 +151,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 19832
+        content_length: 21494
         uncompressed: false
-        body: '{"pagination":{"total_results":13,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}}]}'
+        body: '{"pagination":{"total_results":14,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}},{"guid":"b1b70257-dcf7-4795-b038-4e7c758ef292","created_at":"2024-11-11T04:08:12Z","updated_at":"2024-11-11T04:08:12Z","name":"deba","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker backing-services-broker-postgresql-db failed with: You do not have sufficient entitlements for development","updated_at":"2024-11-11T04:08:13Z","created_at":"2024-11-11T04:08:13Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f7e367e0-f8de-489c-85d4-0ade3269a721"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f7e367e0-f8de-489c-85d4-0ade3269a721"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/relationships/shared_spaces"}}}]}'
         headers:
             Content-Length:
-                - "19832"
+                - "21494"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:23 GMT
+                - Thu, 09 Jan 2025 09:56:12 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 471efd034dc5789a
+                - 7402d8d206b8ed09
             X-B3-Traceid:
-                - e708178e38d34871471efd034dc5789a
+                - aab4476bea0b4ad47402d8d206b8ed09
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -182,16 +182,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416989"
             X-Runtime:
-                - "0.252833"
+                - "0.271008"
             X-Vcap-Request-Id:
-                - e708178e-38d3-4871-471e-fd034dc5789a::528eeb7a-1bdb-42c9-a810-8011ca9d24f4
+                - aab4476b-ea0b-4ad4-7402-d8d206b8ed09::e755f566-fd08-4b1e-8fc6-a025d5fcd406
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 486.971833ms
+        duration: 472.887958ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -203,12 +203,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -224,7 +224,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"858c41df827545a480d7e15b5f1414c7"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"7c5abb4dc78049fb94ded9f9cfab5a0a"}'
         headers:
             Cache-Control:
                 - no-store
@@ -233,7 +233,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:23 GMT
+                - Thu, 09 Jan 2025 09:56:13 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -243,12 +243,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - e3422c3a-0588-4cb8-55ec-04432badf5cc
+                - 5d47bf23-ee19-4c22-5e46-f8df7603541b
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 264.795333ms
+        duration: 212.76275ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -284,15 +284,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:24 GMT
+                - Thu, 09 Jan 2025 09:56:13 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 6a23e306006ed335
+                - 51d416ff07333c60
             X-B3-Traceid:
-                - 06c97bcce7bd4f766a23e306006ed335
+                - a3679890cff4419351d416ff07333c60
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -306,16 +306,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.007901"
+                - "0.008066"
             X-Vcap-Request-Id:
-                - 06c97bcc-e7bd-4f76-6a23-e306006ed335::d61fd88f-9cef-4c3b-910b-d25e837b239e
+                - a3679890-cff4-4193-51d4-16ff07333c60::b10274d2-fc52-422e-b268-f4aea9f81515
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 336.361542ms
+        duration: 209.449709ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -342,24 +342,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 19832
+        content_length: 21494
         uncompressed: false
-        body: '{"pagination":{"total_results":13,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}}]}'
+        body: '{"pagination":{"total_results":14,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}},{"guid":"b1b70257-dcf7-4795-b038-4e7c758ef292","created_at":"2024-11-11T04:08:12Z","updated_at":"2024-11-11T04:08:12Z","name":"deba","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker backing-services-broker-postgresql-db failed with: You do not have sufficient entitlements for development","updated_at":"2024-11-11T04:08:13Z","created_at":"2024-11-11T04:08:13Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f7e367e0-f8de-489c-85d4-0ade3269a721"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f7e367e0-f8de-489c-85d4-0ade3269a721"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/relationships/shared_spaces"}}}]}'
         headers:
             Content-Length:
-                - "19832"
+                - "21494"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:24 GMT
+                - Thu, 09 Jan 2025 09:56:13 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 496649bf4f1bb89f
+                - 40abcefb8b51a554
             X-B3-Traceid:
-                - 3524093f00484ca7496649bf4f1bb89f
+                - 2966920343a64b3b40abcefb8b51a554
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -373,16 +373,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.258860"
+                - "0.268630"
             X-Vcap-Request-Id:
-                - 3524093f-0048-4ca7-4966-49bf4f1bb89f::230a1e4c-b99e-4d24-b3d9-5111a3b0ebdc
+                - 29669203-43a6-4b3b-40ab-cefb8b51a554::ccec363f-ea2f-4f17-b6fd-fac88bfb4e02
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 491.761542ms
+        duration: 482.373125ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -394,12 +394,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -415,7 +415,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"3620b24e0dca4a9ca1ada6fa1fe3678f"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"eb0a23e231a0411fa1cbfe2bf64a159d"}'
         headers:
             Cache-Control:
                 - no-store
@@ -424,7 +424,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:25 GMT
+                - Thu, 09 Jan 2025 09:56:14 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -434,12 +434,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 51ff44fa-da0b-4d23-569d-173f5821568b
+                - 6f4c76e0-c259-4397-5fd6-4cee00367cd7
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 252.58625ms
+        duration: 199.773083ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -475,15 +475,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:25 GMT
+                - Thu, 09 Jan 2025 09:56:14 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 75b70124a4561806
+                - 47655b366baa8635
             X-B3-Traceid:
-                - cc518eb8d31740c475b70124a4561806
+                - 89edb3144086493d47655b366baa8635
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -497,16 +497,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.008691"
+                - "0.009982"
             X-Vcap-Request-Id:
-                - cc518eb8-d317-40c4-75b7-0124a4561806::d75317d9-6fef-4c5b-b369-210553357105
+                - 89edb314-4086-493d-4765-5b366baa8635::02497541-5f92-4dcf-99ef-fa953a27e139
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 304.903084ms
+        duration: 211.046625ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -533,24 +533,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 19832
+        content_length: 21494
         uncompressed: false
-        body: '{"pagination":{"total_results":13,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}}]}'
+        body: '{"pagination":{"total_results":14,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"68fea1b6-11b9-4737-ad79-74e49832533f","created_at":"2024-03-06T06:53:17Z","updated_at":"2024-03-06T06:53:18Z","name":"tf-test-do-not-delete-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-03-06T06:53:18Z","created_at":"2024-03-06T06:53:18Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=68fea1b6-11b9-4737-ad79-74e49832533f"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/68fea1b6-11b9-4737-ad79-74e49832533f/relationships/shared_spaces"}}},{"guid":"e3a27ef0-ab7a-4a1a-a148-324aad16e587","created_at":"2024-03-13T17:04:39Z","updated_at":"2024-03-13T17:04:39Z","name":"jbs","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance jbs: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:37Z","created_at":"2024-03-13T17:14:37Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e3a27ef0-ab7a-4a1a-a148-324aad16e587"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e3a27ef0-ab7a-4a1a-a148-324aad16e587/relationships/shared_spaces"}}},{"guid":"b0b5bd31-954f-43f3-9e89-d1211ce01a12","created_at":"2024-03-13T17:08:52Z","updated_at":"2024-03-13T17:08:52Z","name":"test-si-unassigned-managed","tags":[],"last_operation":{"type":"delete","state":"failed","description":"Service instance test-si-unassigned-managed: Authentication with the service broker failed. Double-check that the username and password are correct.","updated_at":"2024-03-13T17:14:45Z","created_at":"2024-03-13T17:14:45Z"},"type":"managed","maintenance_info":{"version":"1.0.0"},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"69867829-3044-458c-a7f4-f32dee0d8174"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b0b5bd31-954f-43f3-9e89-d1211ce01a12"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/69867829-3044-458c-a7f4-f32dee0d8174"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b0b5bd31-954f-43f3-9e89-d1211ce01a12/relationships/shared_spaces"}}},{"guid":"8b0c826b-9220-46c9-9585-4202f791a588","created_at":"2024-04-04T13:28:03Z","updated_at":"2024-04-04T13:28:04Z","name":"xsuaa-tf","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-04T13:28:04Z","created_at":"2024-04-04T13:28:04Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=8b0c826b-9220-46c9-9585-4202f791a588"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/8b0c826b-9220-46c9-9585-4202f791a588/relationships/shared_spaces"}}},{"guid":"0180f319-998f-450f-a874-9d39669c4057","created_at":"2024-04-17T08:09:12Z","updated_at":"2024-04-17T08:50:48Z","name":"tf-usp-test","tags":["terraform-test","usp"],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-17T08:50:48Z","created_at":"2024-04-17T08:50:48Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=0180f319-998f-450f-a874-9d39669c4057"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/0180f319-998f-450f-a874-9d39669c4057/credentials"}}},{"guid":"e9ec29ca-993d-42e2-9c5b-cb17b1972cce","created_at":"2024-04-17T08:10:44Z","updated_at":"2024-04-17T08:10:45Z","name":"xsuaa_svc","tags":["terraform-test","test1"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-04-17T08:10:45Z","created_at":"2024-04-17T08:10:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e9ec29ca-993d-42e2-9c5b-cb17b1972cce"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/e9ec29ca-993d-42e2-9c5b-cb17b1972cce/relationships/shared_spaces"}}},{"guid":"3a8588f9-f846-444f-ab9e-48282f06449b","created_at":"2024-04-18T09:53:38Z","updated_at":"2024-06-17T08:47:14Z","name":"test","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-06-17T08:47:14Z","created_at":"2024-06-17T08:47:14Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":"https://www.example.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=3a8588f9-f846-444f-ab9e-48282f06449b"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/3a8588f9-f846-444f-ab9e-48282f06449b/credentials"}}},{"guid":"42d03664-c380-49cb-85e8-0150b095d204","created_at":"2024-06-18T04:25:47Z","updated_at":"2024-06-18T04:25:47Z","name":"hel","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker apim-service-broker-canaryeu10 responded with invalid JSON: 404 Not Found: Requested route (''apim-service-broker-canaryeu10.cfapps.sap.hana.ondemand.com'') does not exist.\n","updated_at":"2024-06-18T04:25:47Z","created_at":"2024-06-18T04:25:47Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f4610ddc-9193-4f3d-88f5-a29a9fe2481d"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=42d03664-c380-49cb-85e8-0150b095d204"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f4610ddc-9193-4f3d-88f5-a29a9fe2481d"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/42d03664-c380-49cb-85e8-0150b095d204/relationships/shared_spaces"}}},{"guid":"a92e1186-b229-4711-b233-a8726879dad6","created_at":"2024-06-18T04:43:16Z","updated_at":"2024-06-18T04:43:23Z","name":"mobse","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-06-18T04:44:25Z","created_at":"2024-06-18T04:44:25Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://mobile-service-cockpit-web.cfapps.sap.hana.ondemand.com/cockpit/v1/org/784b4cd0-4771-4e4d-9052-a07e178bae56/space/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/index.html#/page.apps.overview/mobse","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"2e45918f-5ccc-49b8-8760-d5086ba70cd9"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=a92e1186-b229-4711-b233-a8726879dad6"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/2e45918f-5ccc-49b8-8760-d5086ba70cd9"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/a92e1186-b229-4711-b233-a8726879dad6/relationships/shared_spaces"}}},{"guid":"89154893-f90e-4785-9257-8c5846598778","created_at":"2024-07-17T08:36:19Z","updated_at":"2024-07-17T08:36:20Z","name":"enterprise-messaging","tags":[],"last_operation":{"type":"create","state":"succeeded","description":null,"updated_at":"2024-07-17T08:38:34Z","created_at":"2024-07-17T08:38:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=89154893-f90e-4785-9257-8c5846598778"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f97f4b4e-bc9c-4f40-8eee-6ca34488f6f5"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/89154893-f90e-4785-9257-8c5846598778/relationships/shared_spaces"}}},{"guid":"03a927a3-0631-4c12-adce-ea1cd158af24","created_at":"2024-07-17T08:44:55Z","updated_at":"2024-07-17T08:44:55Z","name":"tf-usp-test-123","tags":["terraform-test","usp"],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-07-17T08:44:55Z","created_at":"2024-07-17T08:44:55Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=03a927a3-0631-4c12-adce-ea1cd158af24"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/03a927a3-0631-4c12-adce-ea1cd158af24/credentials"}}},{"guid":"9e855461-ff94-4920-bbfa-4a23bfa4df0d","created_at":"2024-08-01T04:41:38Z","updated_at":"2024-08-01T04:41:39Z","name":"my-service","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2024-08-01T04:41:39Z","created_at":"2024-08-01T04:41:39Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":"https://logs.x.x.x.x.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"1fe661e0-fe1d-47de-89f2-b24fd7498819"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=9e855461-ff94-4920-bbfa-4a23bfa4df0d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/1fe661e0-fe1d-47de-89f2-b24fd7498819"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/9e855461-ff94-4920-bbfa-4a23bfa4df0d/relationships/shared_spaces"}}},{"guid":"b1b70257-dcf7-4795-b038-4e7c758ef292","created_at":"2024-11-11T04:08:12Z","updated_at":"2024-11-11T04:08:12Z","name":"deba","tags":[],"last_operation":{"type":"create","state":"failed","description":"Service broker error: Service broker backing-services-broker-postgresql-db failed with: You do not have sufficient entitlements for development","updated_at":"2024-11-11T04:08:13Z","created_at":"2024-11-11T04:08:13Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"f7e367e0-f8de-489c-85d4-0ade3269a721"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=b1b70257-dcf7-4795-b038-4e7c758ef292"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/f7e367e0-f8de-489c-85d4-0ade3269a721"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/b1b70257-dcf7-4795-b038-4e7c758ef292/relationships/shared_spaces"}}}]}'
         headers:
             Content-Length:
-                - "19832"
+                - "21494"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:25 GMT
+                - Thu, 09 Jan 2025 09:56:14 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7ee3d3f94ee92ba3
+                - 49518c13f2b25870
             X-B3-Traceid:
-                - 5d76872064d7451b7ee3d3f94ee92ba3
+                - a4236dd5e8a840e549518c13f2b25870
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -564,16 +564,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.249080"
+                - "0.264051"
             X-Vcap-Request-Id:
-                - 5d768720-64d7-451b-7ee3-d3f94ee92ba3::d995b2be-ae58-44bd-966f-8a2643d054bd
+                - a4236dd5-e8a8-40e5-4951-8c13f2b25870::73986bf0-f0d0-4b71-b88b-52c186a6bbe6
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 514.632292ms
+        duration: 523.654834ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -585,12 +585,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -606,7 +606,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"e870532552a14187ad854a7288bba0f4"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"7670429d07514ec69bb02819ed47da4e"}'
         headers:
             Cache-Control:
                 - no-store
@@ -615,7 +615,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:26 GMT
+                - Thu, 09 Jan 2025 09:56:15 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -625,12 +625,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 2fea771d-2b4b-4f2f-7af3-1314497308aa
+                - 8b2a408d-16fb-48e7-59ed-d2a96729bd72
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 243.651625ms
+        duration: 217.237333ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -666,15 +666,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:26 GMT
+                - Thu, 09 Jan 2025 09:56:15 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7a9ddf35904fd271
+                - 74aa056f6837c5f0
             X-B3-Traceid:
-                - 341e05057e5649677a9ddf35904fd271
+                - 4d893b005d9649c074aa056f6837c5f0
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -688,16 +688,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.015615"
+                - "0.007272"
             X-Vcap-Request-Id:
-                - 341e0505-7e56-4967-7a9d-df35904fd271::63c2907c-96d1-492f-86f9-52d9d820ef53
+                - 4d893b00-5d96-49c0-74aa-056f6837c5f0::e5ddad03-b07d-44e5-9167-5a4c624f4f17
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 354.777583ms
+        duration: 207.317042ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -724,24 +724,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1720
+        content_length: 2927
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}}]}'
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"e8c2ff68-ee16-429d-b126-7e0da3de13a2","created_at":"2024-11-18T10:38:56Z","updated_at":"2024-11-18T10:38:56Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-11-18T10:38:56Z","created_at":"2024-11-18T10:38:56Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/121c3a95-0f82-45a6-8ff2-1920b2067edb"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2/credentials"}}}]}'
         headers:
             Content-Length:
-                - "1720"
+                - "2927"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:26 GMT
+                - Thu, 09 Jan 2025 09:56:15 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 4a4fc5ed3b159e4b
+                - 53e8285a5b59881e
             X-B3-Traceid:
-                - d1bb1ed4982b40714a4fc5ed3b159e4b
+                - d6c3b77feb1c492953e8285a5b59881e
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -755,16 +755,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416988"
             X-Runtime:
-                - "0.074239"
+                - "0.078066"
             X-Vcap-Request-Id:
-                - d1bb1ed4-982b-4071-4a4f-c5ed3b159e4b::29c69102-d4b8-4172-8920-12ab7d094974
+                - d6c3b77f-eb1c-4929-53e8-285a5b59881e::f960db6c-1e17-42b5-8714-bc0991dc552c
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 307.505833ms
+        duration: 278.16ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -776,12 +776,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -797,7 +797,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"06b2f25960d442eab72e5b80bd965169"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"d79b2d5fde454427ad40ebac192abe5c"}'
         headers:
             Cache-Control:
                 - no-store
@@ -806,7 +806,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:26 GMT
+                - Thu, 09 Jan 2025 09:56:15 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -816,12 +816,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - d9ececd9-ac4c-4cd3-5d9d-1c866824bf3a
+                - 0a3740ab-b331-4c01-4fe0-57ffcbc6c2f2
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 260.092ms
+        duration: 207.179291ms
     - id: 13
       request:
         proto: HTTP/1.1
@@ -857,15 +857,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:27 GMT
+                - Thu, 09 Jan 2025 09:56:16 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 52e15f4c4fae64ee
+                - 6d4656532b19d04d
             X-B3-Traceid:
-                - ca1f30d6d07547cb52e15f4c4fae64ee
+                - 7eabf072975d49626d4656532b19d04d
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -879,16 +879,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416989"
             X-Runtime:
-                - "0.012668"
+                - "0.006524"
             X-Vcap-Request-Id:
-                - ca1f30d6-d075-47cb-52e1-5f4c4fae64ee::675b6949-43fd-4bd1-9aa2-76c1217d9d00
+                - 7eabf072-975d-4962-6d46-56532b19d04d::8c34009c-80e0-44db-81e2-1ffc40670b20
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 303.347458ms
+        duration: 207.874625ms
     - id: 14
       request:
         proto: HTTP/1.1
@@ -915,24 +915,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1720
+        content_length: 2927
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}}]}'
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"e8c2ff68-ee16-429d-b126-7e0da3de13a2","created_at":"2024-11-18T10:38:56Z","updated_at":"2024-11-18T10:38:56Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-11-18T10:38:56Z","created_at":"2024-11-18T10:38:56Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/121c3a95-0f82-45a6-8ff2-1920b2067edb"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2/credentials"}}}]}'
         headers:
             Content-Length:
-                - "1720"
+                - "2927"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:28 GMT
+                - Thu, 09 Jan 2025 09:56:16 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 6e28459b5f9430fa
+                - 50ddf861ceb13851
             X-B3-Traceid:
-                - f317913c991543d86e28459b5f9430fa
+                - 53099900e7c14f2c50ddf861ceb13851
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -946,16 +946,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416989"
             X-Runtime:
-                - "0.089822"
+                - "0.075036"
             X-Vcap-Request-Id:
-                - f317913c-9915-43d8-6e28-459b5f9430fa::ab194c62-5563-4706-bcf2-592dd1d178f8
+                - 53099900-e7c1-4f2c-50dd-f861ceb13851::6a60e62e-8f31-4d3e-b0f7-0c7097fb521a
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 324.817667ms
+        duration: 282.074584ms
     - id: 15
       request:
         proto: HTTP/1.1
@@ -967,12 +967,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=2d2e93ab706a46e59c38e716cff3a556-r
+        body: grant_type=refresh_token&refresh_token=39a6ec7b22404475b4bfa28751a61199-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 2d2e93ab706a46e59c38e716cff3a556-r
+                - 39a6ec7b22404475b4bfa28751a61199-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -988,7 +988,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"2d2e93ab706a46e59c38e716cff3a556-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"d5f683bf96564b5e9b2864ce81e9c0f9"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"39a6ec7b22404475b4bfa28751a61199-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"52df669e67d14bb4972e66b0e624b8ab"}'
         headers:
             Cache-Control:
                 - no-store
@@ -997,7 +997,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Tue, 29 Oct 2024 08:49:27 GMT
+                - Thu, 09 Jan 2025 09:56:16 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -1007,12 +1007,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 0a403c22-a4c4-4817-63ef-d46e48f52e67
+                - 874b6d3c-f934-4a6f-5439-49a981dac5b0
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 255.7095ms
+        duration: 204.988625ms
     - id: 16
       request:
         proto: HTTP/1.1
@@ -1048,15 +1048,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:28 GMT
+                - Thu, 09 Jan 2025 09:56:16 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7c6af973f25b3199
+                - 5a7a5b3626927b78
             X-B3-Traceid:
-                - b0b181338c52453d7c6af973f25b3199
+                - ef9eb6f4d98b4bd25a7a5b3626927b78
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1070,16 +1070,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416987"
             X-Runtime:
-                - "0.007880"
+                - "0.007875"
             X-Vcap-Request-Id:
-                - b0b18133-8c52-453d-7c6a-f973f25b3199::4beab072-661f-4840-9f0e-a01de11f31d1
+                - ef9eb6f4-d98b-4bd2-5a7a-5b3626927b78::6874c0fc-f8c8-4f02-bc06-e7fc4de6dfb0
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 242.396667ms
+        duration: 208.20075ms
     - id: 17
       request:
         proto: HTTP/1.1
@@ -1106,24 +1106,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1720
+        content_length: 2927
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}}]}'
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=tf-test-do-not-delete\u0026organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"5e2976bb-332e-41e1-8be3-53baafea9296","created_at":"2024-02-27T11:18:33Z","updated_at":"2024-04-18T14:24:30Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"update","state":"succeeded","description":"Operation succeeded","updated_at":"2024-04-18T14:24:30Z","created_at":"2024-04-18T14:24:30Z"},"type":"user-provided","syslog_drain_url":"https://google.com","route_service_url":"https://google.com","relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=5e2976bb-332e-41e1-8be3-53baafea9296"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/credentials"}}},{"guid":"e8c2ff68-ee16-429d-b126-7e0da3de13a2","created_at":"2024-11-18T10:38:56Z","updated_at":"2024-11-18T10:38:56Z","name":"tf-test-do-not-delete","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"Operation succeeded","updated_at":"2024-11-18T10:38:56Z","created_at":"2024-11-18T10:38:56Z"},"type":"user-provided","syslog_drain_url":null,"route_service_url":null,"relationships":{"space":{"data":{"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/121c3a95-0f82-45a6-8ff2-1920b2067edb"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=e8c2ff68-ee16-429d-b126-7e0da3de13a2"},"credentials":{"href":"https://api.x.x.x.x.com/v3/service_instances/e8c2ff68-ee16-429d-b126-7e0da3de13a2/credentials"}}}]}'
         headers:
             Content-Length:
-                - "1720"
+                - "2927"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 29 Oct 2024 08:49:28 GMT
+                - Thu, 09 Jan 2025 09:56:17 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7906cc8626084b85
+                - 514eb6977de6a3ea
             X-B3-Traceid:
-                - fea5f5a19775494d7906cc8626084b85
+                - f007233a451c4e86514eb6977de6a3ea
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1137,13 +1137,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730192588"
+                - "1736416989"
             X-Runtime:
-                - "0.069602"
+                - "0.072954"
             X-Vcap-Request-Id:
-                - fea5f5a1-9775-494d-7906-cc8626084b85::6ba03724-1084-4d91-b53c-a079a0fe23c3
+                - f007233a-451c-4e86-514e-b6977de6a3ea::d1cafc0e-a4f7-48f7-9122-8cb007678a79
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 305.5805ms
+        duration: 272.495875ms

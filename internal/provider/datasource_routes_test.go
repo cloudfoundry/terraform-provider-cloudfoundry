@@ -68,7 +68,7 @@ func TestRoutesDataSource_Configure(t *testing.T) {
 						Space:         strtostrptr(testSpaceRouteGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "routes.#", "23"),
+						resource.TestCheckResourceAttr(dataSourceName, "routes.#", "24"),
 					),
 				},
 			},

@@ -72,7 +72,7 @@ func TestServiceInstancesDataSource(t *testing.T) {
 						Space:         &testSpaceGUID,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "13"),
+						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "14"),
 					),
 				},
 				{
@@ -83,7 +83,7 @@ func TestServiceInstancesDataSource(t *testing.T) {
 						Name:          &testServiceInstance,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "1"),
+						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "2"),
 					),
 				},
 			},
