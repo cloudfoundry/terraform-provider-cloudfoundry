@@ -269,12 +269,6 @@ func (d *appsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		return
 	}
 
-	if len(apps) == 0 {
-		data.Apps = []DatasourceAppType{}
-		resp.State.Set(ctx, &data)
-		return
-	}
-
 	appsList := []DatasourceAppType{}
 	for _, app := range apps {
 

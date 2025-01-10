@@ -147,13 +147,6 @@ func (d *SpacesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if len(spaces) == 0 {
-
-		data.Spaces = []spaceType{}
-		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-		return
-	}
-
 	data.Spaces = []spaceType{}
 	for _, space := range spaces {
 		sshEnabled, err := d.cfClient.SpaceFeatures.IsSSHEnabled(ctx, space.GUID)
