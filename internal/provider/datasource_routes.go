@@ -178,14 +178,6 @@ func (d *RoutesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if len(routes) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find route in list",
-			"Given criteria does not have any associated routes present",
-		)
-		return
-	}
-
 	data, diags = mapRoutesValuesToType(ctx, data, routes)
 	resp.Diagnostics.Append(diags...)
 

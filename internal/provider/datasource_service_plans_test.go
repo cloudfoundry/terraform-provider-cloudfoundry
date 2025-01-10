@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -69,7 +68,9 @@ func TestDatasourceServicePlans(t *testing.T) {
 						HclObjectName: "test",
 						Name:          strtostrptr("invalid-service-name"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any service plans in the list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(datasourceName, "service_plans.#", "0"),
+					),
 				},
 			},
 		})

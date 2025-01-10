@@ -171,13 +171,6 @@ func (d *SpaceQuotasDataSource) Read(ctx context.Context, req datasource.ReadReq
 		)
 		return
 	}
-	if len(spacesQuotas) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any space quota in list",
-			fmt.Sprintf("No space quota present under org %s with mentioned criteria", data.Org.ValueString()),
-		)
-		return
-	}
 
 	data.SpaceQuotas, diags = mapSpaceQuotasValuesToType(spacesQuotas)
 	resp.Diagnostics.Append(diags...)

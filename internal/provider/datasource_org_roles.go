@@ -154,14 +154,6 @@ func (d *OrgRolesDataSource) Read(ctx context.Context, req datasource.ReadReques
 		return
 	}
 
-	if len(roles) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any roles in list",
-			fmt.Sprintf("No roles present under org %s with mentioned criteria", data.Org.ValueString()),
-		)
-		return
-	}
-
 	data.Roles = mapOrgRolesValuesToType(roles)
 
 	tflog.Trace(ctx, "read a org roles data source")

@@ -146,14 +146,6 @@ func (d *DomainsDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		return
 	}
 
-	if len(domains) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any domain in the list",
-			"No domain present with mentioned criteria",
-		)
-		return
-	}
-
 	data.Domains, diags = mapDomainsValuesToType(ctx, domains)
 	resp.Diagnostics.Append(diags...)
 

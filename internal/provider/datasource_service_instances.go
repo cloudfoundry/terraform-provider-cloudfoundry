@@ -192,13 +192,6 @@ func (d *ServiceInstancesDataSource) Read(ctx context.Context, req datasource.Re
 		)
 		return
 	}
-	if len(svcInstances) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any service instance in list",
-			"No service instance present with mentioned criteria",
-		)
-		return
-	}
 
 	data.ServiceInstances, diags = mapDataSourceServiceInstancesValuesToType(ctx, svcInstances)
 	resp.Diagnostics.Append(diags...)

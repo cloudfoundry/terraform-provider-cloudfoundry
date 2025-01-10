@@ -138,14 +138,6 @@ func (d *buildpacksDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		return
 	}
 
-	if len(buildpacks) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any buildpack in the list",
-			"No buildpack present with mentioned criteria",
-		)
-		return
-	}
-
 	data.Buildpacks, diags = mapBuildpacksValuesToType(ctx, buildpacks)
 	resp.Diagnostics.Append(diags...)
 

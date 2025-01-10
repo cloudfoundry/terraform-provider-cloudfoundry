@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -81,6 +80,7 @@ func TestServiceBrokersDataSource(t *testing.T) {
 	t.Run("error path - get unavailable service brokers", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_brokers_invalid")
+		dataSourceName := "data.cloudfoundry_service_brokers.ds"
 		defer stopQuietly(rec)
 		// Create a Terraform configuration that uses the data source
 		// and run `terraform apply`. The data source should not be found.
@@ -94,7 +94,9 @@ func TestServiceBrokersDataSource(t *testing.T) {
 						HclObjectName: "ds",
 						Name:          strtostrptr("invalid-service-broker-name"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any service broker in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "service_brokers.#", "0"),
+					),
 				},
 			},
 		})

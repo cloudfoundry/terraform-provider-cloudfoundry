@@ -177,14 +177,6 @@ func (d *SecurityGroupsDataSource) Read(ctx context.Context, req datasource.Read
 		return
 	}
 
-	if len(securityGroups) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any security group in list",
-			"Given criteria does not return any security group",
-		)
-		return
-	}
-
 	data.SecurityGroups, diags = mapDataSourceSecurityGroupsValuesToType(ctx, securityGroups)
 	resp.Diagnostics.Append(diags...)
 

@@ -147,14 +147,6 @@ func (d *SpacesDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if len(spaces) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any space in list",
-			fmt.Sprintf("No space present under org %s with mentioned criteria", data.OrgId.ValueString()),
-		)
-		return
-	}
-
 	data.Spaces = []spaceType{}
 	for _, space := range spaces {
 		sshEnabled, err := d.cfClient.SpaceFeatures.IsSSHEnabled(ctx, space.GUID)

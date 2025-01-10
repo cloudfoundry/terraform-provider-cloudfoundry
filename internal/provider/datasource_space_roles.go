@@ -153,14 +153,6 @@ func (d *SpaceRolesDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		return
 	}
 
-	if len(roles) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any roles in list",
-			fmt.Sprintf("No roles present under space %s with mentioned criteria", data.Space.ValueString()),
-		)
-		return
-	}
-
 	data.Roles = mapSpaceRolesValuesToType(roles)
 
 	tflog.Trace(ctx, "read a space roles data source")

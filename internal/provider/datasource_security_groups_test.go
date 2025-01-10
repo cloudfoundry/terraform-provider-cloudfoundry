@@ -2,7 +2,6 @@ package provider
 
 import (
 	"bytes"
-	"regexp"
 	"testing"
 	"text/template"
 
@@ -101,7 +100,9 @@ func TestSecurityGroupsDataSource_Configure(t *testing.T) {
 						HclObjectName: "ds",
 						Name:          strtostrptr(invalidOrgGUID),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any security group in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(dataSourceName, "security_groups.#", "0"),
+					),
 				},
 			},
 		})

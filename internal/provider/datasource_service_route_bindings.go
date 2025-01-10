@@ -124,14 +124,6 @@ func (d *ServiceRouteBindingsDataSource) Read(ctx context.Context, req datasourc
 		return
 	}
 
-	if len(svcRouteBindings) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any route bindings in list",
-			"Given input does not have any bindings present",
-		)
-		return
-	}
-
 	data.RouteBindings, diags = mapDataSourceServiceRouteBindingsValuesToType(ctx, svcRouteBindings)
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

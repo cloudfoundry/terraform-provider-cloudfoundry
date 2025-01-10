@@ -12,12 +12,12 @@ interactions:
         host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=6689cc0112bc4e60af8525e600d04fb3-r
+        body: grant_type=refresh_token&refresh_token=b41d622c2fde4b759b53a7ef64b3c981-r
         form:
             grant_type:
                 - refresh_token
             refresh_token:
-                - 6689cc0112bc4e60af8525e600d04fb3-r
+                - b41d622c2fde4b759b53a7ef64b3c981-r
         headers:
             Authorization:
                 - Basic Y2Y6
@@ -33,7 +33,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"6689cc0112bc4e60af8525e600d04fb3-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"e59a76b136e94448867e215aadc46c83"}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"b41d622c2fde4b759b53a7ef64b3c981-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"57835ccfb618479595f54fb75f7c3ef4"}'
         headers:
             Cache-Control:
                 - no-store
@@ -42,7 +42,7 @@ interactions:
             Content-Type:
                 - application/json;charset=UTF-8
             Date:
-                - Wed, 06 Nov 2024 08:56:08 GMT
+                - Fri, 10 Jan 2025 10:30:35 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
@@ -52,12 +52,12 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Vcap-Request-Id:
-                - 363c7dcb-c541-4f2d-42cb-abf648c69cb2
+                - f3b2ba76-4f84-413b-76c4-a7a5e2245e84
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 904.168084ms
+        duration: 1.277112916s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -93,15 +93,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 06 Nov 2024 08:56:09 GMT
+                - Fri, 10 Jan 2025 10:30:36 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 653b52dad09053ee
+                - 54968477f361ad92
             X-B3-Traceid:
-                - b2e0c62178194def653b52dad09053ee
+                - bf5f2a69d5cd455454968477f361ad92
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -115,13 +115,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1730883484"
+                - "1736506684"
             X-Runtime:
-                - "0.003680"
+                - "0.002548"
             X-Vcap-Request-Id:
-                - b2e0c621-7819-4def-653b-52dad09053ee::af7a17b7-7e36-412d-bd88-afd6bbe56590
+                - bf5f2a69-d5cd-4554-5496-8477f361ad92::5cba61b2-4133-4ca0-8f43-ac05b40871f8
             X-Xss-Protection:
                 - 1; mode=block
         status: 404 Not Found
         code: 404
-        duration: 817.492667ms
+        duration: 805.999125ms

@@ -241,13 +241,6 @@ func (d *ServicePlansDataSource) Read(ctx context.Context, req datasource.ReadRe
 		)
 		return
 	}
-	if len(svcPlans) == 0 {
-		resp.Diagnostics.AddError(
-			"Unable to find any service plans in the list",
-			"Check the filter criteria again",
-		)
-		return
-	}
 
 	data.ServicePlans, diags = mapServicePlansValuesToListType(ctx, svcPlans)
 	resp.Diagnostics.Append(diags...)

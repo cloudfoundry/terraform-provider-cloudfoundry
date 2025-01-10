@@ -47,6 +47,7 @@ func hclSpaceQuotas(sqdsmp *SpaceQuotasModelPtr) string {
 func TestSpaceQuotasDataSource_Configure(t *testing.T) {
 	resourceName := "data.cloudfoundry_space_quotas.ds"
 	t.Parallel()
+	testOrg4GUID := "3d3fcf37-a526-45f6-be96-4d7c4cee92a5"
 	t.Run("error path - get unavailable datasource space quota", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_space_quotas_invalid")
@@ -68,10 +69,12 @@ func TestSpaceQuotasDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuotas(&SpaceQuotasModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           &testOrg2GUID,
+						Org:           &testOrg4GUID,
 						Name:          strtostrptr("hi"),
 					}),
-					ExpectError: regexp.MustCompile(`Unable to find any space quota in list`),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "0"),
+					),
 				},
 			},
 		})
@@ -90,18 +93,18 @@ func TestSpaceQuotasDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuotas(&SpaceQuotasModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           &testOrg2GUID,
+						Org:           &testOrg4GUID,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "3"),
+						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "2"),
 					),
 				},
 				{
 					Config: hclProvider(nil) + hclSpaceQuotas(&SpaceQuotasModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           &testOrg2GUID,
-						Name:          strtostrptr("bits-demo-quota"),
+						Org:           &testOrg4GUID,
+						Name:          strtostrptr("space-quota-1"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "1"),
