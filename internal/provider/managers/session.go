@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/cloudfoundry/go-cfclient/v3/client"
 	config "github.com/cloudfoundry/go-cfclient/v3/config"
@@ -34,8 +35,10 @@ func (c *CloudFoundryProviderConfig) NewSession(httpClient *http.Client, req pro
 	var opts []config.Option
 	var finalAgent string
 
-	cfUserAgent := os.Getenv("CF_APPEND_USER_AGENT")
+	// Setting a higher value than default of 30s as file uploads seem to fail
+	opts = append(opts, config.RequestTimeout(10*time.Minute))
 
+	cfUserAgent := os.Getenv("CF_APPEND_USER_AGENT")
 	if len(strings.TrimSpace(cfUserAgent)) == 0 {
 		finalAgent = fmt.Sprintf("Terraform/%s terraform-provider-cloudfoundry/%s", req.TerraformVersion, version.ProviderVersion)
 	} else {
