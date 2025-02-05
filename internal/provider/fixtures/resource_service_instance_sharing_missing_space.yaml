@@ -1,0 +1,73 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 55
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}]}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Go-CF-Client/3.0
+        url: https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/relationships/shared_spaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"errors":[{"Unable to share service instance changed-service-instance with spaces [02c0cc92-6ecc-44b1-b7b2-096ca19ee143]. Ensure the spaces exist and that you have access to them.","title":"CF-UnprocessableEntity","code":10008}]}'
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Mon, 08 Apr 2024 05:46:03 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Server:
+                - nginx
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5d39517517b023e0
+            X-B3-Traceid:
+                - eb5c25e31153450e5d39517517b023e0
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1711364588"
+            X-Runtime:
+                - "0.025567"
+            X-Vcap-Request-Id:
+                - eb5c25e3-1153-450e-5d39-517517b023e0::f68173e6-bc61-4835-a38a-100217e10639
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 422 Unprocessable Entity
+        code: 422
+        duration: 1.438484375s
