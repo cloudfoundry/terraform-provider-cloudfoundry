@@ -4,7 +4,9 @@ subcategory: ""
 description: |-
   Allows deploying applications and services via an MTAR archive or URL.
   Further documentation:
-  Multitarget Applications in the Cloud Foundry Environment https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment
+  Multitarget Applications in the Cloud Foundry Environment https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment.
+  Note:
+  Validation of the yamls are not done from the terraform client side but via the MTA server.
 ---
 
 # cloudfoundry_mta (Resource)
@@ -12,18 +14,59 @@ description: |-
 Allows deploying applications and services via an MTAR archive or URL.
 		
 __Further documentation:__ 
- [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment)
+ [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment).
+
+__Note:__ 
+ Validation of the yamls are not done from the terraform client side but via the MTA server.
 
 ## Example Usage
 
 ```terraform
-resource "cloudfoundry_mta" "mtar" {
+resource "cloudfoundry_mta" "mtaone" {
   space                 = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
   mtar_path             = "./my-mta_1.0.0.mtar"
   extension_descriptors = ["./prod.mtaext", "prod-scale-vertically.mtaext"]
   namespace             = "test"
   source_code_hash      = join("", [filesha256("./my-mta_1.0.0.mtar"), filesha256("./prod.mtaext"), filesha256("prod-scale-vertically.mtaext")])
   deploy_strategy       = "blue-green-deploy"
+}
+
+resource "cloudfoundry_mta" "mtatwo" {
+  space     = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
+  mtar_path = "./my-mta_1.0.0.mtar"
+  extension_descriptors_string = [
+    <<EOT
+_schema-version: 3.3.0
+ID: my-mta-prod
+extends: my-mta
+version: 1.0.0
+
+modules:
+- name: my-app
+  parameters:
+    instances: 2
+
+resources:
+ - name: my-service
+   parameters:
+     service-plan: "lite"
+EOT
+    ,
+    <<EOT
+_schema-version: 3.3.0
+ID: my-mta-prod-scale-vertically
+extends: my-mta-prod
+version: 1.0.0
+
+modules:
+- name: my-app
+  parameters:
+    memory: 2G
+EOT  
+  ]
+  namespace        = "test"
+  source_code_hash = filesha256("./my-mta_1.0.0.mtar")
+  deploy_strategy  = "deploy"
 }
 ```
 
@@ -39,6 +82,7 @@ resource "cloudfoundry_mta" "mtar" {
 - `deploy_strategy` (String) The strategy for deploying the MTA. If attribute value is not provided by default normal deploy strategy is used.
 - `deploy_url` (String) The URL of the deploy service, if a custom one has been used(should be present in the same landscape). By default 'deploy-service.<system-domain>'
 - `extension_descriptors` (Set of String) The paths for the MTA deployment extension files.
+- `extension_descriptors_string` (Set of String) The contents of the MTA deployment extension files.
 - `mtar_path` (String) The local path where the MTA archive is present. Either this attribute or mtar_url need to be set.
 - `mtar_url` (String) The remote URL where the MTA archive is present
 - `namespace` (String) The namespace of the MTA. Should be of valid host format
