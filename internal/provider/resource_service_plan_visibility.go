@@ -20,7 +20,6 @@ var (
 	_ resource.ResourceWithConfigure = &servicePlanVisibilityResource{}
 )
 
-// New function for consistency with serviceBrokerResource
 func NewServicePlanVisibilityResource() resource.Resource {
 	return &servicePlanVisibilityResource{}
 }
@@ -92,10 +91,8 @@ func (r *servicePlanVisibilityResource) Create(ctx context.Context, req resource
 		return
 	}
 
-	// Extract Service Plan GUID
 	servicePlanGUID := plan.ServicePlanGUID.ValueString()
 
-	// Pass the correct pointer to the Apply function
 	createdVisibility, err := r.cfClient.ServicePlansVisibility.Apply(ctx, servicePlanGUID, createServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -136,14 +133,12 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 		return
 	}
 
-	// Correctly obtain a pointer
 	updateServicePlanVisibility, diags := mapCreateServicePlanVisibilityTypeToValues(ctx, plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	// Pass the pointer directly without taking its address
 	updatedVisibility, err := r.cfClient.ServicePlansVisibility.Update(ctx, plan.ServicePlanGUID.ValueString(), updateServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -165,10 +160,8 @@ func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource
 		return
 	}
 
-	// Extract Service Plan GUID
 	servicePlanGUID := state.ServicePlanGUID.ValueString()
 
-	// Ensure we have at least one organization to delete the visibility for
 	if len(state.Organizations) == 0 {
 		resp.Diagnostics.AddError(
 			"Missing Organization GUID",
@@ -177,10 +170,8 @@ func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource
 		return
 	}
 
-	// Extract the first organization GUID (if multiple exist, additional logic may be needed)
 	organizationGUID := state.Organizations[0].GUID.ValueString()
 
-	// Pass all required arguments: context, servicePlanGUID, and organizationGUID
 	err := r.cfClient.ServicePlansVisibility.Delete(ctx, servicePlanGUID, organizationGUID)
 	if err != nil {
 		resp.Diagnostics.AddError(
