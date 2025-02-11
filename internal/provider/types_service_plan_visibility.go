@@ -3,55 +3,72 @@ package provider
 import (
 	"context"
 
-	"github.com/cloudfoundry/go-cfclient/v3/resource"
+	cfresource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 type servicePlanVisibilityType struct {
-	OrganizationGUID types.String `tfsdk:"organization_guid"`
-	ServicePlanGUID  types.String `tfsdk:"service_plan_guid"`
-	Labels           types.Map    `tfsdk:"labels"`
-	Annotations      types.Map    `tfsdk:"annotations"`
+	Organizations   []organizationType `tfsdk:"organizations"`
+	ServicePlanGUID types.String       `tfsdk:"service_plan_guid"`
+	SpaceGUID       types.String       `tfsdk:"space_guid"`
+	Type            types.String       `tfsdk:"type"`
 }
 
-func (data *servicePlanVisibilityType) mapCreateServicePlanVisibilityTypeToValues(ctx context.Context) (resource.ServicePlanVisibilityCreate, diag.Diagnostics) {
+type organizationType struct {
+	GUID types.String `tfsdk:"guid"`
+}
+
+type datasourceServicePlanVisibilityType struct {
+	Organizations   []organizationType `tfsdk:"organizations"`
+	ServicePlanGUID types.String       `tfsdk:"service_plan_guid"`
+	SpaceGUID       types.String       `tfsdk:"space_guid"`
+	Type            types.String       `tfsdk:"type"`
+}
+
+func (a *servicePlanVisibilityType) Reduce() datasourceServicePlanVisibilityType {
+	var reduced datasourceServicePlanVisibilityType
+	copyFields(&reduced, a)
+	return reduced
+}
+
+func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource.ServicePlanVisibility) (servicePlanVisibilityType, diag.Diagnostics) {
 	var diagnostics diag.Diagnostics
-	createServicePlanVisibility := resource.ServicePlanVisibilityCreate{
-		ServicePlanGUID:  data.ServicePlanGUID.ValueString(),
-		OrganizationGUID: data.OrganizationGUID.ValueString(),
+	var organizations []organizationType
+
+	for _, org := range value.Organizations {
+		organizations = append(organizations, organizationType{GUID: types.StringValue(org.GUID)})
 	}
 
-	if !data.OrganizationGUID.IsNull() {
-		createServicePlanVisibility.OrganizationGUID = data.OrganizationGUID.ValueString()
+	servicePlanVisibilityType := servicePlanVisibilityType{
+		Type:          types.StringValue(value.Type),
+		SpaceGUID:     types.StringValue(value.Space.GUID),
+		Organizations: organizations,
 	}
 
-	createServicePlanVisibility.Metadata = &resource.Metadata{}
-	labelsDiags := data.Labels.ElementsAs(ctx, &createServicePlanVisibility.Metadata.Labels, false)
-	diagnostics.Append(labelsDiags...)
-	annotationsDiags := data.Annotations.ElementsAs(ctx, &createServicePlanVisibility.Metadata.Annotations, false)
-	diagnostics.Append(annotationsDiags...)
+	return servicePlanVisibilityType, diagnostics
+}
+
+func mapCreateServicePlanVisibilityTypeToValues(ctx context.Context, value servicePlanVisibilityType) (*cfresource.ServicePlanVisibility, diag.Diagnostics) {
+	var diagnostics diag.Diagnostics
+
+	visibilityType := value.Type.ValueString()
+
+	visibilityTypeEnum, err := cfresource.ParseServicePlanVisibilityType(visibilityType)
+	if err != nil {
+		diagnostics.AddError("Invalid Visibility Type", "The provided visibility type is not valid: "+visibilityType)
+		return nil, diagnostics
+	}
+
+	createServicePlanVisibility := cfresource.NewServicePlanVisibilityUpdate(visibilityTypeEnum)
+
+	for _, org := range value.Organizations {
+		if !org.GUID.IsNull() && org.GUID.ValueString() != "" {
+			createServicePlanVisibility.Organizations = append(createServicePlanVisibility.Organizations, cfresource.ServicePlanVisibilityRelation{
+				GUID: org.GUID.ValueString(),
+			})
+		}
+	}
 
 	return createServicePlanVisibility, diagnostics
-}
-
-func (plan *servicePlanVisibilityType) mapServicePlanVisibilityTypeToValues(ctx context.Context) (resource.ServicePlanVisibilityUpdate, diag.Diagnostics) {
-	var diagnostics diag.Diagnostics
-	updateServicePlanVisibility := resource.ServicePlanVisibilityUpdate{}
-
-	if !plan.OrganizationGUID.IsNull() {
-		updateServicePlanVisibility.OrganizationGUID = plan.OrganizationGUID.ValueString()
-	}
-
-	if !plan.ServicePlanGUID.IsNull() {
-		updateServicePlanVisibility.ServicePlanGUID = plan.ServicePlanGUID.ValueString()
-	}
-
-	updateServicePlanVisibility.Metadata = &resource.Metadata{}
-	labelsDiags := plan.Labels.ElementsAs(ctx, &updateServicePlanVisibility.Metadata.Labels, false)
-	diagnostics.Append(labelsDiags...)
-	annotationsDiags := plan.Annotations.ElementsAs(ctx, &updateServicePlanVisibility.Metadata.Annotations, false)
-	diagnostics.Append(annotationsDiags...)
-
-	return updateServicePlanVisibility, diagnostics
 }

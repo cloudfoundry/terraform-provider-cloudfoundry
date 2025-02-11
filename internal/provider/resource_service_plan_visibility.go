@@ -3,7 +3,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	"log"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
@@ -11,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 type servicePlanVisibilityResource struct {
@@ -22,43 +20,52 @@ var (
 	_ resource.ResourceWithConfigure = &servicePlanVisibilityResource{}
 )
 
+// New function for consistency with serviceBrokerResource
 func NewServicePlanVisibilityResource() resource.Resource {
 	return &servicePlanVisibilityResource{}
 }
 
 func (r *servicePlanVisibilityResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	log.Println("Metadata called")
 	resp.TypeName = req.ProviderTypeName + "_service_plan_visibility"
 }
 
 func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	log.Println("Schema called")
 	resp.Schema = schema.Schema{
 		MarkdownDescription: `Provides a Cloud Foundry resource for managing service plan visibility`,
 
 		Attributes: map[string]schema.Attribute{
-			"service_plan_guid": schema.StringAttribute{
-				MarkdownDescription: "GUID of the service plan.",
+			"type": schema.StringAttribute{
+				MarkdownDescription: "Denotes the visibility of the plan; can be public, admin, organization, space.",
 				Required:            true,
 			},
-			"organization_guid": schema.StringAttribute{
-				MarkdownDescription: "GUID of the organization the visibility is restricted to.",
+			"organizations": schema.ListNestedAttribute{
+				MarkdownDescription: "List of organizations whose members can access the plan; present if type is organization.",
+				Optional:            true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"guid": schema.StringAttribute{
+							Required:            true,
+							MarkdownDescription: "GUID of the organization.",
+						},
+					},
+				},
+			},
+			"space_guid": schema.StringAttribute{
+				MarkdownDescription: "Unique identifier for the space whose members can access the plan; present if type is space.",
 				Optional:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplaceIfConfigured(),
 				},
 			},
-			idKey:        guidSchema(),
-			createdAtKey: createdAtSchema(),
-			updatedAtKey: updatedAtSchema(),
+			"id":         guidSchema(),
+			"created_at": createdAtSchema(),
+			"updated_at": updatedAtSchema(),
 		},
 	}
 }
 
 func (r *servicePlanVisibilityResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
-	log.Println("Configure called")
 	if req.ProviderData == nil {
-		log.Println("ProviderData is nil")
 		return
 	}
 	session, ok := req.ProviderData.(*managers.Session)
@@ -67,149 +74,118 @@ func (r *servicePlanVisibilityResource) Configure(ctx context.Context, req resou
 			"Unexpected Resource Configure Type",
 			fmt.Sprintf("Expected *managers.Session, got: %T. Please report this issue to the provider developers", req.ProviderData),
 		)
-		log.Printf("Unexpected Resource Configure Type: %T\n", req.ProviderData)
 		return
 	}
 	r.cfClient = session.CFClient
-	log.Println("Configure completed successfully")
 }
 
 func (r *servicePlanVisibilityResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	log.Println("Create called")
 	var plan servicePlanVisibilityType
-	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	createServicePlanVisibility, diags := mapCreateServicePlanVisibilityTypeToValues(ctx, plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
-		log.Println("Error getting plan:", resp.Diagnostics)
 		return
 	}
 
-	createServicePlanVisibility, diags := plan.mapCreateServicePlanVisibilityTypeToValues(ctx)
-	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		log.Println("Error mapping create service plan visibility:", resp.Diagnostics)
-		return
-	}
+	// Extract Service Plan GUID
+	servicePlanGUID := plan.ServicePlanGUID.ValueString()
 
-	createdVisibility, err := r.cfClient.ServicePlansVisibility.Apply(ctx, plan.ServicePlanGUID.ValueString(), &createServicePlanVisibility)
+	// Pass the correct pointer to the Apply function
+	createdVisibility, err := r.cfClient.ServicePlansVisibility.Apply(ctx, servicePlanGUID, createServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Failed to create service plan visibility",
-			"Failed to create service plan visibility: "+err.Error(),
+			"API Error Creating Service Plan Visibility",
+			"Could not create service plan visibility: "+err.Error(),
 		)
-		log.Println("Failed to create service plan visibility:", err)
 		return
 	}
 
-	err = pollJob(ctx, r.cfClient, createdVisibility.GUID, defaultTimeout)
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Failed to verify service plan visibility creation",
-			"Failed to verify service plan visibility creation: "+err.Error(),
-		)
-		log.Println("Failed to verify service plan visibility creation:", err)
-		return
-	}
-
-	ServicePlanVisibility, err := r.cfClient.ServicePlansVisibility.Get(ctx, createdVisibility.GUID)
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Failed to get service plan visibility",
-			"Failed to get service plan visibility: "+err.Error(),
-		)
-		log.Println("Failed to get service plan visibility:", err)
-		return
-	}
-
-	data, diags := mapServicePlanVisibilityToType(ctx, ServicePlanVisibility)
+	data, diags := mapServicePlanVisibilityValuesToType(ctx, createdVisibility)
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-	log.Println("Create completed successfully")
 }
 
 func (r *servicePlanVisibilityResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	log.Println("Read called")
 	var data servicePlanVisibilityType
-
-	diags := req.State.Get(ctx, &data)
-	resp.Diagnostics.Append(diags...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 	if resp.Diagnostics.HasError() {
-		log.Println("Error getting state:", resp.Diagnostics)
 		return
 	}
 
 	visibility, err := r.cfClient.ServicePlansVisibility.Get(ctx, data.ServicePlanGUID.ValueString())
 	if err != nil {
-		if cfv3client.IsResourceNotFoundError(err) {
-			resp.State.RemoveResource(ctx)
-			log.Println("Resource not found, removing state")
-			return
-		}
-		resp.Diagnostics.AddError(
-			"Failed to get service plan visibility",
-			"Failed to get service plan visibility: "+err.Error(),
-		)
-		log.Println("Failed to get service plan visibility:", err)
+		handleReadErrors(ctx, resp, err, "service_plan_visibility", data.ServicePlanGUID.ValueString())
 		return
 	}
 
-	data.ServicePlanGUID = types.StringValue(visibility.ServicePlanGUID)
-	data.OrganizationGUID = types.StringValue(visibility.OrganizationGUID)
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-	log.Println("Read completed successfully")
+	state, diags := mapServicePlanVisibilityValuesToType(ctx, visibility)
+	resp.Diagnostics.Append(diags...)
+	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
 func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	log.Println("Update called")
 	var plan, previousState servicePlanVisibilityType
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &previousState)...)
 	if resp.Diagnostics.HasError() {
-		log.Println("Error getting plan or state:", resp.Diagnostics)
 		return
 	}
 
-	updateServicePlanVisibility, diags := plan.mapServicePlanVisibilityTypeToValues(ctx)
+	// Correctly obtain a pointer
+	updateServicePlanVisibility, diags := mapCreateServicePlanVisibilityTypeToValues(ctx, plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
-		log.Println("Error mapping update service plan visibility:", resp.Diagnostics)
 		return
 	}
 
-	_, err := r.cfClient.ServicePlansVisibility.Update(ctx, plan.ServicePlanGUID.ValueString(), &updateServicePlanVisibility)
+	// Pass the pointer directly without taking its address
+	updatedVisibility, err := r.cfClient.ServicePlansVisibility.Update(ctx, plan.ServicePlanGUID.ValueString(), updateServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Updating Service Plan Visibility",
-			"Could not update Service Plan Visibility with ID "+plan.ServicePlanGUID.ValueString()+" : "+err.Error(),
+			"Could not update service plan visibility: "+err.Error(),
 		)
-		log.Println("API Error Updating Service Plan Visibility:", err)
 		return
 	}
 
-	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
-	log.Println("Update completed successfully")
+	data, diags := mapServicePlanVisibilityValuesToType(ctx, updatedVisibility)
+	resp.Diagnostics.Append(diags...)
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	log.Println("Delete called")
-	var data servicePlanVisibilityType
-	diags := req.State.Get(ctx, &data)
-	resp.Diagnostics.Append(diags...)
+	var state servicePlanVisibilityType
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		log.Println("Error getting state:", resp.Diagnostics)
 		return
 	}
 
-	err := r.cfClient.ServicePlansVisibility.Delete(ctx, data.ServicePlanGUID.ValueString())
-	if err != nil && !cfv3client.IsResourceNotFoundError(err) {
+	// Extract Service Plan GUID
+	servicePlanGUID := state.ServicePlanGUID.ValueString()
+
+	// Ensure we have at least one organization to delete the visibility for
+	if len(state.Organizations) == 0 {
 		resp.Diagnostics.AddError(
-			"Failed to delete service plan visibility",
-			"Failed to delete service plan visibility: "+err.Error(),
+			"Missing Organization GUID",
+			"At least one organization must be specified for deleting service plan visibility.",
 		)
-		log.Println("Failed to delete service plan visibility:", err)
 		return
 	}
 
-	resp.State.RemoveResource(ctx)
-	log.Println("Delete completed successfully")
+	// Extract the first organization GUID (if multiple exist, additional logic may be needed)
+	organizationGUID := state.Organizations[0].GUID.ValueString()
+
+	// Pass all required arguments: context, servicePlanGUID, and organizationGUID
+	err := r.cfClient.ServicePlansVisibility.Delete(ctx, servicePlanGUID, organizationGUID)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"API Error Deleting Service Plan Visibility",
+			"Could not delete service plan visibility: "+err.Error(),
+		)
+	}
 }
