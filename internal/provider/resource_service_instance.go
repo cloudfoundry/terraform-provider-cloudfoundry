@@ -295,7 +295,7 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 		if err = pollJob(ctx, *r.cfClient, jobID, createTimeout); err != nil {
 			resp.Diagnostics.AddError(
 				"Unable to verify service instance creation",
-				"Service Instance verification failed for+ "+plan.Name.ValueString()+": "+err.Error(),
+				"Service Instance verification failed for "+plan.Name.ValueString()+": "+err.Error(),
 			)
 		}
 		serviceInstance, err = r.cfClient.ServiceInstances.Single(ctx, &cfv3client.ServiceInstanceListOptions{
