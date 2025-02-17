@@ -123,6 +123,13 @@ __Note:__
 					stringvalidator.OneOf("deploy", "blue-green-deploy"),
 				},
 			},
+			"version_rule": schema.StringAttribute{
+				MarkdownDescription: "The rule to apply to determine how the application version number is used to trigger an application-update deployment operation.",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("HIGHER", "SAME_HIGHER", "ALL"),
+				},
+			},
 			"mta": schema.SingleNestedAttribute{
 				MarkdownDescription: "contains the details of the MTA object",
 				Computed:            true,
@@ -378,6 +385,10 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
 	} else {
 		operationParams.ProcessType = "DEPLOY"
+	}
+
+	if !mtarType.VersionRule.IsNull() {
+		operationParams.Parameters["versionRule"] = mtarType.VersionRule.ValueString()
 	}
 
 	if extensionDescriptors != "" {

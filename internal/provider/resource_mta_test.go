@@ -19,6 +19,7 @@ func TestMtaResource_Configure(t *testing.T) {
 		sourceCodeHash             = "fca8f8d1c499a1d0561c274ab974faf09355d513bb36475fe67577d850562801"
 		normalDeploy               = "deploy"
 		bgDeploy                   = "blue-green-deploy"
+		versionRuleAll             = "ALL"
 		extensionDescriptorsString = `[
     <<EOT
 _schema-version: 3.3.0
@@ -69,6 +70,7 @@ EOT
 						Space:          strtostrptr(spaceGuid),
 						Namespace:      strtostrptr(namespace),
 						DeployStrategy: strtostrptr(normalDeploy),
+						VersionRule:    strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath),
@@ -126,6 +128,7 @@ EOT
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						DeployStrategy:       strtostrptr(normalDeploy),
+						VersionRule:          strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
@@ -143,6 +146,7 @@ EOT
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						SourceCodeHash:       strtostrptr(sourceCodeHash),
 						DeployStrategy:       strtostrptr(bgDeploy),
+						VersionRule:          strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
@@ -161,6 +165,7 @@ EOT
 						ExtensionDescriptorsString: strtostrptr(extensionDescriptorsString),
 						SourceCodeHash:             strtostrptr(sourceCodeHash),
 						DeployStrategy:             strtostrptr(bgDeploy),
+						VersionRule:                strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),

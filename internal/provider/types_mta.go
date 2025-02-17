@@ -21,6 +21,7 @@ type MtarType struct {
 	Id                         types.String `tfsdk:"id"`
 	SourceCodeHash             types.String `tfsdk:"source_code_hash"`
 	DeployStrategy             types.String `tfsdk:"deploy_strategy"`
+	VersionRule                types.String `tfsdk:"version_rule"`
 }
 
 type MtasDataSourceType struct {
