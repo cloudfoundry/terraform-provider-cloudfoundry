@@ -210,13 +210,10 @@ Optional:
 <a id="nestedatt--routes"></a>
 ### Nested Schema for `routes`
 
-Required:
-
-- `route` (String) The fully route qualified domain name which will be bound to app
-
 Optional:
 
 - `protocol` (String) The protocol to use for the route. Valid values are http2, http1, and tcp.
+- `route` (String) The fully route qualified domain name which will be bound to app
 
 
 <a id="nestedatt--service_bindings"></a>

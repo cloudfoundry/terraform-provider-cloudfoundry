@@ -117,24 +117,15 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 						idKey: schema.StringAttribute{
 							MarkdownDescription: "The GUID of the object.",
 							Computed:            true,
-							PlanModifiers: []planmodifier.String{
-								ReComputeStringValue(),
-							},
 						},
 						"app_id": schema.StringAttribute{
 							MarkdownDescription: "The GUID of the app to route traffic to.",
 							Required:            true,
-							Validators: []validator.String{
-								validation.ValidUUID(),
-							},
 						},
 						"app_process_type": schema.StringAttribute{
 							MarkdownDescription: "Type of the process belonging to the app to route traffic to.",
 							Optional:            true,
 							Computed:            true,
-							PlanModifiers: []planmodifier.String{
-								ReComputeStringValue(),
-							},
 						},
 						"port": schema.Int64Attribute{
 							MarkdownDescription: "Port on the destination process to route traffic to.",
@@ -143,18 +134,12 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 							Validators: []validator.Int64{
 								int64validator.Between(1024, 65535),
 							},
-							PlanModifiers: []planmodifier.Int64{
-								ReComputeIntValue(),
-							},
 						},
 						"weight": schema.Int64Attribute{
 							MarkdownDescription: "Percentage of traffic which will be routed to this destination.",
 							Optional:            true,
 							Validators: []validator.Int64{
 								int64validator.Between(1, 100),
-							},
-							PlanModifiers: []planmodifier.Int64{
-								ReComputeIntValue(),
 							},
 						},
 						"protocol": schema.StringAttribute{
@@ -163,9 +148,6 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 							Computed:            true,
 							Validators: []validator.String{
 								stringvalidator.OneOf("http1", "http2", "tcp"),
-							},
-							PlanModifiers: []planmodifier.String{
-								ReComputeStringValue(),
 							},
 						},
 					},
@@ -195,9 +177,8 @@ func (r *RouteResource) Configure(ctx context.Context, req resource.ConfigureReq
 }
 
 func (r *RouteResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan, config routeType
+	var plan routeType
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
-	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -219,7 +200,7 @@ func (r *RouteResource) Create(ctx context.Context, req resource.CreateRequest, 
 
 	if !plan.Destinations.IsNull() {
 
-		insertDestinations, diags := config.mapCreateDestinationsTypeToValues(ctx)
+		insertDestinations, diags := plan.mapCreateDestinationsTypeToValues(ctx)
 		resp.Diagnostics.Append(diags...)
 		if resp.Diagnostics.HasError() {
 			return
@@ -265,17 +246,16 @@ func (rs *RouteResource) Read(ctx context.Context, req resource.ReadRequest, res
 }
 
 func (rs *RouteResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan, previousState, config routeType
+	var plan, previousState routeType
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &previousState)...)
-	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
 	var err error
 
-	replaceDestinations, diags := config.mapCreateDestinationsTypeToValues(ctx)
+	replaceDestinations, diags := plan.mapCreateDestinationsTypeToValues(ctx)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
