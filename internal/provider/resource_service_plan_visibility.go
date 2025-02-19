@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 type servicePlanVisibilityResource struct {
@@ -37,17 +38,10 @@ func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource
 				MarkdownDescription: "Denotes the visibility of the plan; can be public, admin, organization, space.",
 				Required:            true,
 			},
-			"organizations": schema.ListNestedAttribute{
-				MarkdownDescription: "List of organizations whose members can access the plan; present if type is organization.",
+			"organizations": schema.ListAttribute{
+				MarkdownDescription: "List of organization GUIDs whose members can access the plan; present if type is organization.",
 				Optional:            true,
-				NestedObject: schema.NestedAttributeObject{
-					Attributes: map[string]schema.Attribute{
-						"guid": schema.StringAttribute{
-							Required:            true,
-							MarkdownDescription: "GUID of the organization.",
-						},
-					},
-				},
+				ElementType:         types.StringType,
 			},
 			"space_guid": schema.StringAttribute{
 				MarkdownDescription: "Unique identifier for the space whose members can access the plan; present if type is space.",
@@ -170,7 +164,7 @@ func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource
 		return
 	}
 
-	organizationGUID := state.Organizations[0].GUID.ValueString()
+	organizationGUID := state.Organizations[0].ValueString()
 
 	err := r.cfClient.ServicePlansVisibility.Delete(ctx, servicePlanGUID, organizationGUID)
 	if err != nil {

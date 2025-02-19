@@ -9,21 +9,17 @@ import (
 )
 
 type servicePlanVisibilityType struct {
-	Organizations   []organizationType `tfsdk:"organizations"`
-	ServicePlanGUID types.String       `tfsdk:"service_plan_guid"`
-	SpaceGUID       types.String       `tfsdk:"space_guid"`
-	Type            types.String       `tfsdk:"type"`
-}
-
-type organizationType struct {
-	GUID types.String `tfsdk:"guid"`
+	Organizations   []types.String `tfsdk:"organizations"`
+	ServicePlanGUID types.String   `tfsdk:"service_plan_guid"`
+	SpaceGUID       types.String   `tfsdk:"space_guid"`
+	Type            types.String   `tfsdk:"type"`
 }
 
 type datasourceServicePlanVisibilityType struct {
-	Organizations   []organizationType `tfsdk:"organizations"`
-	ServicePlanGUID types.String       `tfsdk:"service_plan_guid"`
-	SpaceGUID       types.String       `tfsdk:"space_guid"`
-	Type            types.String       `tfsdk:"type"`
+	Organizations   []types.String `tfsdk:"organizations"`
+	ServicePlanGUID types.String   `tfsdk:"service_plan_guid"`
+	SpaceGUID       types.String   `tfsdk:"space_guid"`
+	Type            types.String   `tfsdk:"type"`
 }
 
 func (a *servicePlanVisibilityType) Reduce() datasourceServicePlanVisibilityType {
@@ -34,10 +30,10 @@ func (a *servicePlanVisibilityType) Reduce() datasourceServicePlanVisibilityType
 
 func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource.ServicePlanVisibility) (servicePlanVisibilityType, diag.Diagnostics) {
 	var diagnostics diag.Diagnostics
-	var organizations []organizationType
+	var organizations []types.String
 
 	for _, org := range value.Organizations {
-		organizations = append(organizations, organizationType{GUID: types.StringValue(org.GUID)})
+		organizations = append(organizations, types.StringValue(org.GUID))
 	}
 
 	servicePlanVisibilityType := servicePlanVisibilityType{
@@ -62,10 +58,10 @@ func mapCreateServicePlanVisibilityTypeToValues(ctx context.Context, value servi
 
 	createServicePlanVisibility := cfresource.NewServicePlanVisibilityUpdate(visibilityTypeEnum)
 
-	for _, org := range value.Organizations {
-		if !org.GUID.IsNull() && org.GUID.ValueString() != "" {
+	for _, orgGUID := range value.Organizations {
+		if !orgGUID.IsNull() && orgGUID.ValueString() != "" {
 			createServicePlanVisibility.Organizations = append(createServicePlanVisibility.Organizations, cfresource.ServicePlanVisibilityRelation{
-				GUID: org.GUID.ValueString(),
+				GUID: orgGUID.ValueString(),
 			})
 		}
 	}

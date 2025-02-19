@@ -1,96 +1,111 @@
 package provider
 
 import (
-	"context"
+	"bytes"
 	"testing"
+	"text/template"
 
-	"github.com/cloudfoundry/go-cfclient/v3/client"
-	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stretchr/testify/assert"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 )
 
-func TestServicePlanVisibilityResource(t *testing.T) {
-	mockClient := &client.Client{}
-	session := &managers.Session{CFClient: mockClient}
-	resource := NewServicePlanVisibilityResource().(*servicePlanVisibilityResource)
-	resource.Configure(context.Background(), resource.ConfigureRequest{
-		ProviderData: session,
-	}, &resource.ConfigureResponse{})
+type ServicePlanVisibilityModel struct {
+	HclType       string
+	HclObjectName string
+	Type          *string
+	Organizations *string
+	SpaceGUID     *string
+	Id            *string
+	CreatedAt     *string
+	UpdatedAt     *string
+}
 
-	t.Run("Create", func(t *testing.T) {
-		// Mock the Create API response
-		mockClient.ServicePlansVisibility.ApplyFunc = func(ctx context.Context, guid string, visibility *client.ServicePlanVisibility) (*client.Job, error) {
-			return &client.Job{GUID: "job-guid"}, nil
+func hclServicePlanVisibility(spvm *ServicePlanVisibilityModel) string {
+	if spvm != nil {
+		s := `
+		{{.HclType}} "cloudfoundry_service_plan_visibility" {{.HclObjectName}} {
+			{{- if .Type}}
+				type = "{{.Type}}"
+			{{- end -}}
+			{{if .Id}}
+				id = "{{.Id}}"
+			{{- end -}}
+			{{if .Organizations}}
+				organizations = {{.Organizations}}
+			{{- end -}}
+			{{if .SpaceGUID}}
+				space_guid = "{{.SpaceGUID}}"
+			{{- end -}}
+			{{if .CreatedAt}}
+				created_at = "{{.CreatedAt}}"
+			{{- end -}}
+			{{if .UpdatedAt}}
+				updated_at = "{{.UpdatedAt}}"
+			{{- end }}
+		}`
+		tmpl, err := template.New("resource_service_plan_visibility").Parse(s)
+		if err != nil {
+			panic(err)
 		}
-		mockClient.ServicePlanVisibilities.GetFunc = func(ctx context.Context, guid string) (*client.ServicePlanVisibility, error) {
-			return &client.ServicePlanVisibility{GUID: "visibility-guid"}, nil
+		buf := new(bytes.Buffer)
+		err = tmpl.Execute(buf, spvm)
+		if err != nil {
+			panic(err)
 		}
+		return buf.String()
+	}
+	return spvm.HclType + ` "cloudfoundry_service_plan_visibility" ` + spvm.HclObjectName + ` {}`
+}
 
-		req := resource.CreateRequest{
-			Plan: types.ObjectValue(map[string]types.Value{
-				"service_plan_guid": types.StringValue("service-plan-guid"),
-				"organization_guid": types.StringValue("organization-guid"),
-			}),
-		}
-		resp := &resource.CreateResponse{}
-		resource.Create(context.Background(), req, resp)
+func TestServicePlanVisibility_Configure(t *testing.T) {
+	var (
+		resourceName    = "cloudfoundry_service_plan_visibility.rs"
+		visibilityType  = "organization"
+		organizationIDs = "[\"749899b9-c991-4890-97a5-de04c6a4745f\"]"
+		spaceGUID       = "06ed9592-56ae-4dde-86f9-fc04f4d1bb9d	"
+	)
+	t.Parallel()
+	t.Run("happy path - create/update/import service plan visibility", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_plan_visibility")
+		defer stopQuietly(rec)
 
-		assert.False(t, resp.Diagnostics.HasError())
-	})
-
-	t.Run("Read", func(t *testing.T) {
-		// Mock the Read API response
-		mockClient.ServicePlanVisibilities.GetFunc = func(ctx context.Context, guid string) (*client.ServicePlanVisibility, error) {
-			return &client.ServicePlanVisibility{GUID: "visibility-guid", ServicePlanGUID: "service-plan-guid", OrganizationGUID: "organization-guid"}, nil
-		}
-
-		req := resource.ReadRequest{
-			State: types.ObjectValue(map[string]types.Value{
-				"service_plan_guid": types.StringValue("service-plan-guid"),
-			}),
-		}
-		resp := &resource.ReadResponse{}
-		resource.Read(context.Background(), req, resp)
-
-		assert.False(t, resp.Diagnostics.HasError())
-	})
-
-	t.Run("Update", func(t *testing.T) {
-		// Mock the Update API response
-		mockClient.ServicePlanVisibilities.UpdateFunc = func(ctx context.Context, guid string, visibility *client.ServicePlanVisibility) (*client.ServicePlanVisibility, error) {
-			return &client.ServicePlanVisibility{GUID: "visibility-guid"}, nil
-		}
-
-		req := resource.UpdateRequest{
-			Plan: types.ObjectValue(map[string]types.Value{
-				"service_plan_guid": types.StringValue("service-plan-guid"),
-				"organization_guid": types.StringValue("organization-guid"),
-			}),
-			State: types.ObjectValue(map[string]types.Value{
-				"service_plan_guid": types.StringValue("service-plan-guid"),
-			}),
-		}
-		resp := &resource.UpdateResponse{}
-		resource.Update(context.Background(), req, resp)
-
-		assert.False(t, resp.Diagnostics.HasError())
-	})
-
-	t.Run("Delete", func(t *testing.T) {
-		// Mock the Delete API response
-		mockClient.ServicePlanVisibilities.DeleteFunc = func(ctx context.Context, guid string) error {
-			return nil
-		}
-
-		req := resource.DeleteRequest{
-			State: types.ObjectValue(map[string]types.Value{
-				"service_plan_guid": types.StringValue("service-plan-guid"),
-			}),
-		}
-		resp := &resource.DeleteResponse{}
-		resource.Delete(context.Background(), req, resp)
-
-		assert.False(t, resp.Diagnostics.HasError())
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModel{
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Type:          &visibilityType,
+						Organizations: &organizationIDs,
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "type", visibilityType),
+						resource.TestCheckResourceAttr(resourceName, "organizations.#", "2"),
+					),
+				},
+				{
+					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModel{
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Type:          &visibilityType,
+						SpaceGUID:     &spaceGUID,
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "type", visibilityType),
+						resource.TestCheckResourceAttr(resourceName, "space_guid", spaceGUID),
+					),
+				},
+				{
+					ResourceName:      resourceName,
+					ImportStateIdFunc: getIdForImport(resourceName),
+					ImportState:       true,
+					ImportStateVerify: true,
+				},
+			},
+		})
 	})
 }
