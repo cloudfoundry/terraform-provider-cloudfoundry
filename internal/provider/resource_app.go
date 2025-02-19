@@ -161,6 +161,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Optional:            true,
 				Validators: []validator.Set{
 					setvalidator.SizeAtLeast(1),
+					setvalidator.AlsoRequires(path.MatchRoot("routes").AtAnySetValue().AtName("route")),
 				},
 				Computed: true,
 				PlanModifiers: []planmodifier.Set{
@@ -170,7 +171,8 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					Attributes: map[string]schema.Attribute{
 						"route": schema.StringAttribute{
 							MarkdownDescription: "The fully route qualified domain name which will be bound to app",
-							Required:            true,
+							Optional:            true,
+							Computed:            true,
 						},
 						"protocol": schema.StringAttribute{
 							MarkdownDescription: "The protocol to use for the route. Valid values are http2, http1, and tcp.",
