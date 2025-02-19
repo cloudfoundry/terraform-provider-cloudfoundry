@@ -9,16 +9,47 @@ import (
 
 func TestMtaResource_Configure(t *testing.T) {
 	var (
-		resourceName         = "cloudfoundry_mta.rs"
-		spaceGuid            = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
-		namespace            = "test"
-		mtarPath             = "../../assets/a.cf.app.mtar"
-		mtarPath2            = "../../assets/my-mta_1.0.0.mtar"
-		mtarUrl              = "https://github.com/Dray56/mtar-archive/releases/download/v1.0.0/a.cf.app.mtar"
-		extensionDescriptors = `["../../assets/prod.mtaext","../../assets/prod-scale-vertically.mtaext"]`
-		sourceCodeHash       = "fca8f8d1c499a1d0561c274ab974faf09355d513bb36475fe67577d850562801"
-		normalDeploy         = "deploy"
-		bgDeploy             = "blue-green-deploy"
+		resourceName               = "cloudfoundry_mta.rs"
+		spaceGuid                  = "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"
+		namespace                  = "test"
+		mtarPath                   = "../../assets/a.cf.app.mtar"
+		mtarPath2                  = "../../assets/my-mta_1.0.0.mtar"
+		mtarUrl                    = "https://github.com/Dray56/mtar-archive/releases/download/v1.0.0/a.cf.app.mtar"
+		extensionDescriptors       = `["../../assets/prod.mtaext","../../assets/prod-scale-vertically.mtaext"]`
+		sourceCodeHash             = "fca8f8d1c499a1d0561c274ab974faf09355d513bb36475fe67577d850562801"
+		normalDeploy               = "deploy"
+		bgDeploy                   = "blue-green-deploy"
+		versionRuleAll             = "ALL"
+		extensionDescriptorsString = `[
+    <<EOT
+_schema-version: 3.3.0
+ID: my-mta-prod
+extends: my-mta
+version: 1.0.0
+
+modules:
+- name: my-app
+  parameters:
+    instances: 2
+
+resources:
+ - name: my-service
+   parameters:
+     service-plan: "lite"
+EOT
+    ,
+    <<EOT
+_schema-version: 3.3.0
+ID: my-mta-prod-scale-vertically
+extends: my-mta-prod
+version: 1.0.0
+
+modules:
+- name: my-app
+  parameters:
+    memory: 2G
+EOT  
+  ]`
 	)
 	t.Parallel()
 	t.Run("happy path - create/update/delete mta from path", func(t *testing.T) {
@@ -39,6 +70,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Space:          strtostrptr(spaceGuid),
 						Namespace:      strtostrptr(namespace),
 						DeployStrategy: strtostrptr(normalDeploy),
+						VersionRule:    strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath),
@@ -96,6 +128,7 @@ func TestMtaResource_Configure(t *testing.T) {
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						DeployStrategy:       strtostrptr(normalDeploy),
+						VersionRule:          strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
@@ -113,6 +146,26 @@ func TestMtaResource_Configure(t *testing.T) {
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						SourceCodeHash:       strtostrptr(sourceCodeHash),
 						DeployStrategy:       strtostrptr(bgDeploy),
+						VersionRule:          strtostrptr(versionRuleAll),
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
+						resource.TestCheckResourceAttr(resourceName, "space", spaceGuid),
+						resource.TestCheckResourceAttr(resourceName, "mta.metadata.namespace", namespace),
+						resource.TestCheckResourceAttr(resourceName, "source_code_hash", sourceCodeHash),
+					),
+				},
+				{
+					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
+						HclType:                    hclObjectResource,
+						HclObjectName:              "rs",
+						MtarPath:                   strtostrptr(mtarPath2),
+						Space:                      strtostrptr(spaceGuid),
+						Namespace:                  strtostrptr(namespace),
+						ExtensionDescriptorsString: strtostrptr(extensionDescriptorsString),
+						SourceCodeHash:             strtostrptr(sourceCodeHash),
+						DeployStrategy:             strtostrptr(bgDeploy),
+						VersionRule:                strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),

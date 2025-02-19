@@ -4,7 +4,8 @@ go 1.23
 
 require (
 	github.com/cloudfoundry-community/go-uaa v0.3.4-0.20240727153833-d675ee37e6c9
-	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.9
+	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.9.0.20250214224940-6a135399b1a1
+	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.13.0
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.5.0
 	github.com/hashicorp/terraform-plugin-framework-validators v0.16.0
@@ -72,7 +73,7 @@ require (
 	golang.org/x/crypto v0.32.0 // indirect
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.34.0 // indirect
-	golang.org/x/oauth2 v0.23.0 // indirect
+	golang.org/x/oauth2 v0.26.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect

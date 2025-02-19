@@ -3,11 +3,13 @@ package provider
 import (
 	"context"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/mta"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -44,7 +46,10 @@ func (r *mtaResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 		MarkdownDescription: `Allows deploying applications and services via an MTAR archive or URL.
 		
 __Further documentation:__ 
- [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment)
+ [Multitarget Applications in the Cloud Foundry Environment](https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment).
+
+__Note:__ 
+ Validation of the yamls are not done from the terraform client side but via the MTA server.
 `,
 		Attributes: map[string]schema.Attribute{
 			"mtar_path": schema.StringAttribute{
@@ -67,6 +72,18 @@ __Further documentation:__
 				ElementType:         types.StringType,
 				Validators: []validator.Set{
 					setvalidator.SizeAtLeast(1),
+				},
+			},
+			"extension_descriptors_string": schema.SetAttribute{
+				MarkdownDescription: "The contents of the MTA deployment extension files.",
+				Optional:            true,
+				ElementType:         types.StringType,
+				Validators: []validator.Set{
+					setvalidator.SizeAtLeast(1),
+					setvalidator.ConflictsWith(path.Expressions{
+						path.MatchRoot("extension_descriptors"),
+						path.MatchRoot("extension_descriptors_string"),
+					}...),
 				},
 			},
 			"space": schema.StringAttribute{
@@ -104,6 +121,13 @@ __Further documentation:__
 				Optional:            true,
 				Validators: []validator.String{
 					stringvalidator.OneOf("deploy", "blue-green-deploy"),
+				},
+			},
+			"version_rule": schema.StringAttribute{
+				MarkdownDescription: "The rule to apply to determine how the application version number is used to trigger an application-update deployment operation.",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("HIGHER", "SAME_HIGHER", "ALL"),
 				},
 			},
 			"mta": schema.SingleNestedAttribute{
@@ -281,13 +305,33 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		}
 	}
 
-	if !mtarType.ExtensionDescriptors.IsNull() {
+	if !mtarType.ExtensionDescriptors.IsNull() || !mtarType.ExtensionDescriptorsString.IsNull() {
 		var (
 			extensionDescriptorsList []string
 			extensionFileID          []string
 		)
-		diags = mtarType.ExtensionDescriptors.ElementsAs(ctx, &extensionDescriptorsList, false)
-		respDiags.Append(diags...)
+		if !mtarType.ExtensionDescriptorsString.IsNull() {
+			var descriptorStrings []string
+			diags = mtarType.ExtensionDescriptorsString.ElementsAs(ctx, &descriptorStrings, false)
+			respDiags.Append(diags...)
+
+			for _, content := range descriptorStrings {
+				filename := fmt.Sprintf("%s.txt", uuid.New().String())
+
+				err := os.WriteFile(filename, []byte(content), 0644)
+				if err != nil {
+					respDiags.AddError(
+						"Error in creating files from extension descriptors",
+						"Failed to write to file "+filename+" Error : "+err.Error(),
+					)
+					return
+				}
+				extensionDescriptorsList = append(extensionDescriptorsList, filename)
+			}
+		} else {
+			diags = mtarType.ExtensionDescriptors.ElementsAs(ctx, &extensionDescriptorsList, false)
+			respDiags.Append(diags...)
+		}
 
 		for _, descriptorLocation := range extensionDescriptorsList {
 			uploadedExtensionDescriptor, _, err := r.mtaClient.DefaultApi.UploadMtaFile(ctx, spaceGuid, namespace, descriptorLocation)
@@ -301,6 +345,19 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 			extensionFileID = append(extensionFileID, uploadedExtensionDescriptor.Id)
 		}
 		extensionDescriptors = strings.Join(extensionFileID, ",")
+
+		if !mtarType.ExtensionDescriptorsString.IsNull() {
+			for _, filename := range extensionDescriptorsList {
+				err := os.Remove(filename)
+				if err != nil {
+					respDiags.AddError(
+						"Error in removing created extension descriptor files",
+						"Failed to remove file "+filename+" Error : "+err.Error(),
+					)
+					return
+				}
+			}
+		}
 	}
 
 	// Check for an ongoing operation for this MTA ID and abort it
@@ -328,6 +385,10 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
 	} else {
 		operationParams.ProcessType = "DEPLOY"
+	}
+
+	if !mtarType.VersionRule.IsNull() {
+		operationParams.Parameters["versionRule"] = mtarType.VersionRule.ValueString()
 	}
 
 	if extensionDescriptors != "" {

@@ -83,7 +83,7 @@ func mapOrgQuotaValuesToType(value *cfv3resource.OrganizationQuota) (OrgQuotaTyp
 	orgQuotaType := OrgQuotaType{
 		Name:                  types.StringValue(value.Name),
 		ID:                    types.StringValue(value.GUID),
-		AllowPaidServicePlans: types.BoolValue(*value.Services.PaidServicesAllowed),
+		AllowPaidServicePlans: types.BoolValue(value.Services.PaidServicesAllowed),
 		CreatedAt:             types.StringValue(value.CreatedAt.Format(time.RFC3339)),
 		UpdatedAt:             types.StringValue(value.UpdatedAt.Format(time.RFC3339)),
 	}

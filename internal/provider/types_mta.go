@@ -10,16 +10,18 @@ import (
 )
 
 type MtarType struct {
-	MtarPath             types.String `tfsdk:"mtar_path"`
-	MtarUrl              types.String `tfsdk:"mtar_url"`
-	ExtensionDescriptors types.Set    `tfsdk:"extension_descriptors"`
-	DeployUrl            types.String `tfsdk:"deploy_url"`
-	Space                types.String `tfsdk:"space"`
-	Mta                  types.Object `tfsdk:"mta"`
-	Namespace            types.String `tfsdk:"namespace"`
-	Id                   types.String `tfsdk:"id"`
-	SourceCodeHash       types.String `tfsdk:"source_code_hash"`
-	DeployStrategy       types.String `tfsdk:"deploy_strategy"`
+	MtarPath                   types.String `tfsdk:"mtar_path"`
+	MtarUrl                    types.String `tfsdk:"mtar_url"`
+	ExtensionDescriptors       types.Set    `tfsdk:"extension_descriptors"`
+	ExtensionDescriptorsString types.Set    `tfsdk:"extension_descriptors_string"`
+	DeployUrl                  types.String `tfsdk:"deploy_url"`
+	Space                      types.String `tfsdk:"space"`
+	Mta                        types.Object `tfsdk:"mta"`
+	Namespace                  types.String `tfsdk:"namespace"`
+	Id                         types.String `tfsdk:"id"`
+	SourceCodeHash             types.String `tfsdk:"source_code_hash"`
+	DeployStrategy             types.String `tfsdk:"deploy_strategy"`
+	VersionRule                types.String `tfsdk:"version_rule"`
 }
 
 type MtasDataSourceType struct {
