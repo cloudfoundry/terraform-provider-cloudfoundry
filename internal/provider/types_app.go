@@ -15,6 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // Type AppType representing Schema Attribute from function Schema in go type from resource_appManifest.go file.
@@ -691,4 +692,28 @@ func splitValueAndUnit(value string) (float64, string, error) {
 		return 0, "", err
 	}
 	return val, unit, nil
+}
+
+// Prepares the env for cfclient updation from existing and planned tfstate envs.
+func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plannedEnvs basetypes.MapValue) (map[string]*string, diag.Diagnostics) {
+
+	var (
+		diagnostics                 diag.Diagnostics
+		oldEnvs, newEnvs, finalEnvs map[string]*string
+	)
+
+	finalEnvs = make(map[string]*string)
+
+	diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
+	diagnostics.Append(plannedEnvs.ElementsAs(ctx, &newEnvs, false)...)
+
+	for key := range oldEnvs {
+		finalEnvs[key] = nil
+	}
+
+	for key, value := range newEnvs {
+		finalEnvs[key] = value
+	}
+
+	return finalEnvs, diagnostics
 }
