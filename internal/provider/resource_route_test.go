@@ -42,7 +42,6 @@ func TestRouteResource_Configure(t *testing.T) {
 						resource.TestCheckResourceAttr(resourceName, "destinations.#", "2"),
 						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "testing"),
 					),
-					ExpectNonEmptyPlan: true,
 				},
 				{
 					Config: hclProvider(nil) + hclResourceRoute(&RouteResourceModelPtr{
@@ -63,7 +62,6 @@ func TestRouteResource_Configure(t *testing.T) {
 						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "production"),
 						resource.TestCheckResourceAttr(resourceName, "labels.%", "2"),
 					),
-					ExpectNonEmptyPlan: true,
 				},
 				{
 					Config: hclProvider(nil) + hclResourceRoute(&RouteResourceModelPtr{
@@ -84,7 +82,6 @@ func TestRouteResource_Configure(t *testing.T) {
 						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "production"),
 						resource.TestCheckResourceAttr(resourceName, "labels.%", "2"),
 					),
-					ExpectNonEmptyPlan: true,
 				},
 				{
 					ResourceName:      resourceName,
