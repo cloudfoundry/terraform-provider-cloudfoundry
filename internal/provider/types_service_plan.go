@@ -33,6 +33,25 @@ type datasourceServicePlanType struct {
 	Name                types.String `tfsdk:"name"`
 	ServiceOfferingName types.String `tfsdk:"service_offering_name"`
 	ServiceBrokerName   types.String `tfsdk:"service_broker_name"`
+	ID                  types.String `tfsdk:"id"`
+	VisibilityType      types.String `tfsdk:"visibility_type"`
+	Available           types.Bool   `tfsdk:"available"`
+	Free                types.Bool   `tfsdk:"free"`
+	Description         types.String `tfsdk:"description"`
+	Costs               types.List   `tfsdk:"costs"`            //List of costInfoType
+	BrokerCatalog       types.Object `tfsdk:"broker_catalog"`   //BrokerCatalogType
+	MaintenanceInfo     types.Object `tfsdk:"maintenance_info"` //maintenanceInfoType
+	Schemas             types.Object `tfsdk:"schemas"`
+	Labels              types.Map    `tfsdk:"labels"`
+	Annotations         types.Map    `tfsdk:"annotations"`
+	CreatedAt           types.String `tfsdk:"created_at"`
+	UpdatedAt           types.String `tfsdk:"updated_at"`
+}
+
+type datasourceServicePlansType struct {
+	Name                types.String `tfsdk:"name"`
+	ServiceOfferingName types.String `tfsdk:"service_offering_name"`
+	ServiceBrokerName   types.String `tfsdk:"service_broker_name"`
 	ServicePlans        types.List   `tfsdk:"service_plans"` //List of servicePlanType
 }
 
@@ -145,6 +164,39 @@ func mapServicePlansValuesToListType(ctx context.Context, svcPlans []*resource.S
 	diagnostics.Append(diags...)
 
 	return svcPlanList, diagnostics
+}
+
+func mapServicePlansValueToData(ctx context.Context, svcPlan *resource.ServicePlan) (datasourceServicePlanType, diag.Diagnostics) {
+
+	var diags, diagnostics diag.Diagnostics
+
+	svcPlanValue, diags := mapServicePlanValuesToType(ctx, *svcPlan)
+	dsSvcPlan := mapServicePlanValueToDataSourceType(svcPlanValue)
+
+	diagnostics.Append(diags...)
+	return dsSvcPlan, diagnostics
+
+}
+
+func mapServicePlanValueToDataSourceType(svcPlanValue servicePlanType) datasourceServicePlanType {
+	dsSvcPlan := datasourceServicePlanType{
+		Name:                svcPlanValue.Name,
+		ID:                  svcPlanValue.ID,
+		VisibilityType:      svcPlanValue.VisibilityType,
+		Available:           svcPlanValue.Available,
+		Free:                svcPlanValue.Free,
+		ServiceOfferingName: svcPlanValue.ServiceOffering,
+		Description:         svcPlanValue.Description,
+		Costs:               svcPlanValue.Costs,
+		BrokerCatalog:       svcPlanValue.BrokerCatalog,
+		MaintenanceInfo:     svcPlanValue.MaintenanceInfo,
+		Schemas:             svcPlanValue.Schemas,
+		Labels:              svcPlanValue.Labels,
+		Annotations:         svcPlanValue.Annotations,
+		CreatedAt:           svcPlanValue.CreatedAt,
+		UpdatedAt:           svcPlanValue.UpdatedAt,
+	}
+	return dsSvcPlan
 }
 
 func mapServicePlanValuesToType(ctx context.Context, svcPlan resource.ServicePlan) (servicePlanType, diag.Diagnostics) {
