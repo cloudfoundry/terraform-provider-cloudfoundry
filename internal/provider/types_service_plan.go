@@ -34,6 +34,7 @@ type datasourceServicePlanType struct {
 	ServiceOfferingName types.String `tfsdk:"service_offering_name"`
 	ServiceBrokerName   types.String `tfsdk:"service_broker_name"`
 	ID                  types.String `tfsdk:"id"`
+	ServiceOfferingId   types.String `tfsdk:"service_offering_id"`
 	VisibilityType      types.String `tfsdk:"visibility_type"`
 	Available           types.Bool   `tfsdk:"available"`
 	Free                types.Bool   `tfsdk:"free"`
@@ -180,21 +181,21 @@ func mapServicePlansValueToData(ctx context.Context, svcPlan *resource.ServicePl
 
 func mapServicePlanValueToDataSourceType(svcPlanValue servicePlanType) datasourceServicePlanType {
 	dsSvcPlan := datasourceServicePlanType{
-		Name:                svcPlanValue.Name,
-		ID:                  svcPlanValue.ID,
-		VisibilityType:      svcPlanValue.VisibilityType,
-		Available:           svcPlanValue.Available,
-		Free:                svcPlanValue.Free,
-		ServiceOfferingName: svcPlanValue.ServiceOffering,
-		Description:         svcPlanValue.Description,
-		Costs:               svcPlanValue.Costs,
-		BrokerCatalog:       svcPlanValue.BrokerCatalog,
-		MaintenanceInfo:     svcPlanValue.MaintenanceInfo,
-		Schemas:             svcPlanValue.Schemas,
-		Labels:              svcPlanValue.Labels,
-		Annotations:         svcPlanValue.Annotations,
-		CreatedAt:           svcPlanValue.CreatedAt,
-		UpdatedAt:           svcPlanValue.UpdatedAt,
+		Name:              svcPlanValue.Name,
+		ID:                svcPlanValue.ID,
+		VisibilityType:    svcPlanValue.VisibilityType,
+		Available:         svcPlanValue.Available,
+		Free:              svcPlanValue.Free,
+		ServiceOfferingId: svcPlanValue.ServiceOffering,
+		Description:       svcPlanValue.Description,
+		Costs:             svcPlanValue.Costs,
+		BrokerCatalog:     svcPlanValue.BrokerCatalog,
+		MaintenanceInfo:   svcPlanValue.MaintenanceInfo,
+		Schemas:           svcPlanValue.Schemas,
+		Labels:            svcPlanValue.Labels,
+		Annotations:       svcPlanValue.Annotations,
+		CreatedAt:         svcPlanValue.CreatedAt,
+		UpdatedAt:         svcPlanValue.UpdatedAt,
 	}
 	return dsSvcPlan
 }

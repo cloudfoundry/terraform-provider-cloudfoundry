@@ -56,6 +56,10 @@ func (d *ServicePlanDataSource) Schema(ctx context.Context, req datasource.Schem
 				MarkdownDescription: "Description of the service plan",
 				Computed:            true,
 			},
+			"service_offering_id": schema.StringAttribute{
+				MarkdownDescription: "The technical ID of the service offering",
+				Computed:            true,
+			},
 			"maintenance_info": schema.SingleNestedAttribute{
 				MarkdownDescription: "Information about the version of this service plan",
 				Computed:            true,
@@ -221,9 +225,11 @@ func (d *ServicePlanDataSource) Read(ctx context.Context, req datasource.ReadReq
 	}
 	// Memorize the Service Broker Name to transfer it to the data object later
 	serviceBrokerName := data.ServiceBrokerName
+	serviceOfferingName := data.ServiceOfferingName
 	data, diags = mapServicePlansValueToData(ctx, svcPlans[0])
 	// Service Broker Name is not transferred to the data object, so we need to set it manually
 	data.ServiceBrokerName = serviceBrokerName
+	data.ServiceOfferingName = serviceOfferingName
 
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

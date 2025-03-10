@@ -47,6 +47,7 @@ output "serviceplan_id" {
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
 - `maintenance_info` (Attributes) Information about the version of this service plan (see [below for nested schema](#nestedatt--maintenance_info))
 - `schemas` (Attributes) Schema definitions for service instances and service bindings for the service plan (see [below for nested schema](#nestedatt--schemas))
+- `service_offering_id` (String) The technical ID of the service offering
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
 - `visibility_type` (String) Denotes the visibility of the plan
 
