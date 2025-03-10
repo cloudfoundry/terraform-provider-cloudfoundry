@@ -314,6 +314,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_stack",
 		"cloudfoundry_remote_mtar_hash",
 		"cloudfoundry_spaces",
+		"cloudfoundry_service_plan",
 		"cloudfoundry_service_plans",
 		"cloudfoundry_orgs",
 		"cloudfoundry_service_instances",
