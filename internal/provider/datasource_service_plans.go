@@ -201,7 +201,7 @@ func (d *ServicePlansDataSource) Configure(ctx context.Context, req datasource.C
 
 func (d *ServicePlansDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 
-	var data datasourceServicePlanType
+	var data datasourceServicePlansType
 
 	diags := req.Config.Get(ctx, &data)
 	resp.Diagnostics.Append(diags...)
