@@ -1,0 +1,154 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: korifi-installer
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
+  name: cf
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/enforce: restricted
+  name: korifi
+---
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJsb2NhbHJlZ2lzdHJ5LWRvY2tlci1yZWdpc3RyeS5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsOjMwMDUwIjp7InVzZXJuYW1lIjoidXNlciIsInBhc3N3b3JkIjoicGFzc3dvcmQiLCJhdXRoIjoiZFhObGNqcHdZWE56ZDI5eVpBPT0ifX19
+kind: Secret
+metadata:
+  name: image-registry-credentials
+  namespace: cf
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: korifi-installer
+  namespace: korifi-installer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: korifi-installer
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: korifi-installer
+  namespace: korifi-installer
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    kbld.k14s.io/images: |
+      - origins:
+        - local:
+            path: /tmp/build/a625eeb5/korifi
+        - git:
+            dirty: true
+            remoteURL: https://github.com/cloudfoundry/korifi.git
+            sha: d151c84337da850edbda97d36ae4a03b341f7e16
+        url: index.docker.io/cloudfoundry/korifi-installer@sha256:b2a6711b6eeaf2d12d5018ceac6530e4ddc24294c6a16840dae1a8ac2cdba7ac
+  name: install-korifi
+  namespace: korifi-installer
+spec:
+  template:
+    metadata:
+      name: install-korifi
+    spec:
+      containers:
+      - command:
+        - bash
+        - -c
+        - |
+          set -euo pipefail
+
+          scripts/install-dependencies.sh --insecure-tls-metrics-server
+
+          helm repo add twuni https://helm.twun.io
+          # the htpasswd value below is username: user, password: password encoded using `htpasswd` binary
+          # e.g. `docker run --entrypoint htpasswd httpd:2 -Bbn user password`
+          #
+          helm upgrade --install localregistry twuni/docker-registry \
+            --namespace default \
+            --set service.type=NodePort,service.nodePort=30050,service.port=30050 \
+            --set persistence.enabled=true \
+            --set persistence.deleteEnabled=true \
+            --set secrets.htpasswd='user:$2y$05$Ue5dboOfmqk6Say31Sin9uVbHWTl8J1Sgq9QyAEmFQRnq1TPfP1n2'
+
+          while ! curl -o /dev/null http://localregistry-docker-registry.default.svc.cluster.local:30050/v2/_catalog 2>/dev/null; do
+            echo Waiting for the local docker registry to respond...
+            sleep 1
+          done
+
+          registry_status_code=""
+          while [[ "$registry_status_code" != "200" ]]; do
+            echo Waiting for the local docker registry to start...
+            registry_status_code=$(curl -o /dev/null -w "%{http_code}" --user user:password http://localregistry-docker-registry.default.svc.cluster.local:30050/v2/_catalog 2>/dev/null)
+            sleep 1
+          done
+
+          helm upgrade --install korifi helm/korifi \
+            --namespace korifi \
+            --set=adminUserName="uaa:ccadmin@test.org" \
+            --set=defaultAppDomainName="apps-127-0-0-1.nip.io" \
+            --set=generateIngressCertificates="true" \
+            --set=logLevel="debug" \
+            --set=debug="false" \
+            --set=stagingRequirements.buildCacheMB="1024" \
+            --set=api.apiServer.url="localhost" \
+            --set=controllers.taskTTL="5s" \
+            --set=jobTaskRunner.jobTTL="5s" \
+            --set=containerRepositoryPrefix="localregistry-docker-registry.default.svc.cluster.local:30050/" \
+            --set=kpackImageBuilder.builderRepository="localregistry-docker-registry.default.svc.cluster.local:30050/kpack-builder" \
+            --set=networking.gatewayClass="contour" \
+            --set=networking.gatewayPorts.http="32080" \
+            --set=networking.gatewayPorts.https="32443" \
+            --set=experimental.managedServices.enabled="true" \
+            --set=experimental.uaa.enabled="true" \
+            --set=experimental.uaa.url="https://uaa-127-0-0-1.nip.io:8443" \
+            --set=experimental.managedServices.trustInsecureBrokers="true" \
+            --wait
+
+          kubectl wait --for=condition=ready clusterbuilder --all=true --timeout=15m
+
+          kubectl apply -f - <<EOF
+          kind: GatewayClass
+          apiVersion: gateway.networking.k8s.io/v1beta1
+          metadata:
+            name: contour
+          spec:
+            controllerName: projectcontour.io/gateway-controller
+            parametersRef:
+              kind: ContourDeployment
+              group: projectcontour.io
+              name: contour-nodeport-params
+              namespace: projectcontour
+
+          ---
+          kind: ContourDeployment
+          apiVersion: projectcontour.io/v1alpha1
+          metadata:
+            namespace: projectcontour
+            name: contour-nodeport-params
+          spec:
+            envoy:
+              networkPublishing:
+                type: NodePortService
+          EOF
+        image: index.docker.io/cloudfoundry/korifi-installer@sha256:b2a6711b6eeaf2d12d5018ceac6530e4ddc24294c6a16840dae1a8ac2cdba7ac
+        name: install-korifi
+      restartPolicy: Never
+      serviceAccountName: korifi-installer

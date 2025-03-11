@@ -1,0 +1,15 @@
+services:
+  uaa:
+    image: cloudfoundry/uaa:latest
+    ports:
+      - 8443:8443
+    volumes:
+      - ./uaa.yaml:/usr/local/cf_config/uaa.yml
+      - ./server.xml:/usr/local/tomcat/conf/server.xml
+      - ./ssl:/usr/local/tomcat/ssl
+    networks:
+      - kind
+
+networks:
+  kind:
+    external: true

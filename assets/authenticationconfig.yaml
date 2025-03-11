@@ -1,0 +1,55 @@
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+jwt:
+- issuer:
+    url: https://uaa-127-0-0-1.nip.io:8443/oauth/token
+    discoveryURL: https://uaa:8443/.well-known/openid-configuration
+    certificateAuthority: |
+        -----BEGIN CERTIFICATE-----
+        MIIE4TCCAsmgAwIBAgIUZTlZOwMVDknH0FLq6IVjfmMzC4wwDQYJKoZIhvcNAQEL
+        BQAwADAeFw0yNTAzMTExNjU5NDhaFw0yNjAzMTExNjU5NDhaMAAwggIiMA0GCSqG
+        SIb3DQEBAQUAA4ICDwAwggIKAoICAQC+6D5u/77HkQm+g5EBwsTp5jIlh+8eKf9p
+        inxLdPtTqloXRAdMCVXfHG92/AIabk4CaZGwxvjaFzQxGHAZAyViWkV1eLSGO8Ex
+        68hi2bGctiGo5GOz5uSuhhXZfsWzaVtwXGiwM/PzQmQv7JUgzM1SGEzyeb22N+uT
+        cR+v2skqV0Xlq2TflM0r6jhSLb5Alc6/GucY4LwoHg02edolP37XEgKrhJ7HF0Nc
+        64xf3dr8SAbgnX0IUQCoj6L+Y0vyuOxwrtjRcU1a9f1a9UCue7NrdBOe4oO9ZTyc
+        Rfx0VzwlSLrMZ9DxNP3/RVBAhho/nTejpS/KwJ0PKuO5Te8l7IE+K6VAG55v7yFx
+        LYwFIgAJusCnhcb2X1Fz6Mzci0RH+bxwWu/CECdtBgueWV/PWlrXb+7KDISLUAC3
+        kyR6aY8IIdByn9dhUa8sg35V1JsdNh8aF2Wu5VFvWr+nz3IkpVRJUxJ//leICxA2
+        /bkc4YIdFJbBbtD2rJaIme5JHQCel1c/haWKnKt/L7t8wMEz8clo0Kbve9hssitc
+        JnztAnTHCG6NoOqM4KgEmsoXhorFOJVy5anbM4d3BlgDpgTYfl2WsOS5AqvZyR3I
+        p4KMaCgxYteKDFGbNpTE7QOWPzFXfx9LVewX0D1Aj2x/X/iHXbMxCD8LQNiOZol7
+        u2PNROi9PwIDAQABo1MwUTAdBgNVHQ4EFgQUxUEAIvXKP1TBLu4q1QRCbTILR/Yw
+        HwYDVR0jBBgwFoAUxUEAIvXKP1TBLu4q1QRCbTILR/YwDwYDVR0TAQH/BAUwAwEB
+        /zANBgkqhkiG9w0BAQsFAAOCAgEAXls+/l/rufT2ls1rzQlwV4lvMH9FG5JbrUbV
+        wRwmpY10ljmyU+l28UYzeHe8bzf0fU+3mVTS8BkvuOemZEvdu+3bXhhyr8uIftv6
+        bSn6ezhnUfHjj1i5sulcFihoOH5/Ug3bnsQyRsO2TCfh5rLC0t9mRfPXZ6o0P+ET
+        FQnJ62JBE2qhhXDJs/ZYJOad5fF6OQ2wUBq8txhRuhDZM//qMeg+n7TnGZgyZeLw
+        SuTVoUmmuG3DSInLWE38R2dz+vWJAzQUQ5/hW9yI0U7/5n7ypE2Xp3JK9lQJHDxC
+        JRnhYjlXJVsKLzx1dR9eghJqalL2uY7K5rQHknXtgpBJXSclIh2a7IPc9WTOhOsQ
+        SrYdVwlGBDqdnaYDcKbz8Dom9DREGYr/oYPHNya+CjJPwtSKPpywdOYMmrM1nbkC
+        xcmrlQYHBJlutsG0KK8ViRU3Eb6YyVfmhjT5a5FnTOLgI4MSDe7KtD5HitCSeYK9
+        p0elaQGwdmSOIGt6yRJyW9vd3+QOGPV6homCsOiHByQbz1BTM4JDb2iyFJwwn3JA
+        Z20LgTzRTeFntR6b0sZeHGYWzpLqyCUMCfWXodrHgpaSNf7daYySeJmhcm9h64eT
+        nHjZDjEe7jC4hBIGpFAucNoeyUJRbBriF2DrCoJh+FsF8/7zdKErYA//r7bMqJEZ
+        dVUzWFk=
+        -----END CERTIFICATE-----
+    audiences:
+    - cloud_controller
+    - kubectl
+    audienceMatchPolicy: MatchAny
+  claimMappings:
+    username:
+      claim: "email"
+      prefix: "uaa:"
+    groups:
+      claim: "scope"
+      prefix: "uaa:"
+    uid:
+      claim: "user_id"
+    extra:
+    - key: 'uaa/user_id'
+      valueExpression: 'claims.user_id'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')"
+    message: "username cannot use reserved system: prefix"

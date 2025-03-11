@@ -1,0 +1,31 @@
+issuer:
+  uri: https://uaa-127-0-0-1.nip.io:8443
+
+uaa:
+  uri: https://uaa-127-0-0-1.nip.io:8443
+
+scim:
+  users:
+    - ccadmin|secret|ccadmin@test.org|Test|Test|scim.write,cloud_controller.admin,uaa.admin
+
+oauth:
+  client:
+    override: true
+  clients:
+    admin:
+      authorized-grant-types: client_credentials
+      authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
+      secret: adminsecret
+    cf:
+      scope: openid,uaa.user,cloud_controller.read,cloud_controller.write,password.write
+      authorized-grant-types: implicit,password,refresh_token
+      redirect-uri: http://localhost:8080/** http://localhost:7000/**
+      autoapprove: true
+      authorities: uaa.none
+      secret: ""
+    kubectl:
+      scope: openid,uaa.user,cloud_controller.read,cloud_controller.write,password.write
+      authorized-grant-types: authorization_code
+      authorities: clients.read,clients.write,clients.secret,uaa.admin,scim.read,scim.write,password.write
+      secret: kubectlsecret
+      redirect-uri: http://localhost:8000/**

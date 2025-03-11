@@ -13,7 +13,8 @@ on:
 permissions:
   contents: read
 
-  
+env:
+  PATH_TO_TFSCRIPT: 'integration'
 jobs:
   # Ensure project builds before running the testing matrix
   build:
@@ -28,40 +29,86 @@ jobs:
           cache: true
       - run: go mod download
       - run: go build -v .
-      - name: Run linters
-        uses: golangci/golangci-lint-action@051d91933864810ecd5e2ea2cfd98f6a5bca5347 # v3.7.1
+      - run: ./assets/install_cf.sh
+        name: Install CF CLI
+      - name: Install kubectl
+        uses: Azure/setup-kubectl@v4
+      - uses: helm/kind-action@v1
+        name: Setup Kind
         with:
-          version: latest
-
-
-  # Run acceptance tests in a matrix with OpenTofu CLI versions
-  test:
-    name: Terraform Provider Acceptance Tests for OpenTofu
-    needs: build
-    runs-on: ubuntu-latest
-    # Timeout for tests set to 25 minutes to safeguard long running tests (specifically for service instances) 
-    timeout-minutes: 25
-    strategy:
-      fail-fast: false
-      matrix:
-        # list of OpenTofu versions to test against
-        opentofu:
-          - '1.6.*'
-          - '1.7.*'
-          - '1.8.*'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34
+          install_only: true
+          version: v0.25.0
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        name: setup terraform
         with:
-          go-version-file: 'go.mod'
-          cache: true
-      - uses: opentofu/setup-opentofu@v1
-        with:
-          tofu_version: ${{ matrix.opentofu }}
-          tofu_wrapper: false
-      - run: go mod download
-      - env:
-          TF_ACC: "1"
-        run: go test -v -cover -coverprofile=cover.out -timeout=900s -parallel=4 ./...
-        timeout-minutes: 20
+          terraform_version: 1.10.*
+          terraform_wrapper: false
+      - name: setup kind cluster
+        run: |
+          cat <<EOF | kind create cluster --name korifi --config=-
+          kind: Cluster
+          apiVersion: kind.x-k8s.io/v1alpha4
+          containerdConfigPatches:
+          - |-
+            [plugins."io.containerd.grpc.v1.cri".registry]
+              [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+                [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localregistry-docker-registry.default.svc.cluster.local:30050"]
+                  endpoint = ["http://127.0.0.1:30050"]
+              [plugins."io.containerd.grpc.v1.cri".registry.configs]
+                [plugins."io.containerd.grpc.v1.cri".registry.configs."127.0.0.1:30050".tls]
+                  insecure_skip_verify = true
+          nodes:
+          - role: control-plane
+            extraMounts:
+            - containerPath: /etc/auth/authenticationconfig.yaml
+              hostPath: ./assets/authenticationconfig.yaml
+              readOnly: true
+            extraPortMappings:
+            - containerPort: 32080
+              hostPort: 80
+              protocol: TCP
+            - containerPort: 32443
+              hostPort: 443
+              protocol: TCP
+            - containerPort: 30050
+              hostPort: 30050
+              protocol: TCP
+            kubeadmConfigPatches:
+            - |
+              kind: ClusterConfiguration
+              apiServer:
+                extraVolumes:
+                  - name: auth-conf
+                    hostPath: /etc/auth/authenticationconfig.yaml
+                    mountPath: /etc/auth/authenticationconfig.yaml
+                extraArgs:
+                  authentication-config: /etc/auth/authenticationconfig.yaml
+          EOF
+      - name: Run UAA
+        run: |
+          docker compose --file assets/uaa/docker-compose.yml up -d --quiet-pull
+      - name: Run Korifi Installer
+        run: |
+          kubectl apply -f assets/install-korifi.yaml
+          sleep 30
+          kubectl -n korifi-installer logs --follow job/install-korifi
+      - name: Test cf login
+        run: |
+           export CF_TRACE=true
+           cf api https://localhost --skip-ssl-validation
+           # cf auth kind-korifi
+           cf -v login -u ccadmin -p secret
+           ls -la ~/.cf
+           cat ~/.cf/config.json
+      - name: Terraform Init
+        run: |
+          terraform -chdir=${{ env.PATH_TO_TFSCRIPT }} init -upgrade -no-color
+      - name: Run CF plan
+        run: |
+          terraform -chdir=${{ env.PATH_TO_TFSCRIPT }} plan -no-color
+      - name: Run CF plan
+        run: |
+          terraform -chdir=${{ env.PATH_TO_TFSCRIPT }} apply -auto-approve -no-color
+        
+      
      
