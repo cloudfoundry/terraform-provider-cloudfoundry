@@ -24,10 +24,10 @@ on:
 permissions:
   contents: read
 
-# Define the latest Terraform version to use for upload of coverage report  
-env: 
-  LATEST_VERSION: 1.9.*
-  
+# Define the latest Terraform version to use for upload of coverage report
+env:
+  LATEST_VERSION: 1.11.*
+
 jobs:
   # Ensure project builds before running testing matrix
   build:
@@ -43,7 +43,7 @@ jobs:
       - run: go mod download
       - run: go build -v .
       - name: Run linters
-        uses: golangci/golangci-lint-action@9665fb5353a2e4cc60d570d956ab6db7d9949f06 # v3.7.1 
+        uses: golangci/golangci-lint-action@9665fb5353a2e4cc60d570d956ab6db7d9949f06 # v3.7.1
         with:
           version: v1.63.4
           skip-cache: true
@@ -78,13 +78,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # list whatever Terraform versions here you would like to support
+      # List of Terraform versions to be tested - last three versions are in scope
+      # Check https://endoflife.date/terraform for end of support dates
+      # '1.6.*' end of security support 10 Apr 2024
+      # '1.7.*' end of security support 26 Jun 2024
+      # '1.8.*' end of security support 26 Nov 2024
         terraform:
-          - '1.5.*' #end of security support under MPL 31 Dec 2023
-          - '1.6.*' #end of security support under BSL 31 Dec 2025
-          - '1.7.*' #end of security support under BSL 31 Dec 2026
-          - '1.8.*' #end of security support under BSL 31 Dec 2026
-          - '1.9.*' #end of security support under 
+          - '1.9.*' #end of security support 27 Feb 2025
+          - '1.10.*'
+          - '1.11.*'
     steps:
       - uses: actions/checkout@v4 # v4.0.0
       - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
@@ -96,36 +98,19 @@ jobs:
           terraform_version: ${{ matrix.terraform }}
           terraform_wrapper: false
       - run: go mod download
-      - if: ${{ matrix.terraform != env.LATEST_VERSION}}
+      - if: ${{ matrix.terraform != env.LATEST_VERSION }}
         env:
           TF_ACC: "1"
         run: go test -v -timeout=900s -parallel=4 ./...
         timeout-minutes: 20
-      - if: ${{ matrix.terraform == env.LATEST_VERSION}}
+      - if: ${{ matrix.terraform == env.LATEST_VERSION }}
         env:
           TF_ACC: "1"
         uses: robherley/go-test-action@v0
-        with: 
+        with:
           testArguments: -v -cover -coverprofile=cover.out -timeout=900s -parallel=4 ./...
       - uses: actions/upload-artifact@v4
-        if: ${{ matrix.terraform == env.LATEST_VERSION}}}  
+        if: ${{ matrix.terraform == env.LATEST_VERSION }}
         with:
           name: coverage-report
           path: cover.out
-  # sonarcloud:
-  #   if: github.event.pull_request.draft == false
-  #   name: SonarCloud
-  #   needs: test_with_terraform_versions
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: coverage-report
-  #     - name: SonarCloud Scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
