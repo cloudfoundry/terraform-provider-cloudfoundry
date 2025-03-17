@@ -154,7 +154,7 @@ func TestCloudFoundryProvider_Configure(t *testing.T) {
 		user := strtostrptr(os.Getenv("TEST_CF_USER"))
 		password := strtostrptr(os.Getenv("TEST_CF_PASSWORD"))
 		if *endpoint == "" || *user == "" || *password == "" {
-			t.Logf("\nATTENTION: Using redacted user credentions since endpoint, username & password not set as env \n Make sure you are not triggering a recording else test will fail")
+			t.Logf("\nATTENTION: Using redacted user credentials since endpoint, username & password not set as env \n Make sure you are not triggering a recording else test will fail")
 			endpoint = redactedTestUser.Endpoint
 			user = redactedTestUser.User
 			password = redactedTestUser.Password
@@ -185,7 +185,7 @@ func TestCloudFoundryProvider_Configure(t *testing.T) {
 		accessToken := strtostrptr(os.Getenv("TEST_CF_ACCESS_TOKEN"))
 		refreshToken := strtostrptr(os.Getenv("TEST_CF_REFRESH_TOKEN"))
 		if *endpoint == "" || *accessToken == "" || *refreshToken == "" {
-			t.Logf("\nATTENTION: Using redacted user credentions since endpoint, username & password not set as env \n Make sure you are not triggering a recording else test will fail")
+			t.Logf("\nATTENTION: Using redacted user credentials since endpoint, username & password not set as env \n Make sure you are not triggering a recording else test will fail")
 			endpoint = redactedTestUser.Endpoint
 			accessToken = redactedTestUser.AccessToken
 			refreshToken = redactedTestUser.RefreshToken

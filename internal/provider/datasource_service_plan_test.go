@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"os"
 	"regexp"
 	"testing"
 
@@ -8,10 +9,29 @@ import (
 )
 
 func TestDatasourceServicePlan(t *testing.T) {
-	t.Parallel()
+
 	datasourceName := "data.cloudfoundry_service_plan.test"
+	endpoint := strtostrptr(os.Getenv("TEST_CF_API_URL"))
+	user := strtostrptr(os.Getenv("TEST_CF_USER"))
+	password := strtostrptr(os.Getenv("TEST_CF_PASSWORD"))
+	origin := strtostrptr(os.Getenv("TEST_CF_ORIGIN"))
+	if *endpoint == "" || *user == "" || *password == "" || *origin == "" {
+		t.Logf("\nATTENTION: Using redacted user credentials since credentials not set as env \n Make sure you are not triggering a recording else test will fail")
+		endpoint = redactedTestUser.Endpoint
+		user = redactedTestUser.User
+		password = redactedTestUser.Password
+		origin = redactedTestUser.Origin
+	}
+	cfg := CloudFoundryProviderConfigPtr{
+		Endpoint: endpoint,
+		User:     user,
+		Password: password,
+		Origin:   origin,
+	}
+
+	t.Parallel()
 	t.Run("error path - get unavailable service plan", func(t *testing.T) {
-		cfg := getCFHomeConf()
+
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_plan_invalid")
 		defer stopQuietly(rec)
 
@@ -22,7 +42,7 @@ func TestDatasourceServicePlan(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + `
+					Config: hclProvider(&cfg) + `
 data "cloudfoundry_service_plan" "test" {
 	name = "invalid"
 	service_offering_name = "invalid"
@@ -35,7 +55,6 @@ data "cloudfoundry_service_plan" "test" {
 	})
 
 	t.Run("happy path - read service plan", func(t *testing.T) {
-		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/datasource_service_plan")
 		defer stopQuietly(rec)
 		resource.Test(t, resource.TestCase{
@@ -43,7 +62,7 @@ data "cloudfoundry_service_plan" "test" {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + `
+					Config: hclProvider(&cfg) + `
 data "cloudfoundry_service_plan" "test" {
 	name = "application"
 	service_offering_name = "xsuaa"
