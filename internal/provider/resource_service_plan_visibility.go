@@ -6,10 +6,15 @@ import (
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
+	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -37,22 +42,30 @@ func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource
 			"type": schema.StringAttribute{
 				MarkdownDescription: "Denotes the visibility of the plan; can be public, admin, organization, space.",
 				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("public", "admin", "organization", "space"),
+				},
 			},
-			"organizations": schema.ListAttribute{
-				MarkdownDescription: "List of organization GUIDs whose members can access the plan; present if type is organization.",
+			"organizations": schema.SetAttribute{
+				MarkdownDescription: "Set of organization GUIDs whose members can access the plan; present if type is organization.",
 				Optional:            true,
 				ElementType:         types.StringType,
+				Validators: []validator.Set{
+					setvalidator.ValueStringsAre(validation.ValidUUID()),
+					setvalidator.SizeAtLeast(1),
+				},
 			},
-			"space_guid": schema.StringAttribute{
+			"space": schema.StringAttribute{
 				MarkdownDescription: "Unique identifier for the space whose members can access the plan; present if type is space.",
-				Optional:            true,
+				Computed:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplaceIfConfigured(),
 				},
 			},
-			"id":         guidSchema(),
-			"created_at": createdAtSchema(),
-			"updated_at": updatedAtSchema(),
+			"service_plan": schema.StringAttribute{
+				MarkdownDescription: "The GUID of the service plan.",
+				Required:            true,
+			},
 		},
 	}
 }
@@ -72,6 +85,24 @@ func (r *servicePlanVisibilityResource) Configure(ctx context.Context, req resou
 	r.cfClient = session.CFClient
 }
 
+func (r *servicePlanVisibilityResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
+	var config servicePlanVisibilityType
+	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if config.Type.ValueString() != "organization" && !config.Organizations.IsNull() {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("organizations"),
+			"invalid attribute combination",
+			"organizations can only be set when type is organization",
+		)
+		return
+	}
+}
+
 func (r *servicePlanVisibilityResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var plan servicePlanVisibilityType
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -87,7 +118,7 @@ func (r *servicePlanVisibilityResource) Create(ctx context.Context, req resource
 
 	servicePlanGUID := plan.ServicePlanGUID.ValueString()
 
-	createdVisibility, err := r.cfClient.ServicePlansVisibility.Apply(ctx, servicePlanGUID, createServicePlanVisibility)
+	_, err := r.cfClient.ServicePlansVisibility.Apply(ctx, servicePlanGUID, createServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Creating Service Plan Visibility",
@@ -96,7 +127,16 @@ func (r *servicePlanVisibilityResource) Create(ctx context.Context, req resource
 		return
 	}
 
-	data, diags := mapServicePlanVisibilityValuesToType(ctx, createdVisibility)
+	visibility, err := r.cfClient.ServicePlansVisibility.Get(ctx, plan.ServicePlanGUID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"API Error Reading Service Plan Visibility",
+			"Could not Read service plan visibility: "+err.Error(),
+		)
+		return
+	}
+
+	data, diags := mapServicePlanVisibilityValuesToType(ctx, visibility, plan)
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -114,7 +154,7 @@ func (r *servicePlanVisibilityResource) Read(ctx context.Context, req resource.R
 		return
 	}
 
-	state, diags := mapServicePlanVisibilityValuesToType(ctx, visibility)
+	state, diags := mapServicePlanVisibilityValuesToType(ctx, visibility, data)
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
@@ -133,7 +173,7 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 		return
 	}
 
-	updatedVisibility, err := r.cfClient.ServicePlansVisibility.Update(ctx, plan.ServicePlanGUID.ValueString(), updateServicePlanVisibility)
+	_, err := r.cfClient.ServicePlansVisibility.Apply(ctx, plan.ServicePlanGUID.ValueString(), updateServicePlanVisibility)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Updating Service Plan Visibility",
@@ -142,35 +182,58 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 		return
 	}
 
-	data, diags := mapServicePlanVisibilityValuesToType(ctx, updatedVisibility)
+	removedOrgs, _, diags := findChangedRelationsFromTFState(ctx, plan.Organizations, previousState.Organizations)
 	resp.Diagnostics.Append(diags...)
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	for _, orgGUID := range removedOrgs {
+		err := r.cfClient.ServicePlansVisibility.Delete(ctx, plan.ServicePlanGUID.ValueString(), orgGUID)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"API Error removing organization",
+				"Could not remove organizations from Service Plan Visibility: "+err.Error(),
+			)
+			return
+		}
+	}
+
+	planVisibility, err := r.cfClient.ServicePlansVisibility.Get(ctx, plan.ServicePlanGUID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"API Error Reading Service Plan Visibility",
+			"Could not Read service plan visibility: "+err.Error(),
+		)
+		return
+	}
+
+	state, diags := mapServicePlanVisibilityValuesToType(ctx, planVisibility, plan)
+	resp.Diagnostics.Append(diags...)
+	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
 func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var state servicePlanVisibilityType
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+	diags := req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	servicePlanGUID := state.ServicePlanGUID.ValueString()
-
-	if len(state.Organizations) == 0 {
-		resp.Diagnostics.AddError(
-			"Missing Organization GUID",
-			"At least one organization must be specified for deleting service plan visibility.",
-		)
-		return
+	if state.Type.ValueString() == "organization" {
+		var orgGUIDs []string
+		diags := state.Organizations.ElementsAs(ctx, &orgGUIDs, false)
+		resp.Diagnostics.Append(diags...)
+		for _, orgGUID := range orgGUIDs {
+			err := r.cfClient.ServicePlansVisibility.Delete(ctx, state.ServicePlanGUID.ValueString(), orgGUID)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"API Error Deleting organization",
+					"Could not remove organizations from Service Plan Visibility: "+err.Error(),
+				)
+				return
+			}
+		}
 	}
-
-	organizationGUID := state.Organizations[0].ValueString()
-
-	err := r.cfClient.ServicePlansVisibility.Delete(ctx, servicePlanGUID, organizationGUID)
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"API Error Deleting Service Plan Visibility",
-			"Could not delete service plan visibility: "+err.Error(),
-		)
-	}
+}
+func (rs *servicePlanVisibilityResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("service_plan"), req, resp)
 }

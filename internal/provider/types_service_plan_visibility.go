@@ -6,40 +6,41 @@ import (
 	cfresource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/samber/lo"
 )
 
 type servicePlanVisibilityType struct {
-	Organizations   []types.String `tfsdk:"organizations"`
-	ServicePlanGUID types.String   `tfsdk:"service_plan_guid"`
-	SpaceGUID       types.String   `tfsdk:"space_guid"`
-	Type            types.String   `tfsdk:"type"`
+	Organizations   types.Set    `tfsdk:"organizations"`
+	ServicePlanGUID types.String `tfsdk:"service_plan"`
+	SpaceGUID       types.String `tfsdk:"space"`
+	Type            types.String `tfsdk:"type"`
 }
 
-type datasourceServicePlanVisibilityType struct {
-	Organizations   []types.String `tfsdk:"organizations"`
-	ServicePlanGUID types.String   `tfsdk:"service_plan_guid"`
-	SpaceGUID       types.String   `tfsdk:"space_guid"`
-	Type            types.String   `tfsdk:"type"`
-}
-
-func (a *servicePlanVisibilityType) Reduce() datasourceServicePlanVisibilityType {
-	var reduced datasourceServicePlanVisibilityType
-	copyFields(&reduced, a)
-	return reduced
-}
-
-func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource.ServicePlanVisibility) (servicePlanVisibilityType, diag.Diagnostics) {
-	var diagnostics diag.Diagnostics
-	var organizations []types.String
+func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource.ServicePlanVisibility, plan servicePlanVisibilityType) (servicePlanVisibilityType, diag.Diagnostics) {
+	var diagnostics, diags diag.Diagnostics
+	var allOrganizations, plannedOrgs []string
 
 	for _, org := range value.Organizations {
-		organizations = append(organizations, types.StringValue(org.GUID))
+		allOrganizations = append(allOrganizations, org.GUID)
 	}
 
+	if !plan.Organizations.IsNull() {
+		diags := plan.Organizations.ElementsAs(ctx, &plannedOrgs, false)
+		diagnostics.Append(diags...)
+	}
+
+	commonOrgs := lo.Intersect(plannedOrgs, allOrganizations)
+
 	servicePlanVisibilityType := servicePlanVisibilityType{
-		Type:          types.StringValue(value.Type),
-		SpaceGUID:     types.StringValue(value.Space.GUID),
-		Organizations: organizations,
+		Type:            types.StringValue(value.Type),
+		ServicePlanGUID: plan.ServicePlanGUID,
+	}
+
+	servicePlanVisibilityType.Organizations, diags = types.SetValueFrom(ctx, types.StringType, commonOrgs)
+	diagnostics.Append(diags...)
+
+	if value.Space != nil {
+		servicePlanVisibilityType.SpaceGUID = types.StringValue(value.Space.GUID)
 	}
 
 	return servicePlanVisibilityType, diagnostics
@@ -47,24 +48,22 @@ func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource
 
 func mapCreateServicePlanVisibilityTypeToValues(ctx context.Context, value servicePlanVisibilityType) (*cfresource.ServicePlanVisibility, diag.Diagnostics) {
 	var diagnostics diag.Diagnostics
+	var orgGUIDs []string
 
-	visibilityType := value.Type.ValueString()
-
-	visibilityTypeEnum, err := cfresource.ParseServicePlanVisibilityType(visibilityType)
-	if err != nil {
-		diagnostics.AddError("Invalid Visibility Type", "The provided visibility type is not valid: "+visibilityType)
-		return nil, diagnostics
+	createServicePlanVisibility := cfresource.ServicePlanVisibility{
+		Type: value.Type.ValueString(),
 	}
 
-	createServicePlanVisibility := cfresource.NewServicePlanVisibilityUpdate(visibilityTypeEnum)
-
-	for _, orgGUID := range value.Organizations {
-		if !orgGUID.IsNull() && orgGUID.ValueString() != "" {
-			createServicePlanVisibility.Organizations = append(createServicePlanVisibility.Organizations, cfresource.ServicePlanVisibilityRelation{
-				GUID: orgGUID.ValueString(),
-			})
-		}
+	if !value.Organizations.IsNull() {
+		diags := value.Organizations.ElementsAs(ctx, &orgGUIDs, false)
+		diagnostics.Append(diags...)
 	}
 
-	return createServicePlanVisibility, diagnostics
+	for _, orgGUID := range orgGUIDs {
+		createServicePlanVisibility.Organizations = append(createServicePlanVisibility.Organizations, cfresource.ServicePlanVisibilityRelation{
+			GUID: orgGUID,
+		})
+	}
+
+	return &createServicePlanVisibility, diagnostics
 }
