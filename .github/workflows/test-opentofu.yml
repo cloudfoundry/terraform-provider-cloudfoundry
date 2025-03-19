@@ -1,7 +1,7 @@
 # The primary focus of this provider is Terraform, however, it is nice to see if there are deviations in the implementations between Terraform and OpenTofu.
 # This is a restricted test set for OpenTofu
-# The full test is defined in the test.yml workflow. 
-# This file is intended to focus testing the OpenTofu compatibility against the latest provider version. 
+# The full test is defined in the test.yml workflow.
+# This file is intended to focus testing the OpenTofu compatibility against the latest provider version.
 # This is a manually triggered test.
 
 name: OpenTofu Provider Tests
@@ -13,7 +13,9 @@ on:
 permissions:
   contents: read
 
-  
+env:
+  LATEST_VERSION: 1.9.*
+
 jobs:
   # Ensure project builds before running the testing matrix
   build:
@@ -22,7 +24,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4 # v4.0.0
-      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+      - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
         with:
           go-version-file: 'go.mod'
           cache: true
@@ -39,19 +41,21 @@ jobs:
     name: Terraform Provider Acceptance Tests for OpenTofu
     needs: build
     runs-on: ubuntu-latest
-    # Timeout for tests set to 25 minutes to safeguard long running tests (specifically for service instances) 
+    # Timeout for tests set to 25 minutes to safeguard long running tests (specifically for service instances)
     timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
-        # list of OpenTofu versions to test against
+        # List of OpenTofu versions to be tested - last three versions are in scope
+        # Check https://endoflife.date/opentofu for end of support dates
+        # '1.6.*' end of security support 09 Jan 2025
         opentofu:
-          - '1.6.*'
           - '1.7.*'
           - '1.8.*'
+          - '1.9.*'
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34
+      - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b
         with:
           go-version-file: 'go.mod'
           cache: true
@@ -60,8 +64,15 @@ jobs:
           tofu_version: ${{ matrix.opentofu }}
           tofu_wrapper: false
       - run: go mod download
-      - env:
+      - run: go test -v -timeout=900s -parallel=4 ./...
+        if: ${{ matrix.opentofu }} != ${{ env.LATEST_VERSION }}
+        env:
           TF_ACC: "1"
-        run: go test -v -cover -coverprofile=cover.out -timeout=900s -parallel=4 ./...
         timeout-minutes: 20
-     
+      # For the latest version we use a dedicated action for a visual display of the test results
+      - uses: robherley/go-test-action@v0
+        if: ${{ matrix.opentofu == env.LATEST_VERSION }}
+        env:
+          TF_ACC: "1"
+        with:
+          testArguments: -v -timeout=900s -parallel=4 ./...
