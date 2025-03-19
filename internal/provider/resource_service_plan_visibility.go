@@ -184,15 +184,16 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 
 	removedOrgs, _, diags := findChangedRelationsFromTFState(ctx, plan.Organizations, previousState.Organizations)
 	resp.Diagnostics.Append(diags...)
-
-	for _, orgGUID := range removedOrgs {
-		err := r.cfClient.ServicePlansVisibility.Delete(ctx, plan.ServicePlanGUID.ValueString(), orgGUID)
-		if err != nil {
-			resp.Diagnostics.AddError(
-				"API Error removing organization",
-				"Could not remove organizations from Service Plan Visibility: "+err.Error(),
-			)
-			return
+	if plan.Type.ValueString() == "organization" {
+		for _, orgGUID := range removedOrgs {
+			err := r.cfClient.ServicePlansVisibility.Delete(ctx, plan.ServicePlanGUID.ValueString(), orgGUID)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"API Error removing organization",
+					"Could not remove organizations from Service Plan Visibility: "+err.Error(),
+				)
+				return
+			}
 		}
 	}
 
@@ -226,7 +227,7 @@ func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource
 			err := r.cfClient.ServicePlansVisibility.Delete(ctx, state.ServicePlanGUID.ValueString(), orgGUID)
 			if err != nil {
 				resp.Diagnostics.AddError(
-					"API Error Deleting organization",
+					"API Error Removing organization",
 					"Could not remove organizations from Service Plan Visibility: "+err.Error(),
 				)
 				return

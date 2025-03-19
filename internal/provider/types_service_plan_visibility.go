@@ -36,8 +36,12 @@ func mapServicePlanVisibilityValuesToType(ctx context.Context, value *cfresource
 		ServicePlanGUID: plan.ServicePlanGUID,
 	}
 
-	servicePlanVisibilityType.Organizations, diags = types.SetValueFrom(ctx, types.StringType, commonOrgs)
-	diagnostics.Append(diags...)
+	if len(commonOrgs) > 0 {
+		servicePlanVisibilityType.Organizations, diags = types.SetValueFrom(ctx, types.StringType, commonOrgs)
+		diagnostics.Append(diags...)
+	} else {
+		servicePlanVisibilityType.Organizations = types.SetNull(types.StringType)
+	}
 
 	if value.Space != nil {
 		servicePlanVisibilityType.SpaceGUID = types.StringValue(value.Space.GUID)

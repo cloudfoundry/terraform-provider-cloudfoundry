@@ -6,63 +6,6 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=421a533173bb4b69905a4d6e52735382-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - 421a533173bb4b69905a4d6e52735382-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"421a533173bb4b69905a4d6e52735382-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.admin_read_only cloud_controller.write openid scim.read cloud_controller.admin uaa.user","jti":"166a93cb14694b708c820bda0a653f3d"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json;charset=UTF-8
-            Date:
-                - Tue, 18 Mar 2025 03:47:12 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 813b53ab-369d-420b-729e-55f93ccbdcc4
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 1.153205916s
-    - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
         content_length: 90
         transfer_encoding: []
         trailer: {}
@@ -79,7 +22,7 @@ interactions:
                 - application/json
             User-Agent:
                 - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_plans/02c0cc92-6ecc-44b1-b7b2-096ca19ee143/visibility
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
         method: POST
       response:
         proto: HTTP/2.0
@@ -87,24 +30,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 91
+        content_length: 23
         uncompressed: false
-        body: '{"errors":[{"detail":"Service plan not found","title":"CF-ResourceNotFound","code":10010}]}'
+        body: '{"type":"organization"}'
         headers:
             Content-Length:
-                - "91"
+                - "23"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 18 Mar 2025 03:47:13 GMT
+                - Wed, 19 Mar 2025 09:44:40 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 552daa9737303641
+                - 69da6c2db8b6a02a
             X-B3-Traceid:
-                - 153a18ecca0e4b01552daa9737303641
+                - 6c24d56716cf437369da6c2db8b6a02a
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -114,11 +57,380 @@ interactions:
             X-Permitted-Cross-Domain-Policies:
                 - none
             X-Runtime:
-                - "0.002840"
+                - "0.030743"
             X-Vcap-Request-Id:
-                - 153a18ec-ca0e-4b01-552d-aa9737303641::bd959f6a-8d9d-4b3c-8cae-b17d20ff7dfc
+                - 6c24d567-16cf-4373-69da-6c2db8b6a02a::6e7c0b98-8e5d-48c2-8f88-115ef34283aa
             X-Xss-Protection:
                 - 1; mode=block
-        status: 404 Not Found
-        code: 404
-        duration: 669.4435ms
+        status: 200 OK
+        code: 200
+        duration: 534.423542ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 103
+        uncompressed: false
+        body: '{"type":"organization","organizations":[{"guid":"3533be5d-272f-42fe-bf70-fc4b108c2043","name":"test"}]}'
+        headers:
+            Content-Length:
+                - "103"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:40 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 5e3a388a24d1d4cc
+            X-B3-Traceid:
+                - acce3d819460418d5e3a388a24d1d4cc
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.006999"
+            X-Vcap-Request-Id:
+                - acce3d81-9460-418d-5e3a-388a24d1d4cc::ff623cef-8a0c-4367-b088-0ea9140dc944
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 170.427ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 103
+        uncompressed: false
+        body: '{"type":"organization","organizations":[{"guid":"3533be5d-272f-42fe-bf70-fc4b108c2043","name":"test"}]}'
+        headers:
+            Content-Length:
+                - "103"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:41 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 74f4e43503fc574a
+            X-B3-Traceid:
+                - 30ae0de2eb824f1374f4e43503fc574a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.011831"
+            X-Vcap-Request-Id:
+                - 30ae0de2-eb82-4f13-74f4-e43503fc574a::596d9209-63ca-49fd-84ac-efe1fafa2e03
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 174.832584ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 103
+        uncompressed: false
+        body: '{"type":"organization","organizations":[{"guid":"3533be5d-272f-42fe-bf70-fc4b108c2043","name":"test"}]}'
+        headers:
+            Content-Length:
+                - "103"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:41 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 419268bbcbc8e23e
+            X-B3-Traceid:
+                - cf43d586486f4017419268bbcbc8e23e
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.011916"
+            X-Vcap-Request-Id:
+                - cf43d586-486f-4017-4192-68bbcbc8e23e::8513bf85-248d-4786-85fd-8cfcf9e0cd73
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 174.367ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 18
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"type":"public"}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 17
+        uncompressed: false
+        body: '{"type":"public"}'
+        headers:
+            Content-Length:
+                - "17"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:41 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7ba0ffa7d5f664df
+            X-B3-Traceid:
+                - 267d06d611444f047ba0ffa7d5f664df
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.030340"
+            X-Vcap-Request-Id:
+                - 267d06d6-1144-4f04-7ba0-ffa7d5f664df::99636119-02ce-4aa0-9a43-71e9492760e6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 194.433834ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 17
+        uncompressed: false
+        body: '{"type":"public"}'
+        headers:
+            Content-Length:
+                - "17"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:41 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7386b3810640000f
+            X-B3-Traceid:
+                - b5a4b45f3b4f468e7386b3810640000f
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.009659"
+            X-Vcap-Request-Id:
+                - b5a4b45f-3b4f-468e-7386-b3810640000f::64a66328-8f6e-49cb-83a3-d142d2a1afe6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 171.381625ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/f37176d7-39eb-4e80-a3c0-328dfe36902c/visibility
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 17
+        uncompressed: false
+        body: '{"type":"public"}'
+        headers:
+            Content-Length:
+                - "17"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:42 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 60762755d22d3d50
+            X-B3-Traceid:
+                - 9bda622aa8fb440660762755d22d3d50
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.005560"
+            X-Vcap-Request-Id:
+                - 9bda622a-a8fb-4406-6076-2755d22d3d50::37eb4ae3-f9f8-4ffa-8852-af404a5104f6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 167.313958ms
