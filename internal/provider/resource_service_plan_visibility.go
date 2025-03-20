@@ -12,8 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -58,9 +56,6 @@ func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource
 			"space": schema.StringAttribute{
 				MarkdownDescription: "Unique identifier for the space whose members can access the plan; present if type is space.",
 				Computed:            true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-				},
 			},
 			"service_plan": schema.StringAttribute{
 				MarkdownDescription: "The GUID of the service plan.",
