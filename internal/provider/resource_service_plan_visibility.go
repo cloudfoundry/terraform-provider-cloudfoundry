@@ -60,7 +60,9 @@ func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource
 			"service_plan": schema.StringAttribute{
 				MarkdownDescription: "The GUID of the service plan.",
 				Required:            true,
-			},
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+				},
 		},
 	}
 }
@@ -206,6 +208,8 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
+// This is not a traditional Cloud Foundry resource with a unique GUID but rather a configuration that controls service plan visibility.
+// When type is set to organization and deletion is triggered, Terraform removes only the specified organizations. If no organizations are present, no action is taken.
 func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var state servicePlanVisibilityType
 	diags := req.State.Get(ctx, &state)
