@@ -8,6 +8,7 @@ import (
 	"github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
 
 // Terraform struct for storing values for user data source.
@@ -99,9 +100,15 @@ func mapUserResourcesValuesToType(ctx context.Context, uaaUser *uaa.User, cfUser
 		Id:        types.StringValue(cfUser.GUID),
 		CreatedAt: types.StringValue(cfUser.CreatedAt.Format(time.RFC3339)),
 		UpdatedAt: types.StringValue(cfUser.UpdatedAt.Format(time.RFC3339)),
-		UserName:  types.StringValue(cfUser.Username),
-		Origin:    types.StringValue(cfUser.Origin),
 		Email:     types.StringValue(uaaUser.Emails[0].Value),
+	}
+
+	if cfUser.Username != nil {
+		userResourceType.UserName = types.StringValue(*cfUser.Username)
+	}
+
+	if cfUser.Origin != nil {
+		userResourceType.Origin = types.StringValue(*cfUser.Origin)
 	}
 
 	var diags, diagnostics diag.Diagnostics
@@ -135,8 +142,14 @@ func mapUserValuesToType(ctx context.Context, user *resource.User) (userType, di
 		CreatedAt:        types.StringValue(user.CreatedAt.Format(time.RFC3339)),
 		UpdatedAt:        types.StringValue(user.UpdatedAt.Format(time.RFC3339)),
 		PresentationName: types.StringValue(user.PresentationName),
-		UserName:         types.StringValue(user.Username),
-		Origin:           types.StringValue(user.Origin),
+	}
+
+	if user.Username != nil {
+		userType.UserName = types.StringValue(*user.Username)
+	}
+
+	if user.Origin != nil {
+		userType.Origin = types.StringValue(*user.Origin)
 	}
 
 	var diags, diagnostics diag.Diagnostics
@@ -177,12 +190,12 @@ func (plan *userResourceType) mapUpdateUAAUserTypeToValues() uaa.User {
 }
 
 // Sets the user resource values for updation with cf-client from the terraform struct values.
-func (plan *userResourceType) mapUpdateUserTypeToValues(ctx context.Context, state userResourceType) (resource.UserUpdate, diag.Diagnostics) {
+func mapUpdateUserTypeToValues(ctx context.Context, stateLabels basetypes.MapValue, stateAnnotations basetypes.MapValue, planLabels basetypes.MapValue, planAnnotations basetypes.MapValue) (resource.UserUpdate, diag.Diagnostics) {
 
 	updateUser := &resource.UserUpdate{}
 
 	var diagnostics diag.Diagnostics
-	updateUser.Metadata, diagnostics = setClientMetadataForUpdate(ctx, state.Labels, state.Annotations, plan.Labels, plan.Annotations)
+	updateUser.Metadata, diagnostics = setClientMetadataForUpdate(ctx, stateLabels, stateAnnotations, planLabels, planAnnotations)
 
 	return *updateUser, diagnostics
 }
