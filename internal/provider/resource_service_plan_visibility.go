@@ -36,7 +36,7 @@ func (r *servicePlanVisibilityResource) Metadata(_ context.Context, req resource
 
 func (r *servicePlanVisibilityResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: `This is not a traditional Cloud Foundry resource with a unique GUID but rather a configuration that controls service plan visibility.`,
+		MarkdownDescription: `This is not a traditional Cloud Foundry resource with a unique GUID but rather a configuration that controls service plan visibility. When type is set to organization and deletion is triggered, Terraform removes only the specified organizations. If no organizations are present, no action is taken.`,
 
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
@@ -211,7 +211,6 @@ func (r *servicePlanVisibilityResource) Update(ctx context.Context, req resource
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
-// When type is set to organization and deletion is triggered, Terraform removes only the specified organizations. If no organizations are present, no action is taken.
 func (r *servicePlanVisibilityResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var state servicePlanVisibilityType
 	diags := req.State.Get(ctx, &state)
