@@ -1,0 +1,131 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 93
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"username":"tf-test@example.com","origin":"","metadata":{"labels":null,"annotations":null}}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 88
+        uncompressed: false
+        body: '{"errors":[{"title":"UnknownError","detail":"An unknown error occurred.","code":10001}]}'
+        headers:
+            Content-Length:
+                - "88"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 20 Mar 2025 10:24:32 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 64de2d96a7d1ee68
+            X-B3-Traceid:
+                - 14ff0b818cb841be64de2d96a7d1ee68
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.039322"
+            X-Vcap-Request-Id:
+                - 14ff0b81-8cb8-41be-64de-2d96a7d1ee68::d55ed8cf-7c21-45f7-83d6-c9d867d77cab
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 500 Internal Server Error
+        code: 500
+        duration: 194.038334ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 116
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"username":"test","origin":"","metadata":{"labels":{"landscape":"test","purpose@!":"testing"},"annotations":null}}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Terraform/1.5.7 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 137
+        uncompressed: false
+        body: '{"errors":[{"detail":"Metadata label key error: ''purpose@!'' contains invalid characters","title":"CF-UnprocessableEntity","code":10008}]}'
+        headers:
+            Content-Length:
+                - "137"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 20 Mar 2025 10:24:33 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4b32e629fc1cea34
+            X-B3-Traceid:
+                - a6af263d5cd6429f4b32e629fc1cea34
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.005836"
+            X-Vcap-Request-Id:
+                - a6af263d-5cd6-429f-4b32-e629fc1cea34::be8bb102-2e89-4297-803c-b3e81b1ac7cf
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 422 Unprocessable Entity
+        code: 422
+        duration: 165.23925ms

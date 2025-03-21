@@ -2,12 +2,14 @@
 page_title: "cloudfoundry_org_role Resource - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs)
+  Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs).
+  Note : If a role is assigned to a non existent user, user will be created automatically in the Cloud Controller's database for an Admin as well as Org Manager provided the cc.allow_user_creation_by_org_manager field is enabled. Refer here https://v3-apidocs.cloudfoundry.org/version/3.189.0/index.html#create-a-role for further details.
 ---
 
 # cloudfoundry_org_role (Resource)
 
-Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs)
+Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs).
+		__Note__ : If a role is assigned to a non existent user, user will be created automatically in the Cloud Controller's database for an Admin as well as Org Manager provided the cc.allow_user_creation_by_org_manager field is enabled. Refer [here](https://v3-apidocs.cloudfoundry.org/version/3.189.0/index.html#create-a-role) for further details.
 
 ## Example Usage
 

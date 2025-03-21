@@ -246,7 +246,7 @@ func (rs *UserResource) Update(ctx context.Context, req resource.UpdateRequest, 
 		}
 	}
 
-	updateCFUser, diags := plan.mapUpdateUserTypeToValues(ctx, previousState)
+	updateCFUser, diags := mapUpdateUserTypeToValues(ctx, previousState.Labels, previousState.Annotations, plan.Labels, plan.Annotations)
 	resp.Diagnostics.Append(diags...)
 
 	cfUser, err := rs.cfClient.Users.Update(ctx, plan.Id.ValueString(), &updateCFUser)

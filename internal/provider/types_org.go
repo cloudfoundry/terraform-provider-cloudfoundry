@@ -31,7 +31,7 @@ func mapOrgValuesToType(ctx context.Context, value *resource.Organization) (orgT
 		ID:        types.StringValue(value.GUID),
 		CreatedAt: types.StringValue(value.CreatedAt.Format(time.RFC3339)),
 		UpdatedAt: types.StringValue(value.UpdatedAt.Format(time.RFC3339)),
-		Suspended: types.BoolValue(*value.Suspended),
+		Suspended: types.BoolValue(value.Suspended),
 		Quota:     types.StringValue(value.Relationships.Quota.Data.GUID),
 	}
 	var diags, diagnostics diag.Diagnostics
