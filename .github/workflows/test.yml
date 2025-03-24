@@ -26,7 +26,7 @@ permissions:
 
 # Define the latest Terraform version to use for upload of coverage report  
 env: 
-  LATEST_VERSION: 1.9.*
+  LATEST_VERSION: 1.11.*
   
 jobs:
   # Ensure project builds before running testing matrix
@@ -80,11 +80,9 @@ jobs:
       matrix:
         # list whatever Terraform versions here you would like to support
         terraform:
-          - '1.5.*' #end of security support under MPL 31 Dec 2023
-          - '1.6.*' #end of security support under BSL 31 Dec 2025
-          - '1.7.*' #end of security support under BSL 31 Dec 2026
-          - '1.8.*' #end of security support under BSL 31 Dec 2026
           - '1.9.*' #end of security support under 
+          - '1.10.*' 
+          - '1.11.*' 
     steps:
       - uses: actions/checkout@v4 # v4.0.0
       - uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
