@@ -263,6 +263,7 @@ func TestCloudFoundryProvider_HasResources(t *testing.T) {
 		"cloudfoundry_org_role",
 		"cloudfoundry_security_group",
 		"cloudfoundry_service_instance",
+		"cloudfoundry_service_instance_sharing",
 		"cloudfoundry_route",
 		"cloudfoundry_domain",
 		"cloudfoundry_app",
