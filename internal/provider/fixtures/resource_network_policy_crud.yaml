@@ -1,0 +1,150 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 184
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"policies":[{"source":{"id":"a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1"},"destination":{"id":"8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+        url: https://api.x.x.x.x.com/networking/v1/external/policies
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2
+        uncompressed: false
+        body: '{}'
+        headers:
+            Content-Length:
+                - "2"
+            Content-Security-Policy:
+                - frame-ancestors 'none'
+            Content-Type:
+                - text/plain; charset=utf-8
+            Date:
+                - Wed, 26 Mar 2025 15:39:13 GMT
+            Strict-Transport-Security:
+                - max-age=31536000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - deny
+            X-Vcap-Request-Id:
+                - 3a4a6b51-7574-4ba1-66a1-b86076540a82::03221fe9-dc7a-413e-6424-69eb3a5cffca
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 683.51125ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0,a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: true
+        body: '{"total_policies":1,"policies":[{"source":{"id":"a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1"},"destination":{"id":"8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        headers:
+            Content-Security-Policy:
+                - frame-ancestors 'none'
+            Content-Type:
+                - text/plain; charset=utf-8
+            Date:
+                - Wed, 26 Mar 2025 15:39:13 GMT
+            Strict-Transport-Security:
+                - max-age=31536000
+            Vary:
+                - Accept-Encoding
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - deny
+            X-Vcap-Request-Id:
+                - fb27e20d-5a57-4451-4fae-528999e59365::8d45f718-ce4f-453e-6fa6-3d69a29c4e24
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 216.282917ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 184
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"policies":[{"source":{"id":"a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1"},"destination":{"id":"8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+        url: https://api.x.x.x.x.com/networking/v1/external/policies/delete
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 2
+        uncompressed: false
+        body: '{}'
+        headers:
+            Content-Length:
+                - "2"
+            Content-Security-Policy:
+                - frame-ancestors 'none'
+            Content-Type:
+                - text/plain; charset=utf-8
+            Date:
+                - Wed, 26 Mar 2025 15:39:14 GMT
+            Strict-Transport-Security:
+                - max-age=31536000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - deny
+            X-Vcap-Request-Id:
+                - 6784e903-c099-4dc2-5eee-0c0d354a98c4::01a07a77-f590-4584-5c37-9a4602e9f904
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 278.342875ms
