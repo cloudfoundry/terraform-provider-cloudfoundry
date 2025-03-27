@@ -67,7 +67,6 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 						PortStr:          "61443",
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
 						resource.TestCheckResourceAttr(resourceName, "policies.#", "1"),
 						resource.TestCheckResourceAttr(resourceName, "policies.0.protocol", "tcp"),
 						resource.TestCheckResourceAttr(resourceName, "policies.0.port", "61443"),

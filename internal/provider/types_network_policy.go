@@ -11,7 +11,6 @@ import (
 )
 
 type networkPoliciesType struct {
-	Id       types.String         `tfsdk:"id"`
 	Policies networkPoliciesSlice `tfsdk:"policies"`
 }
 

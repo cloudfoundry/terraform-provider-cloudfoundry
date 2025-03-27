@@ -8,14 +8,12 @@ import (
 	"code.cloudfoundry.org/policy_client"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
-	"github.com/hashicorp/go-uuid"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/samber/lo"
 )
@@ -107,7 +105,6 @@ func (r *NetworkPolicyResource) Schema(ctx context.Context, req resource.SchemaR
 					},
 				},
 			},
-			idKey: guidSchema(),
 		},
 	}
 }
@@ -119,16 +116,6 @@ func (r *NetworkPolicyResource) Create(ctx context.Context, req resource.CreateR
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
-	guid, err := uuid.GenerateUUID()
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Error generating UUID",
-			"Could not create policy UUID : "+err.Error(),
-		)
-		return
-	}
-	plan.Id = types.StringValue(guid)
 
 	policies, diags := plan.mapToPolicyClientPolicies()
 	resp.Diagnostics.Append(diags...)
@@ -192,7 +179,7 @@ func (r *NetworkPolicyResource) Read(ctx context.Context, req resource.ReadReque
 
 	policies, err := r.client.GetPoliciesByID("", ids...)
 	if err != nil {
-		handleReadErrors(ctx, resp, err, "network_policy", data.Id.ValueString())
+		resp.Diagnostics.AddError(fmt.Sprintf("API Error Reading network_policy %v", ids), err.Error())
 		return
 	}
 	mappedPolicies := mapPolicyClientPoliciesToNetworkPoliciesSlice(policies)
