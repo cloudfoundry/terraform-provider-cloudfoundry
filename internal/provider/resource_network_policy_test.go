@@ -14,6 +14,7 @@ type NetworkPolicyPtr struct {
 	SourceAppId      string
 	DestinationAppId string
 	PortStr          string
+	Protocol         *string
 }
 
 func hclNetworkPolicy(npp *NetworkPolicyPtr) string {
@@ -25,6 +26,9 @@ func hclNetworkPolicy(npp *NetworkPolicyPtr) string {
 					source_app = "{{.SourceAppId}}"
 					destination_app = "{{.DestinationAppId}}"
 					port = "{{.PortStr}}"
+					{{- if .Protocol}}
+					protocol = "{{.Protocol}}"
+					{{- end -}}
 				}
 			]
 		}`
@@ -58,13 +62,28 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 				{
 					Config: hclProvider(nil) + hclNetworkPolicy(&NetworkPolicyPtr{
 						HclObjectName:    "np",
-						SourceAppId:      "a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1",
-						DestinationAppId: "8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0",
+						SourceAppId:      "d7574c2b-6a04-4f8c-a629-92e9cd08b026",
+						DestinationAppId: "a2ec5785-5c64-455e-a768-7a92215848c2",
 						PortStr:          "61443",
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "policies.#", "1"),
 						resource.TestCheckResourceAttr(resourceName, "policies.0.protocol", "tcp"),
+						resource.TestCheckResourceAttr(resourceName, "policies.0.port", "61443"),
+					),
+				},
+				{
+					Config: hclProvider(nil) + hclNetworkPolicy(&NetworkPolicyPtr{
+						HclObjectName:    "np",
+						SourceAppId:      "d7574c2b-6a04-4f8c-a629-92e9cd08b026",
+						DestinationAppId: "a2ec5785-5c64-455e-a768-7a92215848c2",
+						Protocol:         strtostrptr("udp"),
+						PortStr:          "61443",
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "policies.#", "1"),
+						resource.TestCheckResourceAttr(resourceName, "policies.0.protocol", "udp"),
 						resource.TestCheckResourceAttr(resourceName, "policies.0.port", "61443"),
 					),
 				},
