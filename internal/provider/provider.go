@@ -311,6 +311,7 @@ func (p *CloudFoundryProvider) Resources(ctx context.Context) []func() resource.
 		NewSecurityGroupSpacesResource,
 		NewCFUserResource,
 		NewServicePlanVisibilityResource,
+		NewNetworkPolicyResource,
 	}
 }
 

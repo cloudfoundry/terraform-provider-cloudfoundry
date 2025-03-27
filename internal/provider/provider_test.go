@@ -277,6 +277,7 @@ func TestCloudFoundryProvider_HasResources(t *testing.T) {
 		"cloudfoundry_security_group_space_bindings",
 		"cloudfoundry_service_plan_visibility",
 		"cloudfoundry_user_cf",
+		"cloudfoundry_network_policy",
 	}
 
 	ctx := context.Background()

@@ -37,10 +37,10 @@ terraform {
   }
 }
 
-provider "cloudfoundry" { 
-  api_url = "https://api.example.com"   
-  username = "your-username"            
-  password = "your-password"                                 
+provider "cloudfoundry" {
+  api_url = "https://api.example.com"
+  username = "your-username"
+  password = "your-password"
 }
 
 resource "cloudfoundry_org" "org" {
@@ -48,14 +48,14 @@ resource "cloudfoundry_org" "org" {
 }
 
 resource "cloudfoundry_space" "space" {
-  name = "my-space"                     
-  org  =  cloudfoundry_org.org.id                 
+  name = "my-space"
+  org  =  cloudfoundry_org.org.id
 }
 
 resource "cloudfoundry_app" "my-app" {
-  name  = "my-app"                      
+  name  = "my-app"
   space = cloudfoundry_space.my_space.id
-  path = "/path/to/your/app"            
+  path = "/path/to/your/app"
 }
 ```
 
@@ -93,7 +93,7 @@ terraform {
      source = "cloudfoundry-community/cloudfoundry"
       version = "0.53.1"
     }
-    
+
     #Add new provider
     cloudfoundry-v3-new = {
       source = "cloudfoundry/cloudfoundry"
@@ -103,17 +103,17 @@ terraform {
 }
 
 #Old provider remains to handle non migrated resources
-provider "cloudfoundry" { 
-  api_url = "https://api.example.com"   
-  username = "your-username"            
-  password = "your-password"            
+provider "cloudfoundry" {
+  api_url = "https://api.example.com"
+  username = "your-username"
+  password = "your-password"
 }
 
 #Configure the new Terraform Cloud foundry provider with alias
-provider "cloudfoundry-v3-new" {  
-  api_url = "https://api.example.com"   
-  username = "your-username"            
-  password = "your-password"      
+provider "cloudfoundry-v3-new" {
+  api_url = "https://api.example.com"
+  username = "your-username"
+  password = "your-password"
 }
 
 resource "cloudfoundry_org" "org" {
@@ -121,17 +121,17 @@ resource "cloudfoundry_org" "org" {
 }
 
 resource "cloudfoundry_space" "space" {
-  name = "my-space"                     
-  org  =  cloudfoundry_org.org.id                 
+  name = "my-space"
+  org  =  cloudfoundry_org.org.id
 }
 
 #  --- Use provider meta-argument to differentiate the providers ---
- 
+
 resource "cloudfoundry_app" "my-app" {
   provider = cloudfoundry-v3-new
-  name = "my-app"                     
+  name = "my-app"
   org_name  = cloudfoundry_org.org.name
-  space_name = cloudfoundry_space.my_space.name               
+  space_name = cloudfoundry_space.my_space.name
 }
 ```
 
@@ -173,6 +173,7 @@ While most resources have maintained the same structure, some resources needed m
 - [Application](./resources/app.md)
 - [Buildpack](./resources/buildpack.md)
 - [Domain](./resources/domain.md)
+- [Network Policy](./resources/network_policy.md)
 - [Org Quota](./resources/org_quota.md)
 - [Organisation](./resources/org.md)
 - [Route](./resources/route.md)
