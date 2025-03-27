@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"regexp"
 
+	"code.cloudfoundry.org/lager/v3"
 	"code.cloudfoundry.org/policy_client"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider/managers"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
@@ -47,7 +48,8 @@ func (r *NetworkPolicyResource) Configure(_ context.Context, req resource.Config
 		)
 		return
 	}
-	r.client = session.NetClient
+	cfg := session.CFClient.Config
+	r.client = policy_client.NewExternal(lager.NewLogger("ExternalPolicyClient"), cfg.HTTPAuthClient(), cfg.ApiURL(""))
 }
 
 func (r *NetworkPolicyResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {

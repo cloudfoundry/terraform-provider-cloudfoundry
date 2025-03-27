@@ -7,8 +7,6 @@ import (
 	"strings"
 	"time"
 
-	"code.cloudfoundry.org/lager/v3"
-	"code.cloudfoundry.org/policy_client"
 	"github.com/cloudfoundry/go-cfclient/v3/client"
 	config "github.com/cloudfoundry/go-cfclient/v3/config"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/version"
@@ -28,8 +26,7 @@ type CloudFoundryProviderConfig struct {
 }
 
 type Session struct {
-	CFClient  *client.Client
-	NetClient *policy_client.ExternalClient
+	CFClient *client.Client
 }
 
 func (c *CloudFoundryProviderConfig) NewSession(httpClient *http.Client, req provider.ConfigureRequest) (*Session, error) {
@@ -78,10 +75,8 @@ func (c *CloudFoundryProviderConfig) NewSession(httpClient *http.Client, req pro
 	if err != nil {
 		return nil, err
 	}
-	nc := policy_client.NewExternal(lager.NewLogger("ExternalPolicyClient"), cfg.HTTPAuthClient(), cfg.ApiURL(""))
 	s := Session{
-		CFClient:  cf,
-		NetClient: nc,
+		CFClient: cf,
 	}
 	return &s, nil
 }
