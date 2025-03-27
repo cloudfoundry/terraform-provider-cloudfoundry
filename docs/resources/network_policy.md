@@ -37,10 +37,6 @@ resource "cloudfoundry_network_policy" "policy" {
 
 - `policies` (Attributes List) Network policies to create (see [below for nested schema](#nestedatt--policies))
 
-### Read-Only
-
-- `id` (String) The GUID of the object.
-
 <a id="nestedatt--policies"></a>
 ### Nested Schema for `policies`
 
