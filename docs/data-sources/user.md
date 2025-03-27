@@ -2,12 +2,12 @@
 page_title: "cloudfoundry_user Data Source - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Gets information on Cloud Foundry users with a given username.
+  Gets information on Cloud Foundry users with a given username. Note: This datasource pulls data from the CF API and does not pull data from UAA. Currently it serves as the datasource for both user and user_cf resource.
 ---
 
 # cloudfoundry_user (Data Source)
 
-Gets information on Cloud Foundry users with a given username.
+Gets information on Cloud Foundry users with a given username. Note: This datasource pulls data from the CF API and does not pull data from UAA. Currently it serves as the datasource for both `user` and `user_cf` resource.
 
 ## Example Usage
 
