@@ -45,7 +45,7 @@ jobs:
       - name: Run linters
         uses: golangci/golangci-lint-action@1481404843c368bc19ca9406f87d6e0fc97bdcfd # v3.7.1
         with:
-          version: v1.63.4
+          version: latest
           skip-cache: true
 
   generate:
