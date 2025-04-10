@@ -222,7 +222,7 @@ func (cfg *CloudFoundryProviderConfigPtr) SetupVCR(t *testing.T, cassetteName st
 		if err != nil {
 			panic(err)
 		}
-		err = os.Setenv("CF_HOME", pwd+"/../../assets")
+		err = os.Setenv("CF_HOME", pwd+"/../../assets") //nolint:usetesting // needed across parallel tests
 		if err != nil {
 			panic(err)
 		}
