@@ -83,6 +83,7 @@ EOT
 - `deploy_url` (String) The URL of the deploy service, if a custom one has been used(should be present in the same landscape). By default 'deploy-service.<system-domain>'
 - `extension_descriptors` (Set of String) The paths for the MTA deployment extension files.
 - `extension_descriptors_string` (Set of String) The contents of the MTA deployment extension files.
+- `modules` (Set of String) Deploy only the modules of the MTA with the specified names. If not specified, all modules are deployed.
 - `mtar_path` (String) The local path where the MTA archive is present. Either this attribute or mtar_url need to be set.
 - `mtar_url` (String) The remote URL where the MTA archive is present
 - `namespace` (String) The namespace of the MTA. Should be of valid host format
