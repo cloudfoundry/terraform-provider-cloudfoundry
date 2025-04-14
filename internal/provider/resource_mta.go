@@ -130,6 +130,14 @@ __Note:__
 					stringvalidator.OneOf("HIGHER", "SAME_HIGHER", "ALL"),
 				},
 			},
+			"modules": schema.SetAttribute{
+				MarkdownDescription: "Deploy only the modules of the MTA with the specified names. If not specified, all modules are deployed.",
+				Optional:            true,
+				ElementType:         types.StringType,
+				Validators: []validator.Set{
+					setvalidator.SizeAtLeast(1),
+				},
+			},
 			"mta": schema.SingleNestedAttribute{
 				MarkdownDescription: "contains the details of the MTA object",
 				Computed:            true,
@@ -393,6 +401,14 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 
 	if extensionDescriptors != "" {
 		operationParams.Parameters["mtaExtDescriptorId"] = extensionDescriptors
+	}
+
+	if !mtarType.Modules.IsNull() {
+		var modules []string
+		diags = mtarType.Modules.ElementsAs(ctx, &modules, false)
+		respDiags.Append(diags...)
+
+		operationParams.Parameters["modulesForDeployment"] = strings.Join(modules, ",")
 	}
 
 	//Starting deploy operation
