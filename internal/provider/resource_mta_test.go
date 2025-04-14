@@ -20,6 +20,7 @@ func TestMtaResource_Configure(t *testing.T) {
 		normalDeploy               = "deploy"
 		bgDeploy                   = "blue-green-deploy"
 		versionRuleAll             = "ALL"
+		modules                    = `["my-app"]`
 		extensionDescriptorsString = `[
     <<EOT
 _schema-version: 3.3.0
@@ -129,6 +130,7 @@ EOT
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
 						DeployStrategy:       strtostrptr(normalDeploy),
 						VersionRule:          strtostrptr(versionRuleAll),
+						Modules:              strtostrptr(modules),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath2),
