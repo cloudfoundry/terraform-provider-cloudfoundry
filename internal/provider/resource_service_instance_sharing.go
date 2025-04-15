@@ -3,6 +3,12 @@ package provider
 import (
 	"context"
 	"fmt"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
+	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
+
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
@@ -38,22 +44,26 @@ func (r *serviceInstanceSharingResource) Schema(ctx context.Context, req resourc
 		MarkdownDescription: "Provides a resource for managing service instance sharing in Cloud Foundry.",
 
 		Attributes: map[string]schema.Attribute{
-			"id": schema.StringAttribute{
-				MarkdownDescription: "The ID of the service instance sharing resource. Consists of the space id and the service instance id",
-				Computed:            true,
-			},
-			"service_instance_id": schema.StringAttribute{
+			"service_instance": schema.StringAttribute{
 				MarkdownDescription: "The ID of the service instance to share.",
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
 				},
+				Validators: []validator.String{
+					validation.ValidUUID(),
+				},
 			},
-			"space_id": schema.StringAttribute{
-				MarkdownDescription: "The ID of the space to share the service instance with.",
+			"spaces": schema.SetAttribute{
+				MarkdownDescription: "The IDs of the spaces to share the service instance with.",
 				Required:            true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
+				PlanModifiers: []planmodifier.Set{
+					setplanmodifier.RequiresReplace(),
+				},
+				ElementType: types.StringType,
+				Validators: []validator.Set{
+					setvalidator.ValueStringsAre(validation.ValidUUID()),
+					setvalidator.SizeAtLeast(1),
 				},
 			},
 		},
@@ -84,18 +94,23 @@ func (r *serviceInstanceSharingResource) Create(ctx context.Context, req resourc
 		return
 	}
 
-	_, err := r.cfClient.ServiceInstances.ShareWithSpace(ctx, plan.ServiceInstanceId.ValueString(), plan.SpaceId.ValueString())
-	if err != nil {
-		resp.Diagnostics.AddError("Error sharing service instance with space", err.Error())
+	spaces := make([]string, len(plan.Spaces.Elements()))
+	tempDiags := plan.Spaces.ElementsAs(ctx, &spaces, false)
+	if tempDiags.HasError() {
+		resp.Diagnostics.Append(tempDiags...)
 		return
 	}
 
-	computedID := fmt.Sprintf("%s/%s", plan.ServiceInstanceId.ValueString(), plan.SpaceId.ValueString())
+	_, err := r.cfClient.ServiceInstances.ShareWithSpaces(ctx, plan.ServiceInstance.ValueString(), spaces)
 
+	if err != nil {
+		resp.Diagnostics.AddError("Error sharing service instance with spaces", err.Error())
+		return
+	}
+	tflog.Trace(ctx, "created a service instance sharing resource")
 	newState := ServiceInstanceSharingType{
-		Id:                types.StringValue(computedID),
-		ServiceInstanceId: plan.ServiceInstanceId,
-		SpaceId:           plan.SpaceId,
+		ServiceInstance: plan.ServiceInstance,
+		Spaces:          plan.Spaces,
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
@@ -110,13 +125,13 @@ func (r *serviceInstanceSharingResource) Read(ctx context.Context, req resource.
 		return
 	}
 
-	relationship, err := r.cfClient.ServiceInstances.GetSharedSpaceRelationships(ctx, data.ServiceInstanceId.ValueString())
+	relationship, err := r.cfClient.ServiceInstances.GetSharedSpaceRelationships(ctx, data.ServiceInstance.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError("Error when getting shared spaces for service instance", err.Error())
 		return
 	}
 
-	data = mapRelationShipToType(relationship, data.ServiceInstanceId.ValueString())
+	data = mapSharedSpacesValuesToType(relationship, data.ServiceInstance.ValueString())
 
 	tflog.Trace(ctx, "read a service instance sharing resource")
 
@@ -138,22 +153,32 @@ func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resourc
 		return
 	}
 
-	err := r.cfClient.ServiceInstances.UnShareWithSpace(ctx, state.ServiceInstanceId.ValueString(), state.SpaceId.ValueString())
+	var spaces []string
+	tempDiags := state.Spaces.ElementsAs(ctx, &spaces, false)
+
+	if tempDiags.HasError() {
+		resp.Diagnostics.Append(tempDiags...)
+		return
+	}
+
+	err := r.cfClient.ServiceInstances.UnShareWithSpaces(ctx, state.ServiceInstance.ValueString(), spaces)
+
 	if err != nil {
-		resp.Diagnostics.AddError("Error unsharing service instance with space", err.Error())
+		resp.Diagnostics.AddError("Error unsharing service instance with spaces", err.Error())
 		return
 	}
 
 	tflog.Trace(ctx, "deleted a service instance sharing resource")
 }
 
-func mapRelationShipToType(relationship *cfv3resource.ServiceInstanceSharedSpaceRelationships, serviceInstanceId string) ServiceInstanceSharingType {
-	spaceItGetsSharedTo := relationship.Data[0].GUID
-	id := types.StringValue(serviceInstanceId + "/" + spaceItGetsSharedTo)
-
+func mapSharedSpacesValuesToType(relationship *cfv3resource.ServiceInstanceSharedSpaceRelationships, serviceInstance string) ServiceInstanceSharingType {
+	sharedSpaces := make([]attr.Value, len(relationship.Data))
+	for i, relationship := range relationship.Data {
+		sharedSpaces[i] = types.StringValue(relationship.GUID)
+	}
+	s := types.SetValueMust(types.StringType, sharedSpaces)
 	return ServiceInstanceSharingType{
-		Id:                id,
-		ServiceInstanceId: types.StringValue(serviceInstanceId),
-		SpaceId:           types.StringValue(spaceItGetsSharedTo),
+		ServiceInstance: types.StringValue(serviceInstance),
+		Spaces:          s,
 	}
 }

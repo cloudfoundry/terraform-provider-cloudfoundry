@@ -13,7 +13,7 @@ interactions:
         remote_addr: ""
         request_uri: ""
         body: |
-            {"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}]}
+            {"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}, {"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}]}
         form: {}
         headers:
             Authorization:
@@ -32,7 +32,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}]}'
+        body: '{"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}, {"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}]}'
         headers:
             Content-Type:
                 - application/json; charset=utf-8
@@ -99,7 +99,7 @@ interactions:
         trailer: {}
         content_length: -1
         uncompressed: false
-        body: '{"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}]}'
+        body: '{"data":[{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}, {"guid":"121c3a95-0f82-45a6-8ff2-1920b2067edb"}]}'
         headers:
             Content-Type:
                 - application/json; charset=utf-8
@@ -200,6 +200,71 @@ interactions:
                 - 45373a79-229e-437c-705e-6fa76fcf3408::d3a15966-63f3-4613-a6c5-25d1cdad8f07
             X-Xss-Protection:
                 - 1; mode=block
+        status: 204 No Content
+        code: 204
+        duration: 204.222897ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+          Authorization:
+            - Bearer redacted
+          User-Agent:
+            - Go-CF-Client/3.0
+        url: https://api.x.x.x.x.com/v3/service_instances/5e2976bb-332e-41e1-8be3-53baafea9296/relationships/shared_spaces/121c3a95-0f82-45a6-8ff2-1920b2067edb
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 0
+        uncompressed: false
+        body: ""
+        headers:
+          Date:
+            - Mon, 25 Mar 2024 10:39:37 GMT
+          Referrer-Policy:
+            - strict-origin-when-cross-origin
+          Server:
+            - nginx
+          Strict-Transport-Security:
+            - max-age=31536000; includeSubDomains; preload;
+          X-B3-Spanid:
+            - 705e6fa76fcf3408
+          X-B3-Traceid:
+            - 45373a79229e437c705e6fa76fcf3408
+          X-Content-Type-Options:
+            - nosniff
+          X-Download-Options:
+            - noopen
+          X-Frame-Options:
+            - SAMEORIGIN
+          X-Permitted-Cross-Domain-Policies:
+            - none
+          X-Ratelimit-Limit:
+            - "20000"
+          X-Ratelimit-Remaining:
+            - "18000"
+          X-Ratelimit-Reset:
+            - "1711364588"
+          X-Runtime:
+            - "0.030300"
+          X-Vcap-Request-Id:
+            - 45373a79-229e-437c-705e-6fa76fcf3408::d3a15966-63f3-4613-a6c5-25d1cdad8f07
+          X-Xss-Protection:
+            - 1; mode=block
         status: 204 No Content
         code: 204
         duration: 204.222897ms
