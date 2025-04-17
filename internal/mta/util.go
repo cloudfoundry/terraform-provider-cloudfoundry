@@ -88,7 +88,7 @@ func CheckOngoingOperation(ctx context.Context, client *APIClient, mtaId string,
 		if err != nil {
 			return false, err
 		} else {
-			err = PollMtaOperation(ctx, client, spaceGuid, operationId, AbortedState)
+			_, err = PollMtaOperation(ctx, client, spaceGuid, operationId, AbortedState)
 			if err != nil {
 				return false, err
 			}
@@ -126,23 +126,27 @@ func isConflicting(operation Operation, mtaID string, namespace string, spaceGui
 }
 
 // Keeps polling the MTA operation by its ID for completion.
-func PollMtaOperation(ctx context.Context, client *APIClient, spaceGuid string, operationId string, targetState string) error {
+func PollMtaOperation(ctx context.Context, client *APIClient, spaceGuid string, operationId string, targetState string) (string, error) {
 
+	var (
+		operationResponse Operation
+		err               error
+	)
 	for operationState := "RUNNING"; operationState != targetState; {
 		time.Sleep(2 * time.Second)
-		operationResponse, _, err := client.DefaultApi.GetMtaOperation(ctx, spaceGuid, operationId, "messages")
+		operationResponse, _, err = client.DefaultApi.GetMtaOperation(ctx, spaceGuid, operationId, "messages")
 		if err != nil {
-			return err
+			return "", err
 		}
 		operationState = operationResponse.State
 		if operationState == "ERROR" {
 			if messageCount := len(operationResponse.Messages); messageCount > 0 {
-				return fmt.Errorf("last message %s", operationResponse.Messages[messageCount-1].Text)
+				return messagesToString(operationResponse.Messages), fmt.Errorf("last message %s", operationResponse.Messages[messageCount-1].Text)
 			}
-			return fmt.Errorf("Operation failed with errorType %s", operationResponse.ErrorType)
+			return "", fmt.Errorf("Operation failed with errorType %s", operationResponse.ErrorType)
 		}
 	}
-	return nil
+	return messagesToString(operationResponse.Messages), nil
 }
 
 // ref - https://github.com/cloudfoundry/go-cfclient/blob/main/internal/http/response.go
@@ -187,4 +191,12 @@ func PollMtaJob(ctx context.Context, client *APIClient, spaceGuid string, jobId 
 		}
 	}
 	return jobResponse, nil
+}
+
+// Combines multiple messages into a single string.
+func messagesToString(messages []Message) (combinedMessage string) {
+	for _, message := range messages {
+		combinedMessage = combinedMessage + "\n" + message.Text
+	}
+	return combinedMessage
 }
