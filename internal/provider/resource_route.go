@@ -109,8 +109,10 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 			"destinations": schema.SetNestedAttribute{
 				MarkdownDescription: "A destination represents the relationship between a route and a resource that can serve traffic.",
 				Optional:            true,
+				Computed:            true,
 				Validators: []validator.Set{
 					setvalidator.SizeAtLeast(1),
+					setvalidator.AlsoRequires(path.MatchRoot("destinations").AtAnySetValue().AtName("app_id")),
 				},
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
@@ -120,7 +122,8 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 						},
 						"app_id": schema.StringAttribute{
 							MarkdownDescription: "The GUID of the app to route traffic to.",
-							Required:            true,
+							Optional:            true,
+							Computed:            true,
 						},
 						"app_process_type": schema.StringAttribute{
 							MarkdownDescription: "Type of the process belonging to the app to route traffic to.",
@@ -198,7 +201,7 @@ func (r *RouteResource) Create(ctx context.Context, req resource.CreateRequest, 
 		return
 	}
 
-	if !plan.Destinations.IsNull() {
+	if !plan.Destinations.IsUnknown() {
 
 		insertDestinations, diags := plan.mapCreateDestinationsTypeToValues(ctx)
 		resp.Diagnostics.Append(diags...)
