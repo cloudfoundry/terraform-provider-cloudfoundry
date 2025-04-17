@@ -7,6 +7,7 @@ description: |-
   Multitarget Applications in the Cloud Foundry Environment https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment.
   Note:
   Validation of the yamls are not done from the terraform client side but via the MTA server.
+  For viewing deploy logs, TF_LOG or TF_LOG_PROVIDER has to be set to INFO.
 ---
 
 # cloudfoundry_mta (Resource)
@@ -18,6 +19,7 @@ __Further documentation:__
 
 __Note:__ 
  Validation of the yamls are not done from the terraform client side but via the MTA server.
+ For viewing deploy logs, TF_LOG or TF_LOG_PROVIDER has to be set to INFO.
 
 ## Example Usage
 
