@@ -50,6 +50,7 @@ __Further documentation:__
 
 __Note:__ 
  Validation of the yamls are not done from the terraform client side but via the MTA server.
+ For viewing deploy logs, TF_LOG or TF_LOG_PROVIDER has to be set to INFO.
 `,
 		Attributes: map[string]schema.Attribute{
 			"mtar_path": schema.StringAttribute{
@@ -405,7 +406,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		return
 	}
 
-	err = mta.PollMtaOperation(ctx, r.mtaClient, spaceGuid, operationId, mta.FinishedState)
+	messages, err := mta.PollMtaOperation(ctx, r.mtaClient, spaceGuid, operationId, mta.FinishedState)
 	if err != nil {
 		respDiags.AddError(
 			"Failure in polling MTA operation",
@@ -413,6 +414,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		)
 		return
 	}
+	tflog.Info(ctx, messages)
 
 	//get details of MTA
 	mtaObject, _, err := r.mtaClient.DefaultApi.GetMta(ctx, spaceGuid, mtaId, namespace)
@@ -509,7 +511,8 @@ func (r *mtaResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 		return
 	}
 
-	err = mta.PollMtaOperation(ctx, r.mtaClient, spaceGuid, operationId, mta.FinishedState)
+	messages, err := mta.PollMtaOperation(ctx, r.mtaClient, spaceGuid, operationId, mta.FinishedState)
+	tflog.Info(ctx, messages)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Failure in polling MTA operation",
