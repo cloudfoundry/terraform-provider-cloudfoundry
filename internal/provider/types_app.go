@@ -23,6 +23,7 @@ type AppType struct {
 	Name                                  types.String       `tfsdk:"name"`
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
+	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
 	Stack                                 types.String       `tfsdk:"stack"`
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	Path                                  types.String       `tfsdk:"path"`
@@ -62,6 +63,7 @@ type DatasourceAppType struct {
 	Name                                  types.String       `tfsdk:"name"`
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
+	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
 	Stack                                 types.String       `tfsdk:"stack"`
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
@@ -372,7 +374,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 	reqPlanType is required here to identify whether attributes like "health-check-interval", "readiness-health-check-interval"
 	are present as part of app spec or not, since cf api controller converts them to be part of process spec internally
 */
-func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType) (AppType, diag.Diagnostics) {
+func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType, sshResp *cfv3resource.AppFeature) (AppType, diag.Diagnostics) {
 	var diags, tempDiags diag.Diagnostics
 	var appType AppType
 	appType.Name = types.StringValue(appManifest.Name)
@@ -621,6 +623,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	diags = append(diags, tempDiags...)
 	appType.Annotations, tempDiags = mapMetadataValueToType(ctx, app.Metadata.Annotations)
 	diags = append(diags, tempDiags...)
+	appType.EnableSSH = types.BoolValue(sshResp.Enabled)
 	return appType, diags
 }
 

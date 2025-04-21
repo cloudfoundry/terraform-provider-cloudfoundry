@@ -87,6 +87,10 @@ func datasourceAppsSchema() map[string]schema.Attribute {
 			MarkdownDescription: "The name of the associated Cloud Foundry organization to look up",
 			Computed:            true,
 		},
+		"enable_ssh": schema.BoolAttribute{
+			MarkdownDescription: "Whether SSH access is enabled or disabled on an app level.",
+			Computed:            true,
+		},
 		"stack": schema.StringAttribute{
 			MarkdownDescription: "The name of the stack the application will be deployed to.",
 			Computed:            true,
@@ -277,13 +281,19 @@ func (d *appsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 			resp.Diagnostics.AddError("Error reading app", err.Error())
 			return
 		}
+		sshResp, err := d.cfClient.AppFeatures.GetSSH(ctx, app.GUID)
+		if err != nil {
+			resp.Diagnostics.AddError("Error reading app feature", err.Error())
+			return
+		}
 		var appManifest cfv3operation.Manifest
 		err = yaml.Unmarshal([]byte(appRaw), &appManifest)
 		if err != nil {
 			resp.Diagnostics.AddError("Error unmarshalling app", err.Error())
 			return
 		}
-		atResp, diags := mapAppValuesToType(ctx, appManifest.Applications[0], app, nil)
+
+		atResp, diags := mapAppValuesToType(ctx, appManifest.Applications[0], app, nil, sshResp)
 		resp.Diagnostics.Append(diags...)
 		if resp.Diagnostics.HasError() {
 			return

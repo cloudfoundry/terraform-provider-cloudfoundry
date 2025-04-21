@@ -6,63 +6,6 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=d0cb7550d4e7488497943049b2fffddf-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - d0cb7550d4e7488497943049b2fffddf-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"d0cb7550d4e7488497943049b2fffddf-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"5ba4a0966f234d4495f4739635e7fd82"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json;charset=UTF-8
-            Date:
-                - Tue, 30 Apr 2024 03:59:57 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 46877281-7db8-4649-7d1c-41e741ee073b
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 181.490417ms
-    - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
         content_length: 0
         transfer_encoding: []
         trailer: {}
@@ -75,7 +18,7 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.7.0 terraform-provider-cloudfoundry/dev
+                - Terraform/1.11.2 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/organizations?names=PerformanceTeamBLR
         method: GET
       response:
@@ -93,17 +36,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 30 Apr 2024 03:59:58 GMT
+                - Mon, 21 Apr 2025 09:34:34 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 79c84a7b1a947a83
+                - 6405d2991b90feb7
             X-B3-Traceid:
-                - 24f9a12f22474ee079c84a7b1a947a83
+                - b6354c37af34424f6405d2991b90feb7
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -117,17 +58,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1714450073"
+                - "1745229788"
             X-Runtime:
-                - "0.010256"
+                - "0.035543"
             X-Vcap-Request-Id:
-                - 24f9a12f-2247-4ee0-79c8-4a7b1a947a83::0a75764c-7b62-4cc0-afd2-a0e4627f8989
+                - b6354c37-af34-424f-6405-d2991b90feb7::3a25358f-bc3a-4795-8002-e289b45921e0
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 183.686334ms
-    - id: 2
+        duration: 272.892667ms
+    - id: 1
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -144,7 +85,7 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.7.0 terraform-provider-cloudfoundry/dev
+                - Terraform/1.11.2 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/spaces?names=tf-space-1&organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56
         method: GET
       response:
@@ -162,17 +103,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 30 Apr 2024 03:59:59 GMT
+                - Mon, 21 Apr 2025 09:34:34 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 664ff2dd1d0da401
+                - 4436d7a5d9bc0e7c
             X-B3-Traceid:
-                - f53009441c1c44cc664ff2dd1d0da401
+                - ab29b8d88a5f4cff4436d7a5d9bc0e7c
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -186,17 +125,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1714450072"
+                - "1745229788"
             X-Runtime:
-                - "0.041777"
+                - "0.084321"
             X-Vcap-Request-Id:
-                - f5300944-1c1c-44cc-664f-f2dd1d0da401::c9bea357-2995-425b-a464-a746a131a097
+                - ab29b8d8-8a5f-4cff-4436-d7a5d9bc0e7c::41fc94b2-e47e-42d0-afdc-0e0b84ba5967
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 200.482417ms
-    - id: 3
+        duration: 325.756625ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -213,7 +152,7 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.7.0 terraform-provider-cloudfoundry/dev
+                - Terraform/1.11.2 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/apps?names=testunavailableapp&organization_guids=784b4cd0-4771-4e4d-9052-a07e178bae56&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
         method: GET
       response:
@@ -231,17 +170,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Tue, 30 Apr 2024 03:59:59 GMT
+                - Mon, 21 Apr 2025 09:34:35 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 5f201fe39aa8b6c6
+                - 763c75dfa1b67221
             X-B3-Traceid:
-                - f59cad44c10543b95f201fe39aa8b6c6
+                - 5e8d2af43f2a4a63763c75dfa1b67221
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -255,13 +192,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1714450074"
+                - "1745229788"
             X-Runtime:
-                - "0.043993"
+                - "0.075282"
             X-Vcap-Request-Id:
-                - f59cad44-c105-43b9-5f20-1fe39aa8b6c6::6b0ff488-995a-4329-8a99-b14a70c78627
+                - 5e8d2af4-3f2a-4a63-763c-75dfa1b67221::ee9a04ca-bef7-44b8-9ba5-6bf4da4d1c37
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 205.913542ms
+        duration: 314.890791ms
