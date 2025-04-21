@@ -388,7 +388,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		if appManifest.Docker.Username != "" {
 			appType.DockerCredentials = &DockerCredentials{}
 			appType.DockerCredentials.Username = types.StringValue(appManifest.Docker.Username)
-			appType.DockerCredentials.Password = types.StringValue(os.Getenv("CF_DOCKER_PASSWORD"))
+			appType.DockerCredentials.Password = reqPlanType.DockerCredentials.Password
 		}
 	}
 	if appManifest.Services != nil {
