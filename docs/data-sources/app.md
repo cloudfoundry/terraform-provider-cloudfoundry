@@ -70,6 +70,7 @@ output "service_bindings" {
 - `disk_quota` (String) The disk space to be allocated for each application instance.
 - `docker_credentials` (Attributes) Defines login credentials for private docker repositories (see [below for nested schema](#nestedatt--docker_credentials))
 - `docker_image` (String) The URL to the docker image with tag
+- `enable_ssh` (Boolean) Whether SSH access is enabled or disabled on an app level.
 - `environment` (Map of String) Key/value pairs of custom environment variables in your app. Does not include any system or service variables.
 - `health_check_http_endpoint` (String) The endpoint for the http health check type.
 - `health_check_interval` (Number) The interval in seconds between health checks.

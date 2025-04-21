@@ -72,6 +72,11 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
+			"enable_ssh": schema.BoolAttribute{
+				MarkdownDescription: "Whether to enable or disable SSH access on an app level.",
+				Optional:            true,
+				Computed:            true,
+			},
 			"stack": schema.StringAttribute{
 				MarkdownDescription: "The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information",
 				Optional:            true,
@@ -413,6 +418,11 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		resp.Diagnostics.AddError("Error reading app", err.Error())
 		return
 	}
+	sshResp, err := r.cfClient.AppFeatures.GetSSH(ctx, appType.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("Error reading app feature", err.Error())
+		return
+	}
 	var appManifest cfv3operation.Manifest
 	err = yaml.Unmarshal([]byte(appRaw), &appManifest)
 	if err != nil {
@@ -424,7 +434,7 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		resp.Diagnostics.AddError("Error fetching space and org details : ", err.Error())
 		return
 	}
-	plan, diags := mapAppValuesToType(ctx, appManifest.Applications[0], appResp, &appType)
+	plan, diags := mapAppValuesToType(ctx, appManifest.Applications[0], appResp, &appType, sshResp)
 	resp.Diagnostics.Append(diags...)
 	plan.CopyConfigAttributes(&appType)
 	plan.Space = types.StringValue(space.Name)
@@ -475,6 +485,12 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		return
 	}
 
+	sshResp, err := r.cfClient.AppFeatures.UpdateSSH(ctx, appResp.GUID, desiredState.EnableSSH.ValueBool())
+	if err != nil {
+		respDiags.AddError("Error setting space feature", err.Error())
+		return
+	}
+
 	manifestRespRaw, err := r.cfClient.Manifests.Generate(ctx, appResp.GUID)
 	if err != nil {
 		respDiags.AddError("Error generating manifest", err.Error())
@@ -484,7 +500,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	if err != nil {
 		respDiags.AddError("Error unmarshalling manifest", err.Error())
 	}
-	plan, diags := mapAppValuesToType(ctx, manifest.Applications[0], appResp, &desiredState)
+	plan, diags := mapAppValuesToType(ctx, manifest.Applications[0], appResp, &desiredState, sshResp)
 	respDiags.Append(diags...)
 	plan.CopyConfigAttributes(&desiredState)
 	respDiags.Append(respState.Set(ctx, &plan)...)
