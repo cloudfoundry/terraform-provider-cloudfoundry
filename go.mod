@@ -5,6 +5,8 @@ go 1.23.0
 toolchain go1.23.1
 
 require (
+	code.cloudfoundry.org/lager/v3 v3.30.0
+	code.cloudfoundry.org/policy_client v0.47.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
@@ -14,7 +16,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.26.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-testing v1.12.0
-	github.com/samber/lo v1.49.1
+	github.com/samber/lo v1.50.0
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/dnaeon/go-vcr.v3 v3.2.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -22,8 +24,6 @@ require (
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.39.0 // indirect
-	code.cloudfoundry.org/lager/v3 v3.30.0 // indirect
-	code.cloudfoundry.org/policy_client v0.47.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20250317173921-a4b03ec1a45e // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
