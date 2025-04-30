@@ -16,6 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/samber/lo"
 )
 
 // Type AppType representing Schema Attribute from function Schema in go type from resource_appManifest.go file.
@@ -395,7 +396,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	}
 	if appManifest.Services != nil {
 		var serviceBindings []ServiceBinding
-		for i, service := range *appManifest.Services {
+		for _, service := range *appManifest.Services {
 			var sb ServiceBinding
 			sb.ServiceInstance = types.StringValue(service.Name)
 			if service.Parameters != nil {
@@ -407,10 +408,14 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				sb.Params = jsontypes.NewNormalizedValue(string(param))
 				diags = append(diags, tempDiags...)
 			} else {
-				if reqPlanType != nil && len(reqPlanType.ServiceBindings) > i {
-					sb.Params = reqPlanType.ServiceBindings[i].Params
-				} else {
-					sb.Params = jsontypes.NewNormalizedNull()
+				sb.Params = jsontypes.NewNormalizedNull()
+				if reqPlanType != nil {
+					binding, found := lo.Find(reqPlanType.ServiceBindings, func(binding ServiceBinding) bool {
+						return sb.ServiceInstance.Equal(binding.ServiceInstance)
+					})
+					if found {
+						sb.Params = binding.Params
+					}
 				}
 			}
 			serviceBindings = append(serviceBindings, sb)
