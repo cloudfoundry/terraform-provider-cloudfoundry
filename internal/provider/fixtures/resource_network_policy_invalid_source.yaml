@@ -1,0 +1,52 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 182
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"policies":[{"source":{"id":"a4bf5d3c-b9ac-4d6b-bc36-edb82e9cbda1"},"destination":{"id":"8888f08b-f5c9-4e89-8f6b-95e0c2e5c7f0","protocol":"tcp","ports":{"start":8090,"end":8089}}}]}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+        url: https://api.x.x.x.x.com/networking/v1/external/policies
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 109
+        uncompressed: false
+        body: '{"error": "mapper: validate policies: invalid port range 8090-8089, start must be less than or equal to end"}'
+        headers:
+            Content-Length:
+                - "109"
+            Content-Security-Policy:
+                - frame-ancestors 'none'
+            Content-Type:
+                - text/plain; charset=utf-8
+            Date:
+                - Wed, 26 Mar 2025 15:39:22 GMT
+            Strict-Transport-Security:
+                - max-age=31536000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - deny
+            X-Vcap-Request-Id:
+                - 50e51627-c5f0-447e-7992-47d92864e57d::ace404b7-cc88-46a5-45cb-3021f3151077
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 400 Bad Request
+        code: 400
+        duration: 590.478333ms

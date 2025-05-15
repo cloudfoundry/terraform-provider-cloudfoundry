@@ -7,11 +7,11 @@ data "cloudfoundry_space" "team_space" {
   org  = data.cloudfoundry_org.team_org.id
 }
 
-data "cloudfoundry_service_plans" "xsuaa_svc" {
+data "cloudfoundry_service_plan" "xsuaa_svc" {
   name                  = "application"
   service_offering_name = "xsuaa"
 }
-data "cloudfoundry_service_plans" "autoscaler_svc" {
+data "cloudfoundry_service_plan" "autoscaler_svc" {
   name                  = "standard"
   service_offering_name = "autoscaler"
 }
@@ -20,7 +20,7 @@ resource "cloudfoundry_service_instance" "xsuaa_svc" {
   type         = "managed"
   tags         = ["terraform-test", "test1"]
   space        = data.cloudfoundry_space.team_space.id
-  service_plan = data.cloudfoundry_service_plans.xsuaa_svc.service_plans[0].id
+  service_plan = data.cloudfoundry_service_plan.xsuaa_svc.service_plans.id
   parameters   = <<EOT
   {
   "xsappname": "tf-test2",
@@ -50,7 +50,7 @@ resource "cloudfoundry_service_instance" "dev-autoscaler" {
   type         = "managed"
   tags         = ["terraform-test", "autoscaler"]
   space        = data.cloudfoundry_space.team_space.id
-  service_plan = data.cloudfoundry_service_plans.autoscaler_svc.service_plans[0].id
+  service_plan = data.cloudfoundry_service_plan.autoscaler_svc.service_plans.id
   timeouts = {
     create = "10m"
   }

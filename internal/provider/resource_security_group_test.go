@@ -8,6 +8,10 @@ import (
 )
 
 func TestSecurityGroupResource_Configure(t *testing.T) {
+	var (
+		stagingSpaces = "[\"0925b3c7-7544-4700-b71b-191b3c348e5c\", \"64f194ba-8825-4090-af12-fe8bf1141a02\"]"
+		runningSpaces = "[\"b20af50d-f2e3-4132-b4c2-c24bc373c627\"]"
+	)
 	t.Parallel()
 	t.Run("happy path - create/read/update/delete security group", func(t *testing.T) {
 		resourceName := "cloudfoundry_security_group.ds"

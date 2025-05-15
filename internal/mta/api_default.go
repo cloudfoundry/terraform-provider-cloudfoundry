@@ -50,7 +50,7 @@ Executes a particular action over Multi-Target Application operation.
 func (a *DefaultApiService) ExecuteOperationAction(ctx context.Context, spaceGuid string, operationId string, actionId string) (string, *http.Response, error) {
 	var (
 		s       string
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/operations/" + operationId
 	request.queryParams.Add("actionId", actionId)
@@ -64,7 +64,7 @@ Retrieves a csrf-token header.
 func (a *DefaultApiService) GetCsrfToken(ctx context.Context) (*http.Response, error) {
 	var (
 		s       string
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/csrf-token"
 	httpResponse, err := a.client.get(ctx, request, &s)
@@ -77,7 +77,7 @@ Retrieves Multi-Target Application in a space.
 func (a *DefaultApiService) GetMta(ctx context.Context, spaceGuid string, mtaId string, namespace string) (Mta, *http.Response, error) {
 	var (
 		mtas    []Mta
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	//
 	request.path = a.client.cfg.BasePath + "/api/v2/spaces/" + spaceGuid + "/mtas"
@@ -96,7 +96,7 @@ Retrieves Multi-Target Application operation.
 func (a *DefaultApiService) GetMtaOperation(ctx context.Context, spaceGuid string, operationId string, embedProperty string) (Operation, *http.Response, error) {
 	var (
 		operation Operation
-		request   Request = newRequestInfo()
+		request   = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/operations/" + operationId
 	if embedProperty != "" {
@@ -112,7 +112,7 @@ Retrieves Multi-Target Application operations.
 func (a *DefaultApiService) GetMtaOperations(ctx context.Context, spaceGuid string, localVarOptionals *DefaultApiGetMtaOperationsOpts) ([]Operation, *http.Response, error) {
 	var (
 		operations []Operation
-		request    Request = newRequestInfo()
+		request    = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/operations"
 	if localVarOptionals != nil {
@@ -136,7 +136,7 @@ Retrieves all Multi-Target Applications in a space.
 func (a *DefaultApiService) GetMtas(ctx context.Context, spaceGuid string, namespace *string, mtaId string) ([]Mta, *http.Response, error) {
 	var (
 		mtas    []Mta
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v2/spaces/" + spaceGuid + "/mtas"
 	if namespace != nil {
@@ -155,7 +155,7 @@ Starts execution of a Multi-Target Application operation.
 func (a *DefaultApiService) StartMtaOperation(ctx context.Context, spaceGuid string, operationRequest Operation) (string, Operation, *http.Response, error) {
 	var (
 		operation Operation
-		request   Request = newRequestInfo()
+		request   = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/operations"
 	request.postBody = &operationRequest
@@ -170,7 +170,7 @@ func (a *DefaultApiService) UploadMtaFile(ctx context.Context, spaceGuid string,
 	var (
 		file    FileMetadata
 		err     error
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	if filePath != "" {
 		request.fileBytes, err = os.ReadFile(filePath)
@@ -196,7 +196,7 @@ Uploads an Multi Target Application archive from a remote URL.
 func (a *DefaultApiService) AsyncUploadFileFromURL(ctx context.Context, spaceGuid string, namespace string, fileURL string) (string, *http.Response, error) {
 	var (
 		s       string
-		request Request = newRequestInfo()
+		request = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/files/async"
 	if namespace != "" {
@@ -219,7 +219,7 @@ Gets the status of the upload job from the remote URL.
 func (a *DefaultApiService) GetAsyncUploadJob(ctx context.Context, spaceGuid string, jobId string, xInstance string, namespace string) (UploadStatus, *http.Response, error) {
 	var (
 		uploadJob UploadStatus
-		request   Request = newRequestInfo()
+		request   = newRequestInfo()
 	)
 	request.path = a.client.cfg.BasePath + "/api/v1/spaces/" + spaceGuid + "/files/jobs/" + jobId
 	if namespace != "" {

@@ -60,12 +60,9 @@ resource "cloudfoundry_route" "bruh" {
 <a id="nestedatt--destinations"></a>
 ### Nested Schema for `destinations`
 
-Required:
-
-- `app_id` (String) The GUID of the app to route traffic to.
-
 Optional:
 
+- `app_id` (String) The GUID of the app to route traffic to.
 - `app_process_type` (String) Type of the process belonging to the app to route traffic to.
 - `port` (Number) Port on the destination process to route traffic to.
 - `protocol` (String) Protocol to use for this destination.

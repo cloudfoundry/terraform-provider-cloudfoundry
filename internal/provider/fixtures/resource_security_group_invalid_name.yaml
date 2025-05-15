@@ -21,7 +21,7 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Go-CF-Client/3.0
+                - Terraform/1.11.2 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/security_groups
         method: POST
       response:
@@ -30,24 +30,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
+        content_length: 136
         uncompressed: false
         body: '{"errors":[{"detail":"Security group with name ''tf-test-do-not-delete'' already exists.","title":"CF-UnprocessableEntity","code":10008}]}'
         headers:
+            Content-Length:
+                - "136"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 15 Feb 2024 06:28:03 GMT
+                - Tue, 22 Apr 2025 09:55:45 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7470568aa44e2bfd
+                - 418dd4f361c7e941
             X-B3-Traceid:
-                - 0db44d9b95ba4e5e7470568aa44e2bfd
+                - 515c7cb1ed2c48cd418dd4f361c7e941
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -57,11 +57,11 @@ interactions:
             X-Permitted-Cross-Domain-Policies:
                 - none
             X-Runtime:
-                - "0.015773"
+                - "0.004274"
             X-Vcap-Request-Id:
-                - 0db44d9b-95ba-4e5e-7470-568aa44e2bfd::437b7112-672c-46ad-acd3-30f9b75a3bd6
+                - 515c7cb1-ed2c-48cd-418d-d4f361c7e941::22b4cacf-9c8a-4006-b612-b2641aad19da
             X-Xss-Protection:
                 - 1; mode=block
         status: 422 Unprocessable Entity
         code: 422
-        duration: 193.305103ms
+        duration: 165.405292ms

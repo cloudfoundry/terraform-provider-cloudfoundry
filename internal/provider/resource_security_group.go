@@ -109,6 +109,7 @@ func (r *SecurityGroupResource) Schema(ctx context.Context, req resource.SchemaR
 			"running_spaces": schema.SetAttribute{
 				MarkdownDescription: "The spaces where the security_group is applied to applications during runtime",
 				Optional:            true,
+				Computed:            true,
 				ElementType:         types.StringType,
 				Validators: []validator.Set{
 					setvalidator.ValueStringsAre(validation.ValidUUID()),
@@ -118,6 +119,7 @@ func (r *SecurityGroupResource) Schema(ctx context.Context, req resource.SchemaR
 			"staging_spaces": schema.SetAttribute{
 				MarkdownDescription: "The spaces where the security_group is applied to applications during staging",
 				Optional:            true,
+				Computed:            true,
 				ElementType:         types.StringType,
 				Validators: []validator.Set{
 					setvalidator.ValueStringsAre(validation.ValidUUID()),
@@ -197,20 +199,19 @@ func (rs *SecurityGroupResource) Read(ctx context.Context, req resource.ReadRequ
 }
 
 func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan, previousState securityGroupType
+	var (
+		plan, previousState                                                                securityGroupType
+		removedRunningSpaces, addedRunningSpaces, removedStagingSpaces, addedStagingSpaces []string
+		err                                                                                error
+	)
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &previousState)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	removedRunningSpaces, addedRunningSpaces, diags := findChangedRelationsFromTFState(ctx, plan.RunningSpaces, previousState.RunningSpaces)
-	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
+	resp.Diagnostics.Append(previousState.RunningSpaces.ElementsAs(ctx, &removedRunningSpaces, false)...)
 
-	var err error
 	for _, space := range removedRunningSpaces {
 		err = rs.cfClient.SecurityGroups.UnBindRunningSecurityGroup(ctx, plan.Id.ValueString(), space)
 		if err != nil {
@@ -221,7 +222,9 @@ func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.Update
 		}
 	}
 
-	if len(addedRunningSpaces) > 0 {
+	if !plan.RunningSpaces.IsUnknown() {
+		resp.Diagnostics.Append(plan.RunningSpaces.ElementsAs(ctx, &addedRunningSpaces, false)...)
+
 		_, err = rs.cfClient.SecurityGroups.BindRunningSecurityGroup(ctx, plan.Id.ValueString(), addedRunningSpaces)
 		if err != nil {
 			resp.Diagnostics.AddError(
@@ -231,11 +234,7 @@ func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.Update
 		}
 	}
 
-	removedStagingSpaces, addedStagingSpaces, diags := findChangedRelationsFromTFState(ctx, plan.StagingSpaces, previousState.StagingSpaces)
-	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
+	resp.Diagnostics.Append(previousState.StagingSpaces.ElementsAs(ctx, &removedStagingSpaces, false)...)
 
 	for _, space := range removedStagingSpaces {
 		err = rs.cfClient.SecurityGroups.UnBindStagingSecurityGroup(ctx, plan.Id.ValueString(), space)
@@ -247,7 +246,9 @@ func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.Update
 		}
 	}
 
-	if len(addedStagingSpaces) > 0 {
+	if !plan.StagingSpaces.IsUnknown() {
+		resp.Diagnostics.Append(plan.StagingSpaces.ElementsAs(ctx, &addedStagingSpaces, false)...)
+
 		_, err = rs.cfClient.SecurityGroups.BindStagingSecurityGroup(ctx, plan.Id.ValueString(), addedStagingSpaces)
 		if err != nil {
 			resp.Diagnostics.AddError(

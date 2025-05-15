@@ -72,6 +72,11 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
+			"enable_ssh": schema.BoolAttribute{
+				MarkdownDescription: "Whether to enable or disable SSH access on an app level.",
+				Optional:            true,
+				Computed:            true,
+			},
 			"stack": schema.StringAttribute{
 				MarkdownDescription: "The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information",
 				Optional:            true,
@@ -161,6 +166,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Optional:            true,
 				Validators: []validator.Set{
 					setvalidator.SizeAtLeast(1),
+					setvalidator.AlsoRequires(path.MatchRoot("routes").AtAnySetValue().AtName("route")),
 				},
 				Computed: true,
 				PlanModifiers: []planmodifier.Set{
@@ -170,7 +176,8 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					Attributes: map[string]schema.Attribute{
 						"route": schema.StringAttribute{
 							MarkdownDescription: "The fully route qualified domain name which will be bound to app",
-							Required:            true,
+							Optional:            true,
+							Computed:            true,
 						},
 						"protocol": schema.StringAttribute{
 							MarkdownDescription: "The protocol to use for the route. Valid values are http2, http1, and tcp.",
@@ -411,6 +418,11 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		resp.Diagnostics.AddError("Error reading app", err.Error())
 		return
 	}
+	sshResp, err := r.cfClient.AppFeatures.GetSSH(ctx, appType.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError("Error reading app feature", err.Error())
+		return
+	}
 	var appManifest cfv3operation.Manifest
 	err = yaml.Unmarshal([]byte(appRaw), &appManifest)
 	if err != nil {
@@ -422,7 +434,7 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		resp.Diagnostics.AddError("Error fetching space and org details : ", err.Error())
 		return
 	}
-	plan, diags := mapAppValuesToType(ctx, appManifest.Applications[0], appResp, &appType)
+	plan, diags := mapAppValuesToType(ctx, appManifest.Applications[0], appResp, &appType, sshResp)
 	resp.Diagnostics.Append(diags...)
 	plan.CopyConfigAttributes(&appType)
 	plan.Space = types.StringValue(space.Name)
@@ -434,7 +446,11 @@ func (r *appResource) Update(ctx context.Context, req resource.UpdateRequest, re
 	r.upsert(ctx, &req.Plan, &req.State, &resp.State, &resp.Diagnostics)
 }
 func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState *tfsdk.State, respState *tfsdk.State, respDiags *diag.Diagnostics) {
-	var desiredState, previousState AppType
+	var (
+		desiredState, previousState AppType
+		envs                        map[string]*string
+	)
+	envs = make(map[string]*string)
 	diags := reqPlan.Get(ctx, &desiredState)
 	respDiags.Append(diags...)
 	if respDiags.HasError() {
@@ -452,20 +468,29 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	if reqState != nil {
 		diags = reqState.Get(ctx, &previousState)
 		respDiags.Append(diags...)
-		if respDiags.HasError() {
-			return
-		}
 		appManifestValue.Metadata, diags = setClientMetadataForUpdate(ctx, previousState.Labels, previousState.Annotations, desiredState.Labels, desiredState.Annotations)
 		respDiags.Append(diags...)
-		if respDiags.HasError() {
-			return
-		}
+		envs, diags = setEnvForUpdate(ctx, previousState.Environment, desiredState.Environment)
+		respDiags.Append(diags...)
 	}
 	appResp, err := r.push(desiredState, appManifestValue, ctx)
 	if err != nil {
 		respDiags.AddError("Error pushing app", err.Error())
 		return
 	}
+
+	_, err = r.cfClient.Applications.SetEnvironmentVariables(ctx, appResp.GUID, envs)
+	if err != nil {
+		respDiags.AddError("Error setting environment variables", err.Error())
+		return
+	}
+
+	sshResp, err := r.cfClient.AppFeatures.UpdateSSH(ctx, appResp.GUID, desiredState.EnableSSH.ValueBool())
+	if err != nil {
+		respDiags.AddError("Error setting space feature", err.Error())
+		return
+	}
+
 	manifestRespRaw, err := r.cfClient.Manifests.Generate(ctx, appResp.GUID)
 	if err != nil {
 		respDiags.AddError("Error generating manifest", err.Error())
@@ -475,7 +500,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	if err != nil {
 		respDiags.AddError("Error unmarshalling manifest", err.Error())
 	}
-	plan, diags := mapAppValuesToType(ctx, manifest.Applications[0], appResp, &desiredState)
+	plan, diags := mapAppValuesToType(ctx, manifest.Applications[0], appResp, &desiredState, sshResp)
 	respDiags.Append(diags...)
 	plan.CopyConfigAttributes(&desiredState)
 	respDiags.Append(respState.Set(ctx, &plan)...)

@@ -40,7 +40,8 @@ func (r *OrgRoleResource) Metadata(ctx context.Context, req resource.MetadataReq
 
 func (r *OrgRoleResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs)",
+		MarkdownDescription: `Provides a Cloud Foundry resource for assigning org roles.(Updating a role is not supported according to the docs).
+		__Note__ : If a role is assigned to a non existent user, user will be created automatically in the Cloud Controller's database for an Admin as well as Org Manager provided the cc.allow_user_creation_by_org_manager field is enabled. Refer [here](https://v3-apidocs.cloudfoundry.org/version/3.189.0/index.html#create-a-role) for further details.`,
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
 				MarkdownDescription: "Role type; see [Valid role types](https://v3-apidocs.cloudfoundry.org/version/3.154.0/index.html#valid-role-types)",

@@ -145,16 +145,16 @@ func (data *securityGroupType) mapCreateSecurityGroupTypeToValues(ctx context.Co
 	}
 
 	var diags, diagnostics diag.Diagnostics
-	if !data.StagingSpaces.IsNull() || !data.RunningSpaces.IsNull() {
+	if !data.StagingSpaces.IsUnknown() || !data.RunningSpaces.IsUnknown() {
 		createSecurityGroup.Relationships = make(map[string]resource.ToManyRelationships)
 		var spacesRelVal []string
-		if !data.StagingSpaces.IsNull() {
+		if !data.StagingSpaces.IsUnknown() {
 			diags = data.StagingSpaces.ElementsAs(ctx, &spacesRelVal, false)
 			diagnostics.Append(diags...)
 			createSecurityGroup.Relationships["staging_spaces"] = *resource.NewToManyRelationships(spacesRelVal)
 
 		}
-		if !data.RunningSpaces.IsNull() {
+		if !data.RunningSpaces.IsUnknown() {
 			diags = data.RunningSpaces.ElementsAs(ctx, &spacesRelVal, false)
 			diagnostics.Append(diags...)
 			createSecurityGroup.Relationships["running_spaces"] = *resource.NewToManyRelationships(spacesRelVal)
