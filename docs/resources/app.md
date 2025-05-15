@@ -139,6 +139,7 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 - `disk_quota` (String) The disk space to be allocated for each application instance.
 - `docker_credentials` (Attributes) Defines login credentials for private docker repositories (see [below for nested schema](#nestedatt--docker_credentials))
 - `docker_image` (String) The URL to the docker image with tag e.g registry.example.com:5000/user/repository/tag or docker image name from the public repo e.g. redis:4.0
+- `enable_ssh` (Boolean) Whether to enable or disable SSH access on an app level.
 - `environment` (Map of String) Key/value pairs of custom environment variables to set in your app. Does not include any system or service variables.
 - `health_check_http_endpoint` (String) The endpoint for the http health check type.
 - `health_check_interval` (Number) The interval in seconds between health checks.
@@ -210,13 +211,10 @@ Optional:
 <a id="nestedatt--routes"></a>
 ### Nested Schema for `routes`
 
-Required:
-
-- `route` (String) The fully route qualified domain name which will be bound to app
-
 Optional:
 
 - `protocol` (String) The protocol to use for the route. Valid values are http2, http1, and tcp.
+- `route` (String) The fully route qualified domain name which will be bound to app
 
 
 <a id="nestedatt--service_bindings"></a>

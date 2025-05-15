@@ -95,6 +95,11 @@ type maintenanceInfoType struct {
 	Description types.String `tfsdk:"description"`
 }
 
+type ServiceInstanceSharingType struct {
+	ServiceInstance types.String `tfsdk:"service_instance"`
+	Spaces          types.Set    `tfsdk:"spaces"`
+}
+
 var maintenanceInfoAttrTypes = map[string]attr.Type{
 	"version":     types.StringType,
 	"description": types.StringType,

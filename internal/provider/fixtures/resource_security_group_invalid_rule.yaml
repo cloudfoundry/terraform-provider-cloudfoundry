@@ -21,7 +21,7 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Go-CF-Client/3.0
+                - Terraform/1.11.2 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/security_groups
         method: POST
       response:
@@ -30,24 +30,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
+        content_length: 252
         uncompressed: false
         body: '{"errors":[{"detail":"Rules[0]: ports are required for protocols of type TCP and UDP, Rules[0]: ports must be a valid single port, comma separated list of ports, or range or ports, formatted as a string","title":"CF-UnprocessableEntity","code":10008}]}'
         headers:
+            Content-Length:
+                - "252"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 15 Feb 2024 06:28:02 GMT
+                - Tue, 22 Apr 2025 09:55:45 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 5cdd47f84b21c113
+                - 53538b6d22f9be6f
             X-B3-Traceid:
-                - b06fa037b7084ccc5cdd47f84b21c113
+                - 813207d050b94c2553538b6d22f9be6f
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -57,11 +57,11 @@ interactions:
             X-Permitted-Cross-Domain-Policies:
                 - none
             X-Runtime:
-                - "0.004621"
+                - "0.004670"
             X-Vcap-Request-Id:
-                - b06fa037-b708-4ccc-5cdd-47f84b21c113::02692d23-2350-4821-8daa-40e9de8e586e
+                - 813207d0-50b9-4c25-5353-8b6d22f9be6f::b89be00f-683e-4f4c-aa70-cadde5ed69e3
             X-Xss-Protection:
                 - 1; mode=block
         status: 422 Unprocessable Entity
         code: 422
-        duration: 189.527697ms
+        duration: 164.350125ms

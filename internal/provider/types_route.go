@@ -249,13 +249,13 @@ func mapTypetoDestinationValues(destination destinationType) *resource.RouteDest
 	if !destination.Weight.IsNull() {
 		routeDestination.WithWeight(int(destination.Weight.ValueInt64()))
 	}
-	if !destination.AppProcessType.IsNull() {
+	if !destination.AppProcessType.IsUnknown() {
 		routeDestination.WithProcessType(destination.AppProcessType.ValueString())
 	}
-	if !destination.Port.IsNull() {
+	if !destination.Port.IsUnknown() && destination.Port.ValueInt64() >= 1024 && destination.Port.ValueInt64() <= 65535 {
 		routeDestination.WithPort(int(destination.Port.ValueInt64()))
 	}
-	if !destination.Protocol.IsNull() {
+	if !destination.Protocol.IsUnknown() {
 		routeDestination.WithProtocol(destination.Protocol.ValueString())
 	}
 

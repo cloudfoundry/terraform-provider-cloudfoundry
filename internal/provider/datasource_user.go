@@ -49,7 +49,7 @@ func (d *UserDataSource) Configure(ctx context.Context, req datasource.Configure
 
 func (d *UserDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on Cloud Foundry users with a given username.",
+		MarkdownDescription: "Gets information on Cloud Foundry users with a given username. Note: This datasource pulls data from the CF API and does not pull data from UAA. Currently it serves as the datasource for both `user` and `user_cf` resource.",
 
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{

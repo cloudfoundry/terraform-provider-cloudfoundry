@@ -15,6 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/samber/lo"
 )
 
 // Type AppType representing Schema Attribute from function Schema in go type from resource_appManifest.go file.
@@ -22,6 +24,7 @@ type AppType struct {
 	Name                                  types.String       `tfsdk:"name"`
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
+	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
 	Stack                                 types.String       `tfsdk:"stack"`
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	Path                                  types.String       `tfsdk:"path"`
@@ -61,6 +64,7 @@ type DatasourceAppType struct {
 	Name                                  types.String       `tfsdk:"name"`
 	Space                                 types.String       `tfsdk:"space_name"`
 	Org                                   types.String       `tfsdk:"org_name"`
+	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
 	Stack                                 types.String       `tfsdk:"stack"`
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
@@ -371,7 +375,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 	reqPlanType is required here to identify whether attributes like "health-check-interval", "readiness-health-check-interval"
 	are present as part of app spec or not, since cf api controller converts them to be part of process spec internally
 */
-func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType) (AppType, diag.Diagnostics) {
+func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType, sshResp *cfv3resource.AppFeature) (AppType, diag.Diagnostics) {
 	var diags, tempDiags diag.Diagnostics
 	var appType AppType
 	appType.Name = types.StringValue(appManifest.Name)
@@ -387,12 +391,12 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		if appManifest.Docker.Username != "" {
 			appType.DockerCredentials = &DockerCredentials{}
 			appType.DockerCredentials.Username = types.StringValue(appManifest.Docker.Username)
-			appType.DockerCredentials.Password = types.StringValue(os.Getenv("CF_DOCKER_PASSWORD"))
+			appType.DockerCredentials.Password = reqPlanType.DockerCredentials.Password
 		}
 	}
 	if appManifest.Services != nil {
 		var serviceBindings []ServiceBinding
-		for i, service := range *appManifest.Services {
+		for _, service := range *appManifest.Services {
 			var sb ServiceBinding
 			sb.ServiceInstance = types.StringValue(service.Name)
 			if service.Parameters != nil {
@@ -404,10 +408,14 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				sb.Params = jsontypes.NewNormalizedValue(string(param))
 				diags = append(diags, tempDiags...)
 			} else {
-				if reqPlanType != nil && len(reqPlanType.ServiceBindings) > i {
-					sb.Params = reqPlanType.ServiceBindings[i].Params
-				} else {
-					sb.Params = jsontypes.NewNormalizedNull()
+				sb.Params = jsontypes.NewNormalizedNull()
+				if reqPlanType != nil {
+					binding, found := lo.Find(reqPlanType.ServiceBindings, func(binding ServiceBinding) bool {
+						return sb.ServiceInstance.Equal(binding.ServiceInstance)
+					})
+					if found {
+						sb.Params = binding.Params
+					}
 				}
 			}
 			serviceBindings = append(serviceBindings, sb)
@@ -620,6 +628,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	diags = append(diags, tempDiags...)
 	appType.Annotations, tempDiags = mapMetadataValueToType(ctx, app.Metadata.Annotations)
 	diags = append(diags, tempDiags...)
+	appType.EnableSSH = types.BoolValue(sshResp.Enabled)
 	return appType, diags
 }
 
@@ -691,4 +700,28 @@ func splitValueAndUnit(value string) (float64, string, error) {
 		return 0, "", err
 	}
 	return val, unit, nil
+}
+
+// Prepares the env for cfclient updation from existing and planned tfstate envs.
+func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plannedEnvs basetypes.MapValue) (map[string]*string, diag.Diagnostics) {
+
+	var (
+		diagnostics                 diag.Diagnostics
+		oldEnvs, newEnvs, finalEnvs map[string]*string
+	)
+
+	finalEnvs = make(map[string]*string)
+
+	diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
+	diagnostics.Append(plannedEnvs.ElementsAs(ctx, &newEnvs, false)...)
+
+	for key := range oldEnvs {
+		finalEnvs[key] = nil
+	}
+
+	for key, value := range newEnvs {
+		finalEnvs[key] = value
+	}
+
+	return finalEnvs, diagnostics
 }

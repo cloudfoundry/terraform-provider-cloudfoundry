@@ -1,0 +1,67 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 90
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: |
+            {"type":"organization","organizations":[{"guid":"3533be5d-272f-42fe-bf70-fc4b108c2043"}]}
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            Content-Type:
+                - application/json
+            User-Agent:
+                - Terraform/1.10.4 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/invalid-02c0cc92-6ecc-44b1-b7b2-096ca19ee143/visibility
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 91
+        uncompressed: false
+        body: '{"errors":[{"detail":"Service plan not found","title":"CF-ResourceNotFound","code":10010}]}'
+        headers:
+            Content-Length:
+                - "91"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 19 Mar 2025 09:44:42 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 44d39fffd64b4d6d
+            X-B3-Traceid:
+                - d9e0f5d856d845f144d39fffd64b4d6d
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.002651"
+            X-Vcap-Request-Id:
+                - d9e0f5d8-56d8-45f1-44d3-9fffd64b4d6d::5a5dfcf3-f76c-42d3-b48b-fcc2789f5b43
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 404 Not Found
+        code: 404
+        duration: 164.468541ms

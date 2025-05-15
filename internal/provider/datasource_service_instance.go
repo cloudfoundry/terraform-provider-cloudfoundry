@@ -165,7 +165,8 @@ func (d *ServiceInstanceDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	if svcInstance.Type == managedSerivceInstance {
+	switch svcInstance.Type {
+	case managedSerivceInstance:
 		paramCreds, err = d.cfClient.ServiceInstances.GetManagedParameters(ctx, svcInstance.GUID)
 		if err != nil {
 			resp.Diagnostics.AddWarning(
@@ -173,7 +174,7 @@ func (d *ServiceInstanceDataSource) Read(ctx context.Context, req datasource.Rea
 				fmt.Sprintf("Request failed with %s.", err.Error()),
 			)
 		}
-	} else if svcInstance.Type == userProvidedServiceInstance {
+	case userProvidedServiceInstance:
 		paramCreds, err = d.cfClient.ServiceInstances.GetUserProvidedCredentials(ctx, svcInstance.GUID)
 		if err != nil {
 			resp.Diagnostics.AddWarning(
