@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
@@ -27,7 +28,7 @@ type serviceInstanceSharingResource struct {
 
 var (
 	_ resource.Resource              = &serviceInstanceSharingResource{}
-	_ resource.ResourceWithConfigure = &SpaceResource{}
+	_ resource.ResourceWithConfigure = &serviceInstanceSharingResource{}
 )
 
 func NewServiceInstanceSharingResource() resource.Resource {
@@ -173,8 +174,8 @@ func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resourc
 
 func mapSharedSpacesValuesToType(relationship *cfv3resource.ServiceInstanceSharedSpaceRelationships, serviceInstance string) ServiceInstanceSharingType {
 	sharedSpaces := make([]attr.Value, len(relationship.Data))
-	for i, relationship := range relationship.Data {
-		sharedSpaces[i] = types.StringValue(relationship.GUID)
+	for i, rel := range relationship.Data {
+		sharedSpaces[i] = types.StringValue(rel.GUID)
 	}
 	s := types.SetValueMust(types.StringType, sharedSpaces)
 	return ServiceInstanceSharingType{
