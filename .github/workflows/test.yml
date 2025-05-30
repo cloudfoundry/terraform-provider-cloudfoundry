@@ -26,7 +26,7 @@ permissions:
 
 # Define the latest Terraform version to use for upload of coverage report
 env:
-  LATEST_VERSION: 1.11.*
+  LATEST_VERSION: 1.12.*
 
 jobs:
   # Ensure project builds before running testing matrix
@@ -87,6 +87,7 @@ jobs:
         terraform:
           - '1.10.*'
           - '1.11.*'
+          - '1.12.*'
     steps:
       - uses: actions/checkout@v4 # v4.0.0
       - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
