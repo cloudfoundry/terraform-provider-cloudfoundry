@@ -1,6 +1,8 @@
 # Terraform Provider for Cloud Foundry
 
 ![Golang](https://img.shields.io/badge/Go-1.23-informational)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cloudfoundry/terraform-provider-cloudfoundry)](https://goreportcard.com/report/github.com/cloudfoundry/terraform-provider-cloudfoundry)
+[![CodeQL](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/actions/workflows/codeql.yml/badge.svg)](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/actions/workflows/codeql.yml)
 
 ## About This Project
 
@@ -14,7 +16,7 @@ Check the [Authentication](/Authentication.md) documentation for supported appro
 
 ## Developing & Contributing to the Provider
 
-The [developer documentation](DEVELOPER.md) file is a basic outline on how to build and develop the provider. 
+The [developer documentation](DEVELOPER.md) file is a basic outline on how to build and develop the provider.
 
 For more information about how to contribute, the project structure, and additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
 
