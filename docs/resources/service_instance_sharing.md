@@ -18,7 +18,7 @@ data "cloudfoundry_org" "my-org" {
 
 data "cloudfoundry_space" "current-space" {
   name = "current-space"
-  org  = data.cloudfoundry_org.my-org-org.id
+  org  = data.cloudfoundry_org.my-org.id
 }
 
 data "cloudfoundry_space" "space-to-share-with" {
