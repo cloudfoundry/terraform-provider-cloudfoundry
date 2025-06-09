@@ -6,7 +6,7 @@ toolchain go1.23.1
 
 require (
 	code.cloudfoundry.org/lager/v3 v3.38.0
-	code.cloudfoundry.org/policy_client v0.54.0
+	code.cloudfoundry.org/policy_client v0.55.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
@@ -23,16 +23,16 @@ require (
 )
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.44.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.45.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/pprof v0.0.0-20250602020802-c6617b811d0e // indirect
+	github.com/google/pprof v0.0.0-20250607225305-033d6d78b36a // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
-	golang.org/x/tools v0.33.0 // indirect
+	golang.org/x/sync v0.15.0 // indirect
+	golang.org/x/tools v0.34.0 // indirect
 )
 
 require (
@@ -80,12 +80,12 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/zclconf/go-cty v1.16.2 // indirect
-	golang.org/x/crypto v0.38.0 // indirect
-	golang.org/x/mod v0.24.0 // indirect
-	golang.org/x/net v0.40.0 // indirect
+	golang.org/x/crypto v0.39.0 // indirect
+	golang.org/x/mod v0.25.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/oauth2 v0.28.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/text v0.26.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
 	google.golang.org/grpc v1.72.1 // indirect
