@@ -2,12 +2,12 @@
 page_title: "cloudfoundry_space_quota Resource - terraform-provider-cloudfoundry"
 subcategory: ""
 description: |-
-  Provides a Cloud Foundry resource to manage space quota definitions.
+  Provides a Cloud Foundry resource to manage space quota definitions. Only spaces assigned via Terraform are managed. On deletion, Terraform removes these assignments before deleting the quota. Non-Terraform managed assignments are not removed, which may cause deletion to fail.
 ---
 
 # cloudfoundry_space_quota (Resource)
 
-Provides a Cloud Foundry resource to manage space quota definitions.
+Provides a Cloud Foundry resource to manage space quota definitions. Only spaces assigned via Terraform are managed. On deletion, Terraform removes these assignments before deleting the quota. Non-Terraform managed assignments are not removed, which may cause deletion to fail.
 
 ## Example Usage
 
