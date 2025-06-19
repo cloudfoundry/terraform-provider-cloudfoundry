@@ -38,7 +38,7 @@ func (r *spaceQuotaResource) Metadata(_ context.Context, req resource.MetadataRe
 
 func (r *spaceQuotaResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Provides a Cloud Foundry resource to manage space quota definitions.",
+		MarkdownDescription: "Provides a Cloud Foundry resource to manage space quota definitions. Only spaces assigned via Terraform are managed. On deletion, Terraform removes these assignments before deleting the quota. Non-Terraform managed assignments are not removed, which may cause deletion to fail.",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				MarkdownDescription: "The name you use to identify the quota or plan in Cloud Foundry",
@@ -191,6 +191,9 @@ func (r *spaceQuotaResource) Read(ctx context.Context, req resource.ReadRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
+	diags = spacesQuotaType.mapSpaceQuotaAssignmentValuestoType(ctx, spaceQuotaTypeState.Spaces)
+	resp.Diagnostics.Append(diags...)
+
 	diags = resp.State.Set(ctx, spacesQuotaType)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -252,6 +255,10 @@ func (r *spaceQuotaResource) Update(ctx context.Context, req resource.UpdateRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	diags = spacesQuotaType.mapSpaceQuotaAssignmentValuestoType(ctx, spaceQuotaTypePlan.Spaces)
+	resp.Diagnostics.Append(diags...)
+
 	diags = resp.State.Set(ctx, spacesQuotaType)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -265,6 +272,22 @@ func (r *spaceQuotaResource) Delete(ctx context.Context, req resource.DeleteRequ
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
+	}
+
+	// Iterate through all Terraform-managed spaces that are currently assigned to this space quota
+	var assignedSpaces []string
+	diags = spaceQuotaType.Spaces.ElementsAs(ctx, &assignedSpaces, false)
+	resp.Diagnostics.Append(diags...)
+
+	for _, spaceId := range assignedSpaces {
+		err := r.cfClient.SpaceQuotas.Remove(ctx, spaceQuotaType.ID.ValueString(), spaceId)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Unable to remove space quota from the space ",
+				fmt.Sprintf("Request failed with %s", err.Error()),
+			)
+			return
+		}
 	}
 	jobID, err := r.cfClient.SpaceQuotas.Delete(ctx, spaceQuotaType.ID.ValueString())
 	if err != nil {

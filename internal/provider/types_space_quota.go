@@ -7,6 +7,7 @@ import (
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/samber/lo"
 )
 
 type spaceQuotaType struct {
@@ -129,4 +130,23 @@ func mapSpaceQuotasValuesToType(spaceQuotas []*cfv3resource.SpaceQuota) ([]space
 	}
 
 	return spaceQuotasList, diagnostics
+}
+
+func (plan *spaceQuotaType) mapSpaceQuotaAssignmentValuestoType(ctx context.Context, stateSpacesSet types.Set) diag.Diagnostics {
+	var diags, diagnostics diag.Diagnostics
+	var liveSpaces, stateSpaces []string
+	diags = plan.Spaces.ElementsAs(ctx, &liveSpaces, false)
+	diagnostics.Append(diags...)
+	diags = stateSpacesSet.ElementsAs(ctx, &stateSpaces, false)
+	diagnostics.Append(diags...)
+
+	terraformHandledSpaces := lo.Intersect(liveSpaces, stateSpaces)
+
+	if len(terraformHandledSpaces) == 0 {
+		plan.Spaces = types.SetNull(types.StringType)
+	} else {
+		plan.Spaces, diags = types.SetValueFrom(ctx, types.StringType, terraformHandledSpaces)
+		diagnostics.Append(diags...)
+	}
+	return diagnostics
 }

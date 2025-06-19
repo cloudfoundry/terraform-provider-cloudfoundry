@@ -248,9 +248,6 @@ func (rs *SecurityGroupSpacesResource) Update(ctx context.Context, req resource.
 	diags = plan.mapSecurityGroupSpacesValuestoType(ctx, runningSpaces, stagingSpaces)
 	resp.Diagnostics.Append(diags...)
 
-	diags = plan.mapSecurityGroupSpacesValuestoType(ctx, runningSpaces, stagingSpaces)
-	resp.Diagnostics.Append(diags...)
-
 	tflog.Trace(ctx, "updated a security group spaces resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
