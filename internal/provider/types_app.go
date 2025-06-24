@@ -434,6 +434,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 			serviceBindings = append(serviceBindings, sb)
 		}
 		appType.ServiceBindings, tempDiags = types.SetValueFrom(ctx, serviceBindingObjType, serviceBindings)
+		diags = append(diags, tempDiags...)
 	} else {
 		appType.ServiceBindings = types.SetNull(serviceBindingObjType)
 	}
