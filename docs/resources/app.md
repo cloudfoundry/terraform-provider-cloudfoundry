@@ -220,13 +220,10 @@ Optional:
 <a id="nestedatt--service_bindings"></a>
 ### Nested Schema for `service_bindings`
 
-Required:
-
-- `service_instance` (String) The service instance name.
-
 Optional:
 
 - `params` (String) A json object to send to the service broker during service binding.
+- `service_instance` (String) The service instance name.
 
 
 <a id="nestedatt--sidecars"></a>

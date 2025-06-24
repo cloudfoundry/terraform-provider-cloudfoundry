@@ -32,7 +32,7 @@ type AppType struct {
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
 	Strategy                              types.String       `tfsdk:"strategy"`
-	ServiceBindings                       []ServiceBinding   `tfsdk:"service_bindings"`
+	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
 	HealthCheckInterval                   types.Int64        `tfsdk:"health_check_interval"`
@@ -69,7 +69,7 @@ type DatasourceAppType struct {
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
-	ServiceBindings                       []ServiceBinding   `tfsdk:"service_bindings"`
+	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
 	HealthCheckInterval                   types.Int64        `tfsdk:"health_check_interval"`
@@ -150,6 +150,13 @@ type ServiceBinding struct {
 	Params          jsontypes.Normalized `tfsdk:"params"`
 }
 
+var serviceBindingObjType = types.ObjectType{
+	AttrTypes: map[string]attr.Type{
+		"service_instance": types.StringType,
+		"params":           jsontypes.NormalizedType{},
+	},
+}
+
 type Route struct {
 	Route    types.String `tfsdk:"route"`
 	Protocol types.String `tfsdk:"protocol"`
@@ -190,9 +197,12 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		}
 		appmanifest.Docker = &appManifestDocker
 	}
-	if len(appType.ServiceBindings) != 0 {
+	if !appType.ServiceBindings.IsUnknown() {
 		var services cfv3operation.AppManifestServices
-		for _, service := range appType.ServiceBindings {
+		tfServiceBindings := []ServiceBinding{}
+		tempDiags = appType.ServiceBindings.ElementsAs(ctx, &tfServiceBindings, false)
+		diags = append(diags, tempDiags...)
+		for _, service := range tfServiceBindings {
 			serviceManifest := cfv3operation.AppManifestService{
 				Name: service.ServiceInstance.ValueString(),
 			}
@@ -410,7 +420,10 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 			} else {
 				sb.Params = jsontypes.NewNormalizedNull()
 				if reqPlanType != nil {
-					binding, found := lo.Find(reqPlanType.ServiceBindings, func(binding ServiceBinding) bool {
+					tfServiceBindings := []ServiceBinding{}
+					tempDiags = reqPlanType.ServiceBindings.ElementsAs(ctx, &tfServiceBindings, false)
+					diags = append(diags, tempDiags...)
+					binding, found := lo.Find(tfServiceBindings, func(binding ServiceBinding) bool {
 						return sb.ServiceInstance.Equal(binding.ServiceInstance)
 					})
 					if found {
@@ -420,7 +433,9 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 			}
 			serviceBindings = append(serviceBindings, sb)
 		}
-		appType.ServiceBindings = serviceBindings
+		appType.ServiceBindings, tempDiags = types.SetValueFrom(ctx, serviceBindingObjType, serviceBindings)
+	} else {
+		appType.ServiceBindings = types.SetNull(serviceBindingObjType)
 	}
 	if appManifest.Routes != nil {
 		var routes []Route

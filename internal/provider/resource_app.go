@@ -141,8 +141,10 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 			"service_bindings": schema.SetNestedAttribute{
 				MarkdownDescription: "Service instances to bind to the application.",
 				Optional:            true,
+				Computed:            true,
 				Validators: []validator.Set{
 					setvalidator.SizeAtLeast(1),
+					setvalidator.AlsoRequires(path.MatchRoot("service_bindings").AtAnySetValue().AtName("service_instance")),
 				},
 				PlanModifiers: []planmodifier.Set{
 					setplanmodifier.RequiresReplace(),
@@ -151,12 +153,14 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					Attributes: map[string]schema.Attribute{
 						"service_instance": schema.StringAttribute{
 							MarkdownDescription: "The service instance name.",
-							Required:            true,
+							Optional:            true,
+							Computed:            true,
 						},
 						"params": schema.StringAttribute{
 							CustomType:          jsontypes.NormalizedType{},
 							MarkdownDescription: "A json object to send to the service broker during service binding.",
 							Optional:            true,
+							Computed:            true,
 						},
 					},
 				},
