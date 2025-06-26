@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 env:
-  LATEST_VERSION: 1.9.*
+  LATEST_VERSION: 1.10.*
 
 jobs:
   # Ensure project builds before running the testing matrix
@@ -53,6 +53,7 @@ jobs:
           - '1.7.*'
           - '1.8.*'
           - '1.9.*'
+          - '1.10.*'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5
