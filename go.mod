@@ -6,7 +6,7 @@ toolchain go1.23.1
 
 require (
 	code.cloudfoundry.org/lager/v3 v3.40.0
-	code.cloudfoundry.org/policy_client v0.58.0
+	code.cloudfoundry.org/policy_client v0.59.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
