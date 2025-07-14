@@ -451,6 +451,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		if plan.Name.ValueString() != previousState.Name.ValueString() {
 			updateServiceInstance.Name = plan.Name.ValueStringPointer()
 		}
+		//Check if service plan is different from the previous state
 		if plan.ServicePlan.ValueString() != previousState.ServicePlan.ValueString() {
 			updateServiceInstance.Relationships = &cfv3resource.ServiceInstanceRelationships{
 				ServicePlan: &cfv3resource.ToOneRelationship{
@@ -460,7 +461,6 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 				},
 			}
 		}
-
 		if !plan.Parameters.IsNull() {
 			var params json.RawMessage
 			err := json.Unmarshal([]byte(plan.Parameters.ValueString()), &params)
