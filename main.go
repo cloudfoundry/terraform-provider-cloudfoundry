@@ -8,7 +8,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/provider"
+	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/version"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
