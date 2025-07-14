@@ -451,23 +451,8 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		if plan.Name.ValueString() != previousState.Name.ValueString() {
 			updateServiceInstance.Name = plan.Name.ValueStringPointer()
 		}
-		// Check if the service plan is different from the previous state
+		//Check if service plan is different from the previous state
 		if plan.ServicePlan.ValueString() != previousState.ServicePlan.ValueString() {
-			ok, err := isServiceInstanceUpgradable(ctx, previousState.ID.ValueString(), *r.cfClient)
-			if err != nil {
-				resp.Diagnostics.AddError(
-					"Error in checking service instance upgradability",
-					"Unable to check service instance upgradability"+plan.Name.ValueString()+": "+err.Error(),
-				)
-				return
-			}
-			if !ok {
-				resp.Diagnostics.AddError(
-					"Service instance not upgradable",
-					"Service instance "+plan.Name.ValueString()+" is not upgradable",
-				)
-				return
-			}
 			updateServiceInstance.Relationships = &cfv3resource.ServiceInstanceRelationships{
 				ServicePlan: &cfv3resource.ToOneRelationship{
 					Data: &cfv3resource.Relationship{

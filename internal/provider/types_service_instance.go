@@ -2,15 +2,13 @@ package provider
 
 import (
 	"context"
-	"time"
-
-	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	"github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"time"
 )
 
 type serviceInstanceType struct {
@@ -273,16 +271,6 @@ func mapMaintenanceInfo(value resource.ServiceInstanceMaintenanceInfo) maintenan
 
 	return maintenance
 
-}
-
-// isServiceInstanceUpgradable checks if the service instance is upgradable
-// some service instances may not be upgradable.
-func isServiceInstanceUpgradable(ctx context.Context, guid string, c cfv3client.Client) (bool, error) {
-	svc, err := c.ServiceInstances.Get(ctx, guid)
-	if err != nil {
-		return false, err
-	}
-	return svc.UpgradeAvailable != nil && *svc.UpgradeAvailable, nil
 }
 
 // toTagsList converts aliases of type types.Set into a slice of strings.
