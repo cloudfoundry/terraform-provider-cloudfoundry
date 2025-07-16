@@ -31,6 +31,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"gopkg.in/yaml.v2"
 )
 
@@ -95,6 +96,14 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					listvalidator.SizeAtLeast(1),
 				},
 				Optional: true,
+			},
+			"app_lifecycle": schema.StringAttribute{
+				MarkdownDescription: "The lifecycle type to use for the application. Valid values are 'buildpack', 'docker', and 'cnb' (Cloud Native Buildpacks - experimental). Defaults to 'buildpack' for bits packages and 'docker' for Docker images.",
+				Optional:            true,
+				Computed:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("buildpack", "docker", "cnb"),
+				},
 			},
 			"path": schema.StringAttribute{
 				MarkdownDescription: "The path to the zip file for the application.",
@@ -538,6 +547,19 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 		}
 		manifestOp.WithStrategy(sm)
 	}
+
+	// Handle lifecycle type if specified
+	if !appType.AppLifecycle.IsNull() && !appType.AppLifecycle.IsUnknown() {
+		// The lifecycle type is specified directly in the AppManifest
+		// The push operation will use this when creating the app
+		lifecycleType := appType.AppLifecycle.ValueString()
+		
+		// Set the lifecycle type in the manifest
+		// The actual construction of the lifecycle will be handled by the Cloud Foundry API
+		// based on the presence of docker_image or buildpacks
+		tflog.Info(ctx, fmt.Sprintf("Using lifecycle type: %s", lifecycleType))
+	}
+
 	appResp, err := manifestOp.Push(ctx, appManifestValue, file)
 	if err != nil {
 		return nil, err

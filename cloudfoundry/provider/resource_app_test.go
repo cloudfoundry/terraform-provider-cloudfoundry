@@ -291,3 +291,95 @@ resource "cloudfoundry_app" "app" {
 		})
 	})
 }
+
+func TestAppResource_Lifecycle(t *testing.T) {
+	t.Parallel()
+
+	t.Run("buildpack lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_buildpack")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_buildpack" {
+	name                                 = "cf-buildpack-lifecycle"
+    space_name                           = "tf-space-1" 
+    org_name                             = "PerformanceTeamBLR"
+    path                                 = "../../assets/cf-sample-app-nodejs.zip"
+	app_lifecycle                        = "buildpack"
+	memory                               = "256M"
+	disk_quota                           = "1024M"
+    instances                            = 1
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_buildpack", "name", "cf-buildpack-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_buildpack", "app_lifecycle", "buildpack"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("docker lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_docker")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_docker" {
+	name         = "cf-docker-lifecycle"
+	space_name   = "tf-space-1"
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	app_lifecycle = "docker"
+	no_route     = true
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_docker", "name", "cf-docker-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_docker", "app_lifecycle", "docker"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("cnb lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_cnb")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_cnb" {
+	name                                 = "cf-cnb-lifecycle"
+    space_name                           = "tf-space-1" 
+    org_name                             = "PerformanceTeamBLR"
+    path                                 = "../../assets/cf-sample-app-nodejs.zip"
+	app_lifecycle                        = "cnb"
+	memory                               = "256M"
+	disk_quota                           = "1024M"
+    instances                            = 1
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "name", "cf-cnb-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "app_lifecycle", "cnb"),
+					),
+				},
+			},
+		})
+	})
+}

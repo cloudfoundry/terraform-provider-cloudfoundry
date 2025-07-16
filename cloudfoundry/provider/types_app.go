@@ -32,6 +32,7 @@ type AppType struct {
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
 	Strategy                              types.String       `tfsdk:"strategy"`
+	AppLifecycle                          types.String       `tfsdk:"app_lifecycle"`
 	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
@@ -69,6 +70,7 @@ type DatasourceAppType struct {
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
+	AppLifecycle                          types.String       `tfsdk:"app_lifecycle"`
 	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
@@ -183,6 +185,8 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		diags = append(diags, tempDiags...)
 		appmanifest.Buildpacks = buildpacks
 	}
+	// For lifecycle, we need to handle it when creating the app since there's no
+	// direct lifecycle field in the AppManifest struct
 	if !appType.DockerImage.IsNull() {
 		appManifestDocker := cfv3operation.AppManifestDocker{
 			Image: appType.DockerImage.ValueString(),
@@ -390,6 +394,12 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	var appType AppType
 	appType.Name = types.StringValue(appManifest.Name)
 	appType.Stack = types.StringValue(appManifest.Stack)
+	// Set lifecycle from the app data if available
+	if app != nil && app.Lifecycle.Type != "" {
+		appType.AppLifecycle = types.StringValue(app.Lifecycle.Type)
+	} else {
+		appType.AppLifecycle = types.StringNull()
+	}
 	if len(appManifest.Buildpacks) != 0 {
 		appType.Buildpacks, tempDiags = types.ListValueFrom(ctx, types.StringType, appManifest.Buildpacks)
 		diags = append(diags, tempDiags...)

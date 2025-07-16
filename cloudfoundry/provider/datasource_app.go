@@ -75,6 +75,10 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 					},
 				},
 			},
+			"app_lifecycle": schema.StringAttribute{
+				MarkdownDescription: "The lifecycle type for the app which can be one of 'buildpack', 'docker', 'cnb'.",
+				Computed:            true,
+			},
 			"service_bindings": schema.SetNestedAttribute{
 				MarkdownDescription: "Service instances bound to the application.",
 				Computed:            true,
