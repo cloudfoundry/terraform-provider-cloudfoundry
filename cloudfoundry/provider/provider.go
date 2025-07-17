@@ -37,6 +37,7 @@ type CloudFoundryProviderModel struct {
 	Origin            types.String `tfsdk:"origin"`
 	AccessToken       types.String `tfsdk:"access_token"`
 	RefreshToken      types.String `tfsdk:"refresh_token"`
+	AssertionToken    types.String `tfsdk:"assertion_token"`
 }
 
 func (p *CloudFoundryProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -112,6 +113,14 @@ func (p *CloudFoundryProvider) Schema(ctx context.Context, req provider.SchemaRe
 					stringvalidator.LengthAtLeast(1),
 				},
 			},
+			"assertion_token": schema.StringAttribute{
+				MarkdownDescription: "OAuth JWT assertion token. Used for OAuth 2.0 JWT Bearer Assertion Grant flow to authenticate with Cloud Foundry. Typically used with a custom origin.",
+				Optional:            true,
+				Sensitive:           true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtLeast(1),
+				},
+			},
 		},
 	}
 }
@@ -134,7 +143,7 @@ func addTypeCastAttributeError(resp *provider.ConfigureResponse, expectedType st
 func checkConfigUnknown(config *CloudFoundryProviderModel, resp *provider.ConfigureResponse) {
 	_, cfconfigerr := cfconfig.NewFromCFHome()
 
-	anyParamExists := !config.User.IsUnknown() || !config.Password.IsUnknown() || !config.CFClientID.IsUnknown() || !config.CFClientSecret.IsUnknown() || !config.AccessToken.IsUnknown()
+	anyParamExists := !config.User.IsUnknown() || !config.Password.IsUnknown() || !config.CFClientID.IsUnknown() || !config.CFClientSecret.IsUnknown() || !config.AccessToken.IsUnknown() || !config.RefreshToken.IsUnknown() || !config.AssertionToken.IsUnknown()
 
 	/*
 		There can be 3 cases of error:
@@ -162,27 +171,30 @@ func checkConfigUnknown(config *CloudFoundryProviderModel, resp *provider.Config
 	}
 }
 
-func checkConfig(resp *provider.ConfigureResponse, endpoint string, user string, password string, cfclientid string, cfclientsecret string, accesstoken string) {
+func checkConfig(resp *provider.ConfigureResponse, config managers.CloudFoundryProviderConfig) {
 	_, cfconfigerr := cfconfig.NewFromCFHome()
 
-	anyParamExists := user != "" || password != "" || cfclientid != "" || cfclientsecret != "" || accesstoken != ""
-
-	if (endpoint == "" && anyParamExists) || (endpoint != "" && !anyParamExists) || (!anyParamExists && cfconfigerr != nil) {
+	anyParamExists := config.User != "" || config.Password != "" || config.CFClientID != "" || config.CFClientSecret != "" || config.AccessToken != "" || config.RefreshToken != "" || config.AssertionToken != ""
+	// There can be 3 cases of error:
+	// 1. If endpoint is empty and any other parameter is set
+	// 2. If endpoint is set and all other parameter is empty
+	// 3. If all parameters are empty and CF config is not correctly set
+	if (config.Endpoint == "" && anyParamExists) || (config.Endpoint != "" && !anyParamExists) || (!anyParamExists && cfconfigerr != nil) {
 		resp.Diagnostics.AddError(
 			"Unable to create CF Client due to missing values",
 			"Either user/password or client_id/client_secret or access_token must be set with api_url or CF config must exist in path (default ~/.cf/config.json)",
 		)
 	}
 
-	if endpoint != "" {
+	if config.Endpoint != "" {
 		switch {
-		case user == "" && password != "":
+		case config.User == "" && config.Password != "":
 			addGenericAttributeError(resp, "Missing", "user", "Username", "CF_USER")
-		case user != "" && password == "":
+		case config.User != "" && config.Password == "":
 			addGenericAttributeError(resp, "Missing", "password", "Password", "CF_PASSWORD")
-		case cfclientid == "" && cfclientsecret != "":
+		case config.CFClientID == "" && config.CFClientSecret != "":
 			addGenericAttributeError(resp, "Missing", "cf_client_id", "Client ID", "CF_CLIENT_ID")
-		case cfclientid != "" && cfclientsecret == "":
+		case config.CFClientID != "" && config.CFClientSecret == "":
 			addGenericAttributeError(resp, "Missing", "cf_client_secret", " Client Secret", "CF_CLIENT_SECRET")
 		}
 	}
@@ -192,67 +204,63 @@ func getAndSetProviderValues(config *CloudFoundryProviderModel, resp *provider.C
 	// Default values to environment variables, but override
 	// with Terraform configuration value if set.
 
-	endpoint := os.Getenv("CF_API_URL")
-	user := os.Getenv("CF_USER")
-	password := os.Getenv("CF_PASSWORD")
-	origin := os.Getenv("CF_ORIGIN")
-	cfclientid := os.Getenv("CF_CLIENT_ID")
-	cfclientsecret := os.Getenv("CF_CLIENT_SECRET")
-	cfaccesstoken := os.Getenv("CF_ACCESS_TOKEN")
-	cfrefreshtoken := os.Getenv("CF_REFRESH_TOKEN")
+	c := managers.CloudFoundryProviderConfig{
+		Endpoint:       os.Getenv("CF_API_URL"),
+		User:           os.Getenv("CF_USER"),
+		Password:       os.Getenv("CF_PASSWORD"),
+		CFClientID:     os.Getenv("CF_CLIENT_ID"),
+		CFClientSecret: os.Getenv("CF_CLIENT_SECRET"),
+		Origin:         os.Getenv("CF_ORIGIN"),
+		AccessToken:    os.Getenv("CF_ACCESS_TOKEN"),
+		RefreshToken:   os.Getenv("CF_REFRESH_TOKEN"),
+		AssertionToken: os.Getenv("CF_ASSERTION_TOKEN"),
+	}
 
-	var skipsslvalidation bool
 	var err error
 	if os.Getenv("CF_SKIP_SSL_VALIDATION") != "" {
-		skipsslvalidation, err = strconv.ParseBool(os.Getenv("CF_SKIP_SSL_VALIDATION"))
+		c.SkipSslValidation, err = strconv.ParseBool(os.Getenv("CF_SKIP_SSL_VALIDATION"))
 		if err != nil {
 			addTypeCastAttributeError(resp, "Boolean", "skip_ssl_validation", "Skip SSL Validation", "CF_SKIP_SSL_VALIDATION")
 			return nil
 		}
 	}
 	if !config.Endpoint.IsNull() {
-		endpoint = config.Endpoint.ValueString()
+		c.Endpoint = config.Endpoint.ValueString()
 	}
 	if !config.User.IsNull() {
-		user = config.User.ValueString()
+		c.User = config.User.ValueString()
 	}
 	if !config.Password.IsNull() {
-		password = config.Password.ValueString()
+		c.Password = config.Password.ValueString()
 	}
 	if !config.CFClientID.IsNull() {
-		cfclientid = config.CFClientID.ValueString()
+		c.CFClientID = config.CFClientID.ValueString()
 	}
 	if !config.CFClientSecret.IsNull() {
-		cfclientsecret = config.CFClientSecret.ValueString()
+		c.CFClientSecret = config.CFClientSecret.ValueString()
 	}
 	if !config.Origin.IsNull() {
-		origin = config.Origin.ValueString()
+		c.Origin = config.Origin.ValueString()
 	}
 	if !config.AccessToken.IsNull() {
-		cfaccesstoken = config.AccessToken.ValueString()
+		c.AccessToken = config.AccessToken.ValueString()
 	}
 	if !config.RefreshToken.IsNull() {
-		cfrefreshtoken = config.RefreshToken.ValueString()
+		c.RefreshToken = config.RefreshToken.ValueString()
 	}
-	checkConfig(resp, endpoint, user, password, cfclientid, cfclientsecret, cfaccesstoken)
+	if !config.AssertionToken.IsNull() {
+		c.AssertionToken = config.AssertionToken.ValueString()
+	}
+
+	checkConfig(resp, c)
 	if resp.Diagnostics.HasError() {
 		return nil
 	}
 	if !config.SkipSslValidation.IsNull() {
-		skipsslvalidation = config.SkipSslValidation.ValueBool()
+		c.SkipSslValidation = config.SkipSslValidation.ValueBool()
 	}
+	c.Endpoint = strings.TrimSuffix(c.Endpoint, "/")
 
-	c := managers.CloudFoundryProviderConfig{
-		Endpoint:          strings.TrimSuffix(endpoint, "/"),
-		User:              user,
-		Password:          password,
-		CFClientID:        cfclientid,
-		CFClientSecret:    cfclientsecret,
-		SkipSslValidation: skipsslvalidation,
-		Origin:            origin,
-		AccessToken:       cfaccesstoken,
-		RefreshToken:      cfrefreshtoken,
-	}
 	return &c
 }
 func (p *CloudFoundryProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {

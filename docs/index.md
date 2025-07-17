@@ -33,6 +33,7 @@ provider "cloudfoundry" {
 
 - `access_token` (String, Sensitive) OAuth token to authenticate with Cloud Foundry
 - `api_url` (String) Specific URL representing the entry point for communication between the client and a Cloud Foundry instance.
+- `assertion_token` (String, Sensitive) OAuth JWT assertion token. Used for OAuth 2.0 JWT Bearer Assertion Grant flow to authenticate with Cloud Foundry. Typically used with a custom origin.
 - `cf_client_id` (String) Unique identifier for a client application used in authentication and authorization processes
 - `cf_client_secret` (String, Sensitive) A confidential string used by a client application for secure authentication and authorization, requires cf_client_id to authenticate
 - `origin` (String) Indicates the identity provider to be used for login

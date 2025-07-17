@@ -153,6 +153,16 @@ func (cfg *CloudFoundryProviderConfigPtr) GetHook() func(i *cassette.Interaction
 			}
 			regList = append(regList, reg)
 		}
+		if cfg.AssertionToken != nil {
+			reg := reg{
+				regexpattern: []*regexp.Regexp{
+					regexp.MustCompile(*cfg.AssertionToken),
+					regexp.MustCompile(url.QueryEscape(*cfg.AssertionToken)),
+				},
+				redactString: *redactedTestUser.AssertionToken,
+			}
+			regList = append(regList, reg)
+		}
 		interactionJson, err := json.Marshal(i)
 		if err != nil {
 			panic(err)

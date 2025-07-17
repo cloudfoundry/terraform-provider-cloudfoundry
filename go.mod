@@ -22,7 +22,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250619101525-5bab1c3424d6
+replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250715085712-0c590acfa414
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.49.0 // indirect
