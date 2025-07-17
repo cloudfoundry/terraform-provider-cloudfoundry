@@ -30,6 +30,7 @@ type CloudFoundryProviderConfigPtr struct {
 	Origin            *string
 	AccessToken       *string
 	RefreshToken      *string
+	AssertionToken    *string
 }
 
 var redactedTestUser = CloudFoundryProviderConfigPtr{
@@ -40,6 +41,8 @@ var redactedTestUser = CloudFoundryProviderConfigPtr{
 	CFClientSecret: strtostrptr("xxxx"),
 	AccessToken:    strtostrptr("bearer eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vdWFhLngueC54LnguY29tL3Rva2VuX2tleXMiLCJraWQiOiJrZXktMSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0YmYyMmRhYjNiYmU0NTg1OTUwM2Y0MWExZmRkZmFmOCIsImNsaWVudF9hdXRoX21ldGhvZCI6Im5vbmUiLCJzdWIiOiIxZjI2M2UwMC05YTA3LTQyZDgtYmU3MS1iMThiZTZkMTBiNDUiLCJzY29wZSI6WyJvcGVuaWQiLCJ1YWEudXNlciIsImNsb3VkX2NvbnRyb2xsZXIucmVhZCIsInBhc3N3b3JkLndyaXRlIiwiY2xvdWRfY29udHJvbGxlci53cml0ZSJdLCJjbGllbnRfaWQiOiJjZiIsImNpZCI6ImNmIiwiYXpwIjoiY2YiLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJ1c2VyX2lkIjoiMWYyNjNlMDAtOWEwNy00MmQ4LWJlNzEtYjE4YmU2ZDEwYjQ1Iiwib3JpZ2luIjoic2FwLmlkcyIsInVzZXJfbmFtZSI6InRlc3RfdXNlckB4LmNvbSIsImVtYWlsIjoidGVzdF91c2VyQHguY29tIiwiYXV0aF90aW1lIjoxNzA1MDYwOTM2LCJyZXZfc2lnIjoiZGUxMDU3ZDEiLCJpYXQiOjE3MDUwNjA5MzYsImV4cCI6MjcwNTA2MjEzNiwiaXNzIjoiaHR0cHM6Ly91YWEueC54LngueC5jb20vb2F1dGgvdG9rZW4iLCJ6aWQiOiJ1YWEiLCJhdWQiOlsiY2xvdWRfY29udHJvbGxlciIsInBhc3N3b3JkIiwiY2YiLCJ1YWEiLCJvcGVuaWQiXX0.DADNqcmHbP8R0Dp3pMZVE7OeD5eTmcwh5dyFKFpryGEl3QqXKd1Af3raTFnJe1SRi66qjkvpdLub31Fh3LDdkAPAoFYshvwxozCdEinGYEx-qlW1Ttt6qyk_0y3CjKDExv43F8CpHwqD41A57IOAbz14revnb6tbW9pA_dBxhF9sYdXJvhPOnGUDKgv5SIYNUyt0_ekEaHNMVHp__4dnaCw7qdMkJ7Y7Pn4ES3KJqc88Ed9PzRJw0WQzwvHlJbQyCtpBXFx_ZzIEFNjcXo9p-YbezEKVypKlREs59h-HzpbhLwjW9_MzuY3wFveYT4FLsF-U0s0KeQq83E8J_zWRhw"),
 	RefreshToken:   strtostrptr("xxxx"),
+	Origin:         strtostrptr("dummy-origin"),
+	AssertionToken: strtostrptr("eyJhbGciOiJSUzI1NiIsImtpZDI6Im1vY2sta2V5LWlkIiwidHlwIjoiSldUIn0.eyJhdWQiOiJodHRwczovL3RlcnJhZm9ybWVkcy5hY2NvdW50cy5vbmRlbWFuZC5jb20iLCJleHAiOjE3NTI3NTU1NjYsImlhdCI6MTc1Mjc1MTk2NiwiaXNzIjoiaHR0cHM6Ly9tb2NrLW9pZGMtcHJvdmlkZXItc2lsbHktYWxsaWdhdG9yLW9hLmNmYXBwcy51czEwLmhhbmEub25kZW1hbmQuY29tIiwicmVwb3NpdG9yeSI6Im1vY2svcmVwbyIsInN1YiI6Im1vY2svcmVwb0BhLmNvbSJ9.M5fpxHntMa4454z97z5fU0DYbbre02LFCivVShPjwssP2b6if7zMRzpX31OUOW3QdtQO3X2tHZfOx6cF4ya-LrkJRmZrL_OVW2inaY3_o3vYFH50tXXinmy7X4mHPLg93eDZq-sEMNrRWTKomrG_3Nj8wySyHpAUWtGd5bYOf2fD4t6WTHgOgjXBnmREIP_HU95yE3XiP1CggJfb-ll7MApxfivw_sZUbSL_Vd5pvwMcZzTji_mTGoT6zIbYg4ndkk_m_RD9GBz-lqfL6BcGe_fYJAdFtZkZ2ws6utioKFN93mdUXazTeDIyi-G1uL0LcqUVx9wGrjcHUa8GPfh5hA"),
 }
 
 func hclProvider(cfConfig *CloudFoundryProviderConfigPtr) string {
@@ -72,6 +75,9 @@ func hclProvider(cfConfig *CloudFoundryProviderConfigPtr) string {
 			{{- end -}}
 			{{if .RefreshToken}}
 				refresh_token = "{{.RefreshToken}}"
+			{{- end }}
+			{{if .AssertionToken}}
+				assertion_token = "{{.AssertionToken}}"
 			{{- end }}
 			}`
 		tmpl, err := template.New("provider").Parse(s)
@@ -207,6 +213,38 @@ func TestCloudFoundryProvider_Configure(t *testing.T) {
 					Config: hclProvider(&cfg) + `
 				data "cloudfoundry_org" "org" {
 					name = "PerformanceTeamBLR"
+				}`,
+				},
+			},
+		})
+	})
+	t.Run("user login with valid assertion token", func(t *testing.T) {
+		endpoint := strtostrptr(os.Getenv("TEST_CF_API_URL"))
+		assertionToken := strtostrptr(os.Getenv("TEST_CF_ASSERTION_TOKEN"))
+		origin := strtostrptr(os.Getenv("TEST_CF_ORIGIN"))
+		if *endpoint == "" || *assertionToken == "" || *origin == "" {
+			t.Logf("\nATTENTION: Using redacted user credentials since endpoint, assertion & origin not set as env \n Make sure you are not triggering a recording else test will fail")
+			endpoint = redactedTestUser.Endpoint
+			assertionToken = redactedTestUser.AssertionToken
+			origin = redactedTestUser.Origin
+		}
+		cfg := CloudFoundryProviderConfigPtr{
+			Endpoint:       endpoint,
+			AssertionToken: assertionToken,
+			Origin:         origin,
+		}
+
+		recUserPass := cfg.SetupVCR(t, "fixtures/provider.assertion_token")
+		defer stopQuietly(recUserPass)
+
+		testingResource.Test(t, testingResource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(recUserPass.GetDefaultClient()),
+			Steps: []testingResource.TestStep{
+				{
+					Config: hclProvider(&cfg) + `
+				data "cloudfoundry_org" "org" {
+					name = "BTP-Terraformers-Prod_mock-github-oidc-test"
 				}`,
 				},
 			},
