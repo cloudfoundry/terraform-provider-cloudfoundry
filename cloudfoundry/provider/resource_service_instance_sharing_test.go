@@ -135,6 +135,7 @@ func TestMapSharedSpacesValuesToType(t *testing.T) {
 	}
 	spaces := types.SetValueMust(types.StringType, sharedSpaces)
 	expected := ServiceInstanceSharingType{
+		Id:              types.StringValue(serviceInstance),
 		ServiceInstance: types.StringValue(serviceInstance),
 		Spaces:          spaces,
 	}
