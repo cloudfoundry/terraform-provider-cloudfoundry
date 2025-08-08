@@ -144,3 +144,42 @@ func TestMapSharedSpacesValuesToType(t *testing.T) {
 
 	assert.Equal(t, expected, result)
 }
+
+func TestServiceInstanceSharingResource_Import(t *testing.T) {
+	var (
+		testUserProvidedServiceInstanceGUID = "5e2976bb-332e-41e1-8be3-53baafea9296"
+		testSpaces                          = `["02c0cc92-6ecc-44b1-b7b2-096ca19ee143", "121c3a95-0f82-45a6-8ff2-1920b2067edb"]`
+	)
+	t.Parallel()
+
+	// setup
+	resourceName := "cloudfoundry_service_instance_sharing.rs"
+	cfg := getCFHomeConf()
+	rec := cfg.SetupVCR(t, "fixtures/resource_service_instance_sharing")
+	defer stopQuietly(rec)
+
+	// actual test
+	resource.Test(t, resource.TestCase{
+		IsUnitTest:               true,
+		ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+		Steps: []resource.TestStep{
+			{
+				Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
+					HclType:         hclObjectResource,
+					HclObjectName:   "rs",
+					ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+					Spaces:          &testSpaces,
+				}),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestMatchResourceAttr(resourceName, "service_instance", regexpValidUUID),
+					resource.TestMatchResourceAttr(resourceName, "spaces.0", regexpValidUUID),
+				),
+			},
+			{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+		},
+	})
+}
