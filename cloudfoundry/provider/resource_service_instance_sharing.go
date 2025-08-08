@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
@@ -45,6 +46,7 @@ func (r *serviceInstanceSharingResource) Schema(ctx context.Context, req resourc
 		MarkdownDescription: "Provides a resource for managing service instance sharing in Cloud Foundry.",
 
 		Attributes: map[string]schema.Attribute{
+			idKey: guidSchema(),
 			"service_instance": schema.StringAttribute{
 				MarkdownDescription: "The ID of the service instance to share.",
 				Required:            true,
@@ -108,8 +110,10 @@ func (r *serviceInstanceSharingResource) Create(ctx context.Context, req resourc
 		resp.Diagnostics.AddError("Error sharing service instance with spaces", err.Error())
 		return
 	}
+
 	tflog.Trace(ctx, "created a service instance sharing resource")
 	newState := ServiceInstanceSharingType{
+		Id:              plan.ServiceInstance,
 		ServiceInstance: plan.ServiceInstance,
 		Spaces:          plan.Spaces,
 	}
@@ -126,13 +130,19 @@ func (r *serviceInstanceSharingResource) Read(ctx context.Context, req resource.
 		return
 	}
 
-	relationship, err := r.cfClient.ServiceInstances.GetSharedSpaceRelationships(ctx, data.ServiceInstance.ValueString())
+	serviceInstanceID := data.Id.ValueString()
+
+	if serviceInstanceID == "" {
+		serviceInstanceID = data.ServiceInstance.ValueString()
+	}
+
+	relationship, err := r.cfClient.ServiceInstances.GetSharedSpaceRelationships(ctx, serviceInstanceID)
 	if err != nil {
 		resp.Diagnostics.AddError("Error when getting shared spaces for service instance", err.Error())
 		return
 	}
 
-	data = mapSharedSpacesValuesToType(relationship, data.ServiceInstance.ValueString())
+	data = mapSharedSpacesValuesToType(relationship, serviceInstanceID)
 
 	tflog.Trace(ctx, "read a service instance sharing resource")
 
@@ -145,7 +155,6 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 }
 
 func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-
 	var state ServiceInstanceSharingType
 
 	diags := req.State.Get(ctx, &state)
@@ -162,7 +171,13 @@ func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resourc
 		return
 	}
 
-	err := r.cfClient.ServiceInstances.UnShareWithSpaces(ctx, state.ServiceInstance.ValueString(), spaces)
+	serviceInstanceID := state.Id.ValueString()
+
+	if serviceInstanceID == "" {
+		serviceInstanceID = state.ServiceInstance.ValueString()
+	}
+
+	err := r.cfClient.ServiceInstances.UnShareWithSpaces(ctx, serviceInstanceID, spaces)
 
 	if err != nil {
 		resp.Diagnostics.AddError("Error unsharing service instance with spaces", err.Error())
@@ -179,7 +194,12 @@ func mapSharedSpacesValuesToType(relationship *cfv3resource.ServiceInstanceShare
 	}
 	s := types.SetValueMust(types.StringType, sharedSpaces)
 	return ServiceInstanceSharingType{
+		Id:              types.StringValue(serviceInstance),
 		ServiceInstance: types.StringValue(serviceInstance),
 		Spaces:          s,
 	}
+}
+
+func (r *serviceInstanceSharingResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
