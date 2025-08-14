@@ -489,7 +489,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 
 	if err != nil {
 
-		errString := getAppLogTrace(ctx, r, desiredState, respDiags, curTime)
+		errString := getAppLogTrace(ctx, r, desiredState, curTime)
 		respDiags.AddError("Error pushing app", err.Error()+"\n"+strings.Join(errString, ""))
 		return
 	}
@@ -578,7 +578,7 @@ func (r *appResource) ImportState(ctx context.Context, req resource.ImportStateR
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
-func getAppLogTrace(ctx context.Context, r *appResource, desiredState AppType, respDiags *diag.Diagnostics, curTime time.Time) []string {
+func getAppLogTrace(ctx context.Context, r *appResource, desiredState AppType, curTime time.Time) []string {
 
 	EnableCFAppLogTrace := os.Getenv("ENABLE_CF_APP_LOG_TRACE")
 	var errString []string
@@ -632,7 +632,7 @@ func getAppLogTrace(ctx context.Context, r *appResource, desiredState AppType, r
 			logMessage := e.GetLog()
 			if logMessage.GetPayload() != nil && logMessage.GetType().String() == "ERR" {
 				payload := string(logMessage.GetPayload())
-				errString = append(errString, string(payload)+"\n")
+				errString = append(errString, payload+"\n")
 			}
 		}
 	}
