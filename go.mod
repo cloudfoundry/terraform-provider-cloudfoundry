@@ -5,6 +5,7 @@ go 1.23.0
 toolchain go1.23.1
 
 require (
+	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
 	code.cloudfoundry.org/lager/v3 v3.43.0
 	code.cloudfoundry.org/policy_client v0.64.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
@@ -26,8 +27,11 @@ replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.53.0 // indirect
+	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
+	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20250630185457-6e76a2b096b5 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
@@ -35,6 +39,7 @@ require (
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20250303144028-a0af3efb3deb // indirect
 )
 
 require (
@@ -89,7 +94,7 @@ require (
 	golang.org/x/sys v0.35.0 // indirect
 	golang.org/x/text v0.28.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb // indirect
 	google.golang.org/grpc v1.72.1 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1
