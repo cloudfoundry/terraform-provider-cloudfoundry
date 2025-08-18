@@ -185,8 +185,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		diags = append(diags, tempDiags...)
 		appmanifest.Buildpacks = buildpacks
 	}
-	// For lifecycle, we need to handle it when creating the app since there's no
-	// direct lifecycle field in the AppManifest struct
+
 	if !appType.DockerImage.IsNull() {
 		appManifestDocker := cfv3operation.AppManifestDocker{
 			Image: appType.DockerImage.ValueString(),
@@ -396,7 +395,16 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	appType.Stack = types.StringValue(appManifest.Stack)
 	// Set lifecycle from the app data if available
 	if app != nil && app.Lifecycle.Type != "" {
-		appType.AppLifecycle = types.StringValue(app.Lifecycle.Type)
+		switch app.Lifecycle.Type {
+		case "buildpack":
+			appType.AppLifecycle = types.StringValue("buildpack")
+		case "docker":
+			appType.AppLifecycle = types.StringValue("docker")
+		case "cnb":
+			appType.AppLifecycle = types.StringValue("cnb")
+		default:
+			appType.AppLifecycle = types.StringValue(app.Lifecycle.Type)
+		}
 	} else {
 		appType.AppLifecycle = types.StringNull()
 	}

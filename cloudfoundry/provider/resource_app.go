@@ -533,7 +533,89 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 		if err != nil {
 			return nil, err
 		}
+		defer file.Close()
 	}
+
+	// Check if we need to create the app with a specific lifecycle before pushing
+	if !appType.AppLifecycle.IsNull() && !appType.AppLifecycle.IsUnknown() {
+		lifecycleType := appType.AppLifecycle.ValueString()
+
+		// Find space by name using list and filter
+		spaceListOpts := cfv3client.NewSpaceListOptions()
+		spaceListOpts.Names.EqualTo(appType.Space.ValueString())
+		space, err := r.cfClient.Spaces.Single(ctx, spaceListOpts)
+		if err != nil {
+			return nil, fmt.Errorf("error finding space %s: %w", appType.Space.ValueString(), err)
+		}
+
+		// Check if app already exists by listing apps in the space with the name
+		appListOpts := cfv3client.NewAppListOptions()
+		appListOpts.Names.EqualTo(appType.Name.ValueString())
+		appListOpts.SpaceGUIDs.EqualTo(space.GUID)
+		existingApps, _, err := r.cfClient.Applications.List(ctx, appListOpts)
+		if err != nil {
+			return nil, fmt.Errorf("error checking for existing app: %w", err)
+		}
+
+		var existingApp *cfv3resource.App
+		if len(existingApps) > 0 {
+			existingApp = existingApps[0]
+		}
+
+		if existingApp == nil {
+			// App doesn't exist, create it with the specified lifecycle
+			tflog.Info(ctx, fmt.Sprintf("Creating app %s with lifecycle type: %s", appType.Name.ValueString(), lifecycleType))
+
+			createReq := cfv3resource.NewAppCreate(appType.Name.ValueString(), space.GUID)
+
+			// Set lifecycle based on type
+			switch lifecycleType {
+			case "buildpack":
+				var buildpacks []string
+				if !appType.Buildpacks.IsNull() && !appType.Buildpacks.IsUnknown() {
+					diags := appType.Buildpacks.ElementsAs(ctx, &buildpacks, false)
+					if diags.HasError() {
+						tflog.Error(ctx, "Error reading buildpacks for new app", map[string]interface{}{"diagnostics": diags})
+					}
+				}
+				createReq.Lifecycle = &cfv3resource.Lifecycle{
+					Type: "buildpack",
+					Data: cfv3resource.BuildpackLifecycle{
+						Buildpacks: buildpacks,
+						Stack:      appType.Stack.ValueString(),
+					},
+				}
+			case "docker":
+				createReq.Lifecycle = &cfv3resource.Lifecycle{
+					Type: "docker",
+					Data: cfv3resource.DockerLifecycle{}, // Docker lifecycle with empty data
+				}
+			case "cnb":
+				var buildpacks []string
+				if !appType.Buildpacks.IsNull() && !appType.Buildpacks.IsUnknown() {
+					diags := appType.Buildpacks.ElementsAs(ctx, &buildpacks, false)
+					if diags.HasError() {
+						tflog.Error(ctx, "Error reading buildpacks for new app", map[string]interface{}{"diagnostics": diags})
+					}
+				}
+				createReq.Lifecycle = &cfv3resource.Lifecycle{
+					Type: "cnb",
+					Data: cfv3resource.CNBLifecycle{
+						Buildpacks: buildpacks,
+						Stack:      appType.Stack.ValueString(),
+					},
+				}
+			default:
+				return nil, fmt.Errorf("unsupported lifecycle type: %s", lifecycleType)
+			}
+
+			_, err := r.cfClient.Applications.Create(ctx, createReq)
+			if err != nil {
+				return nil, fmt.Errorf("could not create app %s with lifecycle %s: %w", appType.Name.ValueString(), lifecycleType, err)
+			}
+		}
+	}
+
 	manifestOp := cfv3operation.NewAppPushOperation(r.cfClient, appType.Org.ValueString(), appType.Space.ValueString())
 	if !appType.Strategy.IsNull() {
 		var sm cfv3operation.StrategyMode
@@ -548,18 +630,7 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 		manifestOp.WithStrategy(sm)
 	}
 
-	// Handle lifecycle type if specified
-	if !appType.AppLifecycle.IsNull() && !appType.AppLifecycle.IsUnknown() {
-		// The lifecycle type is specified directly in the AppManifest
-		// The push operation will use this when creating the app
-		lifecycleType := appType.AppLifecycle.ValueString()
-		
-		// Set the lifecycle type in the manifest
-		// The actual construction of the lifecycle will be handled by the Cloud Foundry API
-		// based on the presence of docker_image or buildpacks
-		tflog.Info(ctx, fmt.Sprintf("Using lifecycle type: %s", lifecycleType))
-	}
-
+	// The push operation handles the rest of the app deployment
 	appResp, err := manifestOp.Push(ctx, appManifestValue, file)
 	if err != nil {
 		return nil, err

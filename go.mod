@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
 	code.cloudfoundry.org/policy_client v0.66.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
-	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
+	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.13
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.15.1
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.5.0
@@ -20,8 +20,6 @@ require (
 	gopkg.in/dnaeon/go-vcr.v3 v3.2.0
 	gopkg.in/yaml.v2 v2.4.0
 )
-
-replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250715085712-0c590acfa414
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.55.0 // indirect
@@ -97,3 +95,6 @@ require (
 	google.golang.org/protobuf v1.36.7 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
+
+// Use local go-cfclient with docker lifecycle fix
+replace github.com/cloudfoundry/go-cfclient/v3 => /Users/bretamogilefsky/Documents/Code/gsa/go-cfclient
