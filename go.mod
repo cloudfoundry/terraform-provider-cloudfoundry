@@ -6,7 +6,7 @@ toolchain go1.23.1
 
 require (
 	code.cloudfoundry.org/lager/v3 v3.43.0
-	code.cloudfoundry.org/policy_client v0.64.0
+	code.cloudfoundry.org/policy_client v0.65.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
@@ -25,7 +25,7 @@ require (
 replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250715085712-0c590acfa414
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.53.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.54.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20250630185457-6e76a2b096b5 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
@@ -91,6 +91,6 @@ require (
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
 	google.golang.org/grpc v1.72.1 // indirect
-	google.golang.org/protobuf v1.36.6 // indirect
+	google.golang.org/protobuf v1.36.7 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
