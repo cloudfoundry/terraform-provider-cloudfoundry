@@ -228,4 +228,47 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 			},
 		})
 	})
+
+	t.Run("happy path - create app with non-standard process type", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_scheduler")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app" {
+	name         = "http-bin-scheduler"
+	space_name   = "tf-space-1"
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	strategy		 = "blue-green"
+	processes = [
+		{
+			type                                 = "scheduler",
+			instances                            = 1
+			memory                               = "256M"
+			disk_quota                           = "1024M"
+			health_check_type                    = "process"
+		}
+	]
+	no_route = true
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "docker_image", "kennethreitz/httpbin"),
+						resource.TestCheckResourceAttr(resourceName, "strategy", "blue-green"),
+						resource.TestCheckResourceAttr(resourceName, "no_route", "true"),
+						resource.TestCheckResourceAttr(resourceName, "processes.0.instances", "1"),
+						resource.TestCheckResourceAttr(resourceName, "processes.0.memory", "256M"),
+						resource.TestCheckResourceAttr(resourceName, "processes.0.disk_quota", "1024M"),
+						resource.TestCheckResourceAttr(resourceName, "processes.0.health_check_type", "process"),
+						resource.TestCheckResourceAttr(resourceName, "processes.0.type", "scheduler"),
+					),
+				},
+			},
+		})
+	})
 }

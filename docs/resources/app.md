@@ -188,7 +188,7 @@ Optional:
 
 Required:
 
-- `type` (String) The process type. Can be web or worker.
+- `type` (String) The process type. Any string identifier is accepted (e.g., web, worker, scheduler, etc.). The `web` process type is special in that the platform will send traffic from bound routes to it.
 
 Optional:
 
