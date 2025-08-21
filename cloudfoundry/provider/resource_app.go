@@ -301,7 +301,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 func (r *appResource) ProcessSchemaAttributes() map[string]schema.Attribute {
 	pSchema := map[string]schema.Attribute{
 		"type": schema.StringAttribute{
-			MarkdownDescription: "The process type. Any string identifier is accepted (e.g., web, worker, scheduler, etc.).",
+			MarkdownDescription: "The process type. Any string identifier is accepted (e.g., web, worker, scheduler).",
 			Required:            true,
 		},
 	}

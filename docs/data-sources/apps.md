@@ -99,7 +99,7 @@ Read-Only:
 - `readiness_health_check_invocation_timeout` (Number) The timeout in seconds for the readiness health check requests for http and port health checks.
 - `readiness_health_check_type` (String) The readiness health check type which can be one of 'port', 'process', 'http'.
 - `timeout` (Number) Time in seconds at which the health-check will report failure.
-- `type` (String) The process type. Any string identifier (e.g., web, worker, scheduler, etc.).
+- `type` (String) The process type. Any string identifier (e.g., web, worker, scheduler).
 
 
 <a id="nestedatt--apps--routes"></a>
