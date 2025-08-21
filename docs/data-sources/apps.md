@@ -128,4 +128,4 @@ Read-Only:
 - `command` (String) The command used to start the sidecar.
 - `memory` (String) The memory limit for the sidecar.
 - `name` (String) Sidecar name. The identifier for the sidecars to be configured.
-- `process_types` (Set of String) List of processes to associate sidecar with.
+- `process_types` (Set of String) List of processes to associate sidecar with. Any string identifier (e.g., web, worker, scheduler).
