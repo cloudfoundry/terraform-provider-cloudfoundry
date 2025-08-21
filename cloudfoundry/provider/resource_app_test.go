@@ -247,8 +247,15 @@ resource "cloudfoundry_app" "app" {
 	strategy		 = "blue-green"
 	processes = [
 		{
-			type                                 = "scheduler",
+			type                                 = "web",
 			instances                            = 1
+			memory                               = "512M"
+			disk_quota                           = "2048M"
+			health_check_type                    = "port"
+		},
+		{
+			type                                 = "scheduler",
+			instances                            = 0
 			memory                               = "256M"
 			disk_quota                           = "1024M"
 			health_check_type                    = "process"
@@ -261,11 +268,23 @@ resource "cloudfoundry_app" "app" {
 						resource.TestCheckResourceAttr(resourceName, "docker_image", "kennethreitz/httpbin"),
 						resource.TestCheckResourceAttr(resourceName, "strategy", "blue-green"),
 						resource.TestCheckResourceAttr(resourceName, "no_route", "true"),
-						resource.TestCheckResourceAttr(resourceName, "processes.0.instances", "1"),
-						resource.TestCheckResourceAttr(resourceName, "processes.0.memory", "256M"),
-						resource.TestCheckResourceAttr(resourceName, "processes.0.disk_quota", "1024M"),
-						resource.TestCheckResourceAttr(resourceName, "processes.0.health_check_type", "process"),
-						resource.TestCheckResourceAttr(resourceName, "processes.0.type", "scheduler"),
+						resource.TestCheckResourceAttr(resourceName, "processes.#", "2"),
+						// Check for the web process
+						resource.TestCheckTypeSetElemNestedAttrs(resourceName, "processes.*", map[string]string{
+							"type":                   "web",
+							"instances":              "1",
+							"memory":                 "512M",
+							"disk_quota":             "2048M",
+							"health_check_type":      "port",
+						}),
+						// Check for the scheduler process (the main test goal)
+						resource.TestCheckTypeSetElemNestedAttrs(resourceName, "processes.*", map[string]string{
+							"type":                   "scheduler",
+							"instances":              "0",
+							"memory":                 "256M",
+							"disk_quota":             "1024M",
+							"health_check_type":      "process",
+						}),
 					),
 				},
 			},
