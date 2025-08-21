@@ -538,7 +538,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					p.Command = types.StringValue(process.Command)
 				}
 				if process.DiskQuota != "" {
-					if reqPlanType != nil && !reqPlanType.Processes[i].DiskQuota.IsNull() && !reqPlanType.Processes[i].DiskQuota.IsUnknown() {
+					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].DiskQuota.IsNull() && !reqPlanType.Processes[i].DiskQuota.IsUnknown() {
 						result, err := getDesiredType(process.DiskQuota, reqPlanType.Processes[i].DiskQuota.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting disk quota", err.Error())
@@ -560,7 +560,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				}
 				p.Instances = types.Int64Value(int64(*process.Instances))
 				if process.Memory != "" {
-					if reqPlanType != nil && !reqPlanType.Processes[i].Memory.IsNull() && !reqPlanType.Processes[i].Memory.IsUnknown() {
+					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].Memory.IsNull() && !reqPlanType.Processes[i].Memory.IsUnknown() {
 						result, err := getDesiredType(process.Memory, reqPlanType.Processes[i].Memory.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting memory", err.Error())
@@ -590,7 +590,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					p.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
 				}
 				if process.LogRateLimitPerSecond != "" {
-					if reqPlanType != nil && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsNull() && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsUnknown() {
+					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsNull() && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsUnknown() {
 						result, err := getDesiredType(process.LogRateLimitPerSecond, reqPlanType.Processes[i].LogRateLimitPerSecond.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting log_rate_limit", err.Error())
