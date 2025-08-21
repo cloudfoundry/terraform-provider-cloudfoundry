@@ -134,7 +134,7 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 							Computed:            true,
 						},
 						"process_types": schema.SetAttribute{
-							MarkdownDescription: "List of processes to associate sidecar with.",
+							MarkdownDescription: "List of processes to associate sidecar with. Any string identifier (e.g., web, worker, scheduler).",
 							ElementType:         types.StringType,
 							Computed:            true,
 						},
