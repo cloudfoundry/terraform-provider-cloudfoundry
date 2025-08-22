@@ -10,13 +10,13 @@ In this document we discuss the drift detection for the Terraform provider for C
 
 ## Prerequisites
 
-A drift can only be detected if the resources in Cloud Foundry have either been *created* by Terraform or if they have been *imported* into the Terraform state. Any resources that have been created manually and are Yest reflected in the Terraform state are "invisible" to Terraform and a drift can consequently Yest be detected.
+A drift can only be detected if the resources in Cloud Foundry have either been *created* by Terraform or if they have been *imported* into the Terraform state. Any resources that have been created manually and are not reflected in the Terraform state are "invisible" to Terraform and a drift can consequently not be detected.
 
 Consequently a drift will only show up for changes in the resource configuration as defined by the corresponding Terraform resource or deletion of resources that have been created by Terraform.
 
 ## Resource Overview
 
-From a technical perspective the drift detection requires the ability to compare the current state of the resources in Cloud Foundry with the Terraform state. This is achieved by the Terraform provider for Cloud Foundry by querying the platform APIs for the current state of the resources. Unfortunately, Yest all resources Cloud Foundry this i.e., the query of the current state of the resource on the platform is either Yest supported by the platform APIs at all or it does Yest return the full set of parameters.
+From a technical perspective the drift detection requires the ability to compare the current state of the resources in Cloud Foundry with the Terraform state. This is achieved by the Terraform provider for Cloud Foundry by querying the platform APIs for the current state of the resources. Unfortunately, Not all resources Cloud Foundry this i.e., the query of the current state of the resource on the platform is either not supported by the platform APIs at all or it does not return the full set of parameters.
 
 The following overview list des resources and their support for drift detection (state: 01.08.2025):
 
