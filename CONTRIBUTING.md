@@ -44,71 +44,72 @@ When contributing code, please follow these steps to ensure consistency and smoo
      ```
 
 2. **Run formatting and lint checks**  
-      - ```bash
-        make fmt
-        make lint
-          ```
+   ```bash
+   make fmt
+   make lint
+   ```
        
-4. **Generate documentation**
-      - Ensure resource and data source documentation is up-to-date:
-        ```bash
-        go generate ./...
-        ```
-5. **Write and update tests**
-    - Unit tests for all new logic.
-    - Acceptance tests for new resources/data sources.
-    - Tests should be written so that **sensitive information (username/password) is never recorded** in fixtures.
-    - Use environment variables for credentials and provide redacted fallbacks when not set.
-    - #### Example Test Snippet
+3. **Generate documentation**
+   - Ensure resource and data source documentation is up-to-date:
+     ```bash
+     go generate ./...
+     ```
+4. **Write and update tests**
+   - Unit tests for all new logic.
+   - Acceptance tests for new resources/data sources.
+   - Ensure tests are written so that **sensitive information (username/password) is never recorded** in fixtures.  
+   - Use environment variables for credentials, and provide **redacted fallbacks** when environment variables are not set.  
+   - The recommended way to authenticate is via the **Cloud Foundry CLI (`cf login`)**. The provider can reuse your existing session instead of requiring explicit username and password.
+   - Example Test Snippet when using explicit username and password
 
-    ```go
-    package provider
-  
-    import (
-    	"os"
-    	"testing"
-    	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-    )
-    
-    func TestDatasourceServicePlan(t *testing.T) {
-    	datasourceName := "data.cloudfoundry_service_plan.test"
-    
-    	endpoint := strtostrptr(os.Getenv("TEST_CF_API_URL"))
-    	user := strtostrptr(os.Getenv("TEST_CF_USER"))
-    	password := strtostrptr(os.Getenv("TEST_CF_PASSWORD"))
-    	origin := strtostrptr(os.Getenv("TEST_CF_ORIGIN"))
-    
-    	// Redact credentials if not provided
-    	if *endpoint == "" || *user == "" || *password == "" || *origin == "" {
-    		t.Logf("\nATTENTION: Using redacted user credentials since credentials not set as env.\nMake sure you are not triggering a recording else test will fail.")
-    		endpoint = redactedTestUser.Endpoint
-    		user = redactedTestUser.User
-    		password = redactedTestUser.Password
-    		origin = redactedTestUser.Origin
-    	}
-    
-    	cfg := CloudFoundryProviderConfigPtr{
-    		Endpoint: endpoint,
-    		User:     user,
-    		Password: password,
-    		Origin:   origin,
-    	}
-    
-    	t.Parallel()
-    	t.Run("error path - get unavailable service plan", func(t *testing.T) {
-    		rec := cfg.SetupVCR(t, "fixtures/datasource_service_plan_invalid")
-    		defer stopQuietly(rec)
-    
-    		// test steps here
-    	})
-    }
-    ```
+```go
+package provider
+
+import (
+   "os"
+   "testing"
+   "github.com/hashicorp/terraform-plugin-testing/helper/resource"
+)
+
+func TestDatasourceServicePlan(t *testing.T) {
+   datasourceName := "data.cloudfoundry_service_plan.test"
+   
+   endpoint := strtostrptr(os.Getenv("TEST_CF_API_URL"))
+   user := strtostrptr(os.Getenv("TEST_CF_USER"))
+   password := strtostrptr(os.Getenv("TEST_CF_PASSWORD"))
+   origin := strtostrptr(os.Getenv("TEST_CF_ORIGIN"))
+   
+   // Redact credentials if not provided
+   if *endpoint == "" || *user == "" || *password == "" || *origin == "" {
+      t.Logf("\nATTENTION: Using redacted user credentials since credentials not set as env.\nMake sure you are not triggering a recording else test will fail.")
+      endpoint = redactedTestUser.Endpoint
+      user = redactedTestUser.User
+      password = redactedTestUser.Password
+      origin = redactedTestUser.Origin
+   }
+   
+   cfg := CloudFoundryProviderConfigPtr{
+   Endpoint: endpoint,
+   User:     user,
+   Password: password,
+   Origin:   origin,
+   }
+
+   t.Parallel()
+   t.Run("error path - get unavailable service plan", func(t *testing.T) {
+   rec := cfg.SetupVCR(t, "fixtures/datasource_service_plan_invalid")
+   defer stopQuietly(rec)
+   
+   // test steps here
+   })
+}
+```
 
 5. **Record VCR fixtures**
-    - We use [go-vcr](https://pkg.go.dev/github.com/dnaeon/go-vcr) to record and replay Cloud Foundry API interactions.
-    - First run hits a live CF environment and records responses into fixture files.
-    - Future runs replay fixtures for deterministic testing.
-    - Re-record fixtures when APIs, schemas, or resources change
+   - We use [go-vcr](https://pkg.go.dev/github.com/dnaeon/go-vcr) to record and replay Cloud Foundry API interactions.
+   - First run hits a live CF environment and records responses into fixture files.
+   - Future runs replay fixtures for deterministic testing.
+   - Re-record fixtures when APIs, schemas, or resources change
 
 ---
 **Deliverables for New Entities**
@@ -128,9 +129,9 @@ If you are adding a new Cloud Foundry entity:
 ---
 **Quick Checklist**
    - make fmt and make lint pass.
-   - go generate ./... 
+   - ```go generate ./... ```
    - Tests and fixtures updated.
-   - Commit messages follow {feat|fix|chore}.
+   - Commit message follow the semantic commit principle (feat|fix|chore)
    - CLA signed.
    - Docs for resources/data sources included.
 ## Running Tests
@@ -139,26 +140,27 @@ The Cloud Foundry Terraform provider uses both **unit tests** and **acceptance t
 Before opening a pull request, please ensure that your changes are covered by tests and that all existing tests pass.
 
 1. **Running all the tests**  
-     ```bash
-     make test
-     ```
+   ```bash
+   make test
+   ```
 
 2. **Running specific test for a package**
-      - You can target a specific package (e.g., the provider):
+   - You can target a specific package (e.g., the provider):
       ```bash
-        go test ./cloudfoundry/provider
+      go test ./cloudfoundry/provider
       ```
-4. **Running a Single Test**
-     ```bash
-      go test -timeout 30s -run ^TestServiceCredentialBindingDataSource$ github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider
-     ```
-      - ```-timeout 30s``` → sets a max runtime per test.
-      - ```-run ^TestName$``` → matches only the specified test function.
+3. **Running a Single Test**
+   ```bash
+   go test -timeout 30s -run ^TestServiceCredentialBindingDataSource$ github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider
+   ```
+   - ```-timeout 30s``` → sets a max runtime per test.
+   - ```-run ^TestName$``` → matches only the specified test function.
         
-5. **Running Tests Matching a Pattern**
-    - To run all tests that match a substring or prefix:
-    ```bash
+4. **Running Tests Matching a Pattern**
+   - To run all tests that match a substring or prefix:
+      ```bash
       go test -run ServiceCredentialBinding github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider
+      ```
   
 ## Issues and Planning
 
