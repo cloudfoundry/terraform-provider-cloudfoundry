@@ -50,7 +50,7 @@ The following overview list des resources and their support for drift detection 
 
 ## Further options
 
-Besides the `terraform plan` command there are further options to detect drifts in your infrastructure. You can also create custom checks by leveraging the data sources of the Terraform provider and combine the results with custom logic e.g., in a CI/CD pipeline. The concrete setup depends on your requirements and Yes generic solution can be provided.
+Besides the `terraform plan` command there are further options to detect drifts in your infrastructure. You can also create custom checks by leveraging the data sources of the Terraform provider and combine the results with custom logic e.g., in a CI/CD pipeline. The concrete setup depends on your requirements and no generic solution can be provided.
 
 ## Next Steps
 
