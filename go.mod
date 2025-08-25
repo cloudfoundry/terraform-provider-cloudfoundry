@@ -1,12 +1,10 @@
 module github.com/cloudfoundry/terraform-provider-cloudfoundry
 
-go 1.23.0
-
-toolchain go1.23.1
+go 1.24.0
 
 require (
 	code.cloudfoundry.org/lager/v3 v3.44.0
-	code.cloudfoundry.org/policy_client v0.65.0
+	code.cloudfoundry.org/policy_client v0.66.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
@@ -25,12 +23,12 @@ require (
 replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250715085712-0c590acfa414
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.54.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.55.0 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/pprof v0.0.0-20250630185457-6e76a2b096b5 // indirect
+	github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
-	github.com/onsi/ginkgo/v2 v2.24.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.25.1 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
