@@ -120,7 +120,7 @@ Read-Only:
 - `readiness_health_check_invocation_timeout` (Number) The timeout in seconds for the readiness health check requests for http and port health checks.
 - `readiness_health_check_type` (String) The readiness health check type which can be one of 'port', 'process', 'http'.
 - `timeout` (Number) Time in seconds at which the health-check will report failure.
-- `type` (String) The process type. Can be web or worker.
+- `type` (String) The process type. Any string identifier (e.g., web, worker, scheduler).
 
 
 <a id="nestedatt--routes"></a>
@@ -149,4 +149,4 @@ Read-Only:
 - `command` (String) The command used to start the sidecar.
 - `memory` (String) The memory limit for the sidecar.
 - `name` (String) Sidecar name. The identifier for the sidecars to be configured.
-- `process_types` (Set of String) List of processes to associate sidecar with.
+- `process_types` (Set of String) List of processes to associate sidecar with. Any string identifier (e.g., web, worker, scheduler).
