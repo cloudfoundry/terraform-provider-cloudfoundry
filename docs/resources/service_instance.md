@@ -159,3 +159,10 @@ Import is supported using the following syntax:
 
 terraform import cloudfoundry_service_instance.xsuaa_svc 68fea1b6-11b9-4737-ad79-74e49832533f
 ```
+
+
+### Restriction
+
+The import of service instances that can be configured via parameters only works if the corresponding service offering supports the retrieval of these parameters, which means that the `instances_retrievable` parameter of the service offering must be set to `true`.
+
+You can check this setting via CF V3 API [Get a service offering](https://v3-apidocs.cloudfoundry.org/version/3.200.0/index.html#get-a-service-offering)
