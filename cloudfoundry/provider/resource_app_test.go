@@ -9,7 +9,7 @@ import (
 func TestAppResource_Configure(t *testing.T) {
 	t.Parallel()
 	resourceName := "cloudfoundry_app.app"
-	params := `{"xsappname":"tf-test-app","tenant-mode":"dedicated","description":"tf test123","foreign-scope-references":["user_attributes"],"scopes":[{"name":"uaa.user","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]}`
+	params := `{"xsappname":"tf-test-app","tenant-mode":"dedicated","description":"tf test123","foreign-scope-references":["user_attributes"],"scopes":[{"name":"UAA","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]}`
 	t.Run("happy path - create app with bits", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_app_bits")
@@ -367,16 +367,19 @@ resource "cloudfoundry_app" "app_cnb" {
 	name                                 = "cf-cnb-lifecycle"
     space_name                           = "tf-space-1" 
     org_name                             = "PerformanceTeamBLR"
-    path                                 = "../../assets/cf-sample-app-nodejs.zip"
 	app_lifecycle                        = "cnb"
-	memory                               = "256M"
+	buildpacks                           = ["docker://docker.io/paketobuildpacks/nodejs"]
+	stack                                = "cflinuxfs4"
+	memory                               = "512M"
 	disk_quota                           = "1024M"
     instances                            = 1
+    random_route                         = true
 }
 					`,
 					Check: resource.ComposeTestCheckFunc(
 						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "name", "cf-cnb-lifecycle"),
 						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "app_lifecycle", "cnb"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "buildpacks.0", "docker://docker.io/paketobuildpacks/nodejs"),
 					),
 				},
 			},

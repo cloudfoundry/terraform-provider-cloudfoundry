@@ -186,6 +186,18 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		appmanifest.Buildpacks = buildpacks
 	}
 
+	// Add lifecycle support for CNB, docker, and buildpack
+	if !appType.AppLifecycle.IsNull() && !appType.AppLifecycle.IsUnknown() {
+		switch appType.AppLifecycle.ValueString() {
+		case "cnb":
+			appmanifest.Lifecycle = cfv3operation.CNB
+		case "docker":
+			appmanifest.Lifecycle = cfv3operation.Docker
+		case "buildpack":
+			appmanifest.Lifecycle = cfv3operation.Buildpack
+		}
+	}
+
 	if !appType.DockerImage.IsNull() {
 		appManifestDocker := cfv3operation.AppManifestDocker{
 			Image: appType.DockerImage.ValueString(),
