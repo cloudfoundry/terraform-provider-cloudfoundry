@@ -53,7 +53,7 @@ resource "cloudfoundry_service_instance_sharing" "instance_sharing" {
 
 ### Read-Only
 
-- `id` (String) The GUID of the object. This will be the same as the service_instance GUID.
+- `id` (String) The GUID of the object.
 
 ## Import
 
@@ -63,11 +63,9 @@ Import is supported using the following syntax:
 # terraform import cloudfoundry_service_instance_sharing.<resource_name> <service_instance_guid>
 
 terraform import cloudfoundry_service_instance_sharing.my_instance_sharing a1b2c3d4-5678-90ab-cdef-12345678abcd
-```
 
-For Terraform 1.5+ users, you can also use the newer import blocks syntax:
+# For Terraform 1.5+ users, you can also use the newer import blocks syntax:
 
-```terraform
 import {
   to = cloudfoundry_service_instance_sharing.my_instance_sharing
   id = "a1b2c3d4-5678-90ab-cdef-12345678abcd"
