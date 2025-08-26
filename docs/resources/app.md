@@ -37,6 +37,7 @@ resource "cloudfoundry_app" "gobis-server" {
   org_name         = "PerformanceTeamBLR"
   path             = zipper_file.fixture.output_path
   source_code_hash = zipper_file.fixture.output_sha
+  app_lifecycle    = "buildpack"
   instances        = 1
   environment = {
     MY_ENV = "red",
@@ -76,11 +77,12 @@ EOT
 }
 
 resource "cloudfoundry_app" "http-bin-server" {
-  name         = "tf-test-do-not-delete-http-bin"
-  space_name   = "tf-space-1"
-  org_name     = "PerformanceTeamBLR"
-  docker_image = "kennethreitz/httpbin"
-  strategy     = "blue-green"
+  name          = "tf-test-do-not-delete-http-bin"
+  space_name    = "tf-space-1"
+  org_name      = "PerformanceTeamBLR"
+  docker_image  = "kennethreitz/httpbin"
+  app_lifecycle = "docker"
+  strategy      = "blue-green"
   labels = {
     "app" = "backend",
     "env" = "production"
@@ -134,7 +136,7 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 ### Optional
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
-- `app_lifecycle` (String) The lifecycle type for the app which can be one of 'buildpack', 'docker', 'cnb'. When not specified, it will be automatically determined based on other attributes (docker_image or buildpacks).
+- `app_lifecycle` (String) The lifecycle type to use for the application. Valid values are 'buildpack', 'docker', and 'cnb' (Cloud Native Buildpacks - experimental). Defaults to 'buildpack' for bits packages and 'docker' for Docker images.
 - `buildpacks` (List of String) Multiple buildpacks used to stage the application.
 - `command` (String) A custom start command for the application. This overrides the start command provided by the buildpack.
 - `disk_quota` (String) The disk space to be allocated for each application instance.
