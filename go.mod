@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
 	code.cloudfoundry.org/policy_client v0.66.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
-	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.13
+	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.14
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.15.1
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.5.0
@@ -24,6 +24,7 @@ require (
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.55.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
+	github.com/Masterminds/semver/v3 v3.3.1 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 // indirect
