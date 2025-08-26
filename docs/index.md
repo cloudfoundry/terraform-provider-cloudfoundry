@@ -55,6 +55,15 @@ By default, the underlying Cloud Foundry client used by the Terraform Cloud Foun
 % export CF_APPEND_USER_AGENT="Optional_Extra_Information"
 ```
 
+## Enabling Application Log Tracing
+
+To assist with debugging application failures, you can enable log tracing by setting the following environment variable:
+
+```bash
+% export ENABLE_CF_APP_LOG_TRACE="true"
+```
+When enabled, recent error logs from the application will be printed to the console if a deployment of application fails.
+
 ## Get Started
 
 If you're not familiar with Terraform yet, see the [Fundamentals](https://developer.hashicorp.com/terraform/tutorials/cli) section with a lot of helpful tutorials.
