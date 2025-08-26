@@ -134,7 +134,7 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 							Computed:            true,
 						},
 						"process_types": schema.SetAttribute{
-							MarkdownDescription: "List of processes to associate sidecar with.",
+							MarkdownDescription: "List of processes to associate sidecar with. Any string identifier (e.g., web, worker, scheduler).",
 							ElementType:         types.StringType,
 							Computed:            true,
 						},
@@ -161,7 +161,7 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 func datasourceProcessSchemaAttributes() map[string]schema.Attribute {
 	pSchema := map[string]schema.Attribute{
 		"type": schema.StringAttribute{
-			MarkdownDescription: "The process type. Can be web or worker.",
+			MarkdownDescription: "The process type. Any string identifier (e.g., web, worker, scheduler).",
 			Computed:            true,
 		},
 	}
