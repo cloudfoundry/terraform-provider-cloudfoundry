@@ -259,7 +259,20 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 	if !appType.Environment.IsNull() {
 		var env map[string]string
 		tempDiags = appType.Environment.ElementsAs(ctx, &env, false)
-		diags = append(diags, tempDiags...)
+		if tempDiags.HasError() {
+			// Handle null values in environment map by filtering them out
+			env = make(map[string]string)
+			elements := appType.Environment.Elements()
+			for key, element := range elements {
+				if !element.IsNull() && !element.IsUnknown() {
+					if strVal, ok := element.(basetypes.StringValue); ok {
+						env[key] = strVal.ValueString()
+					}
+				}
+			}
+		} else {
+			diags = append(diags, tempDiags...)
+		}
 		appmanifest.Env = env
 	}
 	if !appType.HealthCheckInterval.IsNull() {
@@ -483,7 +496,16 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		appType.Routes = types.SetNull(routeObjType)
 	}
 	if appManifest.Env != nil {
-		appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, appManifest.Env)
+		// Filter out null values from environment variables before converting to Terraform Map
+		// Cloud Foundry can return null values for environment variables, but Terraform's
+		// types.StringType cannot handle null values
+		filteredEnv := make(map[string]string)
+		for key, value := range appManifest.Env {
+			if value != "" {
+				filteredEnv[key] = value
+			}
+		}
+		appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, filteredEnv)
 		diags = append(diags, tempDiags...)
 	} else {
 		appType.Environment = types.MapNull(types.StringType)
@@ -758,13 +780,42 @@ func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plann
 
 	finalEnvs = make(map[string]*string)
 
-	diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
-	diagnostics.Append(plannedEnvs.ElementsAs(ctx, &newEnvs, false)...)
+	// Handle existing environment variables
+	if !existingEnvs.IsNull() {
+		diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
+	}
 
+	// Handle planned environment variables - need to be careful with null values
+	if !plannedEnvs.IsNull() {
+		// Try to convert planned envs, but if there are null values, we need to handle them
+		planDiags := plannedEnvs.ElementsAs(ctx, &newEnvs, false)
+		if planDiags.HasError() {
+			// If ElementsAs fails due to null values, we need to manually process the map
+			// This happens when the Terraform configuration has null values for environment variables
+			newEnvs = make(map[string]*string)
+			
+			// Get the raw map elements and filter out null values
+			elements := plannedEnvs.Elements()
+			for key, element := range elements {
+				if !element.IsNull() {
+					if strVal, ok := element.(basetypes.StringValue); ok && !strVal.IsNull() {
+						value := strVal.ValueString()
+						newEnvs[key] = &value
+					}
+				}
+				// Skip null values - they will be removed from the environment
+			}
+		} else {
+			diagnostics.Append(planDiags...)
+		}
+	}
+
+	// Set all old environment variables to nil (for removal)
 	for key := range oldEnvs {
 		finalEnvs[key] = nil
 	}
 
+	// Set all new environment variables
 	for key, value := range newEnvs {
 		finalEnvs[key] = value
 	}
