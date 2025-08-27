@@ -3,8 +3,12 @@ package provider
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"os"
+	"strings"
+	"time"
 
+	logclient "code.cloudfoundry.org/go-log-cache/v3"
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
 	cfv3operation "github.com/cloudfoundry/go-cfclient/v3/operation"
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
@@ -269,7 +273,6 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 							Optional:            true,
 							Validators: []validator.Set{
 								setvalidator.SizeAtLeast(1),
-								setvalidator.ValueStringsAre(stringvalidator.OneOf("web", "worker")),
 							},
 						},
 						"memory": schema.StringAttribute{
@@ -302,11 +305,8 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 func (r *appResource) ProcessSchemaAttributes() map[string]schema.Attribute {
 	pSchema := map[string]schema.Attribute{
 		"type": schema.StringAttribute{
-			MarkdownDescription: "The process type. Can be web or worker.",
+			MarkdownDescription: "The process type. Any string identifier is accepted (e.g., web, worker, scheduler).",
 			Required:            true,
-			Validators: []validator.String{
-				stringvalidator.OneOf("web", "worker"),
-			},
 		},
 	}
 	for k, v := range r.ProcessAppCommonSchema() {
@@ -479,9 +479,14 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		envs, diags = setEnvForUpdate(ctx, previousState.Environment, desiredState.Environment)
 		respDiags.Append(diags...)
 	}
+
+	curTime := time.Now()
 	appResp, err := r.push(desiredState, appManifestValue, ctx)
+
 	if err != nil {
-		respDiags.AddError("Error pushing app", err.Error())
+
+		errString := getAppLogTrace(ctx, r, desiredState, curTime)
+		respDiags.AddError("Error pushing app", err.Error()+"\n"+strings.Join(errString, ""))
 		return
 	}
 
@@ -567,4 +572,65 @@ func (r *appResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 
 func (r *appResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+}
+
+func getAppLogTrace(ctx context.Context, r *appResource, desiredState AppType, curTime time.Time) []string {
+
+	EnableCFAppLogTrace := os.Getenv("ENABLE_CF_APP_LOG_TRACE")
+	var errString []string
+	var logCacheAddr string
+	if EnableCFAppLogTrace == "true" {
+
+		org, _ := r.cfClient.Organizations.Single(ctx, &cfv3client.OrganizationListOptions{
+			Names: cfv3client.Filter{
+				Values: []string{desiredState.Org.ValueString()},
+			},
+		})
+		space, _ := r.cfClient.Spaces.Single(ctx, &cfv3client.SpaceListOptions{
+			Names: cfv3client.Filter{
+				Values: []string{desiredState.Space.ValueString()},
+			},
+			OrganizationGUIDs: cfv3client.Filter{
+				Values: []string{org.GUID},
+			},
+		})
+		app, _ := r.cfClient.Applications.First(ctx, &cfv3client.AppListOptions{
+			Names: cfv3client.Filter{
+				Values: []string{desiredState.Name.ValueString()},
+			},
+			OrganizationGUIDs: cfv3client.Filter{
+				Values: []string{org.GUID},
+			},
+			SpaceGUIDs: cfv3client.Filter{
+				Values: []string{space.GUID},
+			},
+		})
+
+		apiURL := app.Links.Self().Href
+		parsedURL, err := url.Parse(apiURL)
+		if err != nil {
+			errString = append(errString, "Error in getting cf log: "+err.Error())
+			return errString
+		}
+		host := parsedURL.Host
+		if strings.HasPrefix(host, "api.") {
+			logCacheAddr = strings.Replace(host, "api.", "log-cache.", 1)
+			logCacheAddr = "https://" + logCacheAddr
+		}
+
+		log_client := logclient.NewClient(logCacheAddr, logclient.WithHTTPClient(r.cfClient.HTTPAuthClient()))
+		es, err := log_client.Read(ctx, app.GUID, curTime)
+		if err != nil {
+			errString = append(errString, "Error in getting cf log: "+err.Error())
+			return errString
+		}
+		for _, e := range es {
+			logMessage := e.GetLog()
+			if logMessage.GetPayload() != nil && logMessage.GetType().String() == "ERR" {
+				payload := string(logMessage.GetPayload())
+				errString = append(errString, payload+"\n")
+			}
+		}
+	}
+	return errString
 }
