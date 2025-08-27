@@ -496,17 +496,21 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		appType.Routes = types.SetNull(routeObjType)
 	}
 	if appManifest.Env != nil {
-		// Filter out null values from environment variables before converting to Terraform Map
-		// Cloud Foundry can return null values for environment variables, but Terraform's
-		// types.StringType cannot handle null values
-		filteredEnv := make(map[string]string)
-		for key, value := range appManifest.Env {
-			if value != "" {
-				filteredEnv[key] = value
+		// If we have the original plan, use it as the base to preserve sensitivity markings
+		if reqPlanType != nil && !reqPlanType.Environment.IsNull() {
+			// Start with the planned environment to preserve sensitivity
+			appType.Environment = reqPlanType.Environment
+		} else {
+			// No plan available, filter out null values and create normally
+			filteredEnv := make(map[string]string)
+			for key, value := range appManifest.Env {
+				if value != "" {
+					filteredEnv[key] = value
+				}
 			}
+			appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, filteredEnv)
+			diags = append(diags, tempDiags...)
 		}
-		appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, filteredEnv)
-		diags = append(diags, tempDiags...)
 	} else {
 		appType.Environment = types.MapNull(types.StringType)
 	}
