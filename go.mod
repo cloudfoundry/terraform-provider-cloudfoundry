@@ -3,8 +3,8 @@ module github.com/cloudfoundry/terraform-provider-cloudfoundry
 go 1.25
 
 require (
-	code.cloudfoundry.org/lager/v3 v3.45.0
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
+	code.cloudfoundry.org/lager/v3 v3.45.0
 	code.cloudfoundry.org/policy_client v0.66.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
@@ -16,7 +16,7 @@ require (
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-testing v1.13.3
 	github.com/samber/lo v1.51.0
-	github.com/stretchr/testify v1.11.0
+	github.com/stretchr/testify v1.11.1
 	gopkg.in/dnaeon/go-vcr.v3 v3.2.0
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -26,6 +26,7 @@ replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.55.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
+	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 // indirect
