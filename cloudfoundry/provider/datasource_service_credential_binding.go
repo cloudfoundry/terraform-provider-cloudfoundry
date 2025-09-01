@@ -161,9 +161,8 @@ func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datas
 	bindingValues := []serviceCredentialBindingTypeWithCredentials{}
 	for _, svcBinding := range svcCredentialBindings {
 
-		bindingValue, diags := mapServiceCredentialBindingValuesToType(ctx, svcBinding)
+		bindingWithCredentials, diags := mapServiceCredentialBindingValuesToType(ctx, svcBinding)
 		resp.Diagnostics.Append(diags...)
-		bindingWithCredentials := bindingValue.Reduce()
 
 		credentialDetails, err := d.cfClient.ServiceCredentialBindings.GetDetails(ctx, bindingWithCredentials.ID.ValueString())
 		if err != nil {

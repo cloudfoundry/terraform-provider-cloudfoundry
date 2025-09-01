@@ -51,6 +51,7 @@ resource "cloudfoundry_service_credential_binding" "scb1" {
 ### Read-Only
 
 - `created_at` (String) The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.
+- `credential_binding` (String, Sensitive) The service credential binding details.
 - `id` (String) The GUID of the object.
 - `last_operation` (Attributes) The details of the last operation performed on the resource (see [below for nested schema](#nestedatt--last_operation))
 - `updated_at` (String) The date and time when the resource was updated in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.

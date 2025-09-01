@@ -87,9 +87,9 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 		testParameters                      = `{"xsappname":"tf-unit-test","tenant-mode":"dedicated","description":"tf test1","foreign-scope-references":["user_attributes"],"scopes":[{"name":"uaa.user","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]}`
 		testManagedServiceInstanceGUID      = "68fea1b6-11b9-4737-ad79-74e49832533f"
 		testUserProvidedServiceInstanceGUID = "5e2976bb-332e-41e1-8be3-53baafea9296"
-		testAppGUID                         = "ec6ac2b3-fb79-43c4-9734-000d4299bd59"
-		testApp2GUID                        = "e177a65a-964d-4be1-94be-d04d236e6dec"
-		testApp3GUID                        = "80327e5f-1e98-4f19-8e48-978865809c80"
+		testAppGUID                         = "e04e63c1-6e69-4537-b9e2-95ab6f3ebfcf"
+		testApp2GUID                        = "ede9258f-5b3d-4837-906f-8b4b2c4cbe58"
+		testApp3GUID                        = "f3d8f5c5-1bcb-489e-87a7-3011d042e4d0"
 	)
 	t.Parallel()
 	t.Run("happy path - create service key for managed service instance", func(t *testing.T) {
