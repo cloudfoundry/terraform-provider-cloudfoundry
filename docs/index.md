@@ -42,7 +42,7 @@ provider "cloudfoundry" {
 - `skip_ssl_validation` (Boolean) Allows the client to disregard SSL certificate validation when connecting to the Cloud Foundry API
 - `user` (String) A unique identifier associated with an individual or entity for authentication & authorization purposes.
 
-**Note** 
+**Note**
 
 All parameter values for the provider can be injected by setting environment variables `CF_API_URL`, `CF_USER`, `CF_PASSWORD`, `CF_ORIGIN`, `CF_CLIENT_ID`, `CF_CLIENT_SECRET`, `CF_ACCESS_TOKEN`, `CF_REFRESH_TOKEN`.
 Alternatively, one can even log in to their CF landscape via CF-CLI and the provider will pick the credentials from the config.json present in CF Home in case no attributes are given in the provider block or if no environment variables are set.
@@ -55,18 +55,35 @@ By default, the underlying Cloud Foundry client used by the Terraform Cloud Foun
 % export CF_APPEND_USER_AGENT="Optional_Extra_Information"
 ```
 
+## Enabling Application Log Tracing
+
+To assist with debugging application failures, you can enable log tracing by setting the following environment variable:
+
+```bash
+% export ENABLE_CF_APP_LOG_TRACE="true"
+```
+When enabled, recent error logs from the application will be printed to the console if a deployment of application fails.
+
 ## Get Started
 
-If you're not familiar with Terraform yet, see the [Fundamentals](https://developer.hashicorp.com/terraform/tutorials/cli) section with a lot of helpful tutorials. 
+If you're not familiar with Terraform yet, see the [Fundamentals](https://developer.hashicorp.com/terraform/tutorials/cli) section with a lot of helpful tutorials.
 
 ## Migration Guide
 
-The newer v3 APIs have brought several changes to  many of the resources created. Some are even deprecated and replaced by 
+The newer v3 APIs have brought several changes to  many of the resources created. Some are even deprecated and replaced by
 different resources.
 
-Please refer to the [migration guide](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/tree/main/migration-guide) to help transitioning from the existing [community CF provider](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) to the [current CF provider](https://github.com/cloudfoundry/terraform-provider-cloudfoundry). The migration guide 
+Please refer to the [migration guide](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/tree/main/migration-guide) to help transitioning from the existing [community CF provider](https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry) to the [current CF provider](https://github.com/cloudfoundry/terraform-provider-cloudfoundry). The migration guide
 highlights the differences and maps to the equivalent resources/datasources as well.
 
 ## Best Practices
 
 For the best experience using the Cloud Foundry provider, we recommend applying the common best practices for Terraform adoption as described in the Hashicorp documentation. For example, see [Phases of Terraform Adoption](https://developer.hashicorp.com/well-architected-framework/operational-excellence/operational-excellence-terraform-maturity).
+
+## Drift Detection
+
+You find further information on drift detection in the [Terraform provider repository](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/blob/main/guides/DRIFTDETECTION.md).
+
+## Import
+
+The documentation of each resource shows if the resource can be imported, and which keys are needed. To provide a quick overview we listed the resources in the [Terraform provider repository](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/blob/main/guides/IMPORT.md). To import a resource whose ID contains commas or other special characters, you should consider to use the import block with a resource identity if the resource supports identity-based import.

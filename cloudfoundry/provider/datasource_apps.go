@@ -174,7 +174,7 @@ func datasourceAppsSchema() map[string]schema.Attribute {
 						Computed:            true,
 					},
 					"process_types": schema.SetAttribute{
-						MarkdownDescription: "List of processes to associate sidecar with.",
+						MarkdownDescription: "List of processes to associate sidecar with. Any string identifier (e.g., web, worker, scheduler).",
 						ElementType:         types.StringType,
 						Computed:            true,
 					},

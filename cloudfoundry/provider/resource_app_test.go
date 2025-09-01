@@ -228,4 +228,66 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 			},
 		})
 	})
+
+	t.Run("happy path - create app with non-standard process type", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_scheduler")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app" {
+	name         = "http-bin-scheduler"
+	space_name   = "tf-space-1"
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	strategy		 = "blue-green"
+	processes = [
+		{
+			type                                 = "web",
+			instances                            = 1
+			memory                               = "512M"
+			disk_quota                           = "2048M"
+			health_check_type                    = "port"
+		},
+		{
+			type                                 = "scheduler",
+			instances                            = 0
+			memory                               = "256M"
+			disk_quota                           = "1024M"
+			health_check_type                    = "process"
+		}
+	]
+	no_route = true
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "docker_image", "kennethreitz/httpbin"),
+						resource.TestCheckResourceAttr(resourceName, "strategy", "blue-green"),
+						resource.TestCheckResourceAttr(resourceName, "no_route", "true"),
+						resource.TestCheckResourceAttr(resourceName, "processes.#", "2"),
+						// Check for the web process
+						resource.TestCheckTypeSetElemNestedAttrs(resourceName, "processes.*", map[string]string{
+							"type":              "web",
+							"instances":         "1",
+							"memory":            "512M",
+							"disk_quota":        "2048M",
+							"health_check_type": "port",
+						}),
+						// Check for the scheduler process (the main test goal)
+						resource.TestCheckTypeSetElemNestedAttrs(resourceName, "processes.*", map[string]string{
+							"type":              "scheduler",
+							"instances":         "0",
+							"memory":            "256M",
+							"disk_quota":        "1024M",
+							"health_check_type": "process",
+						}),
+					),
+				},
+			},
+		})
+	})
 }
