@@ -94,7 +94,6 @@ type maintenanceInfoType struct {
 }
 
 type ServiceInstanceSharingType struct {
-	Id              types.String `tfsdk:"id"`
 	ServiceInstance types.String `tfsdk:"service_instance"`
 	Spaces          types.Set    `tfsdk:"spaces"`
 }
