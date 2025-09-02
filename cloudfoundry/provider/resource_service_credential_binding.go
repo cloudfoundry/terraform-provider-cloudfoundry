@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	cfv3client "github.com/cloudfoundry/go-cfclient/v3/client"
@@ -89,6 +90,12 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
+			"credential_binding": schema.StringAttribute{
+				MarkdownDescription: "The service credential binding details.",
+				Computed:            true,
+				Sensitive:           true,
+				CustomType:          jsontypes.NormalizedType{},
+			},
 			"last_operation": lastOperationSchema(),
 			idKey:            guidSchema(),
 			labelsKey:        resourceLabelsSchema(),
@@ -115,7 +122,7 @@ func (r *serviceCredentialBindingResource) Configure(ctx context.Context, req re
 }
 
 func (r *serviceCredentialBindingResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
-	var config serviceCredentialBindingType
+	var config serviceCredentialBindingTypeWithCredentials
 	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
 
 	if resp.Diagnostics.HasError() {
@@ -154,7 +161,7 @@ func (r *serviceCredentialBindingResource) ValidateConfig(ctx context.Context, r
 
 func (r *serviceCredentialBindingResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	var (
-		plan                     serviceCredentialBindingType
+		plan                     serviceCredentialBindingTypeWithCredentials
 		serviceCredentialBinding *cfv3resource.ServiceCredentialBinding
 		err                      error
 	)
@@ -220,13 +227,27 @@ func (r *serviceCredentialBindingResource) Create(ctx context.Context, req resou
 	}
 
 	data, diags := mapServiceCredentialBindingValuesToType(ctx, serviceCredentialBinding)
-	data.Parameters = plan.Parameters
 	resp.Diagnostics.Append(diags...)
+
+	data.Parameters = plan.Parameters
+
+	credentialDetails, err := r.cfClient.ServiceCredentialBindings.GetDetails(ctx, data.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddWarning(
+			"API Error Fetching Service Credential Binding Details.",
+			fmt.Sprintf("Request failed with %s.", err.Error()),
+		)
+		data.Credentials = jsontypes.NewNormalizedNull()
+	} else {
+		credentialJSON, _ := json.Marshal(credentialDetails)
+		data.Credentials = jsontypes.NewNormalizedValue(string(credentialJSON))
+	}
+
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 func (r *serviceCredentialBindingResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data serviceCredentialBindingType
+	var data serviceCredentialBindingTypeWithCredentials
 
 	diags := req.State.Get(ctx, &data)
 	resp.Diagnostics.Append(diags...)
@@ -240,14 +261,28 @@ func (r *serviceCredentialBindingResource) Read(ctx context.Context, req resourc
 	}
 
 	state, diags := mapServiceCredentialBindingValuesToType(ctx, serviceCredentialBinding)
-	state.Parameters = data.Parameters
 	resp.Diagnostics.Append(diags...)
+
+	state.Parameters = data.Parameters
+
+	credentialDetails, err := r.cfClient.ServiceCredentialBindings.GetDetails(ctx, data.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddWarning(
+			"API Error Fetching Service Credential Binding Details.",
+			fmt.Sprintf("Request failed with %s.", err.Error()),
+		)
+		state.Credentials = jsontypes.NewNormalizedNull()
+	} else {
+		credentialJSON, _ := json.Marshal(credentialDetails)
+		state.Credentials = jsontypes.NewNormalizedValue(string(credentialJSON))
+	}
+
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 
 }
 
 func (r *serviceCredentialBindingResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan, previousState serviceCredentialBindingType
+	var plan, previousState serviceCredentialBindingTypeWithCredentials
 	var diags diag.Diagnostics
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &previousState)...)
@@ -268,13 +303,27 @@ func (r *serviceCredentialBindingResource) Update(ctx context.Context, req resou
 	}
 
 	data, diags := mapServiceCredentialBindingValuesToType(ctx, serviceCredentialBinding)
-	data.Parameters = plan.Parameters
 	resp.Diagnostics.Append(diags...)
+
+	data.Parameters = plan.Parameters
+
+	credentialDetails, err := r.cfClient.ServiceCredentialBindings.GetDetails(ctx, data.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddWarning(
+			"API Error Fetching Service Credential Binding Details.",
+			fmt.Sprintf("Request failed with %s.", err.Error()),
+		)
+		data.Credentials = jsontypes.NewNormalizedNull()
+	} else {
+		credentialJSON, _ := json.Marshal(credentialDetails)
+		data.Credentials = jsontypes.NewNormalizedValue(string(credentialJSON))
+	}
+
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 func (r *serviceCredentialBindingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var state serviceCredentialBindingType
+	var state serviceCredentialBindingTypeWithCredentials
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {

@@ -17,20 +17,6 @@ type datasourceserviceCredentialBindingType struct {
 	CredentialBindings []serviceCredentialBindingTypeWithCredentials `tfsdk:"credential_bindings"`
 }
 
-type serviceCredentialBindingType struct {
-	Name            types.String         `tfsdk:"name"`
-	ID              types.String         `tfsdk:"id"`
-	Type            types.String         `tfsdk:"type"`
-	ServiceInstance types.String         `tfsdk:"service_instance"`
-	Parameters      jsontypes.Normalized `tfsdk:"parameters"`
-	App             types.String         `tfsdk:"app"`
-	LastOperation   types.Object         `tfsdk:"last_operation"` //LastOperationType
-	Labels          types.Map            `tfsdk:"labels"`
-	Annotations     types.Map            `tfsdk:"annotations"`
-	CreatedAt       types.String         `tfsdk:"created_at"`
-	UpdatedAt       types.String         `tfsdk:"updated_at"`
-}
-
 type serviceCredentialBindingTypeWithCredentials struct {
 	Name            types.String         `tfsdk:"name"`
 	ID              types.String         `tfsdk:"id"`
@@ -46,15 +32,9 @@ type serviceCredentialBindingTypeWithCredentials struct {
 	UpdatedAt       types.String         `tfsdk:"updated_at"`
 }
 
-func (a *serviceCredentialBindingType) Reduce() serviceCredentialBindingTypeWithCredentials {
-	var reduced serviceCredentialBindingTypeWithCredentials
-	copyFields(&reduced, a)
-	return reduced
-}
-
-func mapServiceCredentialBindingValuesToType(ctx context.Context, value *resource.ServiceCredentialBinding) (serviceCredentialBindingType, diag.Diagnostics) {
+func mapServiceCredentialBindingValuesToType(ctx context.Context, value *resource.ServiceCredentialBinding) (serviceCredentialBindingTypeWithCredentials, diag.Diagnostics) {
 	var diags, diagnostics diag.Diagnostics
-	serviceCredentialBindingType := serviceCredentialBindingType{
+	serviceCredentialBindingType := serviceCredentialBindingTypeWithCredentials{
 		ID:              types.StringValue(value.GUID),
 		Type:            types.StringValue(value.Type),
 		CreatedAt:       types.StringValue(value.CreatedAt.Format(time.RFC3339)),
@@ -80,7 +60,7 @@ func mapServiceCredentialBindingValuesToType(ctx context.Context, value *resourc
 	return serviceCredentialBindingType, diagnostics
 }
 
-func (data *serviceCredentialBindingType) mapCreateServiceCredentialBindingTypeToValues(ctx context.Context) (resource.ServiceCredentialBindingCreate, diag.Diagnostics) {
+func (data *serviceCredentialBindingTypeWithCredentials) mapCreateServiceCredentialBindingTypeToValues(ctx context.Context) (resource.ServiceCredentialBindingCreate, diag.Diagnostics) {
 
 	var (
 		diagnostics                    diag.Diagnostics
@@ -109,7 +89,7 @@ func (data *serviceCredentialBindingType) mapCreateServiceCredentialBindingTypeT
 	return *createServiceCredentialBinding, diagnostics
 }
 
-func (plan *serviceCredentialBindingType) mapUpdateServiceCredentialBindingTypeToValues(ctx context.Context, state serviceCredentialBindingType) (resource.ServiceCredentialBindingUpdate, diag.Diagnostics) {
+func (plan *serviceCredentialBindingTypeWithCredentials) mapUpdateServiceCredentialBindingTypeToValues(ctx context.Context, state serviceCredentialBindingTypeWithCredentials) (resource.ServiceCredentialBindingUpdate, diag.Diagnostics) {
 
 	updateCredBinding := &resource.ServiceCredentialBindingUpdate{}
 
