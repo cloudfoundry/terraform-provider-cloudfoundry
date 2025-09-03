@@ -4,8 +4,8 @@ subcategory: ""
 description: |-
   Gets information on Service Credential Bindings for a given service instance.
   This datasource will be deprecated in a future release.
-  Use datasource_service_credential_binding_details instead when you want to fetch details of a specific service credential binding of type app or key.
-  Use datasource_service_credential_bindings if you want to fetch all credential bindings (both app and key types) for a given service instance.
+  Use the datasource cloudfoundry_service_credential_binding_details instead when you want to fetch details of a specific service credential binding of type app or key.
+  Use the datasource cloudfoundry_service_credential_bindings if you want to fetch all credential bindings (both app and key types) for a given service instance.
 ---
 
 # cloudfoundry_service_credential_binding (Data Source)
@@ -14,9 +14,9 @@ Gets information on Service Credential Bindings for a given service instance.
 
 This datasource will be deprecated in a future release.
 
-Use `datasource_service_credential_binding_details` instead when you want to fetch details of a specific service credential binding of type `app` or `key`.
+Use the datasource `cloudfoundry_service_credential_binding_details` instead when you want to fetch details of a specific service credential binding of type `app` or `key`.
 
-Use `datasource_service_credential_bindings` if you want to fetch all credential bindings (both `app` and `key` types) for a given service instance.
+Use the datasource `cloudfoundry_service_credential_bindings` if you want to fetch all credential bindings (both `app` and `key` types) for a given service instance.
 
 ## Example Usage
 

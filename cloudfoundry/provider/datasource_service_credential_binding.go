@@ -34,8 +34,8 @@ func (d *ServiceCredentialBindingDataSource) Schema(ctx context.Context, req dat
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "Gets information on Service Credential Bindings for a given service instance.\n\n" +
 			"This datasource will be deprecated in a future release.\n\n" +
-			"Use `datasource_service_credential_binding_details` instead when you want to fetch details of a specific service credential binding of type `app` or `key`.\n\n" +
-			"Use `datasource_service_credential_bindings` if you want to fetch all credential bindings (both `app` and `key` types) for a given service instance.",
+			"Use the datasource `cloudfoundry_service_credential_binding_details` instead when you want to fetch details of a specific service credential binding of type `app` or `key`.\n\n" +
+			"Use the datasource `cloudfoundry_service_credential_bindings` if you want to fetch all credential bindings (both `app` and `key` types) for a given service instance.",
 
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
