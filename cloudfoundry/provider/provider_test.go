@@ -349,6 +349,7 @@ func TestProvider_HasDataSources(t *testing.T) {
 		"cloudfoundry_domain",
 		"cloudfoundry_app",
 		"cloudfoundry_service_credential_binding",
+		"cloudfoundry_service_credential_binding_details",
 		"cloudfoundry_mtas",
 		"cloudfoundry_mta",
 		"cloudfoundry_isolation_segment",

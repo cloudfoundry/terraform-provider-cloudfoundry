@@ -14,41 +14,38 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &ServiceCredentialBindingDataSource{}
-	_ datasource.DataSourceWithConfigure = &ServiceCredentialBindingDataSource{}
+	_ datasource.DataSource              = &ServiceCredentialBindingsDataSource{}
+	_ datasource.DataSourceWithConfigure = &ServiceCredentialBindingsDataSource{}
 )
 
-func NewServiceCredentialBindingDataSource() datasource.DataSource {
-	return &ServiceCredentialBindingDataSource{}
+func NewServiceCredentialBindingsDataSource() datasource.DataSource {
+	return &ServiceCredentialBindingsDataSource{}
 }
 
-type ServiceCredentialBindingDataSource struct {
+type ServiceCredentialBindingsDataSource struct {
 	cfClient *cfv3client.Client
 }
 
-func (d *ServiceCredentialBindingDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_service_credential_binding"
+func (d *ServiceCredentialBindingsDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_service_credential_bindings"
 }
 
-func (d *ServiceCredentialBindingDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *ServiceCredentialBindingsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on Service Credential Bindings for a given service instance.\n\n" +
-		"This datasource will be deprecated in a future release.\n\n" +
-		"Use `datasource_service_credential_binding_details` instead when you want to fetch details of a specific service credential binding of type `app` or `key`.\n\n" +
-		"Use `datasource_service_credential_bindings` if you want to fetch all credential bindings (both `app` and `key` types) for a given service instance.",
+		MarkdownDescription: "Gets information on Service Credential Bindings for a given service instance.",
 
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				MarkdownDescription: "Name of the service credential binding to query for",
 				Optional:            true,
 			},
-			"service_instance": schema.StringAttribute{
-				MarkdownDescription: "The GUID of the service instance",
-				Required:            true,
-			},
 			"app": schema.StringAttribute{
 				MarkdownDescription: "The GUID of the app which is bound to be query for",
 				Optional:            true,
+			},
+			"service_instance": schema.StringAttribute{
+				MarkdownDescription: "The GUID of the service instance",
+				Required:            true,
 			},
 			"credential_bindings": schema.ListNestedAttribute{
 				MarkdownDescription: "The list of credential bindings for the given service instance.",
@@ -72,7 +69,7 @@ func (d *ServiceCredentialBindingDataSource) Schema(ctx context.Context, req dat
 							Computed:            true,
 						},
 						"credential_binding": schema.StringAttribute{
-							MarkdownDescription: "The service credential binding details.",
+							MarkdownDescription: "The service credential binding details as JSON.",
 							Computed:            true,
 							Sensitive:           true,
 							CustomType:          jsontypes.NormalizedType{},
@@ -96,7 +93,7 @@ func (d *ServiceCredentialBindingDataSource) Schema(ctx context.Context, req dat
 	}
 }
 
-func (d *ServiceCredentialBindingDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *ServiceCredentialBindingsDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
 		return
@@ -112,7 +109,7 @@ func (d *ServiceCredentialBindingDataSource) Configure(ctx context.Context, req 
 	d.cfClient = session.CFClient
 }
 
-func (d *ServiceCredentialBindingDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+func (d *ServiceCredentialBindingsDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 
 	var data datasourceserviceCredentialBindingType
 
