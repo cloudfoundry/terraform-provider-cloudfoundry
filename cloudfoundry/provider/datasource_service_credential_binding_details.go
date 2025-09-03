@@ -35,9 +35,9 @@ func (d *ServiceCredentialBindingDetailsDataSource) Metadata(ctx context.Context
 
 func (d *ServiceCredentialBindingDetailsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Gets information on Service Credential Binding Details of a particular type (`app` or `key`) for a given service instance.\n\n"+
-		"Prefer this over `datasource_service_credential_binding`, which will be deprecated going forward.\n\n"+
-		"If you want to fetch all credential bindings (both `app` and `key` types), use `datasource_service_credential_bindings` instead.",
+		MarkdownDescription: "Gets information on Service Credential Binding Details of a particular type (`app` or `key`) for a given service instance.\n\n" +
+			"Prefer this over `datasource_service_credential_binding`, which will be deprecated going forward.\n\n" +
+			"If you want to fetch all credential bindings (both `app` and `key` types), use `datasource_service_credential_bindings` instead.",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				MarkdownDescription: "Name of the service credential binding",
