@@ -42,7 +42,7 @@ func TestServiceCredentialBindingsDataSource(t *testing.T) {
 		// in canary -> PerformanceTeamBLR -> tf-space-1
 		testManagedServiceInstanceGUID      = "e9ec29ca-993d-42e2-9c5b-cb17b1972cce"
 		testUserProvidedServiceInstanceGUID = "5e2976bb-332e-41e1-8be3-53baafea9296"
-		testAppGUID                         = "e04e63c1-6e69-4537-b9e2-95ab6f3ebfcfs"
+		testAppGUID                         = "e04e63c1-6e69-4537-b9e2-95ab6f3ebfcf"
 	)
 	t.Parallel()
 	t.Run("happy path - read credential bindings of a managed service instance", func(t *testing.T) {
