@@ -34,6 +34,7 @@ type AppType struct {
 	Strategy                              types.String       `tfsdk:"strategy"`
 	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
+	Stopped                               types.Bool         `tfsdk:"stopped"`
 	Environment                           types.Map          `tfsdk:"environment"`
 	HealthCheckInterval                   types.Int64        `tfsdk:"health_check_interval"`
 	ReadinessHealthCheckType              types.String       `tfsdk:"readiness_health_check_type"`
