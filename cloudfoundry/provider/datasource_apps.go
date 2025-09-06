@@ -100,6 +100,10 @@ func datasourceAppsSchema() map[string]schema.Attribute {
 			ElementType:         types.StringType,
 			Computed:            true,
 		},
+		"app_lifecycle": schema.StringAttribute{
+			MarkdownDescription: "The lifecycle type for the app which can be one of 'buildpack', 'docker', 'cnb'.",
+			Computed:            true,
+		},
 		"docker_image": schema.StringAttribute{
 			MarkdownDescription: "The URL to the docker image with tag",
 			Computed:            true,

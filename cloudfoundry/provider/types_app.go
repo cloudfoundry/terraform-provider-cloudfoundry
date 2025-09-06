@@ -32,6 +32,7 @@ type AppType struct {
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
 	Strategy                              types.String       `tfsdk:"strategy"`
+	AppLifecycle                          types.String       `tfsdk:"app_lifecycle"`
 	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
@@ -69,6 +70,7 @@ type DatasourceAppType struct {
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
 	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
+	AppLifecycle                          types.String       `tfsdk:"app_lifecycle"`
 	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
 	Routes                                types.Set          `tfsdk:"routes"`
 	Environment                           types.Map          `tfsdk:"environment"`
@@ -183,6 +185,19 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		diags = append(diags, tempDiags...)
 		appmanifest.Buildpacks = buildpacks
 	}
+
+	// Add lifecycle support for CNB, docker, and buildpack
+	if !appType.AppLifecycle.IsNull() && !appType.AppLifecycle.IsUnknown() {
+		switch appType.AppLifecycle.ValueString() {
+		case "cnb":
+			appmanifest.Lifecycle = cfv3operation.CNB
+		case "docker":
+			appmanifest.Lifecycle = cfv3operation.Docker
+		case "buildpack":
+			appmanifest.Lifecycle = cfv3operation.Buildpack
+		}
+	}
+
 	if !appType.DockerImage.IsNull() {
 		appManifestDocker := cfv3operation.AppManifestDocker{
 			Image: appType.DockerImage.ValueString(),
@@ -244,7 +259,20 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 	if !appType.Environment.IsNull() {
 		var env map[string]string
 		tempDiags = appType.Environment.ElementsAs(ctx, &env, false)
-		diags = append(diags, tempDiags...)
+		if tempDiags.HasError() {
+			// Handle null values in environment map by filtering them out
+			env = make(map[string]string)
+			elements := appType.Environment.Elements()
+			for key, element := range elements {
+				if !element.IsNull() && !element.IsUnknown() {
+					if strVal, ok := element.(basetypes.StringValue); ok {
+						env[key] = strVal.ValueString()
+					}
+				}
+			}
+		} else {
+			diags = append(diags, tempDiags...)
+		}
 		appmanifest.Env = env
 	}
 	if !appType.HealthCheckInterval.IsNull() {
@@ -390,6 +418,21 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	var appType AppType
 	appType.Name = types.StringValue(appManifest.Name)
 	appType.Stack = types.StringValue(appManifest.Stack)
+	// Set lifecycle from the app data if available
+	if app != nil && app.Lifecycle.Type != "" {
+		switch app.Lifecycle.Type {
+		case "buildpack":
+			appType.AppLifecycle = types.StringValue("buildpack")
+		case "docker":
+			appType.AppLifecycle = types.StringValue("docker")
+		case "cnb":
+			appType.AppLifecycle = types.StringValue("cnb")
+		default:
+			appType.AppLifecycle = types.StringValue(app.Lifecycle.Type)
+		}
+	} else {
+		appType.AppLifecycle = types.StringNull()
+	}
 	if len(appManifest.Buildpacks) != 0 {
 		appType.Buildpacks, tempDiags = types.ListValueFrom(ctx, types.StringType, appManifest.Buildpacks)
 		diags = append(diags, tempDiags...)
@@ -453,8 +496,21 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		appType.Routes = types.SetNull(routeObjType)
 	}
 	if appManifest.Env != nil {
-		appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, appManifest.Env)
-		diags = append(diags, tempDiags...)
+		// If we have the original plan, use it as the base to preserve sensitivity markings
+		if reqPlanType != nil && !reqPlanType.Environment.IsNull() {
+			// Start with the planned environment to preserve sensitivity
+			appType.Environment = reqPlanType.Environment
+		} else {
+			// No plan available, filter out null values and create normally
+			filteredEnv := make(map[string]string)
+			for key, value := range appManifest.Env {
+				if value != "" {
+					filteredEnv[key] = value
+				}
+			}
+			appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, filteredEnv)
+			diags = append(diags, tempDiags...)
+		}
 	} else {
 		appType.Environment = types.MapNull(types.StringType)
 	}
@@ -728,13 +784,42 @@ func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plann
 
 	finalEnvs = make(map[string]*string)
 
-	diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
-	diagnostics.Append(plannedEnvs.ElementsAs(ctx, &newEnvs, false)...)
+	// Handle existing environment variables
+	if !existingEnvs.IsNull() {
+		diagnostics.Append(existingEnvs.ElementsAs(ctx, &oldEnvs, false)...)
+	}
 
+	// Handle planned environment variables - need to be careful with null values
+	if !plannedEnvs.IsNull() {
+		// Try to convert planned envs, but if there are null values, we need to handle them
+		planDiags := plannedEnvs.ElementsAs(ctx, &newEnvs, false)
+		if planDiags.HasError() {
+			// If ElementsAs fails due to null values, we need to manually process the map
+			// This happens when the Terraform configuration has null values for environment variables
+			newEnvs = make(map[string]*string)
+			
+			// Get the raw map elements and filter out null values
+			elements := plannedEnvs.Elements()
+			for key, element := range elements {
+				if !element.IsNull() {
+					if strVal, ok := element.(basetypes.StringValue); ok && !strVal.IsNull() {
+						value := strVal.ValueString()
+						newEnvs[key] = &value
+					}
+				}
+				// Skip null values - they will be removed from the environment
+			}
+		} else {
+			diagnostics.Append(planDiags...)
+		}
+	}
+
+	// Set all old environment variables to nil (for removal)
 	for key := range oldEnvs {
 		finalEnvs[key] = nil
 	}
 
+	// Set all new environment variables
 	for key, value := range newEnvs {
 		finalEnvs[key] = value
 	}
