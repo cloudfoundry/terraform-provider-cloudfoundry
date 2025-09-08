@@ -5,7 +5,7 @@ go 1.25
 require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
 	code.cloudfoundry.org/lager/v3 v3.46.0
-	code.cloudfoundry.org/policy_client v0.67.0
+	code.cloudfoundry.org/policy_client v0.68.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
 	github.com/google/uuid v1.6.0
@@ -24,15 +24,15 @@ require (
 replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20250715085712-0c590acfa414
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.56.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.57.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/pprof v0.0.0-20250830080959-101d87ff5bc3 // indirect
+	github.com/google/pprof v0.0.0-20250903194437-c28834ac2320 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
-	github.com/onsi/ginkgo/v2 v2.25.2 // indirect
+	github.com/onsi/ginkgo/v2 v2.25.3 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
