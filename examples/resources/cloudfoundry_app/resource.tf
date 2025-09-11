@@ -23,6 +23,7 @@ resource "cloudfoundry_app" "gobis-server" {
   org_name         = "PerformanceTeamBLR"
   path             = zipper_file.fixture.output_path
   source_code_hash = zipper_file.fixture.output_sha
+  app_lifecycle    = "buildpack"
   instances        = 1
   environment = {
     MY_ENV = "red",
@@ -62,11 +63,12 @@ EOT
 }
 
 resource "cloudfoundry_app" "http-bin-server" {
-  name         = "tf-test-do-not-delete-http-bin"
-  space_name   = "tf-space-1"
-  org_name     = "PerformanceTeamBLR"
-  docker_image = "kennethreitz/httpbin"
-  strategy     = "blue-green"
+  name          = "tf-test-do-not-delete-http-bin"
+  space_name    = "tf-space-1"
+  org_name      = "PerformanceTeamBLR"
+  docker_image  = "kennethreitz/httpbin"
+  app_lifecycle = "docker"
+  strategy      = "blue-green"
   labels = {
     "app" = "backend",
     "env" = "production"
