@@ -423,6 +423,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	}
 
 	messages, err := mta.PollMtaOperation(ctx, r.mtaClient, spaceGuid, operationId, mta.FinishedState)
+	tflog.Info(ctx, messages)
 	if err != nil {
 		respDiags.AddError(
 			"Failure in polling MTA operation",
@@ -430,7 +431,6 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		)
 		return
 	}
-	tflog.Info(ctx, messages)
 
 	//get details of MTA
 	mtaObject, _, err := r.mtaClient.DefaultApi.GetMta(ctx, spaceGuid, mtaId, namespace)
