@@ -98,3 +98,83 @@ data "cloudfoundry_app" "app" {
 		})
 	})
 }
+
+func TestAppDataSource_Lifecycle(t *testing.T) {
+	t.Parallel()
+
+	t.Run("read app with docker lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		resourceName := "data.cloudfoundry_app.app_lifecycle"
+		rec := cfg.SetupVCR(t, "fixtures/datasource_app_lifecycle_docker")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+data "cloudfoundry_app" "app_lifecycle" {
+	name = "cf-docker-lifecycle"
+	space_name = "tf-space-1"
+	org_name = "PerformanceTeamBLR"
+}`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", "cf-docker-lifecycle"),
+						resource.TestCheckResourceAttr(resourceName, "app_lifecycle", "docker"),
+						resource.TestCheckResourceAttr(resourceName, "docker_image", "kennethreitz/httpbin"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("read app with buildpack lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		resourceName := "data.cloudfoundry_app.app_lifecycle"
+		rec := cfg.SetupVCR(t, "fixtures/datasource_app_lifecycle_buildpack")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+data "cloudfoundry_app" "app_lifecycle" {
+	name = "cf-buildpack-lifecycle"
+	space_name = "tf-space-1"
+	org_name = "PerformanceTeamBLR"
+}`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", "cf-buildpack-lifecycle"),
+						resource.TestCheckResourceAttr(resourceName, "app_lifecycle", "buildpack"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("read app with cnb lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		resourceName := "data.cloudfoundry_app.app_lifecycle"
+		rec := cfg.SetupVCR(t, "fixtures/datasource_app_lifecycle_cnb")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+data "cloudfoundry_app" "app_lifecycle" {
+	name = "cf-cnb-lifecycle"
+	space_name = "tf-space-1"
+	org_name = "PerformanceTeamBLR"
+}`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", "cf-cnb-lifecycle"),
+						resource.TestCheckResourceAttr(resourceName, "app_lifecycle", "cnb"),
+					),
+				},
+			},
+		})
+	})
+}

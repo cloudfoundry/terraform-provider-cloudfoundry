@@ -9,7 +9,7 @@ import (
 func TestAppResource_Configure(t *testing.T) {
 	t.Parallel()
 	resourceName := "cloudfoundry_app.app"
-	params := `{"xsappname":"tf-test-app","tenant-mode":"dedicated","description":"tf test123","foreign-scope-references":["user_attributes"],"scopes":[{"name":"uaa.user","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]}`
+	params := `{"xsappname":"tf-test-app","tenant-mode":"dedicated","description":"tf test123","foreign-scope-references":["user_attributes"],"scopes":[{"name":"UAA","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]}`
 	t.Run("happy path - create app with bits", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_app_bits")
@@ -285,6 +285,101 @@ resource "cloudfoundry_app" "app" {
 							"disk_quota":        "1024M",
 							"health_check_type": "process",
 						}),
+					),
+				},
+			},
+		})
+	})
+}
+
+func TestAppResource_Lifecycle(t *testing.T) {
+	t.Parallel()
+
+	t.Run("buildpack lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_buildpack")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_buildpack" {
+	name                                 = "cf-buildpack-lifecycle"
+    space_name                           = "tf-space-1" 
+    org_name                             = "PerformanceTeamBLR"
+    path                                 = "../../assets/cf-sample-app-nodejs.zip"
+	app_lifecycle                        = "buildpack"
+	memory                               = "256M"
+	disk_quota                           = "1024M"
+    instances                            = 1
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_buildpack", "name", "cf-buildpack-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_buildpack", "app_lifecycle", "buildpack"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("docker lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_docker")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_docker" {
+	name         = "cf-docker-lifecycle"
+	space_name   = "tf-space-1"
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	app_lifecycle = "docker"
+	no_route     = true
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_docker", "name", "cf-docker-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_docker", "app_lifecycle", "docker"),
+					),
+				},
+			},
+		})
+	})
+
+	t.Run("cnb lifecycle", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_cnb")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_app" "app_cnb" {
+	name                                 = "cf-cnb-lifecycle"
+    space_name                           = "tf-space-1" 
+    org_name                             = "PerformanceTeamBLR"
+	app_lifecycle                        = "cnb"
+	buildpacks                           = ["docker://docker.io/paketobuildpacks/nodejs"]
+	stack                                = "cflinuxfs4"
+	memory                               = "512M"
+	disk_quota                           = "1024M"
+    instances                            = 1
+    random_route                         = true
+}
+					`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "name", "cf-cnb-lifecycle"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "app_lifecycle", "cnb"),
+						resource.TestCheckResourceAttr("cloudfoundry_app.app_cnb", "buildpacks.0", "docker://docker.io/paketobuildpacks/nodejs"),
 					),
 				},
 			},
