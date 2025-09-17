@@ -201,7 +201,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				},
 			},
 			"stopped": schema.BoolAttribute{
-				MarkdownDescription: "Whether the application is started or stopped after creation.",
+				MarkdownDescription: "Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.",
 				Optional:            true,
 			},
 			"environment": schema.MapAttribute{
