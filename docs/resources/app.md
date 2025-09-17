@@ -162,6 +162,7 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 - `sidecars` (Attributes Set) The attribute specifies additional processes to run in the same container as your app (see [below for nested schema](#nestedatt--sidecars))
 - `source_code_hash` (String) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the path specified.
 - `stack` (String) The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information
+- `stopped` (Boolean) Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.
 - `strategy` (String) The deployment strategy to use when deploying the application. Valid values are 'none', 'rolling', and 'blue-green', defaults to 'none'.
 - `timeout` (Number) Time in seconds at which the health-check will report failure.
 

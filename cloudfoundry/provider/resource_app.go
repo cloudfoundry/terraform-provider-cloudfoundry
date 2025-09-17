@@ -200,6 +200,10 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					},
 				},
 			},
+			"stopped": schema.BoolAttribute{
+				MarkdownDescription: "Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.",
+				Optional:            true,
+			},
 			"environment": schema.MapAttribute{
 				MarkdownDescription: "Key/value pairs of custom environment variables to set in your app. Does not include any system or service variables.",
 				Optional:            true,
@@ -514,6 +518,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	plan, diags := mapAppValuesToType(ctx, manifest.Applications[0], appResp, &desiredState, sshResp)
 	respDiags.Append(diags...)
 	plan.CopyConfigAttributes(&desiredState)
+	plan.Stopped = desiredState.Stopped
 	respDiags.Append(respState.Set(ctx, &plan)...)
 }
 func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppManifest, ctx context.Context) (*cfv3resource.App, error) {
@@ -537,6 +542,9 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 			sm = cfv3operation.StrategyNone
 		}
 		manifestOp.WithStrategy(sm)
+	}
+	if appType.Stopped.ValueBool() {
+		manifestOp.WithNoStart(true)
 	}
 	appResp, err := manifestOp.Push(ctx, appManifestValue, file)
 	if err != nil {
