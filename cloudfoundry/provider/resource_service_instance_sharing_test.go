@@ -2,12 +2,12 @@ package provider
 
 import (
 	"bytes"
-	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"regexp"
 	"testing"
 	"text/template"
 
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/stretchr/testify/assert"
@@ -50,9 +50,10 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 	var (
 		testUserProvidedServiceInstanceGUID = "5e2976bb-332e-41e1-8be3-53baafea9296"
 		testSpaces                          = `["02c0cc92-6ecc-44b1-b7b2-096ca19ee143", "121c3a95-0f82-45a6-8ff2-1920b2067edb"]`
+		updatedSpaces                       = `["592c4741-9fb2-4b5d-8848-4f7db2d2c4c4", "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"]`
 	)
 	t.Parallel()
-	t.Run("happy path - create service instance sharing", func(t *testing.T) {
+	t.Run("happy path - create and update service instance sharing", func(t *testing.T) {
 		// setup
 		resourceName := "cloudfoundry_service_instance_sharing.rs"
 		cfg := getCFHomeConf()
@@ -73,7 +74,24 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "service_instance", regexpValidUUID),
-						resource.TestMatchResourceAttr(resourceName, "spaces.0", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "spaces.#", "2"),
+						resource.TestCheckTypeSetElemAttr(resourceName, "spaces.*", "121c3a95-0f82-45a6-8ff2-1920b2067edb"),
+						resource.TestCheckTypeSetElemAttr(resourceName, "spaces.*", "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"),
+					),
+				},
+				{
+					// Update - remove one space and add another
+					Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
+						HclType:         hclObjectResource,
+						HclObjectName:   "rs",
+						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						Spaces:          &updatedSpaces,
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "service_instance", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "spaces.#", "2"),
+						resource.TestCheckTypeSetElemAttr(resourceName, "spaces.*", "592c4741-9fb2-4b5d-8848-4f7db2d2c4c4"),
+						resource.TestCheckTypeSetElemAttr(resourceName, "spaces.*", "02c0cc92-6ecc-44b1-b7b2-096ca19ee143"),
 					),
 				},
 			},

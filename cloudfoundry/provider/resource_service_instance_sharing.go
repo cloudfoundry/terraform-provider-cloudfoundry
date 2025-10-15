@@ -3,12 +3,12 @@ package provider
 import (
 	"context"
 	"fmt"
+
 	"github.com/hashicorp/terraform-plugin-framework/path"
 
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 
@@ -60,10 +60,7 @@ func (r *serviceInstanceSharingResource) Schema(ctx context.Context, req resourc
 			"spaces": schema.SetAttribute{
 				MarkdownDescription: "The IDs of the spaces to share the service instance with.",
 				Required:            true,
-				PlanModifiers: []planmodifier.Set{
-					setplanmodifier.RequiresReplace(),
-				},
-				ElementType: types.StringType,
+				ElementType:         types.StringType,
 				Validators: []validator.Set{
 					setvalidator.ValueStringsAre(validation.ValidUUID()),
 					setvalidator.SizeAtLeast(1),
@@ -150,8 +147,90 @@ func (r *serviceInstanceSharingResource) Read(ctx context.Context, req resource.
 }
 
 func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	// No update method needed since the resource is immutable
-	// The method needs to exist to satisfy the interface
+	var plan, previousState ServiceInstanceSharingType
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &previousState)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	var planSpaces []string
+	var previousSpaces []string
+	tempDiags := plan.Spaces.ElementsAs(ctx, &planSpaces, false)
+	if tempDiags.HasError() {
+		resp.Diagnostics.Append(tempDiags...)
+		return
+	}
+	tempDiags = previousState.Spaces.ElementsAs(ctx, &previousSpaces, false)
+	if tempDiags.HasError() {
+		resp.Diagnostics.Append(tempDiags...)
+		return
+	}
+
+	// Create maps for lookup
+	planSpacesMap := make(map[string]bool)
+	previousSpacesMap := make(map[string]bool)
+	for _, space := range planSpaces {
+		planSpacesMap[space] = true
+	}
+	for _, space := range previousSpaces {
+		previousSpacesMap[space] = true
+	}
+
+	// Find spaces to be added (in plan but not in previousState)
+	var spacesToAdd []string
+	for _, space := range planSpaces {
+		if !previousSpacesMap[space] {
+			spacesToAdd = append(spacesToAdd, space)
+		}
+	}
+
+	// Find spaces to be removed (in previousState but not in plan)
+	var spacesToRemove []string
+	for _, space := range previousSpaces {
+		if !planSpacesMap[space] {
+			spacesToRemove = append(spacesToRemove, space)
+		}
+	}
+
+	tflog.Trace(ctx, "Spaces diff", map[string]interface{}{
+		"spaces_to_add":    spacesToAdd,
+		"spaces_to_remove": spacesToRemove,
+	})
+
+	serviceInstanceID := plan.ServiceInstance.ValueString()
+
+	if len(spacesToRemove) > 0 {
+		err := r.cfClient.ServiceInstances.UnShareWithSpaces(ctx, serviceInstanceID, spacesToRemove)
+		if err != nil {
+			resp.Diagnostics.AddError("Error unsharing service instance with spaces", err.Error())
+			return
+		}
+		tflog.Debug(ctx, "Unshared service instance with spaces", map[string]interface{}{
+			"service_instance": serviceInstanceID,
+			"spaces":           spacesToRemove,
+		})
+	}
+	if len(spacesToAdd) > 0 {
+		_, err := r.cfClient.ServiceInstances.ShareWithSpaces(ctx, serviceInstanceID, spacesToAdd)
+		if err != nil {
+			resp.Diagnostics.AddError("Error sharing service instance with spaces", err.Error())
+			return
+		}
+		tflog.Debug(ctx, "Shared service instance with spaces", map[string]interface{}{
+			"service_instance": serviceInstanceID,
+			"spaces":           spacesToAdd,
+		})
+	}
+
+	newState := ServiceInstanceSharingType{
+		Id:              plan.ServiceInstance,
+		ServiceInstance: plan.ServiceInstance,
+		Spaces:          plan.Spaces,
+	}
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
+	tflog.Trace(ctx, "updated a service instance sharing resource")
 }
 
 func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
