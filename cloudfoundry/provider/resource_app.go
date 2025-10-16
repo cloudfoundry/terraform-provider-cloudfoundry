@@ -210,7 +210,6 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Default:             booldefault.StaticBool(false),
 				PlanModifiers: []planmodifier.Bool{
 					boolplanmodifier.UseStateForUnknown(),
-					boolplanmodifier.RequiresReplace(),
 				},
 			},
 			"environment": schema.MapAttribute{
