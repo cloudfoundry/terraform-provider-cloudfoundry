@@ -24,6 +24,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
@@ -153,6 +155,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				},
 				PlanModifiers: []planmodifier.Set{
 					setplanmodifier.RequiresReplace(),
+					setplanmodifier.UseStateForUnknown(),
 				},
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
@@ -203,6 +206,11 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 			"stopped": schema.BoolAttribute{
 				MarkdownDescription: "Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.",
 				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"environment": schema.MapAttribute{
 				MarkdownDescription: "Key/value pairs of custom environment variables to set in your app. Does not include any system or service variables.",
@@ -449,6 +457,9 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 	plan.CopyConfigAttributes(&appType)
 	plan.Space = types.StringValue(space.Name)
 	plan.Org = types.StringValue(org.Name)
+	if plan.Stopped.IsNull() || plan.Stopped.IsUnknown() {
+		plan.Stopped = appType.Stopped
+	}
 	resp.State.Set(ctx, &plan)
 }
 
