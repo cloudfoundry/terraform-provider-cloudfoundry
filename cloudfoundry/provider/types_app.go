@@ -460,8 +460,23 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		appType.Environment = types.MapNull(types.StringType)
 	}
 	if appManifest.Processes != nil {
+		planProcessesByType := map[string]*Process{}
+		if reqPlanType != nil && len(reqPlanType.Processes) > 0 {
+			planProcessesByType = make(map[string]*Process, len(reqPlanType.Processes))
+			for i := range reqPlanType.Processes {
+				proc := &reqPlanType.Processes[i]
+				if proc.Type.IsNull() || proc.Type.IsUnknown() {
+					continue
+				}
+				planProcessesByType[proc.Type.ValueString()] = proc
+			}
+		}
 		var processes []Process
-		for i, process := range *appManifest.Processes {
+		for _, process := range *appManifest.Processes {
+			plannedProcess := (*Process)(nil)
+			if len(planProcessesByType) > 0 {
+				plannedProcess = planProcessesByType[string(process.Type)]
+			}
 			// reqPlanType will be set only for resources else nil
 			// we also check if processes were not set in request but we have in response then map to app spec level else map to process spec level
 			if reqPlanType != nil && len(reqPlanType.Processes) == 0 {
@@ -539,8 +554,8 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					p.Command = types.StringValue(process.Command)
 				}
 				if process.DiskQuota != "" {
-					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].DiskQuota.IsNull() && !reqPlanType.Processes[i].DiskQuota.IsUnknown() {
-						result, err := getDesiredType(process.DiskQuota, reqPlanType.Processes[i].DiskQuota.ValueString())
+					if plannedProcess != nil && !plannedProcess.DiskQuota.IsNull() && !plannedProcess.DiskQuota.IsUnknown() {
+						result, err := getDesiredType(process.DiskQuota, plannedProcess.DiskQuota.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting disk quota", err.Error())
 							diags = append(diags, tempDiags...)
@@ -561,8 +576,8 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 				}
 				p.Instances = types.Int64Value(int64(*process.Instances))
 				if process.Memory != "" {
-					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].Memory.IsNull() && !reqPlanType.Processes[i].Memory.IsUnknown() {
-						result, err := getDesiredType(process.Memory, reqPlanType.Processes[i].Memory.ValueString())
+					if plannedProcess != nil && !plannedProcess.Memory.IsNull() && !plannedProcess.Memory.IsUnknown() {
+						result, err := getDesiredType(process.Memory, plannedProcess.Memory.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting memory", err.Error())
 							diags = append(diags, tempDiags...)
@@ -591,8 +606,8 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					p.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
 				}
 				if process.LogRateLimitPerSecond != "" {
-					if reqPlanType != nil && i < len(reqPlanType.Processes) && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsNull() && !reqPlanType.Processes[i].LogRateLimitPerSecond.IsUnknown() {
-						result, err := getDesiredType(process.LogRateLimitPerSecond, reqPlanType.Processes[i].LogRateLimitPerSecond.ValueString())
+					if plannedProcess != nil && !plannedProcess.LogRateLimitPerSecond.IsNull() && !plannedProcess.LogRateLimitPerSecond.IsUnknown() {
+						result, err := getDesiredType(process.LogRateLimitPerSecond, plannedProcess.LogRateLimitPerSecond.ValueString())
 						if err != nil {
 							tempDiags.AddError("Error converting log_rate_limit", err.Error())
 							diags = append(diags, tempDiags...)
