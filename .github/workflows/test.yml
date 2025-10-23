@@ -26,7 +26,7 @@ permissions:
 
 # Define the latest Terraform version to use for upload of coverage report
 env:
-  LATEST_VERSION: 1.12.*
+  LATEST_VERSION: 1.13.*
 
 jobs:
   # Ensure project builds before running testing matrix
@@ -85,8 +85,8 @@ jobs:
       # '1.8.*' end of security support 26 Nov 2024
       # '1.9.*' #end of security support 27 Feb 2025
       # '1.10.*' end of security support 14 May 2025
+      # '1.11.*' end of security support 20 Aug 2025
         terraform:
-          - '1.11.*'
           - '1.12.*'
           - '1.13.*'
     steps:
