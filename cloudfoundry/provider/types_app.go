@@ -460,7 +460,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 		appType.Environment = types.MapNull(types.StringType)
 	}
 	if appManifest.Processes != nil {
-		planProcessesByType := map[string]*Process{}
+		var planProcessesByType map[string]*Process
 		if reqPlanType != nil && len(reqPlanType.Processes) > 0 {
 			planProcessesByType = make(map[string]*Process, len(reqPlanType.Processes))
 			for i := range reqPlanType.Processes {
