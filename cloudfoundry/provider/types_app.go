@@ -739,7 +739,7 @@ func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plann
 	return finalEnvs, diagnostics
 }
 
-func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType, sshResp *cfv3resource.AppFeature) (DatasourceAppType, diag.Diagnostics) {
+func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, sshResp *cfv3resource.AppFeature) (DatasourceAppType, diag.Diagnostics) {
 	var diags, tempDiags diag.Diagnostics
 	var appType DatasourceAppType
 	appType.Name = types.StringValue(appManifest.Name)

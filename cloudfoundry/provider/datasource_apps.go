@@ -293,7 +293,7 @@ func (d *appsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 			return
 		}
 
-		atResp, diags := mapAppDatasourceValuesToType(ctx, appManifest.Applications[0], app, nil, sshResp)
+		atResp, diags := mapAppDatasourceValuesToType(ctx, appManifest.Applications[0], app, sshResp)
 		resp.Diagnostics.Append(diags...)
 		if resp.Diagnostics.HasError() {
 			return
