@@ -306,12 +306,12 @@ func (d *appDataSource) Read(ctx context.Context, req datasource.ReadRequest, re
 		resp.Diagnostics.AddError("Error unmarshalling app", err.Error())
 		return
 	}
-	atResp, diags := mapAppValuesToType(ctx, appManifest.Applications[0], app, nil, sshResp)
+	atResp, diags := mapAppDatasourceValuesToType(ctx, appManifest.Applications[0], app, sshResp)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	datasourceAppTypeResp := atResp.Reduce()
+	datasourceAppTypeResp := atResp
 	datasourceAppTypeResp.Org = datasourceAppType.Org
 	datasourceAppTypeResp.Space = datasourceAppType.Space
 
