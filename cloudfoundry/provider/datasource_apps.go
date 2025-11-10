@@ -293,13 +293,13 @@ func (d *appsDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 			return
 		}
 
-		atResp, diags := mapAppValuesToType(ctx, appManifest.Applications[0], app, nil, sshResp)
+		atResp, diags := mapAppDatasourceValuesToType(ctx, appManifest.Applications[0], app, nil, sshResp)
 		resp.Diagnostics.Append(diags...)
 		if resp.Diagnostics.HasError() {
 			return
 		}
 
-		datasourceAppTypeResp := atResp.Reduce()
+		datasourceAppTypeResp := atResp
 		datasourceAppTypeResp.Org = types.StringValue(org.Name)
 		datasourceAppTypeResp.Space = types.StringValue(app.Relationships.Space.Data.GUID)
 		appsList = append(appsList, datasourceAppTypeResp)

@@ -62,38 +62,38 @@ type AppType struct {
 }
 
 type DatasourceAppType struct {
-	Name                                  types.String       `tfsdk:"name"`
-	Space                                 types.String       `tfsdk:"space_name"`
-	Org                                   types.String       `tfsdk:"org_name"`
-	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
-	Stack                                 types.String       `tfsdk:"stack"`
-	Buildpacks                            types.List         `tfsdk:"buildpacks"`
-	DockerImage                           types.String       `tfsdk:"docker_image"`
-	DockerCredentials                     *DockerCredentials `tfsdk:"docker_credentials"`
-	ServiceBindings                       types.Set          `tfsdk:"service_bindings"`
-	Routes                                types.Set          `tfsdk:"routes"`
-	Environment                           types.Map          `tfsdk:"environment"`
-	HealthCheckInterval                   types.Int64        `tfsdk:"health_check_interval"`
-	ReadinessHealthCheckType              types.String       `tfsdk:"readiness_health_check_type"`
-	ReadinessHealthCheckHttpEndpoint      types.String       `tfsdk:"readiness_health_check_http_endpoint"`
-	ReadinessHealthCheckInvocationTimeout types.Int64        `tfsdk:"readiness_health_check_invocation_timeout"`
-	ReadinessHealthCheckInterval          types.Int64        `tfsdk:"readiness_health_check_interval"`
-	LogRateLimitPerSecond                 types.String       `tfsdk:"log_rate_limit_per_second"`
-	Processes                             []Process          `tfsdk:"processes"`
-	Sidecars                              []Sidecar          `tfsdk:"sidecars"`
-	ID                                    types.String       `tfsdk:"id"`
-	CreatedAt                             types.String       `tfsdk:"created_at"`
-	UpdatedAt                             types.String       `tfsdk:"updated_at"`
-	Command                               types.String       `tfsdk:"command"`
-	DiskQuota                             types.String       `tfsdk:"disk_quota"`
-	HealthCheckHttpEndpoint               types.String       `tfsdk:"health_check_http_endpoint"`
-	HealthCheckInvocationTimeout          types.Int64        `tfsdk:"health_check_invocation_timeout"`
-	HealthCheckType                       types.String       `tfsdk:"health_check_type"`
-	Instances                             types.Int64        `tfsdk:"instances"`
-	Memory                                types.String       `tfsdk:"memory"`
-	Timeout                               types.Int64        `tfsdk:"timeout"`
-	Labels                                types.Map          `tfsdk:"labels"`
-	Annotations                           types.Map          `tfsdk:"annotations"`
+	Name                                  types.String                 `tfsdk:"name"`
+	Space                                 types.String                 `tfsdk:"space_name"`
+	Org                                   types.String                 `tfsdk:"org_name"`
+	EnableSSH                             types.Bool                   `tfsdk:"enable_ssh"`
+	Stack                                 types.String                 `tfsdk:"stack"`
+	Buildpacks                            types.List                   `tfsdk:"buildpacks"`
+	DockerImage                           types.String                 `tfsdk:"docker_image"`
+	DockerCredentials                     *DataSourceDockerCredentials `tfsdk:"docker_credentials"`
+	ServiceBindings                       types.Set                    `tfsdk:"service_bindings"`
+	Routes                                types.Set                    `tfsdk:"routes"`
+	Environment                           types.Map                    `tfsdk:"environment"`
+	HealthCheckInterval                   types.Int64                  `tfsdk:"health_check_interval"`
+	ReadinessHealthCheckType              types.String                 `tfsdk:"readiness_health_check_type"`
+	ReadinessHealthCheckHttpEndpoint      types.String                 `tfsdk:"readiness_health_check_http_endpoint"`
+	ReadinessHealthCheckInvocationTimeout types.Int64                  `tfsdk:"readiness_health_check_invocation_timeout"`
+	ReadinessHealthCheckInterval          types.Int64                  `tfsdk:"readiness_health_check_interval"`
+	LogRateLimitPerSecond                 types.String                 `tfsdk:"log_rate_limit_per_second"`
+	Processes                             []Process                    `tfsdk:"processes"`
+	Sidecars                              []Sidecar                    `tfsdk:"sidecars"`
+	ID                                    types.String                 `tfsdk:"id"`
+	CreatedAt                             types.String                 `tfsdk:"created_at"`
+	UpdatedAt                             types.String                 `tfsdk:"updated_at"`
+	Command                               types.String                 `tfsdk:"command"`
+	DiskQuota                             types.String                 `tfsdk:"disk_quota"`
+	HealthCheckHttpEndpoint               types.String                 `tfsdk:"health_check_http_endpoint"`
+	HealthCheckInvocationTimeout          types.Int64                  `tfsdk:"health_check_invocation_timeout"`
+	HealthCheckType                       types.String                 `tfsdk:"health_check_type"`
+	Instances                             types.Int64                  `tfsdk:"instances"`
+	Memory                                types.String                 `tfsdk:"memory"`
+	Timeout                               types.Int64                  `tfsdk:"timeout"`
+	Labels                                types.Map                    `tfsdk:"labels"`
+	Annotations                           types.Map                    `tfsdk:"annotations"`
 }
 
 type DatasourceAppsType struct {
@@ -101,14 +101,6 @@ type DatasourceAppsType struct {
 	Org   types.String        `tfsdk:"org"`
 	Name  types.String        `tfsdk:"name"`
 	Apps  []DatasourceAppType `tfsdk:"apps"`
-}
-
-// Reduce function to reduce AppType to DatasourceAppType
-// This is used to reuse mapAppValuesToType in both resource and datasource.
-func (a *AppType) Reduce() DatasourceAppType {
-	var reduced DatasourceAppType
-	copyFields(&reduced, a)
-	return reduced
 }
 
 func (a *DatasourceAppType) Expand() AppType {
@@ -144,6 +136,10 @@ type Process struct {
 type DockerCredentials struct {
 	Username types.String `tfsdk:"username"`
 	Password types.String `tfsdk:"password"`
+}
+
+type DataSourceDockerCredentials struct {
+	Username types.String `tfsdk:"username"`
 }
 
 type ServiceBinding struct {
@@ -741,4 +737,147 @@ func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plann
 	}
 
 	return finalEnvs, diagnostics
+}
+
+func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType, sshResp *cfv3resource.AppFeature) (DatasourceAppType, diag.Diagnostics) {
+	var diags, tempDiags diag.Diagnostics
+	var appType DatasourceAppType
+	appType.Name = types.StringValue(appManifest.Name)
+	appType.Stack = types.StringValue(appManifest.Stack)
+	if len(appManifest.Buildpacks) != 0 {
+		appType.Buildpacks, tempDiags = types.ListValueFrom(ctx, types.StringType, appManifest.Buildpacks)
+		diags = append(diags, tempDiags...)
+	} else {
+		appType.Buildpacks = types.ListNull(types.StringType)
+	}
+	if appManifest.Docker != nil {
+		appType.DockerImage = types.StringValue(appManifest.Docker.Image)
+		if appManifest.Docker.Username != "" {
+			appType.DockerCredentials = &DataSourceDockerCredentials{}
+			appType.DockerCredentials.Username = types.StringValue(appManifest.Docker.Username)
+		}
+	}
+	if appManifest.Services != nil {
+		var serviceBindings []ServiceBinding
+		for _, service := range *appManifest.Services {
+			var sb ServiceBinding
+			sb.ServiceInstance = types.StringValue(service.Name)
+			if service.Parameters != nil {
+				param, err := json.Marshal(service.Parameters)
+				if err != nil {
+					tempDiags.AddError("Error marshalling service parameters", err.Error())
+					diags = append(diags, tempDiags...)
+				}
+				sb.Params = jsontypes.NewNormalizedValue(string(param))
+				diags = append(diags, tempDiags...)
+			} else {
+				sb.Params = jsontypes.NewNormalizedNull()
+			}
+			serviceBindings = append(serviceBindings, sb)
+		}
+		appType.ServiceBindings, tempDiags = types.SetValueFrom(ctx, serviceBindingObjType, serviceBindings)
+		diags = append(diags, tempDiags...)
+	} else {
+		appType.ServiceBindings = types.SetNull(serviceBindingObjType)
+	}
+	if appManifest.Routes != nil {
+		var routes []Route
+		for _, route := range *appManifest.Routes {
+			var r Route
+			r.Route = types.StringValue(route.Route)
+			if route.Protocol != "" {
+				r.Protocol = types.StringValue(string(route.Protocol))
+			}
+			routes = append(routes, r)
+		}
+		appType.Routes, diags = types.SetValueFrom(ctx, routeObjType, routes)
+	} else {
+		appType.Routes = types.SetNull(routeObjType)
+	}
+	if appManifest.Env != nil {
+		appType.Environment, tempDiags = types.MapValueFrom(ctx, types.StringType, appManifest.Env)
+		diags = append(diags, tempDiags...)
+	} else {
+		appType.Environment = types.MapNull(types.StringType)
+	}
+	if appManifest.Processes != nil {
+		var processes []Process
+		for _, process := range *appManifest.Processes {
+			var p Process
+			p.Type = types.StringValue(string(process.Type))
+			if process.Command != "" {
+				p.Command = types.StringValue(process.Command)
+			}
+			if process.DiskQuota != "" {
+				p.DiskQuota = types.StringValue(process.DiskQuota)
+			}
+			if process.HealthCheckHTTPEndpoint != "" {
+				p.HealthCheckHttpEndpoint = types.StringValue(process.HealthCheckHTTPEndpoint)
+			}
+			if process.HealthCheckInvocationTimeout != 0 {
+				p.HealthCheckInvocationTimeout = types.Int64Value(int64(process.HealthCheckInvocationTimeout))
+			}
+			if process.HealthCheckType != "" {
+				p.HealthCheckType = types.StringValue(string(process.HealthCheckType))
+			}
+			p.Instances = types.Int64Value(int64(*process.Instances))
+			if process.Memory != "" {
+				p.Memory = types.StringValue(process.Memory)
+			}
+			if process.Timeout != 0 {
+				p.Timeout = types.Int64Value(int64(process.Timeout))
+			}
+			if process.HealthCheckInterval != 0 {
+				p.HealthCheckInterval = types.Int64Value(int64(process.HealthCheckInterval))
+			}
+			if process.ReadinessHealthCheckType != "" {
+				p.ReadinessHealthCheckType = types.StringValue(process.ReadinessHealthCheckType)
+			}
+			if process.ReadinessHealthCheckHttpEndpoint != "" {
+				p.ReadinessHealthCheckHttpEndpoint = types.StringValue(process.ReadinessHealthCheckHttpEndpoint)
+			}
+			if process.ReadinessHealthInvocationTimeout != 0 {
+				p.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.HealthCheckInvocationTimeout))
+			}
+			if process.ReadinessHealthCheckInterval != 0 {
+				p.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
+			}
+			if process.LogRateLimitPerSecond != "" {
+				p.LogRateLimitPerSecond = types.StringValue(process.LogRateLimitPerSecond)
+			}
+			processes = append(processes, p)
+		}
+		appType.Processes = processes
+	}
+	if appManifest.Sidecars != nil {
+		var sidecars []Sidecar
+		for _, sidecar := range *appManifest.Sidecars {
+			var s Sidecar
+			s.Name = types.StringValue(sidecar.Name)
+			if sidecar.Command != "" {
+				s.Command = types.StringValue(sidecar.Command)
+			}
+			if len(sidecar.ProcessTypes) != 0 {
+				s.ProcessTypes, tempDiags = types.SetValueFrom(ctx, types.StringType, sidecar.ProcessTypes)
+				diags = append(diags, tempDiags...)
+			} else {
+				s.ProcessTypes = types.SetNull(types.StringType)
+			}
+			if sidecar.Memory != "" {
+				s.Memory = types.StringValue(sidecar.Memory)
+			}
+			sidecars = append(sidecars, s)
+		}
+		appType.Sidecars = sidecars
+	}
+	appType.ID = types.StringValue(app.GUID)
+	appType.CreatedAt = types.StringValue(app.CreatedAt.Format(time.RFC3339))
+	appType.UpdatedAt = types.StringValue(app.UpdatedAt.Format(time.RFC3339))
+
+	appType.Labels, tempDiags = mapMetadataValueToType(ctx, app.Metadata.Labels)
+	diags = append(diags, tempDiags...)
+	appType.Annotations, tempDiags = mapMetadataValueToType(ctx, app.Metadata.Annotations)
+	diags = append(diags, tempDiags...)
+	appType.EnableSSH = types.BoolValue(sshResp.Enabled)
+	return appType, diags
 }
