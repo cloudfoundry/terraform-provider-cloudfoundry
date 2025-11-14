@@ -48,7 +48,7 @@ In the following sections we describe the workflow to contribute code to this pr
 
 ##### Fork the repository
 
-1. First you must fork the provider repository into your organization or personal account Set up your fork and branch
+1. First you must fork the provider repository into your organization or personal account.
 1. Do not make changes directly to the `main` branch. Instead, create a new branch for your changes:
 
    ```bash
@@ -56,7 +56,7 @@ In the following sections we describe the workflow to contribute code to this pr
    ```
 
 > [!NOTE]
-> Make sure to regularly sync your fork with main repository and rebase your branch. This will help to avoid merge conflicts when you open a pull request.
+> Make sure to regularly sync your fork with the main repository and rebase your branch. This will help to avoid merge conflicts when you open a pull request.
 
 ##### Deliverables per type of change
 
@@ -65,7 +65,7 @@ Depending on the type of change you are making, you might need to update differe
 | Type of Change                | Deliverables                                                                                     | Relevant Sections                      |
 |-------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------|
 | Bug Fix                       | Code changes, update/enhancement of unit test and recording of VCR test fixtures, generation of documentation  | [Implement your changes](#implement-your-changes), [Add/Update tests](#addupdate-tests), [Add/update documentation](#addupdate-documentation) |
-| New Feature                   | Code changes, update/enhancement of unit test and recording of VCR fixtures, generation of documentation  | [Implement your changes](#implement-your-changes) [Implement your changes](#implement-your-changes), [Add/Update tests](#addupdate-tests), [Add/update documentation](#addupdate-documentation) |
+| New Feature                   | Code changes, update/enhancement of unit test and recording of VCR fixtures, generation of documentation  | [Implement your changes](#implement-your-changes), [Add/Update tests](#addupdate-tests), [Add/update documentation](#addupdate-documentation) |
 | Documentation Improvement     | Update of documentation, generation of documentation                                                   | [Add/update documentation](#addupdate-documentation) |
 
 
@@ -202,12 +202,12 @@ After you have written or updated tests, you need to record the CF API interacti
 
 As the first recording of the tests will hit a live Cloud Foundry environment, log in to your Cloud Foundry instance using the `cf` CLI and ensure that you have the necessary permissions to create/update/delete the resources involved in your tests.
 
-Trigger the recording by execute the tests you want to record.
+Trigger the recording by executing the tests you want to record.
 
 As a result, the VCR test fixtures will be created/updated in fixture directory `cloudfoundry/provider/fixtures`. Do not edit the generated fixtures manually.
 
 > [!IMPORTANT]
->Before pushing your changes to your fork review the generated test fixtures carefully to ensure that **sensitive information** (like usernames/password) is redacted in the fixtures. If you find any sensitive information, please open a [bug](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/new?assignees=&labels=bug%2Cneeds-triage&projects=&template=bug_report.yml&title=%5BBUG%5D) as this is an error in our test recording setup.
+>Before pushing your changes to your fork, review the generated test fixtures carefully to ensure that **sensitive information** (like username or password) is redacted in the fixtures. If you find any sensitive information, please open a [bug](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/new?assignees=&labels=bug%2Cneeds-triage&projects=&template=bug_report.yml&title=%5BBUG%5D) as this is an error in our test recording setup.
 
 ###### Running Tests Locally
 
