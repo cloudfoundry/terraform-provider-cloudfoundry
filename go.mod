@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/lager/v3 v3.55.0
 	code.cloudfoundry.org/policy_client v0.78.0
 	github.com/cloudfoundry-community/go-uaa v0.3.5
-	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186
+	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.16
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.16.1
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.7.0
@@ -21,7 +21,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20251016071720-7a856a374faf
+// replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20251016071720-7a856a374faf
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.65.0 // indirect
