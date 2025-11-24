@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6 # v4.0.0
+      - uses: actions/checkout@v6.0.0 # v4.0.0
       - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
         with:
           go-version-file: 'go.mod'
@@ -53,7 +53,7 @@ jobs:
     name: Docu Generation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6 # v4.0.0
+      - uses: actions/checkout@v6.0.0 # v4.0.0
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
         with:
           terraform_version: ${{ env.LATEST_VERSION }}
@@ -91,7 +91,7 @@ jobs:
           - '1.13.*'
           - '1.14.*'
     steps:
-      - uses: actions/checkout@v6 # v4.0.0
+      - uses: actions/checkout@v6.0.0 # v4.0.0
       - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
         with:
           go-version-file: 'go.mod'
