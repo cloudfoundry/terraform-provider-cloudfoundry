@@ -164,6 +164,8 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 - `stack` (String) The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information
 - `stopped` (Boolean) Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.
 - `strategy` (String) The deployment strategy to use when deploying the application. Valid values are 'none', 'rolling', and 'blue-green', defaults to 'none'.
+- `app_deployed_running_timeout` (Number) Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Minimal value is 1 minute. Used only when strategy is set to 'blue-green'. Monitoring is enabled when one of `app_deployed_running_timeout` or `app_deployed_running_check_interval` is set.
+- `app_deployed_running_check_interval` (Number) The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. Value should be between 1 and 30 seconds. The default is 5 seconds. Used only when strategy is set to 'blue-green'. Monitoring is enabled when one of `app_deployed_running_timeout` or `app_deployed_running_check_interval` is set.
 - `timeout` (Number) Time in seconds at which the health-check will report failure.
 
 ### Read-Only

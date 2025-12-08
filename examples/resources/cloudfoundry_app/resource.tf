@@ -67,6 +67,8 @@ resource "cloudfoundry_app" "http-bin-server" {
   org_name     = "PerformanceTeamBLR"
   docker_image = "kennethreitz/httpbin"
   strategy     = "blue-green"
+  app_deployed_running_timeout = 2
+  app_deployed_running_check_interval = 10
   labels = {
     "app" = "backend",
     "env" = "production"

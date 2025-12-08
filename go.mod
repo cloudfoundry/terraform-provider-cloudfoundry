@@ -23,6 +23,9 @@ require (
 
 // replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.11.0.20250320145327-6946bc732186 => github.com/ANUGRAHG/go-cfclient/v3 v3.0.0-20251016071720-7a856a374faf
 
+// TODO: Remove after new go-cfclient/v3 is released
+replace github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.16 => github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.16.0.20251205152906-76a591791254
+
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.67.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
