@@ -670,6 +670,8 @@ func (target *AppType) CopyConfigAttributes(source *AppType) {
 	target.SourceCodeHash = source.SourceCodeHash
 	target.RandomRoute = source.RandomRoute
 	target.NoRoute = source.NoRoute
+	target.AppDeployedRunningTimeout = source.AppDeployedRunningTimeout
+	target.AppDeployedRunningCheckInterval = source.AppDeployedRunningCheckInterval
 }
 
 func getDesiredType(actual string, desired string) (string, error) {

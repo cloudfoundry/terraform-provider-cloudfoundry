@@ -245,7 +245,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				},
 			},
 			"app_deployed_running_check_interval": schema.Int64Attribute{
-				MarkdownDescription: "The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds.Used only when strategy is set to 'blue-green'.",
+				MarkdownDescription: "The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds. Used only when strategy is set to 'blue-green'.",
 				Optional:            true,
 				Validators: []validator.Int64{
 					int64validator.AtLeast(1),
