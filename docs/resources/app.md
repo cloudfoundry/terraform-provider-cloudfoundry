@@ -76,11 +76,13 @@ EOT
 }
 
 resource "cloudfoundry_app" "http-bin-server" {
-  name         = "tf-test-do-not-delete-http-bin"
-  space_name   = "tf-space-1"
-  org_name     = "PerformanceTeamBLR"
-  docker_image = "kennethreitz/httpbin"
-  strategy     = "blue-green"
+  name                                = "tf-test-do-not-delete-http-bin"
+  space_name                          = "tf-space-1"
+  org_name                            = "PerformanceTeamBLR"
+  docker_image                        = "kennethreitz/httpbin"
+  strategy                            = "blue-green"
+  app_deployed_running_timeout        = 2
+  app_deployed_running_check_interval = 10
   labels = {
     "app" = "backend",
     "env" = "production"
@@ -134,6 +136,8 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 ### Optional
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
+- `app_deployed_running_check_interval` (Number) The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds. Used only when strategy is set to 'blue-green'.
+- `app_deployed_running_timeout` (Number) Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Max value is 59 minutes. Used only when strategy is set to 'blue-green'.
 - `buildpacks` (List of String) Multiple buildpacks used to stage the application.
 - `command` (String) A custom start command for the application. This overrides the start command provided by the buildpack.
 - `disk_quota` (String) The disk space to be allocated for each application instance.
@@ -164,8 +168,6 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 - `stack` (String) The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information
 - `stopped` (Boolean) Whether the application is started or stopped after creation. By default, this value is false, meaning the application will be started automatically after creation.
 - `strategy` (String) The deployment strategy to use when deploying the application. Valid values are 'none', 'rolling', and 'blue-green', defaults to 'none'.
-- `app_deployed_running_timeout` (Number) Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Minimal value is 1 minute. Used only when strategy is set to 'blue-green'. Monitoring is enabled when one of `app_deployed_running_timeout` or `app_deployed_running_check_interval` is set.
-- `app_deployed_running_check_interval` (Number) The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. Value should be between 1 and 30 seconds. The default is 5 seconds. Used only when strategy is set to 'blue-green'. Monitoring is enabled when one of `app_deployed_running_timeout` or `app_deployed_running_check_interval` is set.
 - `timeout` (Number) Time in seconds at which the health-check will report failure.
 
 ### Read-Only
