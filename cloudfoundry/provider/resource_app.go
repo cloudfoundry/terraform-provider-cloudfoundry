@@ -238,7 +238,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				},
 			},
 			"app_deployed_running_timeout": schema.Int64Attribute{
-				MarkdownDescription: "Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Max value is 59 minutes. Used only when strategy is set to 'blue-green'.",
+				MarkdownDescription: "Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Used only when strategy is set to 'blue-green'.",
 				Optional:            true,
 				Validators: []validator.Int64{
 					int64validator.AtLeast(1),
