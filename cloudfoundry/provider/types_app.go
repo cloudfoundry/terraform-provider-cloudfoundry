@@ -44,6 +44,8 @@ type AppType struct {
 	LogRateLimitPerSecond                 types.String       `tfsdk:"log_rate_limit_per_second"`
 	NoRoute                               types.Bool         `tfsdk:"no_route"`
 	RandomRoute                           types.Bool         `tfsdk:"random_route"`
+	AppDeployedRunningTimeout             types.Int64        `tfsdk:"app_deployed_running_timeout"`
+	AppDeployedRunningCheckInterval       types.Int64        `tfsdk:"app_deployed_running_check_interval"`
 	Processes                             []Process          `tfsdk:"processes"`
 	Sidecars                              []Sidecar          `tfsdk:"sidecars"`
 	ID                                    types.String       `tfsdk:"id"`
@@ -668,6 +670,8 @@ func (target *AppType) CopyConfigAttributes(source *AppType) {
 	target.SourceCodeHash = source.SourceCodeHash
 	target.RandomRoute = source.RandomRoute
 	target.NoRoute = source.NoRoute
+	target.AppDeployedRunningTimeout = source.AppDeployedRunningTimeout
+	target.AppDeployedRunningCheckInterval = source.AppDeployedRunningCheckInterval
 }
 
 func getDesiredType(actual string, desired string) (string, error) {
