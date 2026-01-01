@@ -15,6 +15,7 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-validators/boolvalidator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/objectvalidator"
@@ -234,6 +235,21 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Validators: []validator.Bool{
 					boolvalidator.ConflictsWith(path.MatchRoot("routes")),
 					boolvalidator.ConflictsWith(path.MatchRoot("no_route")),
+				},
+			},
+			"app_deployed_running_timeout": schema.Int64Attribute{
+				MarkdownDescription: "Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Used only when strategy is set to 'blue-green'.",
+				Optional:            true,
+				Validators: []validator.Int64{
+					int64validator.AtLeast(1),
+				},
+			},
+			"app_deployed_running_check_interval": schema.Int64Attribute{
+				MarkdownDescription: "The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds. Used only when strategy is set to 'blue-green'.",
+				Optional:            true,
+				Validators: []validator.Int64{
+					int64validator.AtLeast(1),
+					int64validator.AtMost(30),
 				},
 			},
 			"processes": schema.SetNestedAttribute{
@@ -543,16 +559,15 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 	}
 	manifestOp := cfv3operation.NewAppPushOperation(r.cfClient, appType.Org.ValueString(), appType.Space.ValueString())
 	if !appType.Strategy.IsNull() {
-		var sm cfv3operation.StrategyMode
 		switch appType.Strategy.ValueString() {
 		case "rolling":
-			sm = cfv3operation.StrategyRolling
+			manifestOp.WithStrategy(cfv3operation.StrategyRolling)
 		case "blue-green":
-			sm = cfv3operation.StrategyBlueGreen
+			timeout, checkInterval := r.getBlueGreenDeploymentStrategyOptions(appType)
+			manifestOp.WithBlueGreenStrategy(timeout, checkInterval)
 		default:
-			sm = cfv3operation.StrategyNone
+			manifestOp.WithStrategy(cfv3operation.StrategyNone)
 		}
-		manifestOp.WithStrategy(sm)
 	}
 	if appType.Stopped.ValueBool() {
 		manifestOp.WithNoStart(true)
@@ -562,6 +577,18 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 		return nil, err
 	}
 	return appResp, nil
+}
+
+func (r *appResource) getBlueGreenDeploymentStrategyOptions(appType AppType) (uint, uint) {
+	timeout := uint(0)
+	if !appType.AppDeployedRunningTimeout.IsNull() {
+		timeout = uint(appType.AppDeployedRunningTimeout.ValueInt64())
+	}
+	checkInterval := uint(0)
+	if !appType.AppDeployedRunningCheckInterval.IsNull() {
+		checkInterval = uint(appType.AppDeployedRunningCheckInterval.ValueInt64())
+	}
+	return timeout, checkInterval
 }
 
 func (r *appResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

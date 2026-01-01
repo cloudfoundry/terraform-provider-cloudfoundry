@@ -62,11 +62,13 @@ EOT
 }
 
 resource "cloudfoundry_app" "http-bin-server" {
-  name         = "tf-test-do-not-delete-http-bin"
-  space_name   = "tf-space-1"
-  org_name     = "PerformanceTeamBLR"
-  docker_image = "kennethreitz/httpbin"
-  strategy     = "blue-green"
+  name                                = "tf-test-do-not-delete-http-bin"
+  space_name                          = "tf-space-1"
+  org_name                            = "PerformanceTeamBLR"
+  docker_image                        = "kennethreitz/httpbin"
+  strategy                            = "blue-green"
+  app_deployed_running_timeout        = 2
+  app_deployed_running_check_interval = 10
   labels = {
     "app" = "backend",
     "env" = "production"
