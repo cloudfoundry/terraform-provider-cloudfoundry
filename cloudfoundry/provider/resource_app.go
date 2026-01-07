@@ -37,6 +37,13 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const (
+	AppDeployedRunningCheckIntervalSecondsDefault        = 5
+	AppDeployedRunningTimeoutMinutesDefault              = 5
+	AppDeployedRunningTimeoutMinutesFeatureNotUsed       = 0
+	AppDeployedRunningCheckIntervalSecondsFeatureNotUsed = 0
+)
+
 var (
 	_ resource.Resource                = &appResource{}
 	_ resource.ResourceWithConfigure   = &appResource{}
@@ -580,11 +587,14 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 }
 
 func (r *appResource) getBlueGreenDeploymentStrategyOptions(appType AppType) (uint, uint) {
-	timeout := uint(0)
+	if appType.AppDeployedRunningTimeout.IsNull() && appType.AppDeployedRunningCheckInterval.IsNull() {
+		return AppDeployedRunningTimeoutMinutesFeatureNotUsed, AppDeployedRunningCheckIntervalSecondsFeatureNotUsed
+	}
+	timeout := uint(AppDeployedRunningTimeoutMinutesDefault)
 	if !appType.AppDeployedRunningTimeout.IsNull() {
 		timeout = uint(appType.AppDeployedRunningTimeout.ValueInt64())
 	}
-	checkInterval := uint(0)
+	checkInterval := uint(AppDeployedRunningCheckIntervalSecondsDefault)
 	if !appType.AppDeployedRunningCheckInterval.IsNull() {
 		checkInterval = uint(appType.AppDeployedRunningCheckInterval.ValueInt64())
 	}
