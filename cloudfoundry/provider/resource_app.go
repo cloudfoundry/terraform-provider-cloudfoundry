@@ -42,6 +42,9 @@ const (
 	AppDeployedRunningTimeoutMinutesDefault              = 5
 	AppDeployedRunningTimeoutMinutesFeatureNotUsed       = 0
 	AppDeployedRunningCheckIntervalSecondsFeatureNotUsed = 0
+	AppDeployedRunningCheckIntervalSecondsMinimum        = 1
+	AppDeployedRunningCheckIntervalSecondsMaximum        = 30
+	AppDeployedRunningTimeoutMinutesMinimum              = 1
 )
 
 var (
@@ -248,15 +251,15 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				MarkdownDescription: "Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Used only when strategy is set to 'blue-green'.",
 				Optional:            true,
 				Validators: []validator.Int64{
-					int64validator.AtLeast(1),
+					int64validator.AtLeast(AppDeployedRunningTimeoutMinutesMinimum),
 				},
 			},
 			"app_deployed_running_check_interval": schema.Int64Attribute{
 				MarkdownDescription: "The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds. Used only when strategy is set to 'blue-green'.",
 				Optional:            true,
 				Validators: []validator.Int64{
-					int64validator.AtLeast(1),
-					int64validator.AtMost(30),
+					int64validator.AtLeast(AppDeployedRunningCheckIntervalSecondsMinimum),
+					int64validator.AtMost(AppDeployedRunningCheckIntervalSecondsMaximum),
 				},
 			},
 			"processes": schema.SetNestedAttribute{
