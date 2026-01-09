@@ -76,11 +76,13 @@ EOT
 }
 
 resource "cloudfoundry_app" "http-bin-server" {
-  name         = "tf-test-do-not-delete-http-bin"
-  space_name   = "tf-space-1"
-  org_name     = "PerformanceTeamBLR"
-  docker_image = "kennethreitz/httpbin"
-  strategy     = "blue-green"
+  name                                = "tf-test-do-not-delete-http-bin"
+  space_name                          = "tf-space-1"
+  org_name                            = "PerformanceTeamBLR"
+  docker_image                        = "kennethreitz/httpbin"
+  strategy                            = "blue-green"
+  app_deployed_running_timeout        = 2
+  app_deployed_running_check_interval = 10
   labels = {
     "app" = "backend",
     "env" = "production"
@@ -134,6 +136,8 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 ### Optional
 
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
+- `app_deployed_running_check_interval` (Number) The interval in seconds between checks to see if the app is running after updating deployment with 'blue-green' strategy. The default is 5 seconds. Min value is 1 second, max value is 30 seconds. Used only when strategy is set to 'blue-green'.
+- `app_deployed_running_timeout` (Number) Timeout in minutes to wait for app to be running after updating deployment with 'blue-green' strategy. The default is 5 minutes. Min value is 1 minute. Used only when strategy is set to 'blue-green'.
 - `buildpacks` (List of String) Multiple buildpacks used to stage the application.
 - `command` (String) A custom start command for the application. This overrides the start command provided by the buildpack.
 - `disk_quota` (String) The disk space to be allocated for each application instance.
