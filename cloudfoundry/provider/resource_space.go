@@ -9,10 +9,12 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -20,6 +22,7 @@ var (
 	_ resource.Resource                = &SpaceResource{}
 	_ resource.ResourceWithConfigure   = &SpaceResource{}
 	_ resource.ResourceWithImportState = &SpaceResource{}
+	_ resource.ResourceWithIdentity    = &SpaceResource{}
 )
 
 // Instantiates a space resource.
@@ -30,6 +33,10 @@ func NewSpaceResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type SpaceResource struct {
 	cfClient *cfv3client.Client
+}
+
+type SpaceResouerceIdentityModel struct {
+	SpaceGUID types.String `tfsdk:"space_guid"`
 }
 
 func (r *SpaceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -79,6 +86,16 @@ func (r *SpaceResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 			annotationsKey: resourceAnnotationsSchema(),
 			createdAtKey:   createdAtSchema(),
 			updatedAtKey:   updatedAtSchema(),
+		},
+	}
+}
+
+func (rs *SpaceResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"space_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -159,6 +176,13 @@ func (r *SpaceResource) Create(ctx context.Context, req resource.CreateRequest, 
 
 	tflog.Trace(ctx, "created a space resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := SpaceResouerceIdentityModel{
+		SpaceGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (rs *SpaceResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -200,6 +224,18 @@ func (rs *SpaceResource) Read(ctx context.Context, req resource.ReadRequest, res
 	tflog.Trace(ctx, "read a space resource")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity SpaceResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = SpaceResouerceIdentityModel{
+			SpaceGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *SpaceResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -284,5 +320,9 @@ func (rs *SpaceResource) Delete(ctx context.Context, req resource.DeleteRequest,
 }
 
 func (rs *SpaceResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("space_guid"), req, resp)
 }
