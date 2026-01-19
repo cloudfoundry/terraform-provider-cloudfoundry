@@ -109,14 +109,12 @@ func TestSpaceResource_Configure(t *testing.T) {
 						OrgId:         strtostrptr(testOrgGUID),
 						AllowSSH:      booltoboolptr(true),
 						Labels:        strtostrptr(testCreateLabel),
-						//IsolationSegment: strtostrptr(testIsolationSegmentGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
 						resource.TestCheckNoResourceAttr(resourceName, "quota"),
 						resource.TestCheckResourceAttr(resourceName, "allow_ssh", "true"),
 						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "testing"),
-						//resource.TestCheckResourceAttr(resourceName, "isolation_segment", testIsolationSegmentGUID),
 					),
 					ConfigStateChecks: []statecheck.StateCheck{
 						statecheck.ExpectIdentity("cloudfoundry_space.ds", map[string]knownvalue.Check{
