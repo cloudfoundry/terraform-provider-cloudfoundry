@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -22,6 +23,7 @@ import (
 var (
 	_ resource.Resource              = &spaceQuotaResource{}
 	_ resource.ResourceWithConfigure = &spaceQuotaResource{}
+	_ resource.ResourceWithConfigure = &spaceQuotaResource{}
 )
 
 func NewSpaceQuotaResource() resource.Resource {
@@ -30,6 +32,10 @@ func NewSpaceQuotaResource() resource.Resource {
 
 type spaceQuotaResource struct {
 	cfClient *cfv3client.Client
+}
+
+type SpaceQuotaResouerceIdentityModel struct {
+	SpaceQuotaGUID types.String `tfsdk:"space_quota_guid"`
 }
 
 func (r *spaceQuotaResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -109,6 +115,17 @@ func (r *spaceQuotaResource) Schema(_ context.Context, _ resource.SchemaRequest,
 		},
 	}
 }
+
+func (rs *spaceQuotaResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"space_quota_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+		},
+	}
+}
+
 func (r *spaceQuotaResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -155,6 +172,13 @@ func (r *spaceQuotaResource) Create(ctx context.Context, req resource.CreateRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	identity := SpaceQuotaResouerceIdentityModel{
+		SpaceQuotaGUID: types.StringValue(spacesQuotaType.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (r *spaceQuotaResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -198,6 +222,18 @@ func (r *spaceQuotaResource) Read(ctx context.Context, req resource.ReadRequest,
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
+	}
+
+	var identity SpaceQuotaResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = SpaceQuotaResouerceIdentityModel{
+			SpaceQuotaGUID: types.StringValue(spacesQuotaType.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
 	}
 }
 
@@ -307,5 +343,9 @@ func (r *spaceQuotaResource) Delete(ctx context.Context, req resource.DeleteRequ
 }
 
 func (r *spaceQuotaResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("space_quota_guid"), req, resp)
 }
