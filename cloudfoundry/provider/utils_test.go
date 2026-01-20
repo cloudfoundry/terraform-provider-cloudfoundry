@@ -34,7 +34,7 @@ var (
 	testDomainRouteGUID      = "440e24e5-ee11-41d9-a996-2ed0a1e2deea"
 	testOrgQuota             = "tf-test-do-not-delete"
 	invalidOrgGUID           = "40b73419-5e01-4be0-baea-932d46cea45b"
-	//testIsolationSegmentGUID = "5215e4df-79a4-4ce8-a933-837d6aa7a77b"
+	// testIsolationSegmentGUID = "5215e4df-79a4-4ce8-a933-837d6aa7a77b".
 	testSpaceQuota  = "tf-test-do-not-delete"
 	testCreateLabel = "{purpose: \"testing\", landscape: \"test\"}"
 	testUpdateLabel = "{purpose: \"production\", status: \"fine\"}"
