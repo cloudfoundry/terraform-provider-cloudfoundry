@@ -6,63 +6,6 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"beef0d46264c4554ae9bf92ce2935719"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Wed, 21 Jan 2026 08:59:01 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 8a4756d0-b624-4ab8-4511-ca702de02e62
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 366.663792ms
-    - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
         content_length: 425
         transfer_encoding: []
         trailer: {}
@@ -78,7 +21,7 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/space_quotas
         method: POST
       response:
@@ -89,22 +32,22 @@ interactions:
         trailer: {}
         content_length: 800
         uncompressed: false
-        body: '{"guid":"0c460d97-9007-483d-9ddf-ec6928e05d92","created_at":"2026-01-21T08:59:01Z","updated_at":"2026-01-21T08:59:01Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}'
+        body: '{"guid":"cbce9b49-5f90-46bc-950b-4aa10b4d1193","created_at":"2026-01-21T11:16:09Z","updated_at":"2026-01-21T11:16:09Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}'
         headers:
             Content-Length:
                 - "800"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 21 Jan 2026 08:59:01 GMT
+                - Wed, 21 Jan 2026 11:16:09 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 75f5089128b6f370
+                - 5bec2a663e7630fa
             X-B3-Traceid:
-                - efb6e87878a64abf75f5089128b6f370
+                - c5af0fdd0da94a2d5bec2a663e7630fa
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -118,322 +61,151 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1768987106"
+                - "1768994306"
             X-Runtime:
-                - "0.019870"
+                - "0.018829"
             X-Vcap-Request-Id:
-                - efb6e878-78a6-4abf-75f5-089128b6f370::2218d499-4df9-4e56-990f-a937bf4438e7
+                - c5af0fdd-0da9-4a2d-5bec-2a663e7630fa::09f014e7-016f-4189-8692-b214b1abb7dd
             X-Xss-Protection:
                 - 1; mode=block
         status: 201 Created
         code: 201
-        duration: 345.43175ms
+        duration: 314.588167ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193&page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1182
+        uncompressed: false
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"cbce9b49-5f90-46bc-950b-4aa10b4d1193","created_at":"2026-01-21T11:16:09Z","updated_at":"2026-01-21T11:16:09Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
+        headers:
+            Content-Length:
+                - "1182"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Wed, 21 Jan 2026 11:16:09 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 61de4fdd66bd3315
+            X-B3-Traceid:
+                - f94b1b466d0547ce61de4fdd66bd3315
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1768994306"
+            X-Runtime:
+                - "0.019075"
+            X-Vcap-Request-Id:
+                - f94b1b46-6d05-47ce-61de-4fdd66bd3315::d7d49c53-d02d-4982-a8b9-ba5f77780f1a
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 349.496292ms
     - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
+        content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: uaa.x.x.x.x.com
+        host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
+        body: ""
+        form: {}
         headers:
             Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193&page=1&per_page=50
+        method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
+        content_length: 1182
         uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"696bfced67314e65af49af910dd3e1f4"}'
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"cbce9b49-5f90-46bc-950b-4aa10b4d1193","created_at":"2026-01-21T11:16:09Z","updated_at":"2026-01-21T11:16:09Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
         headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
+            Content-Length:
+                - "1182"
             Content-Type:
-                - application/json
+                - application/json; charset=utf-8
             Date:
-                - Wed, 21 Jan 2026 08:59:02 GMT
-            Pragma:
-                - no-cache
+                - Wed, 21 Jan 2026 11:16:10 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7607808545a11d0e
+            X-B3-Traceid:
+                - bafeed2ee6bc4df47607808545a11d0e
             X-Content-Type-Options:
                 - nosniff
+            X-Download-Options:
+                - noopen
             X-Frame-Options:
-                - DENY
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1768994306"
+            X-Runtime:
+                - "0.014080"
             X-Vcap-Request-Id:
-                - 4160adb4-5935-48d7-62c3-2b701f3a28be
+                - bafeed2e-e6bc-4df4-7607-808545a11d0e::50104175-4495-4709-b177-58855b2fb629
             X-Xss-Protection:
-                - "0"
+                - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 359.088792ms
+        duration: 329.379792ms
     - id: 3
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92&page=1&per_page=50
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 1182
-        uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"0c460d97-9007-483d-9ddf-ec6928e05d92","created_at":"2026-01-21T08:59:01Z","updated_at":"2026-01-21T08:59:01Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
-        headers:
-            Content-Length:
-                - "1182"
-            Content-Type:
-                - application/json; charset=utf-8
-            Date:
-                - Wed, 21 Jan 2026 08:59:02 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5e8caea1705ae8b9
-            X-B3-Traceid:
-                - 8569729367cf41cf5e8caea1705ae8b9
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1768987105"
-            X-Runtime:
-                - "0.017072"
-            X-Vcap-Request-Id:
-                - 85697293-67cf-41cf-5e8c-aea1705ae8b9::f17bbdd3-34ff-49fa-960a-7d76c0b69c5c
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 355.8875ms
-    - id: 4
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"a1b3085d68674185a0010f49763e5863"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Wed, 21 Jan 2026 08:59:03 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 1e37294a-b97e-43a4-6cc7-5dc94a00c482
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 355.051167ms
-    - id: 5
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92&page=1&per_page=50
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 1182
-        uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"0c460d97-9007-483d-9ddf-ec6928e05d92","created_at":"2026-01-21T08:59:01Z","updated_at":"2026-01-21T08:59:01Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":false,"total_service_instances":10,"total_service_keys":10},"routes":{"total_routes":20,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
-        headers:
-            Content-Length:
-                - "1182"
-            Content-Type:
-                - application/json; charset=utf-8
-            Date:
-                - Wed, 21 Jan 2026 08:59:03 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5d42cfa6303503d7
-            X-B3-Traceid:
-                - 35f3757659834a815d42cfa6303503d7
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1768987106"
-            X-Runtime:
-                - "0.015313"
-            X-Vcap-Request-Id:
-                - 35f37576-5983-4a81-5d42-cfa6303503d7::314a67d3-b8bc-4ecc-b8fe-be1e7c61d020
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 349.230042ms
-    - id: 6
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"0cc1f3f078f24dcb866b4d0d30662fb4"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Wed, 21 Jan 2026 08:59:04 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 42d5e0d3-9542-43e1-73a2-f86d8127ba03
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 324.100083ms
-    - id: 7
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -453,8 +225,8 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193
         method: PATCH
       response:
         proto: HTTP/2.0
@@ -464,22 +236,22 @@ interactions:
         trailer: {}
         content_length: 801
         uncompressed: false
-        body: '{"guid":"0c460d97-9007-483d-9ddf-ec6928e05d92","created_at":"2026-01-21T08:59:01Z","updated_at":"2026-01-21T08:59:04Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":true,"total_service_instances":null,"total_service_keys":10},"routes":{"total_routes":10,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}'
+        body: '{"guid":"cbce9b49-5f90-46bc-950b-4aa10b4d1193","created_at":"2026-01-21T11:16:09Z","updated_at":"2026-01-21T11:16:10Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":true,"total_service_instances":null,"total_service_keys":10},"routes":{"total_routes":10,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}'
         headers:
             Content-Length:
                 - "801"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 21 Jan 2026 08:59:04 GMT
+                - Wed, 21 Jan 2026 11:16:10 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7889f0ec6c084e85
+                - 59f8aad6954c75f1
             X-B3-Traceid:
-                - 7745cb0846c444a27889f0ec6c084e85
+                - e106d204ed5045b459f8aad6954c75f1
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -493,74 +265,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1768987106"
+                - "1768994306"
             X-Runtime:
-                - "0.028572"
+                - "0.030238"
             X-Vcap-Request-Id:
-                - 7745cb08-46c4-44a2-7889-f0ec6c084e85::30255ce1-415a-442a-8305-0ece09081228
+                - e106d204-ed50-45b4-59f8-aad6954c75f1::984ddc15-9e33-4a0f-93b6-b5da303a1032
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 327.353208ms
-    - id: 8
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"2dffe3af3ba647c097016312be4bb0de"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Wed, 21 Jan 2026 08:59:07 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 278b0e2e-8c10-40ef-632c-79ca316fd4e6
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 1.65965825s
-    - id: 9
+        duration: 334.683ms
+    - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -577,8 +292,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92&page=1&per_page=50
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193&page=1&per_page=50
         method: GET
       response:
         proto: HTTP/2.0
@@ -588,22 +303,22 @@ interactions:
         trailer: {}
         content_length: 1183
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=0c460d97-9007-483d-9ddf-ec6928e05d92\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"0c460d97-9007-483d-9ddf-ec6928e05d92","created_at":"2026-01-21T08:59:01Z","updated_at":"2026-01-21T08:59:04Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":true,"total_service_instances":null,"total_service_keys":10},"routes":{"total_routes":10,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/space_quotas?guids=cbce9b49-5f90-46bc-950b-4aa10b4d1193\u0026page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"cbce9b49-5f90-46bc-950b-4aa10b4d1193","created_at":"2026-01-21T11:16:09Z","updated_at":"2026-01-21T11:16:10Z","name":"tf-unit-test-update","apps":{"total_memory_in_mb":null,"per_process_memory_in_mb":null,"total_instances":null,"per_app_tasks":10,"log_rate_limit_in_bytes_per_second":null},"services":{"paid_services_allowed":true,"total_service_instances":null,"total_service_keys":10},"routes":{"total_routes":10,"total_reserved_ports":null},"relationships":{"organization":{"data":{"guid":"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}},"spaces":{"data":[]}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193"},"organization":{"href":"https://api.x.x.x.x.com/v3/organizations/b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"}}}]}'
         headers:
             Content-Length:
                 - "1183"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 21 Jan 2026 08:59:11 GMT
+                - Wed, 21 Jan 2026 11:16:11 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 41d26a6591fe4f02
+                - 69bb4f5b9b1bea75
             X-B3-Traceid:
-                - e3945137110f494341d26a6591fe4f02
+                - 2b97822799a24f4c69bb4f5b9b1bea75
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -617,74 +332,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1768987106"
+                - "1768994307"
             X-Runtime:
-                - "0.018888"
+                - "0.019252"
             X-Vcap-Request-Id:
-                - e3945137-110f-4943-41d2-6a6591fe4f02::7ddc7b17-3742-4ae2-8185-fffa11b90aae
+                - 2b978227-99a2-4f4c-69bb-4f5b9b1bea75::d3fb0d16-76c8-41f5-95c5-e871304b6209
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 4.158396042s
-    - id: 10
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=c5d6be88d586422a973a0c81cc97dd80-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - c5d6be88d586422a973a0c81cc97dd80-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c5d6be88d586422a973a0c81cc97dd80-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"fda0ca49d5ab48e3bac3d03fe9080d3e"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Wed, 21 Jan 2026 08:59:12 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 4d47b1af-bf4b-46ff-404d-7922f7f5bd41
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 337.793ms
-    - id: 11
+        duration: 402.796875ms
+    - id: 5
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -701,8 +359,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/space_quotas/0c460d97-9007-483d-9ddf-ec6928e05d92
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/space_quotas/cbce9b49-5f90-46bc-950b-4aa10b4d1193
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -719,17 +377,17 @@ interactions:
             Content-Type:
                 - text/html
             Date:
-                - Wed, 21 Jan 2026 08:59:12 GMT
+                - Wed, 21 Jan 2026 11:16:11 GMT
             Location:
-                - https://api.x.x.x.x.com/v3/jobs/b23e17bb-3557-4574-bb7a-9dec8453e46a
+                - https://api.x.x.x.x.com/v3/jobs/a4417fad-723c-492a-adec-2927cce526d5
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 4dc9e11a84e3f3a9
+                - 6c9c44531bf655f4
             X-B3-Traceid:
-                - 7db87ab7e7aa4d4b4dc9e11a84e3f3a9
+                - 35cad7648c94457f6c9c44531bf655f4
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -743,17 +401,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1768987106"
+                - "1768994306"
             X-Runtime:
-                - "0.030918"
+                - "0.019597"
             X-Vcap-Request-Id:
-                - 7db87ab7-e7aa-4d4b-4dc9-e11a84e3f3a9::0a4f0529-2973-4009-b27a-c24861e414c9
+                - 35cad764-8c94-457f-6c9c-44531bf655f4::d9d3fa31-e538-4c55-97a6-6bc2dd1f83dc
             X-Xss-Protection:
                 - 1; mode=block
         status: 202 Accepted
         code: 202
-        duration: 353.027ms
-    - id: 12
+        duration: 417.172042ms
+    - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -770,8 +428,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/b23e17bb-3557-4574-bb7a-9dec8453e46a
+                - Terraform/1.13.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/a4417fad-723c-492a-adec-2927cce526d5
         method: GET
       response:
         proto: HTTP/2.0
@@ -781,22 +439,22 @@ interactions:
         trailer: {}
         content_length: 308
         uncompressed: false
-        body: '{"guid":"b23e17bb-3557-4574-bb7a-9dec8453e46a","created_at":"2026-01-21T08:59:12Z","updated_at":"2026-01-21T08:59:12Z","operation":"space_quota.delete","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/b23e17bb-3557-4574-bb7a-9dec8453e46a"}}}'
+        body: '{"guid":"a4417fad-723c-492a-adec-2927cce526d5","created_at":"2026-01-21T11:16:11Z","updated_at":"2026-01-21T11:16:11Z","operation":"space_quota.delete","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/a4417fad-723c-492a-adec-2927cce526d5"}}}'
         headers:
             Content-Length:
                 - "308"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 21 Jan 2026 08:59:14 GMT
+                - Wed, 21 Jan 2026 11:16:14 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 6c00f5de5641d4b3
+                - 6fc2d0c8cc368688
             X-B3-Traceid:
-                - 30e379c91950432e6c00f5de5641d4b3
+                - 5b9f0ef29cb745546fc2d0c8cc368688
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -810,13 +468,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1768987106"
+                - "1768994306"
             X-Runtime:
-                - "0.005106"
+                - "0.007430"
             X-Vcap-Request-Id:
-                - 30e379c9-1950-432e-6c00-f5de5641d4b3::27381081-5717-42bf-95f2-bb83b314c7ab
+                - 5b9f0ef2-9cb7-4554-6fc2-d0c8cc368688::28717829-2f76-451d-956d-bbb6e7bdee09
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 315.62425ms
+        duration: 351.915458ms
