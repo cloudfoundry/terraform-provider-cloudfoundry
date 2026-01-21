@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -20,6 +21,7 @@ import (
 var (
 	_ resource.Resource              = &orgQuotaResource{}
 	_ resource.ResourceWithConfigure = &orgQuotaResource{}
+	_ resource.ResourceWithIdentity  = &orgQuotaResource{}
 )
 
 func NewOrgQuotaResource() resource.Resource {
@@ -28,6 +30,10 @@ func NewOrgQuotaResource() resource.Resource {
 
 type orgQuotaResource struct {
 	cfClient *cfv3client.Client
+}
+
+type orgQuotaResouerceIdentityModel struct {
+	OrgQuotaGUID types.String `tfsdk:"org_quota_guid"`
 }
 
 func (r *orgQuotaResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -101,6 +107,17 @@ func (r *orgQuotaResource) Schema(_ context.Context, _ resource.SchemaRequest, r
 		},
 	}
 }
+
+func (rs *orgQuotaResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"org_quota_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+		},
+	}
+}
+
 func (r *orgQuotaResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -147,6 +164,13 @@ func (r *orgQuotaResource) Create(ctx context.Context, req resource.CreateReques
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	identity := orgQuotaResouerceIdentityModel{
+		OrgQuotaGUID: types.StringValue(orgQuotaType.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (r *orgQuotaResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -187,6 +211,18 @@ func (r *orgQuotaResource) Read(ctx context.Context, req resource.ReadRequest, r
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
 		return
+	}
+
+	var identity orgQuotaResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = orgQuotaResouerceIdentityModel{
+			OrgQuotaGUID: types.StringValue(orgsQuotaType.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
 	}
 }
 
@@ -271,5 +307,9 @@ func (r *orgQuotaResource) Delete(ctx context.Context, req resource.DeleteReques
 }
 
 func (r *orgQuotaResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("org_quota_guid"), req, resp)
 }
