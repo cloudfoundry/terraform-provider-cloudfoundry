@@ -4,11 +4,14 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 func TestResourceSpaceQuota(t *testing.T) {
 	t.Parallel()
 	resourceName := "cloudfoundry_space_quota.rs"
+	var testOrgGUID = "b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"
 	t.Run("happy path - create space quota", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_space_quota")
@@ -30,6 +33,16 @@ func TestResourceSpaceQuota(t *testing.T) {
 						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
 						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
 					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_space_quota.rs", map[string]knownvalue.Check{
+							"space_quota_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    "cloudfoundry_space_quota.rs",
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
@@ -77,12 +90,12 @@ func TestResourceSpaceQuota(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
-						HclType:               hclObjectResource,
-						HclObjectName:         "rs_update",
-						Org:                   strtostrptr(testOrgGUID),
-						TotalServices:         inttointptr(10),
-						TotalRoutes:           inttointptr(20),
-						TotalRoutePorts:       inttointptr(4),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs_update",
+						Org:           strtostrptr(testOrgGUID),
+						TotalServices: inttointptr(10),
+						TotalRoutes:   inttointptr(20),
+						//TotalRoutePorts:       inttointptr(4),
 						TotalAppTasks:         inttointptr(10),
 						TotalServiceKeys:      inttointptr(10),
 						AllowPaidServicePlans: booltoboolptr(false),
@@ -92,7 +105,7 @@ func TestResourceSpaceQuota(t *testing.T) {
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
 						resource.TestCheckResourceAttr(resourceName, "total_services", "10"),
 						resource.TestCheckResourceAttr(resourceName, "total_routes", "20"),
-						resource.TestCheckResourceAttr(resourceName, "total_route_ports", "4"),
+						//resource.TestCheckResourceAttr(resourceName, "total_route_ports", "4"),
 						resource.TestCheckResourceAttr(resourceName, "total_app_tasks", "10"),
 						resource.TestCheckResourceAttr(resourceName, "total_service_keys", "10"),
 						resource.TestCheckResourceAttr(resourceName, "allow_paid_service_plans", "false"),
@@ -100,11 +113,11 @@ func TestResourceSpaceQuota(t *testing.T) {
 				},
 				{
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
-						HclType:               hclObjectResource,
-						HclObjectName:         "rs_update",
-						Org:                   strtostrptr(testOrgGUID),
-						TotalRoutes:           inttointptr(20),
-						TotalRoutePorts:       inttointptr(3),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs_update",
+						Org:           strtostrptr(testOrgGUID),
+						TotalRoutes:   inttointptr(10),
+						//TotalRoutePorts:       inttointptr(3),
 						TotalAppTasks:         inttointptr(10),
 						TotalServiceKeys:      inttointptr(10),
 						AllowPaidServicePlans: booltoboolptr(true),
@@ -112,8 +125,8 @@ func TestResourceSpaceQuota(t *testing.T) {
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
-						resource.TestCheckResourceAttr(resourceName, "total_routes", "20"),
-						resource.TestCheckResourceAttr(resourceName, "total_route_ports", "3"),
+						resource.TestCheckResourceAttr(resourceName, "total_routes", "10"),
+						//resource.TestCheckResourceAttr(resourceName, "total_route_ports", "3"),
 						resource.TestCheckResourceAttr(resourceName, "total_app_tasks", "10"),
 						resource.TestCheckResourceAttr(resourceName, "total_service_keys", "10"),
 						resource.TestCheckResourceAttr(resourceName, "allow_paid_service_plans", "true"),

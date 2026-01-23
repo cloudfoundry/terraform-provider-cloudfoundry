@@ -21,7 +21,7 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Go-CF-Client/3.0
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/spaces
         method: POST
       response:
@@ -30,24 +30,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: -1
+        content_length: 151
         uncompressed: false
         body: '{"errors":[{"detail":"Invalid organization. Ensure the organization exists and you have access to it.","title":"CF-UnprocessableEntity","code":10008}]}'
         headers:
+            Content-Length:
+                - "151"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 01 Mar 2024 09:31:53 GMT
+                - Wed, 21 Jan 2026 07:55:37 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
-            Server:
-                - nginx
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 418f74b9957ca9f7
+                - 7cecc1da4aba8b19
             X-B3-Traceid:
-                - f621b14f0e2f4328418f74b9957ca9f7
+                - 4d24869e9a93468f7cecc1da4aba8b19
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -56,12 +56,18 @@ interactions:
                 - SAMEORIGIN
             X-Permitted-Cross-Domain-Policies:
                 - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1768983506"
             X-Runtime:
-                - "0.003873"
+                - "0.003579"
             X-Vcap-Request-Id:
-                - f621b14f-0e2f-4328-418f-74b9957ca9f7::41482d45-89eb-40fc-871d-c9b4561c9607
+                - 4d24869e-9a93-468f-7cec-c1da4aba8b19::7474e7cb-a6cc-4e92-b2d7-33373097ff57
             X-Xss-Protection:
                 - 1; mode=block
         status: 422 Unprocessable Entity
         code: 422
-        duration: 185.794875ms
+        duration: 297.291ms

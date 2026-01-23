@@ -10,10 +10,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/samber/lo"
 )
 
@@ -22,6 +24,7 @@ var (
 	_ resource.Resource                = &orgResource{}
 	_ resource.ResourceWithConfigure   = &orgResource{}
 	_ resource.ResourceWithImportState = &orgResource{}
+	_ resource.ResourceWithIdentity    = &orgResource{}
 )
 
 // NewOrgResource is a helper function to simplify the provider implementation.
@@ -32,6 +35,10 @@ func NewOrgResource() resource.Resource {
 // orgResource is the resource implementation.
 type orgResource struct {
 	cfClient *cfv3client.Client
+}
+
+type OrgResouerceIdentityModel struct {
+	OrgGUID types.String `tfsdk:"org_guid"`
 }
 
 // Metadata returns the resource type name.
@@ -103,6 +110,16 @@ func (r *orgResource) Schema(ctx context.Context, _ resource.SchemaRequest, resp
 
 }
 
+func (rs *orgResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"org_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+		},
+	}
+}
+
 // Create creates the resource and sets the initial Terraform state.
 func (r *orgResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 
@@ -140,6 +157,13 @@ func (r *orgResource) Create(ctx context.Context, req resource.CreateRequest, re
 	resp.Diagnostics.Append(diags...)
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := OrgResouerceIdentityModel{
+		OrgGUID: types.StringValue(plan.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 // Read refreshes the Terraform state with the latest data.
@@ -176,6 +200,18 @@ func (r *orgResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 	resp.Diagnostics.Append(diags...)
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity OrgResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = OrgResouerceIdentityModel{
+			OrgGUID: types.StringValue(data.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 // Update updates the resource and sets the updated Terraform state on success.
@@ -255,5 +291,9 @@ func (r *orgResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 
 func (r *orgResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	// Retrieve import ID and save to id attribute
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("org_guid"), req, resp)
 }

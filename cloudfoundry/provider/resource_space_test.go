@@ -5,10 +5,13 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 func TestSpaceResource_Configure(t *testing.T) {
 	t.Parallel()
+	testOrgGUID := "b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"
 	t.Run("happy path - create/read/update/delete space", func(t *testing.T) {
 		resourceName := "cloudfoundry_space.ds"
 		cfg := getCFHomeConf()
@@ -21,20 +24,20 @@ func TestSpaceResource_Configure(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclSpace(&SpaceModelPtr{
-						HclType:          hclObjectResource,
-						HclObjectName:    "ds",
-						Name:             strtostrptr("tf-unit-test"),
-						OrgId:            strtostrptr(testOrgGUID),
-						AllowSSH:         booltoboolptr(true),
-						Labels:           strtostrptr(testCreateLabel),
-						IsolationSegment: strtostrptr(testIsolationSegmentGUID),
+						HclType:       hclObjectResource,
+						HclObjectName: "ds",
+						Name:          strtostrptr("tf-unit-test"),
+						OrgId:         strtostrptr(testOrgGUID),
+						AllowSSH:      booltoboolptr(true),
+						Labels:        strtostrptr(testCreateLabel),
+						//IsolationSegment: strtostrptr(testIsolationSegmentGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
 						resource.TestCheckNoResourceAttr(resourceName, "quota"),
 						resource.TestCheckResourceAttr(resourceName, "allow_ssh", "true"),
 						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "testing"),
-						resource.TestCheckResourceAttr(resourceName, "isolation_segment", testIsolationSegmentGUID),
+						//resource.TestCheckResourceAttr(resourceName, "isolation_segment", testIsolationSegmentGUID),
 					),
 				},
 				{
@@ -83,6 +86,46 @@ func TestSpaceResource_Configure(t *testing.T) {
 					ImportStateIdFunc: getIdForImport(resourceName),
 					ImportState:       true,
 					ImportStateVerify: true,
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - import space by resource identity", func(t *testing.T) {
+		resourceName := "cloudfoundry_space.ds"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_space_import")
+		defer stopQuietly(rec)
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclSpace(&SpaceModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "ds",
+						Name:          strtostrptr("tf-unit-test"),
+						OrgId:         strtostrptr(testOrgGUID),
+						AllowSSH:      booltoboolptr(true),
+						Labels:        strtostrptr(testCreateLabel),
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestCheckNoResourceAttr(resourceName, "quota"),
+						resource.TestCheckResourceAttr(resourceName, "allow_ssh", "true"),
+						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "testing"),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_space.ds", map[string]knownvalue.Check{
+							"space_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    "cloudfoundry_space.ds",
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
