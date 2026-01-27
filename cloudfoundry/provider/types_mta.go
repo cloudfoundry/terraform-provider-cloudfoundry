@@ -23,6 +23,8 @@ type MtarType struct {
 	DeployStrategy             types.String `tfsdk:"deploy_strategy"`
 	VersionRule                types.String `tfsdk:"version_rule"`
 	Modules                    types.Set    `tfsdk:"modules"`
+	SkipIdleStart              types.Bool   `tfsdk:"skip_idle_start"`
+	SkipTestingPhase           types.Bool   `tfsdk:"skip_testing_phase"`
 }
 
 type MtasDataSourceType struct {

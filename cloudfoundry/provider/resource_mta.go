@@ -121,7 +121,7 @@ __Note:__
 				MarkdownDescription: "The strategy for deploying the MTA. If attribute value is not provided by default normal deploy strategy is used.",
 				Optional:            true,
 				Validators: []validator.String{
-					stringvalidator.OneOf("deploy", "blue-green-deploy"),
+					stringvalidator.OneOf("blue-green", "incremental-blue-green"),
 				},
 			},
 			"version_rule": schema.StringAttribute{
@@ -130,6 +130,14 @@ __Note:__
 				Validators: []validator.String{
 					stringvalidator.OneOf("HIGHER", "SAME_HIGHER", "ALL"),
 				},
+			},
+			"skip_idle_start": schema.BoolAttribute{
+				MarkdownDescription: "Skip the starting of the newly deployed applications on idle routes.",
+				Optional:            true,
+			},
+			"skip_testing_phase": schema.BoolAttribute{
+				MarkdownDescription: "Choose to skip the testing phase and you will not be asked to manually confirm the deletion of the older version of the MTA applications.",
+				Optional:            true,
 			},
 			"modules": schema.SetAttribute{
 				MarkdownDescription: "Deploy only the modules of the MTA with the specified names. If not specified, all modules are deployed.",
@@ -387,13 +395,18 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		},
 	}
 
-	if mtarType.DeployStrategy.ValueString() == "blue-green-deploy" {
-		operationParams.ProcessType = "BLUE_GREEN_DEPLOY"
-		operationParams.Parameters["noConfirm"] = true
-		operationParams.Parameters["skipIdleStart"] = true
+	if mtarType.DeployStrategy.ValueString() != "" {
+		operationParams.Parameters["strategy"] = "BLUE_GREEN"
+		operationParams.Parameters["shouldUseIncrementalDeployment"] = mtarType.DeployStrategy.ValueString() == "incremental-blue-green"
 		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
-	} else {
-		operationParams.ProcessType = "DEPLOY"
+
+		if mtarType.SkipIdleStart.ValueBool() {
+			operationParams.Parameters["noConfirm"] = true
+			operationParams.Parameters["skipIdleStart"] = true
+		} else {
+			operationParams.Parameters["noConfirm"] = mtarType.SkipTestingPhase.ValueBool()
+			operationParams.Parameters["skipIdleStart"] = false
+		}
 	}
 
 	if !mtarType.VersionRule.IsNull() {
@@ -413,6 +426,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	}
 
 	//Starting deploy operation
+	operationParams.ProcessType = "DEPLOY"
 	operationId, _, _, err := r.mtaClient.DefaultApi.StartMtaOperation(ctx, spaceGuid, operationParams)
 	if err != nil {
 		respDiags.AddError(
