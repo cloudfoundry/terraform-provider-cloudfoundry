@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -23,6 +24,7 @@ var (
 	_ resource.Resource                = &SecurityGroupResource{}
 	_ resource.ResourceWithConfigure   = &SecurityGroupResource{}
 	_ resource.ResourceWithImportState = &SecurityGroupResource{}
+	_ resource.ResourceWithIdentity    = &SecurityGroupResource{}
 )
 
 // Instantiates a security group resource.
@@ -33,6 +35,10 @@ func NewSecurityGroupResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type SecurityGroupResource struct {
 	cfClient *cfv3client.Client
+}
+
+type securityGroupResouerceIdentityModel struct {
+	SecurityGroupGUID types.String `tfsdk:"security_group_guid"`
 }
 
 func (r *SecurityGroupResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -132,6 +138,16 @@ func (r *SecurityGroupResource) Schema(ctx context.Context, req resource.SchemaR
 	}
 }
 
+func (rs *SecurityGroupResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"security_group_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+		},
+	}
+}
+
 func (r *SecurityGroupResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -175,6 +191,14 @@ func (r *SecurityGroupResource) Create(ctx context.Context, req resource.CreateR
 
 	tflog.Trace(ctx, "created a security group resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := securityGroupResouerceIdentityModel{
+		SecurityGroupGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+
 }
 
 func (rs *SecurityGroupResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -196,6 +220,18 @@ func (rs *SecurityGroupResource) Read(ctx context.Context, req resource.ReadRequ
 
 	tflog.Trace(ctx, "read a security group resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity securityGroupResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = securityGroupResouerceIdentityModel{
+			SecurityGroupGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -309,5 +345,9 @@ func (rs *SecurityGroupResource) Delete(ctx context.Context, req resource.Delete
 }
 
 func (rs *SecurityGroupResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("security_group_guid"), req, resp)
 }
