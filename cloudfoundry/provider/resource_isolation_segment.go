@@ -8,7 +8,9 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -16,6 +18,7 @@ var (
 	_ resource.Resource                = &IsolationSegmentResource{}
 	_ resource.ResourceWithConfigure   = &IsolationSegmentResource{}
 	_ resource.ResourceWithImportState = &IsolationSegmentResource{}
+	_ resource.ResourceWithIdentity    = &IsolationSegmentResource{}
 )
 
 // Instantiates an isolation segment resource.
@@ -26,6 +29,10 @@ func NewIsolationSegmentResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type IsolationSegmentResource struct {
 	cfClient *cfv3client.Client
+}
+
+type isolationSegmentResouerceIdentityModel struct {
+	SegmentGUID types.String `tfsdk:"segment_guid"`
 }
 
 func (r *IsolationSegmentResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -45,6 +52,16 @@ func (r *IsolationSegmentResource) Schema(ctx context.Context, req resource.Sche
 			annotationsKey: resourceAnnotationsSchema(),
 			createdAtKey:   createdAtSchema(),
 			updatedAtKey:   updatedAtSchema(),
+		},
+	}
+}
+
+func (rs *IsolationSegmentResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"segment_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -92,6 +109,13 @@ func (r *IsolationSegmentResource) Create(ctx context.Context, req resource.Crea
 
 	tflog.Trace(ctx, "created an isolation segment resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := isolationSegmentResouerceIdentityModel{
+		SegmentGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (rs *IsolationSegmentResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -113,6 +137,18 @@ func (rs *IsolationSegmentResource) Read(ctx context.Context, req resource.ReadR
 
 	tflog.Trace(ctx, "read an isolation segment resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity isolationSegmentResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = isolationSegmentResouerceIdentityModel{
+			SegmentGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *IsolationSegmentResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -166,5 +202,9 @@ func (rs *IsolationSegmentResource) Delete(ctx context.Context, req resource.Del
 }
 
 func (rs *IsolationSegmentResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("segment_guid"), req, resp)
 }
