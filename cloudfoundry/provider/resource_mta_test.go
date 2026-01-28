@@ -17,8 +17,7 @@ func TestMtaResource_Configure(t *testing.T) {
 		mtarUrl                    = "https://github.com/Dray56/mtar-archive/releases/download/v1.0.0/a.cf.app.mtar"
 		extensionDescriptors       = `["../../assets/prod.mtaext","../../assets/prod-scale-vertically.mtaext"]`
 		sourceCodeHash             = "fca8f8d1c499a1d0561c274ab974faf09355d513bb36475fe67577d850562801"
-		normalDeploy               = "deploy"
-		bgDeploy                   = "blue-green-deploy"
+		bgDeploy                   = "blue-green"
 		versionRuleAll             = "ALL"
 		modules                    = `["my-app"]`
 		extensionDescriptorsString = `[
@@ -65,13 +64,12 @@ EOT
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						MtarPath:       strtostrptr(mtarPath),
-						Space:          strtostrptr(spaceGuid),
-						Namespace:      strtostrptr(namespace),
-						DeployStrategy: strtostrptr(normalDeploy),
-						VersionRule:    strtostrptr(versionRuleAll),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						MtarPath:      strtostrptr(mtarPath),
+						Space:         strtostrptr(spaceGuid),
+						Namespace:     strtostrptr(namespace),
+						VersionRule:   strtostrptr(versionRuleAll),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_path", mtarPath),
@@ -81,12 +79,11 @@ EOT
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						MtarUrl:        strtostrptr(mtarUrl),
-						Space:          strtostrptr(spaceGuid),
-						Namespace:      strtostrptr(namespace),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						MtarUrl:       strtostrptr(mtarUrl),
+						Space:         strtostrptr(spaceGuid),
+						Namespace:     strtostrptr(namespace),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "mtar_url", mtarUrl),
@@ -103,7 +100,6 @@ EOT
 						Space:                strtostrptr(spaceGuid),
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
-						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Error: New MTA ID`),
 				},
@@ -128,7 +124,6 @@ EOT
 						Space:                strtostrptr(spaceGuid),
 						Namespace:            strtostrptr(namespace),
 						ExtensionDescriptors: strtostrptr(extensionDescriptors),
-						DeployStrategy:       strtostrptr(normalDeploy),
 						VersionRule:          strtostrptr(versionRuleAll),
 						Modules:              strtostrptr(modules),
 					}),
@@ -191,31 +186,28 @@ EOT
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						Space:          strtostrptr(spaceGuid),
-						MtarPath:       strtostrptr(invalidOrgGUID),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Space:         strtostrptr(spaceGuid),
+						MtarPath:      strtostrptr(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mtar file`),
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						Space:          strtostrptr(spaceGuid),
-						MtarPath:       strtostrptr(""),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Space:         strtostrptr(spaceGuid),
+						MtarPath:      strtostrptr(""),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mtar file`),
 				},
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						Space:          strtostrptr(spaceGuid),
-						MtarPath:       strtostrptr("../../assets/provider-config-local.txt"),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Space:         strtostrptr(spaceGuid),
+						MtarPath:      strtostrptr("../../assets/provider-config-local.txt"),
 					}),
 					ExpectError: regexp.MustCompile(`MTA ID missing`),
 				},
@@ -226,7 +218,6 @@ EOT
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`["../../assets/pr"]`),
-						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mta extension descriptor`),
 				},
@@ -237,7 +228,6 @@ EOT
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`[""]`),
-						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload mta extension descriptor`),
 				},
@@ -248,7 +238,6 @@ EOT
 						Space:                strtostrptr(spaceGuid),
 						MtarPath:             strtostrptr(mtarPath),
 						ExtensionDescriptors: strtostrptr(`["../../assets/provider-config-local.txt"]`),
-						DeployStrategy:       strtostrptr(normalDeploy),
 					}),
 					ExpectError: regexp.MustCompile(`Failure in polling MTA operation`),
 				},
@@ -266,12 +255,11 @@ EOT
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						MtarPath:       strtostrptr(mtarPath),
-						Space:          strtostrptr(spaceGuid),
-						Namespace:      strtostrptr("Hello"),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						MtarPath:      strtostrptr(mtarPath),
+						Space:         strtostrptr(spaceGuid),
+						Namespace:     strtostrptr("Hello"),
 					}),
 					ExpectError: regexp.MustCompile(`Failure in polling MTA operation`),
 				},
@@ -289,11 +277,10 @@ EOT
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclResourceMta(&MtaResourceModelPtr{
-						HclType:        hclObjectResource,
-						HclObjectName:  "rs",
-						Space:          strtostrptr(spaceGuid),
-						MtarUrl:        strtostrptr(""),
-						DeployStrategy: strtostrptr(normalDeploy),
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Space:         strtostrptr(spaceGuid),
+						MtarUrl:       strtostrptr(""),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to upload remote mtar file`),
 				},
