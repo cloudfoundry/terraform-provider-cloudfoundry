@@ -90,7 +90,6 @@ EOT
 - `mtar_url` (String) The remote URL where the MTA archive is present
 - `namespace` (String) The namespace of the MTA. Should be of valid host format
 - `skip_idle_start` (Boolean) Skip the starting of the newly deployed applications on idle routes.
-- `skip_testing_phase` (Boolean) Choose to skip the testing phase and you will not be asked to manually confirm the deletion of the older version of the MTA applications.
 - `source_code_hash` (String) SHA256 hash of the file specified. Terraform relies on this to detect the file changes.
 - `version_rule` (String) The rule to apply to determine how the application version number is used to trigger an application-update deployment operation.
 

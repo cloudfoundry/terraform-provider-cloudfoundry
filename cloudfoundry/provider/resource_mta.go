@@ -135,10 +135,6 @@ __Note:__
 				MarkdownDescription: "Skip the starting of the newly deployed applications on idle routes.",
 				Optional:            true,
 			},
-			"skip_testing_phase": schema.BoolAttribute{
-				MarkdownDescription: "Choose to skip the testing phase and you will not be asked to manually confirm the deletion of the older version of the MTA applications.",
-				Optional:            true,
-			},
 			"modules": schema.SetAttribute{
 				MarkdownDescription: "Deploy only the modules of the MTA with the specified names. If not specified, all modules are deployed.",
 				Optional:            true,
@@ -400,14 +396,8 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 		operationParams.ProcessType = "BLUE_GREEN_DEPLOY"
 		operationParams.Parameters["shouldUseIncrementalDeployment"] = mtarType.DeployStrategy.ValueString() == "incremental-blue-green"
 		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
-
-		if mtarType.SkipIdleStart.ValueBool() {
-			operationParams.Parameters["noConfirm"] = true
-			operationParams.Parameters["skipIdleStart"] = true
-		} else {
-			operationParams.Parameters["noConfirm"] = mtarType.SkipTestingPhase.ValueBool()
-			operationParams.Parameters["skipIdleStart"] = false
-		}
+		operationParams.Parameters["noConfirm"] = true
+		operationParams.Parameters["skipIdleStart"] = mtarType.SkipIdleStart.ValueBool()
 	}
 
 	if !mtarType.VersionRule.IsNull() {
