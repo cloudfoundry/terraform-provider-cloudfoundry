@@ -127,7 +127,7 @@ __Note:__
 				},
 			},
 			"skip_idle_start": schema.BoolAttribute{
-				MarkdownDescription: "Directly start the new MTA version as 'live', skipping the 'idle' phase of the resources",
+				MarkdownDescription: "Directly start the new MTA version as 'live', skipping the 'idle' phase of the resources. This value defaults to true when not explicitly specified.",
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
