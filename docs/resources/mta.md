@@ -89,6 +89,7 @@ EOT
 - `mtar_path` (String) The local path where the MTA archive is present. Either this attribute or mtar_url need to be set.
 - `mtar_url` (String) The remote URL where the MTA archive is present
 - `namespace` (String) The namespace of the MTA. Should be of valid host format
+- `skip_idle_start` (Boolean) Directly start the new MTA version as 'live', skipping the 'idle' phase of the resources
 - `source_code_hash` (String) SHA256 hash of the file specified. Terraform relies on this to detect the file changes.
 - `version_rule` (String) The rule to apply to determine how the application version number is used to trigger an application-update deployment operation.
 

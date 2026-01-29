@@ -21,6 +21,7 @@ type MtarType struct {
 	Id                         types.String `tfsdk:"id"`
 	SourceCodeHash             types.String `tfsdk:"source_code_hash"`
 	DeployStrategy             types.String `tfsdk:"deploy_strategy"`
+	SkipIdleStart              types.Bool   `tfsdk:"skip_idle_start"`
 	VersionRule                types.String `tfsdk:"version_rule"`
 	Modules                    types.Set    `tfsdk:"modules"`
 }
