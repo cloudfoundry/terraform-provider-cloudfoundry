@@ -27,6 +27,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
@@ -94,11 +95,17 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				MarkdownDescription: "Whether to enable or disable SSH access on an app level.",
 				Optional:            true,
 				Computed:            true,
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"stack": schema.StringAttribute{
 				MarkdownDescription: "The base operating system and file system that your application will execute in. Please refer to the [docs](https://v3-apidocs.cloudfoundry.org/version/3.155.0/index.html#stacks) for more information",
 				Optional:            true,
 				Computed:            true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"buildpacks": schema.ListAttribute{
 				MarkdownDescription: "Multiple buildpacks used to stage the application.",
@@ -195,6 +202,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Computed: true,
 				PlanModifiers: []planmodifier.Set{
 					setplanmodifier.RequiresReplaceIfConfigured(),
+					setplanmodifier.UseStateForUnknown(),
 				},
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
@@ -322,15 +330,9 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 			},
 			labelsKey:      resourceLabelsSchema(),
 			annotationsKey: resourceAnnotationsSchema(),
-			idKey: schema.StringAttribute{
-				MarkdownDescription: "The GUID of the object.",
-				Computed:            true,
-			},
-			createdAtKey: schema.StringAttribute{
-				MarkdownDescription: "The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.",
-				Computed:            true,
-			},
-			updatedAtKey: updatedAtSchema(),
+			idKey:          appGuidSchema(),
+			createdAtKey:   appCreatedAtSchema(),
+			updatedAtKey:   updatedAtSchema(),
 		},
 	}
 	for k, v := range r.ProcessAppCommonSchema() {
@@ -364,6 +366,9 @@ func (r *appResource) ProcessAppCommonSchema() map[string]schema.Attribute {
 			MarkdownDescription: "The disk space to be allocated for each application instance.",
 			Optional:            true,
 			Computed:            true,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.UseStateForUnknown(),
+			},
 		},
 		"health_check_http_endpoint": schema.StringAttribute{
 			MarkdownDescription: "The endpoint for the http health check type.",
@@ -380,6 +385,9 @@ func (r *appResource) ProcessAppCommonSchema() map[string]schema.Attribute {
 			Validators: []validator.String{
 				stringvalidator.OneOf("port", "process", "http"),
 			},
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.UseStateForUnknown(),
+			},
 		},
 		"health_check_interval": schema.Int64Attribute{
 			MarkdownDescription: "The interval in seconds between health checks.",
@@ -391,6 +399,9 @@ func (r *appResource) ProcessAppCommonSchema() map[string]schema.Attribute {
 			Computed:            true,
 			Validators: []validator.String{
 				stringvalidator.OneOf("port", "process", "http"),
+			},
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.UseStateForUnknown(),
 			},
 		},
 		"readiness_health_check_http_endpoint": schema.StringAttribute{
@@ -409,16 +420,25 @@ func (r *appResource) ProcessAppCommonSchema() map[string]schema.Attribute {
 			MarkdownDescription: "The attribute specifies the log rate limit for all instances of an app.",
 			Computed:            true,
 			Optional:            true,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.UseStateForUnknown(),
+			},
 		},
 		"instances": schema.Int64Attribute{
 			MarkdownDescription: "The number of app instances that you want to start. Defaults to 1.",
 			Optional:            true,
 			Computed:            true,
+			PlanModifiers: []planmodifier.Int64{
+				int64planmodifier.UseStateForUnknown(),
+			},
 		},
 		"memory": schema.StringAttribute{
 			MarkdownDescription: "The memory limit for each application instance. If not provided, value is computed and retreived from Cloud Foundry.",
 			Optional:            true,
 			Computed:            true,
+			PlanModifiers: []planmodifier.String{
+				stringplanmodifier.UseStateForUnknown(),
+			},
 		},
 		"timeout": schema.Int64Attribute{
 			MarkdownDescription: "Time in seconds at which the health-check will report failure.",
