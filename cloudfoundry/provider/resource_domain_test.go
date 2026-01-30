@@ -7,6 +7,8 @@ import (
 	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 type DomainModelPtr struct {
@@ -87,6 +89,7 @@ func TestDomainResource_Configure(t *testing.T) {
 		domainSharedOrgs       = `["537e7b58-b3e0-4464-9cad-2deae6120a80","30edf44a-2d4c-432c-9680-9a61123edcf1"]`
 		domainUpdateSharedOrgs = `["ca721b24-e24d-4171-83e1-1ef6bd836b38","30edf44a-2d4c-432c-9680-9a61123edcf1"]`
 		resourceName           = "cloudfoundry_domain.rs"
+		testOrgGUID            = "b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"
 	)
 	t.Parallel()
 	t.Run("happy path - create/import/delete shared domain", func(t *testing.T) {
@@ -138,6 +141,45 @@ func TestDomainResource_Configure(t *testing.T) {
 					ImportStateIdFunc: getIdForImport(resourceName),
 					ImportState:       true,
 					ImportStateVerify: true,
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - import with identity ", func(t *testing.T) {
+		resourceName = "cloudfoundry_domain.rs"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_domain_import_with_identity")
+		defer stopQuietly(rec)
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclDomain(&DomainModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Name:          &testPrivateDomainName,
+						Org:           &testOrgGUID,
+						Labels:        &testCreateLabel,
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
+						resource.TestCheckResourceAttr(resourceName, "name", testPrivateDomainName),
+						resource.TestCheckResourceAttr(resourceName, "labels.purpose", "testing"),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_domain.rs", map[string]knownvalue.Check{
+							"domain_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
