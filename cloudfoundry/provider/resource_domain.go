@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -25,6 +26,7 @@ var (
 	_ resource.Resource                = &DomainResource{}
 	_ resource.ResourceWithConfigure   = &DomainResource{}
 	_ resource.ResourceWithImportState = &DomainResource{}
+	_ resource.ResourceWithIdentity    = &DomainResource{}
 )
 
 // Instantiates a domain resource.
@@ -35,6 +37,10 @@ func NewDomainResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type DomainResource struct {
 	cfClient *cfv3client.Client
+}
+
+type domainResouerceIdentityModel struct {
+	DomainGUID types.String `tfsdk:"domain_guid"`
 }
 
 func (r *DomainResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -111,6 +117,16 @@ func (r *DomainResource) Schema(ctx context.Context, req resource.SchemaRequest,
 	}
 }
 
+func (rs *DomainResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"domain_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+		},
+	}
+}
+
 func (r *DomainResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -156,6 +172,13 @@ func (r *DomainResource) Create(ctx context.Context, req resource.CreateRequest,
 
 	tflog.Trace(ctx, "created a domain resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := domainResouerceIdentityModel{
+		DomainGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (rs *DomainResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -179,6 +202,18 @@ func (rs *DomainResource) Read(ctx context.Context, req resource.ReadRequest, re
 	tflog.Trace(ctx, "read a domain resource")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity domainResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = domainResouerceIdentityModel{
+			DomainGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *DomainResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -272,5 +307,9 @@ func (rs *DomainResource) Delete(ctx context.Context, req resource.DeleteRequest
 }
 
 func (rs *DomainResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("domain_guid"), req, resp)
 }

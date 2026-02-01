@@ -11,10 +11,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -22,6 +24,7 @@ var (
 	_ resource.Resource                = &OrgRoleResource{}
 	_ resource.ResourceWithConfigure   = &OrgRoleResource{}
 	_ resource.ResourceWithImportState = &OrgRoleResource{}
+	_ resource.ResourceWithIdentity    = &OrgRoleResource{}
 )
 
 // Instantiates a role resource.
@@ -32,6 +35,10 @@ func NewOrgeRoleResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type OrgRoleResource struct {
 	cfClient *cfv3client.Client
+}
+
+type orgRoleResouerceIdentityModel struct {
+	RoleGUID types.String `tfsdk:"role_guid"`
 }
 
 func (r *OrgRoleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -107,6 +114,18 @@ func (r *OrgRoleResource) Schema(ctx context.Context, req resource.SchemaRequest
 	}
 }
 
+func (rs *OrgRoleResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	{
+		resp.IdentitySchema = identityschema.Schema{
+			Attributes: map[string]identityschema.Attribute{
+				"role_guid": identityschema.StringAttribute{
+					RequiredForImport: true,
+				},
+			},
+		}
+	}
+}
+
 func (r *OrgRoleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -158,6 +177,13 @@ func (r *OrgRoleResource) Create(ctx context.Context, req resource.CreateRequest
 	tflog.Trace(ctx, "created an org role resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 
+	identity := orgRoleResouerceIdentityModel{
+		RoleGUID: types.StringValue(data.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+
 }
 
 func (rs *OrgRoleResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -182,6 +208,18 @@ func (rs *OrgRoleResource) Read(ctx context.Context, req resource.ReadRequest, r
 
 	tflog.Trace(ctx, "read an org role resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity orgRoleResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = orgRoleResouerceIdentityModel{
+			RoleGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 // Update for role is not possible.
@@ -217,5 +255,9 @@ func (rs *OrgRoleResource) Delete(ctx context.Context, req resource.DeleteReques
 }
 
 func (rs *OrgRoleResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("role_guid"), req, resp)
 }

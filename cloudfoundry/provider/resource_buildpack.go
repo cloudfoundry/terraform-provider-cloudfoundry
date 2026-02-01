@@ -11,14 +11,17 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 var (
 	_ resource.ResourceWithConfigure   = &BuildpackResource{}
 	_ resource.ResourceWithImportState = &BuildpackResource{}
+	_ resource.ResourceWithIdentity    = &BuildpackResource{}
 )
 
 // Instantiates a security group resource.
@@ -29,6 +32,10 @@ func NewBuildpackResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type BuildpackResource struct {
 	cfClient *cfv3client.Client
+}
+
+type buildpackResouerceIdentityModel struct {
+	BuildpackGUID types.String `tfsdk:"buildpack_guid"`
 }
 
 func (r *BuildpackResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -90,6 +97,18 @@ func (r *BuildpackResource) Schema(ctx context.Context, req resource.SchemaReque
 			createdAtKey:   createdAtSchema(),
 			updatedAtKey:   updatedAtSchema(),
 		},
+	}
+}
+
+func (rs *BuildpackResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	{
+		resp.IdentitySchema = identityschema.Schema{
+			Attributes: map[string]identityschema.Attribute{
+				"buildpack_guid": identityschema.StringAttribute{
+					RequiredForImport: true,
+				},
+			},
+		}
 	}
 }
 
@@ -171,6 +190,14 @@ func (r *BuildpackResource) Create(ctx context.Context, req resource.CreateReque
 
 	tflog.Trace(ctx, "created a buildpack resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	identity := buildpackResouerceIdentityModel{
+		BuildpackGUID: types.StringValue(data.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+
 }
 
 func (rs *BuildpackResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -194,6 +221,18 @@ func (rs *BuildpackResource) Read(ctx context.Context, req resource.ReadRequest,
 
 	tflog.Trace(ctx, "read a buildpack resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+
+	var identity buildpackResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = buildpackResouerceIdentityModel{
+			BuildpackGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *BuildpackResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -287,5 +326,9 @@ func (rs *BuildpackResource) Delete(ctx context.Context, req resource.DeleteRequ
 }
 
 func (rs *BuildpackResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("buildpack_guid"), req, resp)
 }

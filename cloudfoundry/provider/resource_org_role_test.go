@@ -7,6 +7,8 @@ import (
 	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 type OrgRoleResourceModelPtr struct {
@@ -68,8 +70,10 @@ func hclOrgRoleResource(rrmp *OrgRoleResourceModelPtr) string {
 func TestOrgRoleResource_Configure(t *testing.T) {
 	var (
 		// in canary -> PerformanceTeamBLR -> tf-space-1
-		testUserName = "debaditya.ray@sap.com"
-		origin       = "sap.ids"
+		testUserName  = "debaditya.ray@sap.com"
+		origin        = "sap.ids"
+		testUserName2 = "6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"
+		testOrgGUID   = "b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"
 	)
 	t.Parallel()
 	t.Run("happy path - create org role", func(t *testing.T) {
@@ -102,6 +106,45 @@ func TestOrgRoleResource_Configure(t *testing.T) {
 					ImportStateIdFunc: getIdForImport(resourceName),
 					ImportState:       true,
 					ImportStateVerify: true,
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - create org role with identity", func(t *testing.T) {
+		resourceName := "cloudfoundry_org_role.rs"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_org_role_import_identity")
+		defer stopQuietly(rec)
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclOrgRoleResource(&OrgRoleResourceModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "rs",
+						Type:          strtostrptr("organization_user"),
+						User:          strtostrptr(testUserName2),
+						Organization:  strtostrptr(testOrgGUID),
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
+						resource.TestCheckResourceAttr(resourceName, "user", testUserName2),
+						resource.TestCheckResourceAttr(resourceName, "org", testOrgGUID),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_org_role.rs", map[string]knownvalue.Check{
+							"role_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
