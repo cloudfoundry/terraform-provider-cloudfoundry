@@ -12,11 +12,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -24,6 +26,7 @@ var (
 	_ resource.Resource                = &RouteResource{}
 	_ resource.ResourceWithConfigure   = &RouteResource{}
 	_ resource.ResourceWithImportState = &RouteResource{}
+	_ resource.ResourceWithIdentity    = &RouteResource{}
 )
 
 // Instantiates a security group resource.
@@ -34,6 +37,10 @@ func NewRouteResource() resource.Resource {
 // Contains reference to the v3 client to be used for making the API calls.
 type RouteResource struct {
 	cfClient *cfv3client.Client
+}
+
+type routeResouerceIdentityModel struct {
+	RouteGUID types.String `tfsdk:"route_guid"`
 }
 
 func (r *RouteResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -164,6 +171,18 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 	}
 }
 
+func (rs *RouteResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	{
+		resp.IdentitySchema = identityschema.Schema{
+			Attributes: map[string]identityschema.Attribute{
+				"route_guid": identityschema.StringAttribute{
+					RequiredForImport: true,
+				},
+			},
+		}
+	}
+}
+
 func (r *RouteResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -225,6 +244,14 @@ func (r *RouteResource) Create(ctx context.Context, req resource.CreateRequest, 
 
 	tflog.Trace(ctx, "created a route resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := routeResouerceIdentityModel{
+		RouteGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+
 }
 
 func (rs *RouteResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -246,6 +273,18 @@ func (rs *RouteResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 	tflog.Trace(ctx, "read a route resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity routeResouerceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = routeResouerceIdentityModel{
+			RouteGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (rs *RouteResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -323,5 +362,9 @@ func (rs *RouteResource) Delete(ctx context.Context, req resource.DeleteRequest,
 }
 
 func (rs *RouteResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("route_guid"), req, resp)
 }

@@ -5,9 +5,15 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 func TestRouteResource_Configure(t *testing.T) {
+	var (
+		testSpace1RouteGUID  = "50655f6a-a66c-4276-b544-1d1aa864effd"
+		testDomain1RouteGUID = "d042f463-bda6-4036-95a8-f2abfa7287ee"
+	)
 	t.Parallel()
 	t.Run("happy path - create/read/update/delete route", func(t *testing.T) {
 		resourceName := "cloudfoundry_route.ds"
@@ -92,6 +98,43 @@ func TestRouteResource_Configure(t *testing.T) {
 			},
 		})
 	})
+
+	t.Run("happy path - import with identity", func(t *testing.T) {
+		resourceName := "cloudfoundry_route.ds"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_route_import_identity")
+		defer stopQuietly(rec)
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclResourceRoute(&RouteResourceModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "ds",
+						Space:         &testSpace1RouteGUID,
+						Domain:        &testDomain1RouteGUID,
+					},
+					),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_route.ds", map[string]knownvalue.Check{
+							"route_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
+				},
+			},
+		})
+	})
+
 	t.Run("error path - invalid domain or space when creating route", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_route_invalid")
