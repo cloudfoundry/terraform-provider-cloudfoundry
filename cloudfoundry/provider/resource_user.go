@@ -11,6 +11,7 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
@@ -23,6 +24,7 @@ var (
 	_ resource.Resource                = &UserResource{}
 	_ resource.ResourceWithConfigure   = &UserResource{}
 	_ resource.ResourceWithImportState = &UserResource{}
+	_ resource.ResourceWithIdentity    = &UserResource{}
 )
 
 // Instantiates a user resource.
@@ -34,6 +36,10 @@ func NewUserResource() resource.Resource {
 type UserResource struct {
 	cfClient  *cfv3client.Client
 	uaaClient *uaa.API
+}
+
+type userResourceIdentityModel struct {
+	UserGUID types.String `tfsdk:"user_guid"`
 }
 
 func (r *UserResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -89,6 +95,16 @@ func (r *UserResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 			createdAtKey:   createdAtSchema(),
 			updatedAtKey:   updatedAtSchema(),
 			idKey:          guidSchema(),
+		},
+	}
+}
+
+func (rs *UserResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"user_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -171,6 +187,13 @@ func (r *UserResource) Create(ctx context.Context, req resource.CreateRequest, r
 
 	tflog.Trace(ctx, "created a user resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+
+	identity := userResourceIdentityModel{
+		UserGUID: types.StringValue(plan.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (rs *UserResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -203,6 +226,19 @@ func (rs *UserResource) Read(ctx context.Context, req resource.ReadRequest, resp
 
 	tflog.Trace(ctx, "read a user resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity userResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = userResourceIdentityModel{
+			UserGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
+
 }
 
 func (rs *UserResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -305,5 +341,9 @@ func (rs *UserResource) Delete(ctx context.Context, req resource.DeleteRequest, 
 }
 
 func (rs *UserResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("user_guid"), req, resp)
 }
