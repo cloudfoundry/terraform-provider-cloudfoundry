@@ -1,9 +1,11 @@
 package provider
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 func TestAppResource_Configure(t *testing.T) {
@@ -285,6 +287,92 @@ resource "cloudfoundry_app" "app" {
 							"disk_quota":        "1024M",
 							"health_check_type": "process",
 						}),
+					),
+				},
+			},
+		})
+	})
+	// This test verifies that updating a space's allow_ssh attribute does not cause
+	// apps in that space to be replaced. This is a regression test for an issue where
+	// changing a referenced resource caused the app's space_name attribute to appear
+	// as "known after apply", triggering unwanted replacement. The app's space_name
+	// references cloudfoundry_space.test.name so that when the space is updated, the
+	// name flows through as "known after apply" during planning. The UseStateForUnknown
+	// plan modifier prevents this from triggering a replacement.
+	t.Run("happy path - app not replaced when space allow_ssh changes", func(t *testing.T) {
+		resourceName := "cloudfoundry_app.app_stability"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_app_space_allow_ssh_update")
+		defer stopQuietly(rec)
+
+		var appID string
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					// Step 1: Create a space with allow_ssh=false and a docker app
+					// that references cloudfoundry_space.test.name for space_name
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "tf-space-1"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = false
+}
+resource "cloudfoundry_app" "app_stability" {
+	name         = "stability-test-app"
+	space_name   = cloudfoundry_space.test.name
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	no_route     = true
+}
+`,
+					Check: resource.ComposeTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestCheckResourceAttr(resourceName, "name", "stability-test-app"),
+						resource.TestCheckResourceAttr(resourceName, "space_name", "tf-space-1"),
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							appID = rs.Primary.ID
+							return nil
+						},
+					),
+				},
+				{
+					// Step 2: Change allow_ssh on the space. This causes the space
+					// resource to be updated, making cloudfoundry_space.test.name
+					// appear as "known after apply" during planning. Without
+					// UseStateForUnknown on the app's space_name attribute,
+					// this would trigger a replacement.
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "tf-space-1"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = true
+}
+resource "cloudfoundry_app" "app_stability" {
+	name         = "stability-test-app"
+	space_name   = cloudfoundry_space.test.name
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	no_route     = true
+}
+`,
+					Check: resource.ComposeTestCheckFunc(
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							if rs.Primary.ID != appID {
+								return fmt.Errorf("app was unexpectedly replaced: old ID %s, new ID %s", appID, rs.Primary.ID)
+							}
+							return nil
+						},
 					),
 				},
 			},
