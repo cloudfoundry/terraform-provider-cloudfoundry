@@ -1,10 +1,12 @@
 package provider
 
 import (
+	"fmt"
 	"regexp"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 func TestResourceServiceInstance(t *testing.T) {
@@ -248,6 +250,91 @@ func TestResourceServiceInstance(t *testing.T) {
 						Type:          strtostrptr(userProvidedServiceInstance),
 					}),
 					ExpectError: regexp.MustCompile(`Error: API Error in creating user-provided service instance`),
+				},
+			},
+		})
+	})
+
+	// This test verifies that updating a space's allow_ssh attribute does not cause
+	// service instances in that space to be replaced. This is a regression test for
+	// an issue where changing space attributes caused the service instance's space
+	// reference to appear as "known after apply", triggering unwanted replacement.
+	// The service instance references cloudfoundry_space.test.id so that when the
+	// space is updated, the space ID flows through as "known after apply" during
+	// planning. The UseStateForUnknown plan modifier prevents this from triggering
+	// a replacement.
+	t.Run("happy path - service instance not replaced when space allow_ssh changes", func(t *testing.T) {
+		resourceName := "cloudfoundry_service_instance.si_space_update"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_instance_space_allow_ssh_update")
+		defer stopQuietly(rec)
+
+		var serviceInstanceID string
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					// Step 1: Create a space with allow_ssh=false and a user-provided
+					// service instance that references cloudfoundry_space.test.id
+					// (using user-provided since it doesn't require waiting for provisioning)
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "test-space-stability"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = false
+}
+resource "cloudfoundry_service_instance" "si_space_update" {
+	name        = "test-si-space-update"
+	type        = "user-provided"
+	space       = cloudfoundry_space.test.id
+	credentials = ` + testCredentials + `
+}
+`,
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							serviceInstanceID = rs.Primary.ID
+							return nil
+						},
+					),
+				},
+				{
+					// Step 2: Change allow_ssh on the space. This causes the space
+					// resource to be updated, making cloudfoundry_space.test.id
+					// appear as "known after apply" during planning. Without
+					// UseStateForUnknown on the service instance's space attribute,
+					// this would trigger a replacement.
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "test-space-stability"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = true
+}
+resource "cloudfoundry_service_instance" "si_space_update" {
+	name        = "test-si-space-update"
+	type        = "user-provided"
+	space       = cloudfoundry_space.test.id
+	credentials = ` + testCredentials + `
+}
+`,
+					Check: resource.ComposeAggregateTestCheckFunc(
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							if rs.Primary.ID != serviceInstanceID {
+								return fmt.Errorf("service instance was unexpectedly replaced: old ID %s, new ID %s", serviceInstanceID, rs.Primary.ID)
+							}
+							return nil
+						},
+					),
 				},
 			},
 		})
