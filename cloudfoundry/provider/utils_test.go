@@ -254,3 +254,70 @@ func getIdForImport(resourceName string) resource.ImportStateIdFunc {
 		return rs.Primary.ID, nil
 	}
 }
+
+// hclSpaceWithSSH returns HCL for a cloudfoundry_space resource named "test"
+// with the given space name and allow_ssh value. Used by regression tests that
+// verify resources are not replaced when space attributes change.
+func hclSpaceWithSSH(spaceName string, allowSSH bool) string {
+	return fmt.Sprintf(`
+resource "cloudfoundry_space" "test" {
+	name      = %q
+	org       = %q
+	allow_ssh = %t
+}
+`, spaceName, testOrgGUID, allowSSH)
+}
+
+// testResourceNotReplacedOnSpaceUpdate is a regression test helper that verifies
+// a resource is not replaced when a space's allow_ssh attribute changes. This tests
+// the UseStateForUnknown plan modifier fix: when allow_ssh changes, the space is
+// updated, causing cloudfoundry_space.test.id to become "known after apply" during
+// planning. Without UseStateForUnknown, this propagates through the dependency chain
+// and triggers unwanted replacements of downstream resources.
+//
+// configForSSH should return HCL (without the provider block) that includes a
+// cloudfoundry_space and the resource under test, parameterized by allowSSH.
+func testResourceNotReplacedOnSpaceUpdate(t *testing.T, fixtureName string, resourceName string, configForSSH func(allowSSH bool) string) {
+	t.Helper()
+	cfg := getCFHomeConf()
+	rec := cfg.SetupVCR(t, fixtureName)
+	defer stopQuietly(rec)
+
+	var resourceID string
+
+	resource.Test(t, resource.TestCase{
+		IsUnitTest:               true,
+		ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+		Steps: []resource.TestStep{
+			{
+				Config: hclProvider(nil) + configForSSH(false),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+					func(s *terraform.State) error {
+						rs, ok := s.RootModule().Resources[resourceName]
+						if !ok {
+							return fmt.Errorf("resource not found: %s", resourceName)
+						}
+						resourceID = rs.Primary.ID
+						return nil
+					},
+				),
+			},
+			{
+				Config: hclProvider(nil) + configForSSH(true),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					func(s *terraform.State) error {
+						rs, ok := s.RootModule().Resources[resourceName]
+						if !ok {
+							return fmt.Errorf("resource not found: %s", resourceName)
+						}
+						if rs.Primary.ID != resourceID {
+							return fmt.Errorf("%s was unexpectedly replaced: old ID %s, new ID %s", resourceName, resourceID, rs.Primary.ID)
+						}
+						return nil
+					},
+				),
+			},
+		},
+	})
+}

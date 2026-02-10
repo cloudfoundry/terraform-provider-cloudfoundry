@@ -2,13 +2,11 @@ package provider
 
 import (
 	"bytes"
-	"fmt"
 	"regexp"
 	"testing"
 	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 type ResourceServiceCredentialBindingModelPtr struct {
@@ -282,35 +280,15 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 		})
 	})
 
-	// This test verifies that updating a space's allow_ssh attribute does not cause
-	// credential bindings to be replaced through a cascading dependency chain:
-	// space -> service_instance -> credential_binding. When the space is updated,
-	// cloudfoundry_space.test.id becomes "known after apply", which flows into the
-	// service instance's space attribute, making cloudfoundry_service_instance.test.id
-	// also "known after apply", which then flows into the credential binding's
-	// service_instance attribute. UseStateForUnknown at each level prevents the cascade
-	// from triggering replacements.
+	// Tests the cascading dependency chain: space -> service_instance -> credential_binding.
+	// When allow_ssh changes on the space, the "known after apply" propagates through
+	// space.id -> service_instance.space -> service_instance.id -> binding.service_instance.
 	t.Run("happy path - credential binding not replaced when space allow_ssh changes", func(t *testing.T) {
-		resourceName := "cloudfoundry_service_credential_binding.si_stability"
-		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/resource_service_credential_binding_space_allow_ssh_update")
-		defer stopQuietly(rec)
-
-		var bindingID string
-
-		resource.Test(t, resource.TestCase{
-			IsUnitTest:               true,
-			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
-			Steps: []resource.TestStep{
-				{
-					// Step 1: Create the full dependency chain:
-					// space -> service_instance -> credential_binding
-					Config: hclProvider(nil) + `
-resource "cloudfoundry_space" "test" {
-	name      = "test-space-binding-stability"
-	org       = "` + testOrgGUID + `"
-	allow_ssh = false
-}
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_service_credential_binding_space_allow_ssh_update",
+			"cloudfoundry_service_credential_binding.si_stability",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSH("test-space-binding-stability", allowSSH) + `
 resource "cloudfoundry_service_instance" "test" {
 	name  = "test-si-binding-stability"
 	type  = "user-provided"
@@ -322,60 +300,9 @@ resource "cloudfoundry_service_credential_binding" "si_stability" {
 	service_instance = cloudfoundry_service_instance.test.id
 	app              = "` + testApp3GUID + `"
 }
-`,
-					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
-						func(s *terraform.State) error {
-							rs, ok := s.RootModule().Resources[resourceName]
-							if !ok {
-								return fmt.Errorf("resource not found: %s", resourceName)
-							}
-							bindingID = rs.Primary.ID
-							return nil
-						},
-					),
-				},
-				{
-					// Step 2: Change allow_ssh on the space. This causes a cascade:
-					// space updated -> space.id "known after apply" ->
-					// service_instance.space "known after apply" ->
-					// service_instance.id "known after apply" ->
-					// credential_binding.service_instance "known after apply".
-					// Without UseStateForUnknown at each level, this cascade
-					// would trigger replacements.
-					Config: hclProvider(nil) + `
-resource "cloudfoundry_space" "test" {
-	name      = "test-space-binding-stability"
-	org       = "` + testOrgGUID + `"
-	allow_ssh = true
-}
-resource "cloudfoundry_service_instance" "test" {
-	name  = "test-si-binding-stability"
-	type  = "user-provided"
-	space = cloudfoundry_space.test.id
-}
-resource "cloudfoundry_service_credential_binding" "si_stability" {
-	name             = "test-binding-stability"
-	type             = "app"
-	service_instance = cloudfoundry_service_instance.test.id
-	app              = "` + testApp3GUID + `"
-}
-`,
-					Check: resource.ComposeAggregateTestCheckFunc(
-						func(s *terraform.State) error {
-							rs, ok := s.RootModule().Resources[resourceName]
-							if !ok {
-								return fmt.Errorf("resource not found: %s", resourceName)
-							}
-							if rs.Primary.ID != bindingID {
-								return fmt.Errorf("credential binding was unexpectedly replaced: old ID %s, new ID %s", bindingID, rs.Primary.ID)
-							}
-							return nil
-						},
-					),
-				},
+`
 			},
-		})
+		)
 	})
 
 	t.Run("error path - create app binding with existing name", func(t *testing.T) {
