@@ -76,6 +76,7 @@ https://docs.cloudfoundry.org/devguide/services`,
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 				Validators: []validator.String{
 					validation.ValidUUID(),

@@ -58,6 +58,7 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"service_instance": schema.StringAttribute{
@@ -65,6 +66,7 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"name": schema.StringAttribute{
@@ -72,6 +74,7 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 				Optional:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"app": schema.StringAttribute{
@@ -79,6 +82,7 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 				Optional:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"parameters": schema.StringAttribute{

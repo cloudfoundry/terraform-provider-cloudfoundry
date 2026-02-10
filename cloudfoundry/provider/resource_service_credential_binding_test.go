@@ -280,6 +280,31 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 		})
 	})
 
+	// Tests the cascading dependency chain: space -> service_instance -> credential_binding.
+	// When allow_ssh changes on the space, the "known after apply" propagates through
+	// space.id -> service_instance.space -> service_instance.id -> binding.service_instance.
+	t.Run("happy path - credential binding not replaced when space allow_ssh changes", func(t *testing.T) {
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_service_credential_binding_space_allow_ssh_update",
+			"cloudfoundry_service_credential_binding.si_stability",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSH("test-space-binding-stability", allowSSH) + `
+resource "cloudfoundry_service_instance" "test" {
+	name  = "test-si-binding-stability"
+	type  = "user-provided"
+	space = cloudfoundry_space.test.id
+}
+resource "cloudfoundry_service_credential_binding" "si_stability" {
+	name             = "test-binding-stability"
+	type             = "app"
+	service_instance = cloudfoundry_service_instance.test.id
+	app              = "` + testApp3GUID + `"
+}
+`
+			},
+		)
+	})
+
 	t.Run("error path - create app binding with existing name", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_service_credential_binding_invalid_name")

@@ -188,6 +188,35 @@ func TestResourceServiceRouteBinding(t *testing.T) {
 		})
 	})
 
+	// Tests the cascading dependency chain: space -> service_instance + route -> route_binding.
+	// When allow_ssh changes on the space, the "known after apply" propagates through
+	// space.id -> service_instance.space + route.space -> their IDs -> binding attributes.
+	t.Run("happy path - route binding not replaced when space allow_ssh changes", func(t *testing.T) {
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_service_route_binding_space_allow_ssh_update",
+			"cloudfoundry_service_route_binding.si_stability",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSH("test-space-route-binding-stability", allowSSH) + `
+resource "cloudfoundry_service_instance" "test" {
+	name              = "test-si-route-binding-stability"
+	type              = "user-provided"
+	space             = cloudfoundry_space.test.id
+	route_service_url = "https://example.com"
+}
+resource "cloudfoundry_route" "test" {
+	space  = cloudfoundry_space.test.id
+	domain = "` + testDomainRouteGUID + `"
+	host   = "route-binding-stability-test"
+}
+resource "cloudfoundry_service_route_binding" "si_stability" {
+	service_instance = cloudfoundry_service_instance.test.id
+	route            = cloudfoundry_route.test.id
+}
+`
+			},
+		)
+	})
+
 	t.Run("error path - create route binding with invalid instance", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_service_route_binding_invalid")

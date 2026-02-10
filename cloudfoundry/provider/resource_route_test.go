@@ -92,6 +92,21 @@ func TestRouteResource_Configure(t *testing.T) {
 			},
 		})
 	})
+	t.Run("happy path - route not replaced when space allow_ssh changes", func(t *testing.T) {
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_route_space_allow_ssh_update",
+			"cloudfoundry_route.rt_stability",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSH("test-space-route-stability", allowSSH) + `
+resource "cloudfoundry_route" "rt_stability" {
+	space  = cloudfoundry_space.test.id
+	domain = "` + testDomainRouteGUID + `"
+	host   = "stability-test"
+}
+`
+			},
+		)
+	})
 	t.Run("error path - invalid domain or space when creating route", func(t *testing.T) {
 		cfg := getCFHomeConf()
 		rec := cfg.SetupVCR(t, "fixtures/resource_route_invalid")

@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
@@ -90,6 +91,87 @@ func guidSchema() *schema.StringAttribute {
 		Computed:            true,
 		PlanModifiers: []planmodifier.String{
 			stringplanmodifier.UseStateForUnknown(),
+		},
+	}
+}
+
+// useStateForUnknownUnlessBlueGreen implements a plan modifier that copies the prior
+// state value into the planned value, unless the deployment strategy is "blue-green".
+// This is needed because blue-green deployments create a new app with a new GUID.
+type useStateForUnknownUnlessBlueGreen struct{}
+
+// Description returns a human-readable description of the plan modifier.
+func (m useStateForUnknownUnlessBlueGreen) Description(_ context.Context) string {
+	return "Uses state for unknown unless deployment strategy is blue-green."
+}
+
+// MarkdownDescription returns a markdown description of the plan modifier.
+func (m useStateForUnknownUnlessBlueGreen) MarkdownDescription(_ context.Context) string {
+	return "Uses state for unknown unless deployment strategy is blue-green."
+}
+
+// PlanModifyString implements the plan modification logic.
+func (m useStateForUnknownUnlessBlueGreen) PlanModifyString(ctx context.Context, req planmodifier.StringRequest, resp *planmodifier.StringResponse) {
+	// Do nothing if there is no state (resource is being created).
+	if req.State.Raw.IsNull() {
+		return
+	}
+
+	// Do nothing if there is a known planned value.
+	if !req.PlanValue.IsUnknown() {
+		return
+	}
+
+	// Do nothing if there is an unknown configuration value.
+	if req.ConfigValue.IsUnknown() {
+		return
+	}
+
+	// Check the deployment strategy from the plan
+	var strategy types.String
+	diags := req.Plan.GetAttribute(ctx, path.Root("strategy"), &strategy)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// If strategy is "blue-green", leave the value as unknown (will be computed)
+	// because a new app is created during blue-green deployment
+	if !strategy.IsNull() && strategy.ValueString() == "blue-green" {
+		// Leave resp.PlanValue as unknown - don't copy state
+		return
+	}
+
+	// Otherwise, use the state value (normal behavior like UseStateForUnknown)
+	resp.PlanValue = req.StateValue
+}
+
+// UseStateForUnknownUnlessBlueGreen returns a plan modifier that copies the prior
+// state value into the planned value, unless the deployment strategy is "blue-green".
+func UseStateForUnknownUnlessBlueGreen() planmodifier.String {
+	return useStateForUnknownUnlessBlueGreen{}
+}
+
+// appGuidSchema returns a schema for the app GUID that uses the custom plan modifier.
+// This is needed because blue-green deployments create a new app with a new GUID.
+func appGuidSchema() *schema.StringAttribute {
+	return &schema.StringAttribute{
+		MarkdownDescription: "The GUID of the object.",
+		Computed:            true,
+		PlanModifiers: []planmodifier.String{
+			UseStateForUnknownUnlessBlueGreen(),
+		},
+	}
+}
+
+// appCreatedAtSchema returns a schema for the app created_at that uses the custom plan modifier.
+// This is needed because blue-green deployments create a new app with a new created_at timestamp.
+func appCreatedAtSchema() *schema.StringAttribute {
+	return &schema.StringAttribute{
+		MarkdownDescription: "The date and time when the resource was created in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format.",
+		Computed:            true,
+		PlanModifiers: []planmodifier.String{
+			UseStateForUnknownUnlessBlueGreen(),
 		},
 	}
 }

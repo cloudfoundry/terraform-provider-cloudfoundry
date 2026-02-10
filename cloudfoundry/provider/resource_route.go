@@ -53,6 +53,7 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"domain": schema.StringAttribute{
@@ -63,6 +64,7 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"host": schema.StringAttribute{
@@ -73,6 +75,7 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"path": schema.StringAttribute{
@@ -83,6 +86,7 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 				},
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"port": schema.Int64Attribute{
@@ -90,6 +94,7 @@ func (r *RouteResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 				Optional:            true,
 				PlanModifiers: []planmodifier.Int64{
 					int64planmodifier.RequiresReplace(),
+					int64planmodifier.UseStateForUnknown(),
 				},
 			},
 			"protocol": schema.StringAttribute{
