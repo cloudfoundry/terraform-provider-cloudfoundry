@@ -2,11 +2,13 @@ package provider
 
 import (
 	"bytes"
+	"fmt"
 	"regexp"
 	"testing"
 	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 type ServiceRouteBindingModelPtr struct {
@@ -183,6 +185,110 @@ func TestResourceServiceRouteBinding(t *testing.T) {
 					ImportStateIdFunc: getIdForImport(resourceName),
 					ImportState:       true,
 					ImportStateVerify: true,
+				},
+			},
+		})
+	})
+
+	// This test verifies that updating a space's allow_ssh attribute does not cause
+	// route bindings to be replaced through a cascading dependency chain:
+	// space -> service_instance + route -> route_binding. When the space is updated,
+	// cloudfoundry_space.test.id becomes "known after apply", which flows into both
+	// the service instance's space and the route's space, making their IDs also
+	// "known after apply", which then flows into the route binding's service_instance
+	// and route attributes. UseStateForUnknown at each level prevents the cascade
+	// from triggering replacements.
+	t.Run("happy path - route binding not replaced when space allow_ssh changes", func(t *testing.T) {
+		resourceName := "cloudfoundry_service_route_binding.si_stability"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_route_binding_space_allow_ssh_update")
+		defer stopQuietly(rec)
+
+		var bindingID string
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					// Step 1: Create the full dependency chain:
+					// space -> service_instance + route -> route_binding
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "test-space-route-binding-stability"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = false
+}
+resource "cloudfoundry_service_instance" "test" {
+	name         = "test-si-route-binding-stability"
+	type         = "user-provided"
+	space        = cloudfoundry_space.test.id
+	route_service_url = "https://example.com"
+}
+resource "cloudfoundry_route" "test" {
+	space  = cloudfoundry_space.test.id
+	domain = "` + testDomainRouteGUID + `"
+	host   = "route-binding-stability-test"
+}
+resource "cloudfoundry_service_route_binding" "si_stability" {
+	service_instance = cloudfoundry_service_instance.test.id
+	route            = cloudfoundry_route.test.id
+}
+`,
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							bindingID = rs.Primary.ID
+							return nil
+						},
+					),
+				},
+				{
+					// Step 2: Change allow_ssh on the space. This causes a cascade:
+					// space updated -> space.id "known after apply" ->
+					// service_instance.space + route.space "known after apply" ->
+					// service_instance.id + route.id "known after apply" ->
+					// route_binding.service_instance + route_binding.route
+					// "known after apply". Without UseStateForUnknown at each
+					// level, this cascade would trigger replacements.
+					Config: hclProvider(nil) + `
+resource "cloudfoundry_space" "test" {
+	name      = "test-space-route-binding-stability"
+	org       = "` + testOrgGUID + `"
+	allow_ssh = true
+}
+resource "cloudfoundry_service_instance" "test" {
+	name         = "test-si-route-binding-stability"
+	type         = "user-provided"
+	space        = cloudfoundry_space.test.id
+	route_service_url = "https://example.com"
+}
+resource "cloudfoundry_route" "test" {
+	space  = cloudfoundry_space.test.id
+	domain = "` + testDomainRouteGUID + `"
+	host   = "route-binding-stability-test"
+}
+resource "cloudfoundry_service_route_binding" "si_stability" {
+	service_instance = cloudfoundry_service_instance.test.id
+	route            = cloudfoundry_route.test.id
+}
+`,
+					Check: resource.ComposeAggregateTestCheckFunc(
+						func(s *terraform.State) error {
+							rs, ok := s.RootModule().Resources[resourceName]
+							if !ok {
+								return fmt.Errorf("resource not found: %s", resourceName)
+							}
+							if rs.Primary.ID != bindingID {
+								return fmt.Errorf("route binding was unexpectedly replaced: old ID %s, new ID %s", bindingID, rs.Primary.ID)
+							}
+							return nil
+						},
+					),
 				},
 			},
 		})
