@@ -45,6 +45,7 @@ Not all service instances support route binding. In order to bind to a managed s
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"route": schema.StringAttribute{
@@ -52,6 +53,7 @@ Not all service instances support route binding. In order to bind to a managed s
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"parameters": schema.StringAttribute{
