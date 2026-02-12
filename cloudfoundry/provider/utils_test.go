@@ -13,6 +13,7 @@ import (
 
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/internal/validation"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/plancheck"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"gopkg.in/dnaeon/go-vcr.v3/cassette"
 	"gopkg.in/dnaeon/go-vcr.v3/recorder"
@@ -253,4 +254,94 @@ func getIdForImport(resourceName string) resource.ImportStateIdFunc {
 		}
 		return rs.Primary.ID, nil
 	}
+}
+
+// hclSpaceWithSSHAndDataSource returns HCL for a cloudfoundry_space resource
+// named "test" with the given space name and allow_ssh value, plus a
+// data.cloudfoundry_space.test that looks up the same space with depends_on.
+//
+// The depends_on is the critical trigger: when allow_ssh changes, the space
+// resource has a pending update, which causes Terraform to defer the data
+// source read to the apply phase. During planning, ALL of the data source's
+// attributes — including id — become unknown. Any downstream resource that
+// references data.cloudfoundry_space.test.id (or .name) will see an unknown
+// value for its RequiresReplace attributes, triggering a spurious replacement
+// unless UseStateForUnknown is also set.
+func hclSpaceWithSSHAndDataSource(spaceName string, allowSSH bool) string {
+	return fmt.Sprintf(`
+resource "cloudfoundry_space" "test" {
+	name      = %q
+	org       = %q
+	allow_ssh = %t
+}
+
+data "cloudfoundry_space" "test" {
+	name       = cloudfoundry_space.test.name
+	org        = %q
+	depends_on = [cloudfoundry_space.test]
+}
+`, spaceName, testOrgGUID, allowSSH, testOrgGUID)
+}
+
+// testResourceNotReplacedOnSpaceUpdate is a regression test helper that verifies
+// a resource is not replaced when a space's allow_ssh attribute changes.
+//
+// The test uses a data source with depends_on to reproduce the real-world
+// trigger: when allow_ssh changes on the space, the data source is deferred
+// (all attributes unknown during planning). Without UseStateForUnknown on the
+// downstream resource's RequiresReplace attributes, Terraform plans a forced
+// replacement.
+//
+// configForSSH should return HCL (without the provider block) that includes
+// the space + data source from hclSpaceWithSSHAndDataSource and the resource
+// under test, using data.cloudfoundry_space.test.id (or .name) for any
+// space-derived attributes.
+func testResourceNotReplacedOnSpaceUpdate(t *testing.T, fixtureName string, resourceName string, configForSSH func(allowSSH bool) string) {
+	t.Helper()
+	cfg := getCFHomeConf()
+	rec := cfg.SetupVCR(t, fixtureName)
+	defer stopQuietly(rec)
+
+	var resourceID string
+
+	resource.Test(t, resource.TestCase{
+		IsUnitTest:               true,
+		ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+		Steps: []resource.TestStep{
+			{
+				Config: hclProvider(nil) + configForSSH(false),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+					func(s *terraform.State) error {
+						rs, ok := s.RootModule().Resources[resourceName]
+						if !ok {
+							return fmt.Errorf("resource not found: %s", resourceName)
+						}
+						resourceID = rs.Primary.ID
+						return nil
+					},
+				),
+			},
+			{
+				Config: hclProvider(nil) + configForSSH(true),
+				ConfigPlanChecks: resource.ConfigPlanChecks{
+					PreApply: []plancheck.PlanCheck{
+						plancheck.ExpectResourceAction(resourceName, plancheck.ResourceActionNoop),
+					},
+				},
+				Check: resource.ComposeAggregateTestCheckFunc(
+					func(s *terraform.State) error {
+						rs, ok := s.RootModule().Resources[resourceName]
+						if !ok {
+							return fmt.Errorf("resource not found: %s", resourceName)
+						}
+						if rs.Primary.ID != resourceID {
+							return fmt.Errorf("%s was unexpectedly replaced: old ID %s, new ID %s", resourceName, resourceID, rs.Primary.ID)
+						}
+						return nil
+					},
+				),
+			},
+		},
+	})
 }

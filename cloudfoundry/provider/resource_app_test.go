@@ -290,4 +290,21 @@ resource "cloudfoundry_app" "app" {
 			},
 		})
 	})
+	t.Run("happy path - app not replaced when space allow_ssh changes", func(t *testing.T) {
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_app_space_allow_ssh_update",
+			"cloudfoundry_app.app_stability",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSHAndDataSource("tf-space-1", allowSSH) + `
+resource "cloudfoundry_app" "app_stability" {
+	name         = "stability-test-app"
+	space_name   = data.cloudfoundry_space.test.name
+	org_name     = "PerformanceTeamBLR"
+	docker_image = "kennethreitz/httpbin"
+	no_route     = true
+}
+`
+			},
+		)
+	})
 }

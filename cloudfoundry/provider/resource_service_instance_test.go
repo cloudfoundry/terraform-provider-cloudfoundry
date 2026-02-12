@@ -253,4 +253,21 @@ func TestResourceServiceInstance(t *testing.T) {
 		})
 	})
 
+	t.Run("happy path - service instance not replaced when space allow_ssh changes", func(t *testing.T) {
+		testResourceNotReplacedOnSpaceUpdate(t,
+			"fixtures/resource_service_instance_space_allow_ssh_update",
+			"cloudfoundry_service_instance.si_space_update",
+			func(allowSSH bool) string {
+				return hclSpaceWithSSHAndDataSource("test-space-stability", allowSSH) + `
+resource "cloudfoundry_service_instance" "si_space_update" {
+	name        = "test-si-space-update"
+	type        = "user-provided"
+	space       = data.cloudfoundry_space.test.id
+	credentials = ` + testCredentials + `
+}
+`
+			},
+		)
+	})
+
 }
