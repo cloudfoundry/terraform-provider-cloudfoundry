@@ -75,6 +75,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"space_name": schema.StringAttribute{
@@ -82,6 +83,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"org_name": schema.StringAttribute{
@@ -89,6 +91,7 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Required:            true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"enable_ssh": schema.BoolAttribute{
