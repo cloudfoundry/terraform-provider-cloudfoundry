@@ -1,6 +1,6 @@
 # Terraform Provider for Cloud Foundry
 
-![Golang](https://img.shields.io/badge/Go-1.25-informational)
+![Golang](https://img.shields.io/badge/Go-1.26-informational)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cloudfoundry/terraform-provider-cloudfoundry)](https://goreportcard.com/report/github.com/cloudfoundry/terraform-provider-cloudfoundry)
 [![CodeQL](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/actions/workflows/codeql.yml/badge.svg)](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/actions/workflows/codeql.yml)
 
