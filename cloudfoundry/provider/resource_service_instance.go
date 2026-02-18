@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -34,6 +35,7 @@ var (
 	_ resource.ResourceWithConfigure      = &serviceInstanceResource{}
 	_ resource.ResourceWithImportState    = &serviceInstanceResource{}
 	_ resource.ResourceWithValidateConfig = &serviceInstanceResource{}
+	_ resource.ResourceWithIdentity       = &serviceInstanceResource{}
 )
 
 const (
@@ -43,6 +45,10 @@ const (
 
 func NewServiceInstanceResource() resource.Resource {
 	return &serviceInstanceResource{}
+}
+
+type serviceInstanceResourceIdentityModel struct {
+	ServiceInstanceGUID types.String `tfsdk:"service_instance_guid"`
 }
 
 func (r *serviceInstanceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -152,6 +158,16 @@ https://docs.cloudfoundry.org/devguide/services`,
 			annotationsKey:   resourceAnnotationsSchema(),
 			createdAtKey:     createdAtSchema(),
 			updatedAtKey:     updatedAtSchema(),
+		},
+	}
+}
+
+func (rs *serviceInstanceResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"service_instance_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -401,6 +417,13 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 	state.Timeouts = plan.Timeouts
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 
+	identity := serviceInstanceResourceIdentityModel{
+		ServiceInstanceGUID: types.StringValue(state.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+
 }
 
 func (r *serviceInstanceResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -426,6 +449,18 @@ func (r *serviceInstanceResource) Read(ctx context.Context, req resource.ReadReq
 	newState.Timeouts = data.Timeouts
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
+
+	var identity serviceInstanceResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = serviceInstanceResourceIdentityModel{
+			ServiceInstanceGUID: types.StringValue(data.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 
 }
 
@@ -602,5 +637,9 @@ func (r *serviceInstanceResource) Delete(ctx context.Context, req resource.Delet
 }
 
 func (rs *serviceInstanceResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("service_instance_guid"), req, resp)
 }
