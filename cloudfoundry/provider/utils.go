@@ -236,29 +236,10 @@ func setClientMetadataForUpdate(ctx context.Context, StateLabels basetypes.MapVa
 	return metadata, diagnostics
 }
 
-// Returns a pointer to a bool.
-//
-//go:fix inline
-func booltoboolptr(s bool) *bool {
-	return new(s)
-}
-
-// Returns a pointer to an int.
-//
-//go:fix inline
-func inttointptr(s int) *int {
-	return new(s)
-}
-
 // Returns a pointer to an uint.
 //
 //go:fix inline
 func uinttouintptr(s uint) *uint {
-	return new(s)
-}
-
-//go:fix inline
-func strtostrptr(s string) *string {
 	return new(s)
 }
 
