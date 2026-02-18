@@ -66,7 +66,7 @@ func TestSpaceRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRolesDataSource(&SpaceRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(testSpaceGuid),
+						Space:         new(testSpaceGuid),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "space", testSpaceGuid),
@@ -76,8 +76,8 @@ func TestSpaceRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRolesDataSource(&SpaceRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(testSpaceGuid),
-						Type:          strtostrptr("space_developer"),
+						Space:         new(testSpaceGuid),
+						Type:          new("space_developer"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "space", testSpaceGuid),
@@ -99,8 +99,8 @@ func TestSpaceRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRolesDataSource(&SpaceRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Type:          strtostrptr("space_developers"),
-						Space:         strtostrptr(invalidOrgGUID),
+						Type:          new("space_developers"),
+						Space:         new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Invalid Attribute Value Match`),
 				},
@@ -108,7 +108,7 @@ func TestSpaceRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRolesDataSource(&SpaceRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(invalidOrgGUID),
+						Space:         new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Space`),
 				},

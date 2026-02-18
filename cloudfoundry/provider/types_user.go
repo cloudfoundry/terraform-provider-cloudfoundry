@@ -58,7 +58,7 @@ func (plan *userResourceType) mapCreateUAAUserTypeToValues() uaa.User {
 	}
 	emails := []uaa.Email{{
 		Value:   email,
-		Primary: booltoboolptr(true),
+		Primary: new(true),
 	},
 	}
 	name := uaa.UserName{
@@ -170,7 +170,7 @@ func (plan *userResourceType) mapUpdateUAAUserTypeToValues() uaa.User {
 	}
 	emails := []uaa.Email{{
 		Value:   email,
-		Primary: booltoboolptr(true),
+		Primary: new(true),
 	},
 	}
 	name := uaa.UserName{

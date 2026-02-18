@@ -76,7 +76,7 @@ func mapIsolationSegmentValuesToType(ctx context.Context, isolationSegment *reso
 func (plan *IsolationSegmentType) mapUpdateIsolationSegmentTypeToValues(ctx context.Context, state IsolationSegmentType) (resource.IsolationSegmentUpdate, diag.Diagnostics) {
 
 	updateIsolationSegment := &resource.IsolationSegmentUpdate{
-		Name: strtostrptr(plan.Name.ValueString()),
+		Name: new(plan.Name.ValueString()),
 	}
 
 	var diagnostics diag.Diagnostics

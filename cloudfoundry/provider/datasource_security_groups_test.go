@@ -98,7 +98,7 @@ func TestSecurityGroupsDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSecurityGroups(&SecurityGroupsModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(invalidOrgGUID),
+						Name:          new(invalidOrgGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "security_groups.#", "0"),

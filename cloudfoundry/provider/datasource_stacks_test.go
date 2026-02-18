@@ -56,7 +56,7 @@ func TestStacksDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclStacks(&StacksModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("invalid-stack-name"),
+						Name:          new("invalid-stack-name"),
 					}),
 					//ExpectError: regexp.MustCompile(`No stack present with mentioned criteria`),
 					Check: resource.ComposeAggregateTestCheckFunc(

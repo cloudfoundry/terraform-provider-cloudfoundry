@@ -62,7 +62,7 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						OrgId:         strtostrptr(orgGuid),
+						OrgId:         new(orgGuid),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", orgGuid),
@@ -73,8 +73,8 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						OrgId:         strtostrptr(orgGuid),
-						Name:          strtostrptr("test-space"),
+						OrgId:         new(orgGuid),
+						Name:          new("test-space"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", orgGuid),
@@ -97,7 +97,7 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						OrgId:         strtostrptr(invalidOrgGUID),
+						OrgId:         new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Organization`),
 				},
@@ -119,8 +119,8 @@ func TestSpacesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaces(&SpacesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpace),
-						OrgId:         strtostrptr(orgGuid),
+						Name:          new(testSpace),
+						OrgId:         new(orgGuid),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "spaces.#", "0"),

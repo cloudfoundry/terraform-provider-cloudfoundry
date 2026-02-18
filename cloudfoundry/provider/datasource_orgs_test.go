@@ -55,7 +55,7 @@ func TestOrgsDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgs(&OrgsModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("testunavailableorg"),
+						Name:          new("testunavailableorg"),
 					}),
 					ExpectError: regexp.MustCompile(`Error: Unable to find any org in list`),
 				},
@@ -75,7 +75,7 @@ func TestOrgsDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgs(&OrgsModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("PerformanceTeamBLR"),
+						Name:          new("PerformanceTeamBLR"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr("data.cloudfoundry_orgs.ds", "orgs.#", "1"),

@@ -150,8 +150,8 @@ func TestMtasDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceMtas(&MtasDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(spaceGuid),
-						Id:            strtostrptr(mtaId),
+						Space:         new(spaceGuid),
+						Id:            new(mtaId),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "mtas.0.metadata.id", mtaId),
@@ -175,8 +175,8 @@ func TestMtasDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceMtas(&MtasDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(spaceGuid),
-						Id:            strtostrptr(invalidOrgGUID),
+						Space:         new(spaceGuid),
+						Id:            new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to fetch MTA details`),
 				},

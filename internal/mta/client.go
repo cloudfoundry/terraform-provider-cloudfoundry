@@ -51,7 +51,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 }
 
 // parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
-func parameterToString(obj interface{}, collectionFormat string) string {
+func parameterToString(obj any, collectionFormat string) string {
 	var delimiter string
 
 	switch collectionFormat {
@@ -92,7 +92,7 @@ func (c *APIClient) ChangeBasePath(path string) {
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
-	postBody interface{},
+	postBody any,
 	headerParams map[string]string,
 	queryParams url.Values,
 	formParams url.Values,
@@ -199,7 +199,7 @@ func (c *APIClient) prepareRequest(
 	return localVarRequest, nil
 }
 
-func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
+func (c *APIClient) decode(v any, b []byte, contentType string) (err error) {
 	if strings.Contains(contentType, "application/json") {
 		if err = json.Unmarshal(b, v); err != nil {
 			return err
@@ -209,7 +209,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 	return errors.New("undefined response type")
 }
 
-func (c *APIClient) returnResponse(resp *http.Response, returnValue interface{}, varBody []byte) error {
+func (c *APIClient) returnResponse(resp *http.Response, returnValue any, varBody []byte) error {
 	if resp.StatusCode == 204 {
 		return nil
 	} else if resp.StatusCode < 300 {
@@ -263,7 +263,7 @@ func (c *APIClient) post(ctx context.Context, request Request, returnValue any) 
 }
 
 // Set request body from an interface{}.
-func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
+func setBody(body any, contentType string) (bodyBuf *bytes.Buffer, err error) {
 	bodyBuf = &bytes.Buffer{}
 
 	if jsonCheck.MatchString(contentType) {
@@ -280,12 +280,12 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 }
 
 // detectContentType method is used to figure out `Request.Body` content type for request header.
-func detectContentType(body interface{}) string {
+func detectContentType(body any) string {
 	contentType := "text/plain; charset=utf-8"
 	kind := reflect.TypeOf(body).Kind()
 
 	switch kind {
-	case reflect.Struct, reflect.Map, reflect.Ptr:
+	case reflect.Struct, reflect.Map, reflect.Pointer:
 		contentType = "application/json; charset=utf-8"
 	case reflect.String:
 		contentType = "text/plain; charset=utf-8"
@@ -304,7 +304,7 @@ func detectContentType(body interface{}) string {
 type GenericError struct {
 	body  []byte
 	error string
-	model interface{}
+	model any
 }
 
 // Error returns non-empty string if there was an error.
@@ -318,6 +318,6 @@ func (e GenericError) Body() []byte {
 }
 
 // Model returns the unpacked model of the error.
-func (e GenericError) Model() interface{} {
+func (e GenericError) Model() any {
 	return e.model
 }

@@ -78,7 +78,7 @@ func TestOrgQuotasDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgQuotas(&OrgQuotasModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           strtostrptr(orgId),
+						Org:           new(orgId),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "org_quotas.#", "1"),

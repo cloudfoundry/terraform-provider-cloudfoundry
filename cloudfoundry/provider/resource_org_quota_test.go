@@ -19,8 +19,8 @@ func TestResourceOrgQuota(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
-						Name:                  strtostrptr("tf-unit-test"),
-						AllowPaidServicePlans: booltoboolptr(true),
+						Name:                  new("tf-unit-test"),
+						AllowPaidServicePlans: new(true),
 						HclType:               "resource",
 						HclObjectName:         "rs",
 					}),
@@ -43,15 +43,15 @@ func TestResourceOrgQuota(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
-						Name:                  strtostrptr("tf-unit-test-update"),
-						AllowPaidServicePlans: booltoboolptr(true),
-						InstanceMemory:        inttointptr(2048),
-						TotalMemory:           inttointptr(51200),
-						TotalAppInstances:     inttointptr(100),
-						TotalAppTasks:         inttointptr(100),
-						TotalPrivateDomains:   inttointptr(100),
-						TotalServices:         inttointptr(100),
-						TotalAppLogRateLimit:  inttointptr(100),
+						Name:                  new("tf-unit-test-update"),
+						AllowPaidServicePlans: new(true),
+						InstanceMemory:        new(2048),
+						TotalMemory:           new(51200),
+						TotalAppInstances:     new(100),
+						TotalAppTasks:         new(100),
+						TotalPrivateDomains:   new(100),
+						TotalServices:         new(100),
+						TotalAppLogRateLimit:  new(100),
 						HclType:               "resource",
 						HclObjectName:         "rs",
 					}),
@@ -71,12 +71,12 @@ func TestResourceOrgQuota(t *testing.T) {
 				},
 				{
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
-						Name:                  strtostrptr("tf-unit-test-update"),
-						AllowPaidServicePlans: booltoboolptr(false),
-						InstanceMemory:        inttointptr(1024),
-						TotalMemory:           inttointptr(51200),
-						TotalAppInstances:     inttointptr(100),
-						TotalAppTasks:         inttointptr(100),
+						Name:                  new("tf-unit-test-update"),
+						AllowPaidServicePlans: new(false),
+						InstanceMemory:        new(1024),
+						TotalMemory:           new(51200),
+						TotalAppInstances:     new(100),
+						TotalAppTasks:         new(100),
 						HclType:               "resource",
 						HclObjectName:         "rs",
 					}),
@@ -108,8 +108,8 @@ func TestResourceOrgQuota(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
 						HclType:               hclObjectResource,
 						HclObjectName:         "rs_import",
-						AllowPaidServicePlans: booltoboolptr(false),
-						Name:                  strtostrptr("tf-unit-test-import"),
+						AllowPaidServicePlans: new(false),
+						Name:                  new("tf-unit-test-import"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),

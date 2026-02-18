@@ -76,7 +76,7 @@ func TestSpaceRoleDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRoleDataSource(&RoleModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Id:            strtostrptr(testSpaceRoleGUID),
+						Id:            new(testSpaceRoleGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "id", regexpValidUUID),
@@ -100,7 +100,7 @@ func TestSpaceRoleDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRoleDataSource(&RoleModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Id:            strtostrptr(testOrgRoleGUID),
+						Id:            new(testOrgRoleGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Invalid Space Role`),
 				},
@@ -108,7 +108,7 @@ func TestSpaceRoleDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRoleDataSource(&RoleModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Id:            strtostrptr(invalidOrgGUID),
+						Id:            new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Role`),
 				},

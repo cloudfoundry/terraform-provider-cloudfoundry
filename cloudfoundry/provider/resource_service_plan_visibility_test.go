@@ -68,9 +68,9 @@ func TestServicePlanVisibility_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "spv",
-						ServicePlan:   strtostrptr(testServicePlanGUID),
-						Organizations: strtostrptr(testOrganizations),
-						Type:          strtostrptr(testServicePlanVisibilityType),
+						ServicePlan:   new(testServicePlanGUID),
+						Organizations: new(testOrganizations),
+						Type:          new(testServicePlanVisibilityType),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr("cloudfoundry_service_plan_visibility.spv", "service_plan", testServicePlanGUID),
@@ -82,8 +82,8 @@ func TestServicePlanVisibility_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "spv",
-						ServicePlan:   strtostrptr(testServicePlanGUID),
-						Type:          strtostrptr(testServicePlanVisibilityTypePublic),
+						ServicePlan:   new(testServicePlanGUID),
+						Type:          new(testServicePlanVisibilityTypePublic),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr("cloudfoundry_service_plan_visibility.spv", "service_plan", testServicePlanGUID),
@@ -106,9 +106,9 @@ func TestServicePlanVisibility_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "spv_invalid",
-						ServicePlan:   strtostrptr(invalidServicePlanGUID),
-						Organizations: strtostrptr(testOrganizations),
-						Type:          strtostrptr(testServicePlanVisibilityType),
+						ServicePlan:   new(invalidServicePlanGUID),
+						Organizations: new(testOrganizations),
+						Type:          new(testServicePlanVisibilityType),
 					}),
 					ExpectError: regexp.MustCompile("Error: API Error Creating Service Plan Visibility"),
 				},
@@ -128,8 +128,8 @@ func TestServicePlanVisibility_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclServicePlanVisibility(&ServicePlanVisibilityModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "spv_invalid_type",
-						ServicePlan:   strtostrptr(testServicePlanGUID),
-						Type:          strtostrptr("invalid-type"),
+						ServicePlan:   new(testServicePlanGUID),
+						Type:          new("invalid-type"),
 					}),
 					ExpectError: regexp.MustCompile("Error: Invalid Attribute Value Match"),
 				},

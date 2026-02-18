@@ -107,7 +107,7 @@ func TestDomainResource_Configure(t *testing.T) {
 						HclType:       hclObjectResource,
 						HclObjectName: "rs",
 						Name:          &testSharedDomainName,
-						Internal:      booltoboolptr(true),
+						Internal:      new(true),
 						Labels:        &testCreateLabel,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
@@ -124,7 +124,7 @@ func TestDomainResource_Configure(t *testing.T) {
 						HclType:       hclObjectResource,
 						HclObjectName: "rs",
 						Name:          &testSharedDomainName,
-						Internal:      booltoboolptr(true),
+						Internal:      new(true),
 						Labels:        &testUpdateLabel,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(

@@ -153,8 +153,8 @@ func TestRouteDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceRoute(&RouteDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Domain:        strtostrptr(testDomainRouteGUID),
-						Space:         strtostrptr(testSpaceRouteGUID),
+						Domain:        new(testDomainRouteGUID),
+						Space:         new(testSpaceRouteGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "routes.0.id", regexpValidUUID),
@@ -187,8 +187,8 @@ func TestRouteDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceRoute(&RouteDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Domain:        strtostrptr(testDomainRouteGUID),
-						Space:         strtostrptr(testDomainRouteGUID),
+						Domain:        new(testDomainRouteGUID),
+						Space:         new(testDomainRouteGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find route in list`),
 				},

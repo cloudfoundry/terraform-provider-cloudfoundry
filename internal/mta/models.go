@@ -14,7 +14,7 @@ type FileMetadata struct {
 
 type UploadStatus struct {
 	Status string       `json:"status,omitempty"`
-	File   FileMetadata `json:"file,omitempty"`
+	File   FileMetadata `json:"file"`
 	MtaId  string       `json:"mta_id,omitempty"`
 	Error  string       `json:"error,omitempty"`
 }
@@ -24,19 +24,19 @@ type ProcessType struct {
 }
 
 type Operation struct {
-	ProcessId    string                 `json:"processId,omitempty"`
-	ProcessType  string                 `json:"processType,omitempty"`
-	StartedAt    string                 `json:"startedAt,omitempty"`
-	EndedAt      string                 `json:"endedAt,omitempty"`
-	SpaceId      string                 `json:"spaceId,omitempty"`
-	MtaId        string                 `json:"mtaId,omitempty"`
-	Namespace    string                 `json:"namespace,omitempty"`
-	User         string                 `json:"user,omitempty"`
-	AcquiredLock bool                   `json:"acquiredLock,omitempty"`
-	State        string                 `json:"state,omitempty"`
-	ErrorType    string                 `json:"errorType,omitempty"`
-	Messages     []Message              `json:"messages,omitempty"`
-	Parameters   map[string]interface{} `json:"parameters,omitempty"`
+	ProcessId    string         `json:"processId,omitempty"`
+	ProcessType  string         `json:"processType,omitempty"`
+	StartedAt    string         `json:"startedAt,omitempty"`
+	EndedAt      string         `json:"endedAt,omitempty"`
+	SpaceId      string         `json:"spaceId,omitempty"`
+	MtaId        string         `json:"mtaId,omitempty"`
+	Namespace    string         `json:"namespace,omitempty"`
+	User         string         `json:"user,omitempty"`
+	AcquiredLock bool           `json:"acquiredLock,omitempty"`
+	State        string         `json:"state,omitempty"`
+	ErrorType    string         `json:"errorType,omitempty"`
+	Messages     []Message      `json:"messages,omitempty"`
+	Parameters   map[string]any `json:"parameters,omitempty"`
 }
 
 type Mta struct {
@@ -48,8 +48,8 @@ type Mta struct {
 type Module struct {
 	ModuleName            string    `json:"moduleName,omitempty"`
 	AppName               string    `json:"appName,omitempty"`
-	CreatedOn             time.Time `json:"createdOn,omitempty"`
-	UpdatedOn             time.Time `json:"updatedOn,omitempty"`
+	CreatedOn             time.Time `json:"createdOn"`
+	UpdatedOn             time.Time `json:"updatedOn"`
 	ProvidedDendencyNames []string  `json:"providedDendencyNames,omitempty"`
 	Services              []string  `json:"services,omitempty"`
 	Uris                  []string  `json:"uris,omitempty"`
@@ -70,7 +70,7 @@ type Message struct {
 
 type Log struct {
 	Id           string    `json:"id,omitempty"`
-	LastModified time.Time `json:"lastModified,omitempty"`
+	LastModified time.Time `json:"lastModified"`
 	Content      string    `json:"content,omitempty"`
 	Size         int64     `json:"size,omitempty"`
 	DisplayName  string    `json:"displayName,omitempty"`

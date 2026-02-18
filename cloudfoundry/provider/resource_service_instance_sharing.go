@@ -193,7 +193,7 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 		}
 	}
 
-	tflog.Trace(ctx, "Spaces diff", map[string]interface{}{
+	tflog.Trace(ctx, "Spaces diff", map[string]any{
 		"spaces_to_add":    spacesToAdd,
 		"spaces_to_remove": spacesToRemove,
 	})
@@ -206,7 +206,7 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 			resp.Diagnostics.AddError("Error unsharing service instance with spaces", err.Error())
 			return
 		}
-		tflog.Debug(ctx, "Unshared service instance with spaces", map[string]interface{}{
+		tflog.Debug(ctx, "Unshared service instance with spaces", map[string]any{
 			"service_instance": serviceInstanceID,
 			"spaces":           spacesToRemove,
 		})
@@ -217,7 +217,7 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 			resp.Diagnostics.AddError("Error sharing service instance with spaces", err.Error())
 			return
 		}
-		tflog.Debug(ctx, "Shared service instance with spaces", map[string]interface{}{
+		tflog.Debug(ctx, "Shared service instance with spaces", map[string]any{
 			"service_instance": serviceInstanceID,
 			"spaces":           spacesToAdd,
 		})

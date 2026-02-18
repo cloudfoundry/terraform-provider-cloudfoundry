@@ -89,8 +89,8 @@ func TestSpaceDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpace(&SpaceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpace),
-						OrgId:         strtostrptr(testOrgGUID),
+						Name:          new(testSpace),
+						OrgId:         new(testOrgGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "id", testSpaceGUID),
@@ -117,8 +117,8 @@ func TestSpaceDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpace(&SpaceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpace),
-						OrgId:         strtostrptr(invalidOrgGUID),
+						Name:          new(testSpace),
+						OrgId:         new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Organization`),
 				},
@@ -138,8 +138,8 @@ func TestSpaceDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpace(&SpaceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpace + "x"),
-						OrgId:         strtostrptr(testOrgGUID),
+						Name:          new(testSpace + "x"),
+						OrgId:         new(testOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find space data in list`),
 				},

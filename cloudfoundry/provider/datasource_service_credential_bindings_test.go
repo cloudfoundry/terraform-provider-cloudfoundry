@@ -58,7 +58,7 @@ func TestServiceCredentialBindingsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindings(&DatasourceServiceCredentialBindingsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						ServiceInstance: strtostrptr(testManagedServiceInstanceGUID),
+						ServiceInstance: new(testManagedServiceInstanceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "credential_bindings.0.service_instance", testManagedServiceInstanceGUID),
@@ -84,7 +84,7 @@ func TestServiceCredentialBindingsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindings(&DatasourceServiceCredentialBindingsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "credential_bindings.0.type", appServiceCredentialBinding),
@@ -111,7 +111,7 @@ func TestServiceCredentialBindingsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindings(&DatasourceServiceCredentialBindingsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						ServiceInstance: strtostrptr(invalidOrgGUID),
+						ServiceInstance: new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find any credential bindings in list`),
 				},

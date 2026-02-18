@@ -12,6 +12,9 @@ lefthook:
 build:
 	go build -v ./...
 
+fix:
+	go fix -v ./...
+
 install: build
 	go install -v ./...
 
@@ -23,7 +26,7 @@ generate:
 
 fmt:
 	gofmt -s -w -e .
-	
+
 # Run acceptance tests
 .PHONY: test
 test:

@@ -198,7 +198,7 @@ func (data *routeType) mapCreateRouteTypeToValues(ctx context.Context) (resource
 		routeCreate.Path = data.Path.ValueStringPointer()
 	}
 	if !data.Port.IsNull() {
-		routeCreate.Port = inttointptr(int(data.Port.ValueInt64()))
+		routeCreate.Port = new(int(data.Port.ValueInt64()))
 	}
 
 	var diags, diagnostics diag.Diagnostics

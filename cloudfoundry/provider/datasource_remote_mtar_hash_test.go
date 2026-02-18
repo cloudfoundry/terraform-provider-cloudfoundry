@@ -81,7 +81,7 @@ func TestRemoteMtarHashDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclRemoteMtarHash(&RemoteMtarHashModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Url:           strtostrptr("https://www.google.com"),
+						Url:           new("https://www.google.com"),
 					}),
 					ExpectError: regexp.MustCompile(`Invalid content type`),
 				},
@@ -89,7 +89,7 @@ func TestRemoteMtarHashDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclRemoteMtarHash(&RemoteMtarHashModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Url:           strtostrptr("http://example.com invalid"),
+						Url:           new("http://example.com invalid"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to create HEAD request`),
 				},
@@ -97,7 +97,7 @@ func TestRemoteMtarHashDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclRemoteMtarHash(&RemoteMtarHashModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Url:           strtostrptr("http://localhost:8080/"),
+						Url:           new("http://localhost:8080/"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to download file`),
 				},
@@ -105,7 +105,7 @@ func TestRemoteMtarHashDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclRemoteMtarHash(&RemoteMtarHashModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Url:           strtostrptr("hello"),
+						Url:           new("hello"),
 					}),
 					ExpectError: regexp.MustCompile(`Invalid URL`),
 				},

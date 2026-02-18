@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"math"
 	"os"
 	"strings"
@@ -212,7 +213,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 					tempDiags.AddError("Error unmarshalling service params", err.Error())
 					diags = append(diags, tempDiags...)
 				}
-				var finalParams map[string]interface{}
+				var finalParams map[string]any
 				err = json.Unmarshal(params, &finalParams)
 				if err != nil {
 					tempDiags.AddError("Error unmarshalling service params", err.Error())
@@ -294,7 +295,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 				processManifest.HealthCheckInterval = uint(process.HealthCheckInterval.ValueInt64())
 			}
 			if !process.Instances.IsUnknown() {
-				processManifest.Instances = uinttouintptr(uint(process.Instances.ValueInt64()))
+				processManifest.Instances = new(uint(process.Instances.ValueInt64()))
 			}
 			if !process.Memory.IsUnknown() {
 				processManifest.Memory = process.Memory.ValueString()
@@ -359,7 +360,7 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 		appmanifest.HealthCheckType = cfv3operation.AppHealthCheckType(appType.HealthCheckType.ValueString())
 	}
 	if !appType.Instances.IsUnknown() {
-		appmanifest.Instances = uinttouintptr(uint(appType.Instances.ValueInt64()))
+		appmanifest.Instances = new(uint(appType.Instances.ValueInt64()))
 	}
 	if !appType.Memory.IsUnknown() {
 		appmanifest.Memory = appType.Memory.ValueString()
@@ -753,9 +754,7 @@ func setEnvForUpdate(ctx context.Context, existingEnvs basetypes.MapValue, plann
 		finalEnvs[key] = nil
 	}
 
-	for key, value := range newEnvs {
-		finalEnvs[key] = value
-	}
+	maps.Copy(finalEnvs, newEnvs)
 
 	return finalEnvs, diagnostics
 }

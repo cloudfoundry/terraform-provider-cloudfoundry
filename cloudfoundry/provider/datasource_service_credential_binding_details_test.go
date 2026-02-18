@@ -71,9 +71,9 @@ func TestServiceCredentialBindingDetailsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindingDetails(&DatasourceServiceCredentialBindingDetailsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						Name:            strtostrptr(testServiceKeyName),
-						ServiceInstance: strtostrptr(testManagedServiceInstanceGUID),
-						Type:            strtostrptr(keyServiceCredentialBinding),
+						Name:            new(testServiceKeyName),
+						ServiceInstance: new(testManagedServiceInstanceGUID),
+						Type:            new(keyServiceCredentialBinding),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "type", keyServiceCredentialBinding),
@@ -100,9 +100,9 @@ func TestServiceCredentialBindingDetailsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindingDetails(&DatasourceServiceCredentialBindingDetailsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
-						App:             strtostrptr(testAppGUID),
-						Type:            strtostrptr(appServiceCredentialBinding),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
+						App:             new(testAppGUID),
+						Type:            new(appServiceCredentialBinding),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "type", appServiceCredentialBinding),
@@ -129,9 +129,9 @@ func TestServiceCredentialBindingDetailsDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclDatasourceServiceCredentialBindingDetails(&DatasourceServiceCredentialBindingDetailsModelPtr{
 						HclType:         hclObjectDataSource,
 						HclObjectName:   "ds",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
-						Name:            strtostrptr("invalid-binding-name"),
-						Type:            strtostrptr(keyServiceCredentialBinding),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
+						Name:            new("invalid-binding-name"),
+						Type:            new(keyServiceCredentialBinding),
 					}),
 					ExpectError: regexp.MustCompile(`Request failed with expected exactly 1 result, but got less or more than 1.`),
 				},

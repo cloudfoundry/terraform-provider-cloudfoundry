@@ -53,7 +53,7 @@ func TestIsolationSegmentDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclIsolationSegment(&IsolationSegmentModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("testunavailable"),
+						Name:          new("testunavailable"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find any Isolation Segment`),
 				},

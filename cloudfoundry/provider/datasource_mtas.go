@@ -172,7 +172,7 @@ func (d *MtasDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 	}
 
 	if !data.Namespace.IsNull() {
-		namespace = strtostrptr(data.Namespace.ValueString())
+		namespace = new(data.Namespace.ValueString())
 	}
 
 	//get details of MTA
