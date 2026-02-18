@@ -50,7 +50,7 @@ func TestServiceBrokerDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceBroker(&ServiceBrokerModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("invalid-service-instance-name"),
+						Name:          new("invalid-service-instance-name"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find service broker in list`),
 				},

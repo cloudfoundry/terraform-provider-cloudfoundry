@@ -27,7 +27,7 @@ func TestDomainDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDomain(&DomainModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testDomainName),
+						Name:          new(testDomainName),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "id", regexpValidUUID),
@@ -57,7 +57,7 @@ func TestDomainDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDomain(&DomainModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("test.com"),
+						Name:          new("test.com"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find domain in list`),
 				},

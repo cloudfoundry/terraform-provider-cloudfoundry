@@ -22,9 +22,9 @@ func TestResourceSpaceQuota(t *testing.T) {
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
-						Name:                  strtostrptr("tf-unit-test"),
-						Org:                   strtostrptr(testOrgGUID),
-						AllowPaidServicePlans: booltoboolptr(true),
+						Name:                  new("tf-unit-test"),
+						Org:                   new(testOrgGUID),
+						AllowPaidServicePlans: new(true),
 						HclType:               "resource",
 						HclObjectName:         "rs",
 					}),
@@ -61,9 +61,9 @@ func TestResourceSpaceQuota(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
 						HclType:               hclObjectResource,
 						HclObjectName:         "rs_import",
-						Org:                   strtostrptr(testOrgGUID),
-						AllowPaidServicePlans: booltoboolptr(false),
-						Name:                  strtostrptr("tf-unit-test-import"),
+						Org:                   new(testOrgGUID),
+						AllowPaidServicePlans: new(false),
+						Name:                  new("tf-unit-test-import"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -92,14 +92,14 @@ func TestResourceSpaceQuota(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rs_update",
-						Org:           strtostrptr(testOrgGUID),
-						TotalServices: inttointptr(10),
-						TotalRoutes:   inttointptr(20),
+						Org:           new(testOrgGUID),
+						TotalServices: new(10),
+						TotalRoutes:   new(20),
 						//TotalRoutePorts:       inttointptr(4),
-						TotalAppTasks:         inttointptr(10),
-						TotalServiceKeys:      inttointptr(10),
-						AllowPaidServicePlans: booltoboolptr(false),
-						Name:                  strtostrptr("tf-unit-test-update"),
+						TotalAppTasks:         new(10),
+						TotalServiceKeys:      new(10),
+						AllowPaidServicePlans: new(false),
+						Name:                  new("tf-unit-test-update"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -115,13 +115,13 @@ func TestResourceSpaceQuota(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rs_update",
-						Org:           strtostrptr(testOrgGUID),
-						TotalRoutes:   inttointptr(10),
+						Org:           new(testOrgGUID),
+						TotalRoutes:   new(10),
 						//TotalRoutePorts:       inttointptr(3),
-						TotalAppTasks:         inttointptr(10),
-						TotalServiceKeys:      inttointptr(10),
-						AllowPaidServicePlans: booltoboolptr(true),
-						Name:                  strtostrptr("tf-unit-test-update"),
+						TotalAppTasks:         new(10),
+						TotalServiceKeys:      new(10),
+						AllowPaidServicePlans: new(true),
+						Name:                  new("tf-unit-test-update"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),

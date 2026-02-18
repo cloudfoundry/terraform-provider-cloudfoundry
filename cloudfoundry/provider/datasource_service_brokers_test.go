@@ -68,7 +68,7 @@ func TestServiceBrokersDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceBrokers(&ServiceBrokersModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("hi"),
+						Name:          new("hi"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "service_brokers.#", "1"),
@@ -92,7 +92,7 @@ func TestServiceBrokersDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceBrokers(&ServiceBrokersModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("invalid-service-broker-name"),
+						Name:          new("invalid-service-broker-name"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "service_brokers.#", "0"),

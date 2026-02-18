@@ -21,8 +21,8 @@ func TestResourceOrg(t *testing.T) {
 					Config: hclProvider(nil) + hclOrg(&OrgModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "crud_org",
-						Name:          strtostrptr("tf-unit-test"),
-						Labels:        strtostrptr(testCreateLabel),
+						Name:          new("tf-unit-test"),
+						Labels:        new(testCreateLabel),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -36,8 +36,8 @@ func TestResourceOrg(t *testing.T) {
 					Config: hclProvider(nil) + hclOrg(&OrgModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "crud_org",
-						Name:          strtostrptr("tf-org-test"),
-						Labels:        strtostrptr(testUpdateLabel),
+						Name:          new("tf-org-test"),
+						Labels:        new(testUpdateLabel),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -71,9 +71,9 @@ func TestResourceOrg(t *testing.T) {
 					Config: hclProvider(nil) + hclOrg(&OrgModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "suspended_org",
-						Name:          strtostrptr("tf-org-suspended-test"),
-						Labels:        strtostrptr(testCreateLabel),
-						Suspended:     booltoboolptr(true),
+						Name:          new("tf-org-suspended-test"),
+						Labels:        new(testCreateLabel),
+						Suspended:     new(true),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),

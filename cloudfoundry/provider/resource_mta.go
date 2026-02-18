@@ -392,7 +392,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 
 	operationParams := mta.Operation{
 		Namespace: namespace,
-		Parameters: map[string]interface{}{
+		Parameters: map[string]any{
 			"appArchiveId": uploadedFile.Id,
 			"mtaId":        mtaId,
 		},
@@ -526,7 +526,7 @@ func (r *mtaResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 	operationParams := mta.Operation{
 		ProcessType: "UNDEPLOY",
 		Namespace:   mtarType.Namespace.ValueString(),
-		Parameters: map[string]interface{}{
+		Parameters: map[string]any{
 			"mtaId":          mtaId,
 			"deleteServices": true,
 		},

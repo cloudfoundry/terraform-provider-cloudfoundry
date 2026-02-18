@@ -111,7 +111,7 @@ func TestOrgQuotaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("testunavailableorgquota"),
+						Name:          new("testunavailableorgquota"),
 					}),
 					ExpectError: regexp.MustCompile(`Error: Unable to find org quota data in list`),
 				},
@@ -132,7 +132,7 @@ func TestOrgQuotaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgQuota(&OrgQuotaModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testOrgQuota),
+						Name:          new(testOrgQuota),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),

@@ -111,7 +111,7 @@ func TestSpaceQuotaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("testunavailablespacequota"),
+						Name:          new("testunavailablespacequota"),
 					}),
 					ExpectError: regexp.MustCompile(`Error: Unable to find space quota data in list`),
 				},
@@ -132,7 +132,7 @@ func TestSpaceQuotaDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceQuota(&SpaceQuotaModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpaceQuota),
+						Name:          new(testSpaceQuota),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),

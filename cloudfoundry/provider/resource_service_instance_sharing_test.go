@@ -69,7 +69,7 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
 						HclType:         hclObjectResource,
 						HclObjectName:   "rs",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 						Spaces:          &testSpaces,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
@@ -84,7 +84,7 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
 						HclType:         hclObjectResource,
 						HclObjectName:   "rs",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 						Spaces:          &updatedSpaces,
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
@@ -110,7 +110,7 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
 						HclType:         hclObjectResource,
 						HclObjectName:   "rs",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 						Spaces:          &testSpaces,
 					}),
 					ExpectError: regexp.MustCompile(`Error sharing service instance with space`),
@@ -131,7 +131,7 @@ func TestServiceInstanceSharingResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
 						HclType:         hclObjectResource,
 						HclObjectName:   "rs",
-						ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+						ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 						Spaces:          &testSpaces,
 					}),
 					ExpectError: regexp.MustCompile(`Error sharing service instance with space`),
@@ -185,7 +185,7 @@ func TestServiceInstanceSharingResource_Import(t *testing.T) {
 				Config: hclProvider(nil) + hclResourceServiceInstanceSharing(&ServiceInstanceSharingResourceModelPtr{
 					HclType:         hclObjectResource,
 					HclObjectName:   "rs",
-					ServiceInstance: strtostrptr(testUserProvidedServiceInstanceGUID),
+					ServiceInstance: new(testUserProvidedServiceInstanceGUID),
 					Spaces:          &testSpaces,
 				}),
 				Check: resource.ComposeAggregateTestCheckFunc(

@@ -85,7 +85,7 @@ func TestSecurityGroupDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSecurityGroup(&SecurityGroupModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testSpace),
+						Name:          new(testSpace),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "id", regexpValidUUID),
@@ -114,7 +114,7 @@ func TestSecurityGroupDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSecurityGroup(&SecurityGroupModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(invalidOrgGUID),
+						Name:          new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find security group in list`),
 				},

@@ -82,7 +82,7 @@ func TestIsolationSegmentsDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclIsolationSegments(&IsolationSegmentsModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("testunavailable"),
+						Name:          new("testunavailable"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "isolation_segments.#", "0"),

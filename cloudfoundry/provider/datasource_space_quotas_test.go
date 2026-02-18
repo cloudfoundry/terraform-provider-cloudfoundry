@@ -70,7 +70,7 @@ func TestSpaceQuotasDataSource_Configure(t *testing.T) {
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
 						Org:           &testOrg4GUID,
-						Name:          strtostrptr("hi"),
+						Name:          new("hi"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "0"),
@@ -104,7 +104,7 @@ func TestSpaceQuotasDataSource_Configure(t *testing.T) {
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
 						Org:           &testOrg4GUID,
-						Name:          strtostrptr("space-quota-1"),
+						Name:          new("space-quota-1"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "space_quotas.#", "1"),

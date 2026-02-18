@@ -57,7 +57,7 @@ func TestUserDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUser(&UserDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testUser),
+						Name:          new(testUser),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "users.#", "1"),
@@ -82,7 +82,7 @@ func TestUserDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUser(&UserDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testUser + "x"),
+						Name:          new(testUser + "x"),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find user data in list`),
 				},

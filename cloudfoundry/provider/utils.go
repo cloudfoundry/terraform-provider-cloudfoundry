@@ -236,26 +236,14 @@ func setClientMetadataForUpdate(ctx context.Context, StateLabels basetypes.MapVa
 	return metadata, diagnostics
 }
 
-// Returns a pointer to a bool.
-func booltoboolptr(s bool) *bool {
-	return &s
-}
-
-// Returns a pointer to an int.
-func inttointptr(s int) *int {
-	return &s
-}
-
 // Returns a pointer to an uint.
+//
+//go:fix inline
 func uinttouintptr(s uint) *uint {
-	return &s
+	return new(s)
 }
 
-func strtostrptr(s string) *string {
-	return &s
-}
-
-func copyFields(dst, src interface{}) {
+func copyFields(dst, src any) {
 	dstValue := reflect.ValueOf(dst).Elem()
 	srcValue := reflect.ValueOf(src).Elem()
 

@@ -71,7 +71,7 @@ func TestIsolationSegmentEntitlementResource_Configure(t *testing.T) {
 						HclObjectName: "rs",
 						Segment:       &segmentGUID,
 						Orgs:          &entitleOrgsCreate,
-						Default:       booltoboolptr(true),
+						Default:       new(true),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "segment", segmentGUID),
@@ -85,7 +85,7 @@ func TestIsolationSegmentEntitlementResource_Configure(t *testing.T) {
 						HclObjectName: "rs",
 						Segment:       &segmentGUID,
 						Orgs:          &entitleOrgsCreate,
-						Default:       booltoboolptr(false),
+						Default:       new(false),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "segment", segmentGUID),
