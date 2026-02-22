@@ -16,6 +16,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -122,6 +124,15 @@ __Note:__
 				Optional:            true,
 				Validators: []validator.String{
 					stringvalidator.OneOf("deploy", "blue-green-deploy"),
+				},
+			},
+			"skip_idle_start": schema.BoolAttribute{
+				MarkdownDescription: "Directly start the new MTA version as 'live', skipping the 'idle' phase of the resources. This value defaults to true when not explicitly specified.",
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(true),
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"version_rule": schema.StringAttribute{
@@ -381,7 +392,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 
 	operationParams := mta.Operation{
 		Namespace: namespace,
-		Parameters: map[string]interface{}{
+		Parameters: map[string]any{
 			"appArchiveId": uploadedFile.Id,
 			"mtaId":        mtaId,
 		},
@@ -390,7 +401,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	if mtarType.DeployStrategy.ValueString() == "blue-green-deploy" {
 		operationParams.ProcessType = "BLUE_GREEN_DEPLOY"
 		operationParams.Parameters["noConfirm"] = true
-		operationParams.Parameters["skipIdleStart"] = true
+		operationParams.Parameters["skipIdleStart"] = mtarType.SkipIdleStart.ValueBool()
 		operationParams.Parameters["keepOriginalAppNamesAfterDeploy"] = true
 	} else {
 		operationParams.ProcessType = "DEPLOY"
@@ -480,6 +491,9 @@ func (r *mtaResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 	resp.Diagnostics.Append(diags...)
 	data.Mta, diags = types.ObjectValueFrom(ctx, mtaObjAttributes, mtaTfType)
 	resp.Diagnostics.Append(diags...)
+	if data.SkipIdleStart.IsNull() || data.SkipIdleStart.IsUnknown() {
+		data.SkipIdleStart = types.BoolValue(true)
+	}
 	tflog.Trace(ctx, "read an mtar resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
@@ -512,7 +526,7 @@ func (r *mtaResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 	operationParams := mta.Operation{
 		ProcessType: "UNDEPLOY",
 		Namespace:   mtarType.Namespace.ValueString(),
-		Parameters: map[string]interface{}{
+		Parameters: map[string]any{
 			"mtaId":          mtaId,
 			"deleteServices": true,
 		},

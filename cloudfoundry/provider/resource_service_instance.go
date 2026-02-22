@@ -249,7 +249,7 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 	createTimeout, diags := plan.Timeouts.Create(ctx, 40*time.Minute)
 
 	if errors := diags.Errors(); len(errors) > 0 {
-		tflog.Warn(ctx, "reading configured create timeout", map[string]interface{}{
+		tflog.Warn(ctx, "reading configured create timeout", map[string]any{
 			"summary": errors[0].Summary(),
 			"detail":  errors[0].Detail(),
 		})
@@ -474,7 +474,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 	updateTimeout, diags := plan.Timeouts.Update(ctx, 40*time.Minute)
 
 	if errors := diags.Errors(); len(errors) > 0 {
-		tflog.Warn(ctx, "reading configured update timeout", map[string]interface{}{
+		tflog.Warn(ctx, "reading configured update timeout", map[string]any{
 			"summary": errors[0].Summary(),
 			"detail":  errors[0].Detail(),
 		})
@@ -611,7 +611,7 @@ func (r *serviceInstanceResource) Delete(ctx context.Context, req resource.Delet
 	deleteTimeout, diags := state.Timeouts.Delete(ctx, 40*time.Minute)
 
 	if errors := diags.Errors(); len(errors) > 0 {
-		tflog.Warn(ctx, "reading configured delete timeout", map[string]interface{}{
+		tflog.Warn(ctx, "reading configured delete timeout", map[string]any{
 			"summary": errors[0].Summary(),
 			"detail":  errors[0].Detail(),
 		})

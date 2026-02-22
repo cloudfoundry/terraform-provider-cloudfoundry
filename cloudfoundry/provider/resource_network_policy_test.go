@@ -77,7 +77,7 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 						HclObjectName:    "np",
 						SourceAppId:      "d7574c2b-6a04-4f8c-a629-92e9cd08b026",
 						DestinationAppId: "a2ec5785-5c64-455e-a768-7a92215848c2",
-						Protocol:         strtostrptr("udp"),
+						Protocol:         new("udp"),
 						PortStr:          "61443",
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(

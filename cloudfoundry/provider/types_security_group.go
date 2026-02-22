@@ -191,10 +191,10 @@ func mapTypetoRuleValues(rule ruleType) *resource.SecurityGroupRule {
 	}
 
 	if !rule.Type.IsNull() {
-		securityGroupRule.Type = inttointptr(int(rule.Type.ValueInt64()))
+		securityGroupRule.Type = new(int(rule.Type.ValueInt64()))
 	}
 	if !rule.Code.IsNull() {
-		securityGroupRule.Code = inttointptr(int(rule.Code.ValueInt64()))
+		securityGroupRule.Code = new(int(rule.Code.ValueInt64()))
 	}
 	if !rule.Description.IsNull() {
 		securityGroupRule.WithDescription(rule.Description.ValueString())

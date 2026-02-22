@@ -11,10 +11,10 @@ import (
 func TestDatasourceServicePlan(t *testing.T) {
 
 	datasourceName := "data.cloudfoundry_service_plan.test"
-	endpoint := strtostrptr(os.Getenv("TEST_CF_API_URL"))
-	user := strtostrptr(os.Getenv("TEST_CF_USER"))
-	password := strtostrptr(os.Getenv("TEST_CF_PASSWORD"))
-	origin := strtostrptr(os.Getenv("TEST_CF_ORIGIN"))
+	endpoint := new(os.Getenv("TEST_CF_API_URL"))
+	user := new(os.Getenv("TEST_CF_USER"))
+	password := new(os.Getenv("TEST_CF_PASSWORD"))
+	origin := new(os.Getenv("TEST_CF_ORIGIN"))
 	if *endpoint == "" || *user == "" || *password == "" || *origin == "" {
 		t.Logf("\nATTENTION: Using redacted user credentials since credentials not set as env \n Make sure you are not triggering a recording else test will fail")
 		endpoint = redactedTestUser.Endpoint

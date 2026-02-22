@@ -108,8 +108,8 @@ func TestServiceInstanceDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testServiceInstanceUserProvided),
-						Space:         strtostrptr(testSpaceGUID),
+						Name:          new(testServiceInstanceUserProvided),
+						Space:         new(testSpaceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "id", testServiceInstanceUserProvidedGUID),
@@ -134,8 +134,8 @@ func TestServiceInstanceDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr(testServiceInstanceManaged),
-						Space:         strtostrptr(testSpaceGUID),
+						Name:          new(testServiceInstanceManaged),
+						Space:         new(testSpaceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "id", testServiceInstanceManagedGUID),
@@ -161,8 +161,8 @@ func TestServiceInstanceDataSource(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Name:          strtostrptr("invalid-service-instance-name"),
-						Space:         strtostrptr(testSpaceGUID),
+						Name:          new("invalid-service-instance-name"),
+						Space:         new(testSpaceGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Unable to find service instance in list`),
 				},

@@ -82,7 +82,7 @@ func TestDomainsDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDomains(&DomainsModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           strtostrptr(orgId),
+						Org:           new(orgId),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "domains.#", "2"),

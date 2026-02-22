@@ -113,7 +113,7 @@ func TestServiceInstancesDataSource(t *testing.T) {
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
 						Org:           &testOrg2GUID,
-						Name:          strtostrptr("hi"),
+						Name:          new("hi"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "service_instances.#", "0"),

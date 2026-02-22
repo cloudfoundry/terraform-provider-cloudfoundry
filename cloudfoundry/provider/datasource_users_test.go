@@ -61,7 +61,7 @@ func TestUsersDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUsers(&UsersDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Organization:  strtostrptr(testOrg2GUID),
+						Organization:  new(testOrg2GUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "users.0.id", regexpValidUUID),
@@ -73,7 +73,7 @@ func TestUsersDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUsers(&UsersDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(testSpace2GUID),
+						Space:         new(testSpace2GUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(dataSourceName, "users.0.id", regexpValidUUID),
@@ -97,7 +97,7 @@ func TestUsersDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUsers(&UsersDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(testOrg2GUID),
+						Space:         new(testOrg2GUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Users`),
 				},
@@ -105,7 +105,7 @@ func TestUsersDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceUsers(&UsersDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Organization:  strtostrptr(testSpace2GUID),
+						Organization:  new(testSpace2GUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Users`),
 				},

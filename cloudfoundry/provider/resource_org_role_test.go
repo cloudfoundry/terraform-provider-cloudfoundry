@@ -90,9 +90,9 @@ func TestOrgRoleResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRoleResource(&OrgRoleResourceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rs",
-						Type:          strtostrptr("organization_user"),
-						User:          strtostrptr(testUser2GUID),
-						Organization:  strtostrptr(testOrg2GUID),
+						Type:          new("organization_user"),
+						User:          new(testUser2GUID),
+						Organization:  new(testOrg2GUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -125,9 +125,9 @@ func TestOrgRoleResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRoleResource(&OrgRoleResourceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rs",
-						Type:          strtostrptr("organization_user"),
-						User:          strtostrptr(testUserName2),
-						Organization:  strtostrptr(testOrgGUID),
+						Type:          new("organization_user"),
+						User:          new(testUserName2),
+						Organization:  new(testOrgGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -163,10 +163,10 @@ func TestOrgRoleResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRoleResource(&OrgRoleResourceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rsi",
-						Type:          strtostrptr("organization_manager"),
-						UserName:      strtostrptr(testUserName),
-						Origin:        strtostrptr(origin),
-						Organization:  strtostrptr(testOrg2GUID),
+						Type:          new("organization_manager"),
+						UserName:      new(testUserName),
+						Origin:        new(origin),
+						Organization:  new(testOrg2GUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Registering Role`),
 				},

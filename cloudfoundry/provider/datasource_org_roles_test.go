@@ -66,7 +66,7 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRolesDataSource(&OrgRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           strtostrptr(testOrgGuid),
+						Org:           new(testOrgGuid),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", testOrgGuid),
@@ -76,8 +76,8 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRolesDataSource(&OrgRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           strtostrptr(testOrgGuid),
-						Type:          strtostrptr("organization_manager"),
+						Org:           new(testOrgGuid),
+						Type:          new("organization_manager"),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "org", testOrgGuid),
@@ -99,8 +99,8 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRolesDataSource(&OrgRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Type:          strtostrptr("organization_man"),
-						Org:           strtostrptr(invalidOrgGUID),
+						Type:          new("organization_man"),
+						Org:           new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`Invalid Attribute Value Match`),
 				},
@@ -108,7 +108,7 @@ func TestOrgRolesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclOrgRolesDataSource(&OrgRolesModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Org:           strtostrptr(invalidOrgGUID),
+						Org:           new(invalidOrgGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Fetching Org`),
 				},

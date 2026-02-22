@@ -65,7 +65,7 @@ func TestRoutesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceRoutes(&RouteDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Space:         strtostrptr(testSpaceRouteGUID),
+						Space:         new(testSpaceRouteGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "routes.#", "24"),
@@ -87,8 +87,8 @@ func TestRoutesDataSource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclDataSourceRoutes(&RouteDataSourceModelPtr{
 						HclType:       hclObjectDataSource,
 						HclObjectName: "ds",
-						Domain:        strtostrptr(testDomainRouteGUID),
-						Space:         strtostrptr(testSpaceRouteGUID),
+						Domain:        new(testDomainRouteGUID),
+						Space:         new(testSpaceRouteGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(dataSourceName, "routes.#", "0"),

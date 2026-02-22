@@ -87,10 +87,10 @@ func TestSpaceRoleResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRoleResource(&SpaceRoleResourceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rf",
-						Type:          strtostrptr("space_auditor"),
-						UserName:      strtostrptr(testUserName),
-						Origin:        strtostrptr(origin),
-						Space:         strtostrptr(testSpaceGUID),
+						Type:          new("space_auditor"),
+						UserName:      new(testUserName),
+						Origin:        new(origin),
+						Space:         new(testSpaceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
@@ -116,9 +116,9 @@ func TestSpaceRoleResource_Configure(t *testing.T) {
 					Config: hclProvider(nil) + hclSpaceRoleResource(&SpaceRoleResourceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "rsi",
-						Type:          strtostrptr("space_manager"),
-						User:          strtostrptr(testUser2GUID),
-						Space:         strtostrptr(testSpaceGUID),
+						Type:          new("space_manager"),
+						User:          new(testUser2GUID),
+						Space:         new(testSpaceGUID),
 					}),
 					ExpectError: regexp.MustCompile(`API Error Registering Role`),
 				},
