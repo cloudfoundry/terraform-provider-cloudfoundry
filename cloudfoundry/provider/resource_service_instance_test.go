@@ -104,10 +104,10 @@ func TestResourceServiceInstance(t *testing.T) {
 					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si",
-						Name:          strtostrptr(testServiceInstanceManagedCreate),
-						Type:          strtostrptr(managedSerivceInstance),
-						Space:         strtostrptr(testSpaceGUIDNew),
-						ServicePlan:   strtostrptr(testServicePanGUIDNew),
+						Name:          new(testServiceInstanceManagedCreate),
+						Type:          new(managedSerivceInstance),
+						Space:         new(testSpaceGUIDNew),
+						ServicePlan:   new(testServicePanGUIDNew),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "name", testServiceInstanceManagedCreate),

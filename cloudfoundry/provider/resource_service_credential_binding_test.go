@@ -297,9 +297,9 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 					Config: hclProvider(nil) + hclResourceServiceCredentialBinding(&ResourceServiceCredentialBindingModelPtr{
 						HclType:         hclObjectResource,
 						HclObjectName:   "si",
-						Name:            strtostrptr(testServiceKeyManagedCreate),
-						Type:            strtostrptr(keyServiceCredentialBinding),
-						ServiceInstance: strtostrptr(testServiceInstanceGUID),
+						Name:            new(testServiceKeyManagedCreate),
+						Type:            new(keyServiceCredentialBinding),
+						ServiceInstance: new(testServiceInstanceGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "name", testServiceKeyManagedCreate),
