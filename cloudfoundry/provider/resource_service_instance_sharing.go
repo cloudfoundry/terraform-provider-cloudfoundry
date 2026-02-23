@@ -266,6 +266,15 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
 	tflog.Trace(ctx, "updated a service instance sharing resource")
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceInstanceSharingResourceIdentityModel{
+		ServiceInstanceGUID: types.StringValue(previousState.Id.ValueString()),
+	}
+
+	resp.Diagnostics.Append(resp.Identity.Set(ctx, identity)...)
+	// END WORKAROUND
 }
 
 func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

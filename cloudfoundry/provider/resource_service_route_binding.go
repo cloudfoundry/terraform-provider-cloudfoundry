@@ -235,6 +235,16 @@ func (r *serviceRouteBindingResource) Update(ctx context.Context, req resource.U
 	data.Parameters = plan.Parameters
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceRouteBindingResourceIdentityModel{
+		ServiceRouteBindingGUID: types.StringValue(data.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (r *serviceRouteBindingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

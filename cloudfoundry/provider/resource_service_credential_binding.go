@@ -356,6 +356,16 @@ func (r *serviceCredentialBindingResource) Update(ctx context.Context, req resou
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceCredentialBindingResourceIdentityModel{
+		ServiceCredentialBindingGUID: types.StringValue(previousState.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (r *serviceCredentialBindingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
