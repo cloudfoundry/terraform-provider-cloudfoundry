@@ -1,0 +1,7 @@
+---
+applications:
+  - name: cf-test-app
+    memory: 64M
+    instances: 1
+    buildpacks:
+      - go_buildpack
