@@ -92,8 +92,6 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 		testAppGUID                         = "e04e63c1-6e69-4537-b9e2-95ab6f3ebfcf"
 		testApp2GUID                        = "ede9258f-5b3d-4837-906f-8b4b2c4cbe58"
 		testApp3GUID                        = "f3d8f5c5-1bcb-489e-87a7-3011d042e4d0"
-
-		testServiceInstanceGUID = "275d987e-7059-4dd8-ada1-73239b710982"
 	)
 	t.Parallel()
 	t.Run("happy path - create service key for managed service instance", func(t *testing.T) {
@@ -207,12 +205,16 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
 						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
 					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_service_credential_binding.si_user_provided", map[string]knownvalue.Check{
+							"service_credential_binding_guid": knownvalue.NotNull(),
+						}),
+					},
 				},
 				{
-					ResourceName:      resourceName,
-					ImportStateIdFunc: getIdForImport(resourceName),
-					ImportState:       true,
-					ImportStateVerify: true,
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
@@ -279,46 +281,6 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 					ImportState:             true,
 					ImportStateVerifyIgnore: []string{"parameters"},
 					ImportStateVerify:       true,
-				},
-			},
-		})
-	})
-
-	t.Run("happy path - import with resource identity", func(t *testing.T) {
-		resourceName := "cloudfoundry_service_credential_binding.si"
-		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/resource_service_credential_binding_import_with_identity")
-		defer stopQuietly(rec)
-		resource.Test(t, resource.TestCase{
-			IsUnitTest:               true,
-			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
-			Steps: []resource.TestStep{
-				{
-					Config: hclProvider(nil) + hclResourceServiceCredentialBinding(&ResourceServiceCredentialBindingModelPtr{
-						HclType:         hclObjectResource,
-						HclObjectName:   "si",
-						Name:            new(testServiceKeyManagedCreate),
-						Type:            new(keyServiceCredentialBinding),
-						ServiceInstance: new(testServiceInstanceGUID),
-					}),
-					Check: resource.ComposeAggregateTestCheckFunc(
-						resource.TestCheckResourceAttr(resourceName, "name", testServiceKeyManagedCreate),
-						resource.TestCheckResourceAttr(resourceName, "type", keyServiceCredentialBinding),
-						resource.TestCheckResourceAttr(resourceName, "service_instance", testServiceInstanceGUID),
-						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
-						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
-						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
-					),
-					ConfigStateChecks: []statecheck.StateCheck{
-						statecheck.ExpectIdentity("cloudfoundry_service_credential_binding.si", map[string]knownvalue.Check{
-							"service_credential_binding_guid": knownvalue.NotNull(),
-						}),
-					},
-				},
-				{
-					ResourceName:    resourceName,
-					ImportState:     true,
-					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})
