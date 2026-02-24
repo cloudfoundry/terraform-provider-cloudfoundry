@@ -1,12 +1,4 @@
 # =============================================================================
-# Data Sources - Fetch existing shared domain
-# =============================================================================
-
-data "cloudfoundry_domain" "default" {
-  name = "127-0-0-1.nip.io"
-}
-
-# =============================================================================
 # 1. Service Broker Organization and Space
 # =============================================================================
 
@@ -52,7 +44,15 @@ resource "cloudfoundry_org" "test_org" {
     "description" = "Organization created for E2E integration testing"
   }
 }
+#Loop var.test_users and add to cloudfoundry_user
+resource "cloudfoundry_user" "test_users" {
+  for_each = { for idx, user in var.test_users : user.username => user }
 
+  username = each.value.username
+  email       = each.value.email
+  password = "abc"
+  origin   = each.value.origin
+}
 # =============================================================================
 # 3. Organization Roles - Assign roles to test users
 # =============================================================================
@@ -65,16 +65,17 @@ resource "cloudfoundry_org_role" "org_users" {
   type     = "organization_user"
   org      = cloudfoundry_org.test_org.id
   origin   = each.value.origin
+  depends_on = [cloudfoundry_user.test_users]
 }
-
 # Organization Manager role for the first user
 resource "cloudfoundry_org_role" "org_manager" {
-  username = var.test_users[0].username
+  for_each = { for idx, user in var.test_users : user.username => user }
+  username = each.value.username
   type     = "organization_manager"
   org      = cloudfoundry_org.test_org.id
-  origin   = var.test_users[0].origin
+  origin   = each.value.origin
 
-  depends_on = [cloudfoundry_org_role.org_users]
+  depends_on = [cloudfoundry_user.test_users]
 }
 # =============================================================================
 # 6. Create Space
@@ -100,12 +101,23 @@ resource "cloudfoundry_space" "test_space" {
 
 # Space Developer role for the first user
 resource "cloudfoundry_space_role" "space_developer" {
-  username = var.test_users[0].username
+  for_each = { for idx, user in var.test_users : user.username => user }
+
+  username = each.value.username
   type     = "space_developer"
   space    = cloudfoundry_space.test_space.id
-  origin   = var.test_users[0].origin
+  origin   = each.value.origin
 
   depends_on = [cloudfoundry_org_role.org_users]
+}
+# =============================================================================
+# 8. Zipper - Package test application source code into a zip file for deployment
+# =============================================================================
+
+
+resource "zipper_file" "fixture" {
+  source      = "test-app"
+  output_path = "test-app.zip"
 }
 
 # =============================================================================
@@ -116,10 +128,14 @@ resource "cloudfoundry_app" "test_app" {
   name       = var.app_name
   org_name   = cloudfoundry_org.test_org.name
   space_name = cloudfoundry_space.test_space.name
-  path       = "${path.module}/test-app"
+  path       = zipper_file.fixture.output_path
+  source_code_hash = zipper_file.fixture.output_sha
   memory     = "64M"
   instances  = 1
   strategy   = "rolling"
+  environment = {
+    MY_ENV = "red",
+  }
 
   labels = {
     "purpose"     = "integration-test"
@@ -130,24 +146,8 @@ resource "cloudfoundry_app" "test_app" {
     "description" = "Test GO application for E2E testing with service binding"
   }
 
-  environment = {
-    NODE_ENV   = "production"
-    TEST_VAR   = "integration-test-value"
-    CREATED_BY = "terraform-e2e-test"
-  }
-
-  processes = [
-    {
-      type       = "web"
-      instances  = var.app_instances
-      memory     = var.app_memory
-      disk_quota = "512M"
-    }
-  ]
-
   depends_on = [
     cloudfoundry_space.test_space,
     cloudfoundry_space_role.space_developer,
-    cloudfoundry_service_credential_binding.dummy_binding
   ]
 }
