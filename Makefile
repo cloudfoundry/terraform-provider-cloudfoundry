@@ -30,5 +30,6 @@ fmt:
 # Run acceptance tests
 test:
 	go test -cover  -count=1 ./... -v $(TESTARGS) -timeout 10m
-
-.PHONY: default lefthook build fix install lint generate fmt test
+testacc:
+	$(SETENV) TF_ACC=1 && go test -v -cover -tags=all -timeout 120m ./...
+.PHONY: default lefthook build fix install lint generate fmt test testacc
