@@ -30,21 +30,6 @@ output "org_user_role_ids" {
   description = "The GUIDs of the organization user roles"
 }
 
-output "org_manager_role_id" {
-  value       = cloudfoundry_org_role.org_manager.id
-  description = "The GUID of the organization manager role"
-}
-
-output "space_developer_role_id" {
-  value       = cloudfoundry_space_role.space_developer.id
-  description = "The GUID of the space developer role"
-}
-
-output "space_manager_role_id" {
-  value       = cloudfoundry_space_role.space_manager.id
-  description = "The GUID of the space manager role"
-}
-
 # Application outputs
 output "app_id" {
   value       = cloudfoundry_app.test_app.id
@@ -56,10 +41,6 @@ output "app_name" {
   description = "The name of the deployed application"
 }
 
-output "app_url" {
-  value       = "https://${var.app_name}.${data.cloudfoundry_domain.default.name}"
-  description = "The URL of the deployed application"
-}
 
 # Summary output
 output "test_summary" {
@@ -71,11 +52,6 @@ output "test_summary" {
     space = {
       id   = cloudfoundry_space.test_space.id
       name = cloudfoundry_space.test_space.name
-    }
-    application = {
-      id   = cloudfoundry_app.test_app.id
-      name = cloudfoundry_app.test_app.name
-      url  = "https://${var.app_name}.${data.cloudfoundry_domain.default.name}"
     }
     users_with_roles = var.test_users[*].username
   }

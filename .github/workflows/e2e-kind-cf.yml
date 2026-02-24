@@ -5,11 +5,6 @@ name: E2E Test with Kind and Cloud Foundry
 on:
   workflow_dispatch:
     inputs:
-      cf_cli_version:
-        description: 'CF CLI version to use'
-        required: false
-        default: '8'
-        type: string
       debug:
         description: 'Enable debug logging'
         required: false
@@ -55,8 +50,8 @@ jobs:
       # ============================================
       - name: Install Kind
         run: |
-          echo "Installing Kind ${{ inputs.kind_version }}..."
-          curl -Lo ./kind https://kind.sigs.k8s.io/dl/${{ inputs.kind_version }}/kind-linux-amd64
+          echo "Installing Kind ${{ env.KIND_VERSION }}..."
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/${{ env.KIND_VERSION }}/kind-linux-amd64
           chmod +x ./kind
           sudo mv ./kind /usr/local/bin/kind
           echo "Kind version:"
@@ -176,7 +171,7 @@ jobs:
           TF_VAR_cf_api_url: "https://api.127-0-0-1.nip.io"
           TF_VAR_cf_user: ${{ steps.cf-credentials.outputs.CF_USER }}
           TF_VAR_cf_password: ${{ steps.cf-credentials.outputs.CF_PASSWORD }}
-        run: terraform plan -out=tfplan
+        run: terraform init
 
       # ============================================
       # Step 12: Terraform Plan
@@ -187,7 +182,7 @@ jobs:
           TF_VAR_cf_api_url: "https://api.127-0-0-1.nip.io"
           TF_VAR_cf_user: ${{ steps.cf-credentials.outputs.CF_USER }}
           TF_VAR_cf_password: ${{ steps.cf-credentials.outputs.CF_PASSWORD }}
-        run: terraform plan -out=tfplan
+        run: terraform plan
 
       # ============================================
       # Step 13: Terraform Apply
@@ -199,7 +194,7 @@ jobs:
           TF_VAR_cf_user: ${{ steps.cf-credentials.outputs.CF_USER }}
           TF_VAR_cf_password: ${{ steps.cf-credentials.outputs.CF_PASSWORD }}
         run: |
-          terraform apply -auto-approve tfplan
+          terraform apply -auto-approve
           echo ""
           echo "Terraform apply completed successfully"
 

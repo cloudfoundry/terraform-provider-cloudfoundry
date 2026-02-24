@@ -3,6 +3,9 @@ terraform {
     cloudfoundry = {
       source = "cloudfoundry/cloudfoundry"
     }
+    zipper = {
+      source = "ArthurHlt/zipper"
+    }
   }
 }
 
@@ -12,3 +15,5 @@ provider "cloudfoundry" {
   password            = var.cf_password
   skip_ssl_validation = var.cf_skip_ssl_validation
 }
+
+provider "zipper" {}
