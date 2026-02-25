@@ -15,6 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
@@ -29,6 +30,7 @@ import (
 var (
 	_ resource.Resource              = &mtaResource{}
 	_ resource.ResourceWithConfigure = &mtaResource{}
+	_ resource.ResourceWithIdentity  = &mtaResource{}
 )
 
 func NewMtaResource() resource.Resource {
@@ -37,6 +39,12 @@ func NewMtaResource() resource.Resource {
 
 type mtaResource struct {
 	mtaClient *mta.APIClient
+}
+
+type mtaResourceIdentityModel struct {
+	SpaceGUID types.String `tfsdk:"space_guid"`
+	MtaID     types.String `tfsdk:"mta_id"`
+	Namespace types.String `tfsdk:"namespace"`
 }
 
 func (r *mtaResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -211,6 +219,22 @@ __Note:__
 	}
 }
 
+func (r *mtaResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"space_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+			"mta_id": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
+			"namespace": identityschema.StringAttribute{
+				OptionalForImport: true,
+			},
+		},
+	}
+}
+
 func (r *mtaResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	if req.ProviderData == nil {
 		return
@@ -237,14 +261,14 @@ func (r *mtaResource) Configure(ctx context.Context, req resource.ConfigureReque
 }
 
 func (r *mtaResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	r.upsert(ctx, &req.Plan, nil, &resp.State, &resp.Diagnostics)
+	r.upsert(ctx, &req.Plan, nil, &resp.State, &resp.Diagnostics, &resp.Identity)
 }
 
 func (r *mtaResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	r.upsert(ctx, &req.Plan, &req.State, &resp.State, &resp.Diagnostics)
+	r.upsert(ctx, &req.Plan, &req.State, &resp.State, &resp.Diagnostics, &resp.Identity)
 }
 
-func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState *tfsdk.State, respState *tfsdk.State, respDiags *diag.Diagnostics) {
+func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState *tfsdk.State, respState *tfsdk.State, respDiags *diag.Diagnostics, respIdentity **tfsdk.ResourceIdentity) {
 	var (
 		mtarType             MtarType
 		existingState        MtarType
@@ -458,6 +482,21 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	respDiags.Append(diags...)
 	mtarType.Id = types.StringValue(mtaObject.Metadata.Id)
 	respDiags.Append(respState.Set(ctx, mtarType)...)
+
+	identity := mtaResourceIdentityModel{
+		SpaceGUID: types.StringValue(mtarType.Space.ValueString()),
+		MtaID:     types.StringValue(mtarType.Id.ValueString()),
+	}
+
+	if !mtarType.Namespace.IsNull() {
+		identity.Namespace = types.StringValue(mtarType.Namespace.ValueString())
+	} else {
+		identity.Namespace = types.StringNull()
+	}
+
+	diags = (*respIdentity).Set(ctx, identity)
+	respDiags.Append(diags...)
+
 }
 
 func (r *mtaResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -496,6 +535,25 @@ func (r *mtaResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 	}
 	tflog.Trace(ctx, "read an mtar resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity mtaResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = mtaResourceIdentityModel{
+			SpaceGUID: types.StringValue(data.Space.ValueString()),
+			MtaID:     types.StringValue(data.Id.ValueString()),
+		}
+
+		if !data.Namespace.IsNull() {
+			identity.Namespace = types.StringValue(data.Namespace.ValueString())
+		} else {
+			identity.Namespace = types.StringNull()
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (r *mtaResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -553,21 +611,34 @@ func (r *mtaResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 }
 
 func (r *mtaResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	parts := strings.Split(req.ID, "/")
-	if len(parts) > 3 || len(parts) < 2 {
-		resp.Diagnostics.AddError(
-			"Resource Import ID of Invalid format",
-			"The format for import ID should be of [space_guid]/[mta_id] OR [space_guid]/[mta_id]/[namespace]",
-		)
+	if req.ID != "" {
+		parts := strings.Split(req.ID, "/")
+		if len(parts) > 3 || len(parts) < 2 {
+			resp.Diagnostics.AddError(
+				"Resource Import ID of Invalid format",
+				"The format for import ID should be of [space_guid]/[mta_id] OR [space_guid]/[mta_id]/[namespace]",
+			)
+			return
+		}
+		spaceGuid := parts[0]
+		mtaId := parts[1]
+
+		if len(parts) == 3 {
+			resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("namespace"), parts[2])...)
+		}
+
+		resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("space"), spaceGuid)...)
+		resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("id"), mtaId)...)
 		return
 	}
-	spaceGuid := parts[0]
-	mtaId := parts[1]
 
-	if len(parts) == 3 {
-		resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("namespace"), parts[2])...)
+	var identityData mtaResourceIdentityModel
+	resp.Diagnostics.Append(req.Identity.Get(ctx, &identityData)...)
+	if resp.Diagnostics.HasError() {
+		return
 	}
 
-	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("space"), spaceGuid)...)
-	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("id"), mtaId)...)
+	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("space"), identityData.SpaceGUID)...)
+	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("id"), identityData.MtaID)...)
+	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("namespace"), identityData.Namespace)...)
 }
