@@ -441,7 +441,7 @@ func (r *appResource) Configure(ctx context.Context, req resource.ConfigureReque
 }
 
 func (r *appResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	r.upsert(ctx, &req.Plan, nil, &resp.State, &resp.Diagnostics, &resp.Identity)
+	r.upsert(ctx, &req.Plan, nil, &resp.State, &resp.Diagnostics)
 }
 
 func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -489,9 +489,9 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 }
 
 func (r *appResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	r.upsert(ctx, &req.Plan, &req.State, &resp.State, &resp.Diagnostics, &resp.Identity)
+	r.upsert(ctx, &req.Plan, &req.State, &resp.State, &resp.Diagnostics)
 }
-func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState *tfsdk.State, respState *tfsdk.State, respDiags *diag.Diagnostics, respIdentity **tfsdk.ResourceIdentity) {
+func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState *tfsdk.State, respState *tfsdk.State, respDiags *diag.Diagnostics) {
 	var (
 		desiredState, previousState AppType
 		envs                        map[string]*string
