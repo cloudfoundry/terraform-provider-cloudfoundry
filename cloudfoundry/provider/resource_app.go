@@ -510,7 +510,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	}
 	//Required to set instances value for rolling strategy app update for go-cfclient. So setting it to cf-default of 1
 	if appManifestValue.Instances == nil {
-		appManifestValue.Instances = uinttouintptr(1)
+		appManifestValue.Instances = new(uint(1))
 	}
 	if reqState != nil {
 		diags = reqState.Get(ctx, &previousState)
