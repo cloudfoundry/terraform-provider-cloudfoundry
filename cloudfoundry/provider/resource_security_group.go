@@ -314,6 +314,15 @@ func (rs *SecurityGroupResource) Update(ctx context.Context, req resource.Update
 
 	tflog.Trace(ctx, "updated a security group resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	identity := securityGroupResouerceIdentityModel{
+		SecurityGroupGUID: types.StringValue(data.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (rs *SecurityGroupResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

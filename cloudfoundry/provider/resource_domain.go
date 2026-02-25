@@ -273,6 +273,15 @@ func (rs *DomainResource) Update(ctx context.Context, req resource.UpdateRequest
 	tflog.Trace(ctx, "updated a domain resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := domainResouerceIdentityModel{
+		DomainGUID: types.StringValue(data.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (rs *DomainResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
