@@ -259,13 +259,4 @@ import {
   to = cloudfoundry_app.<resource_name>
   id = "<app_guid>"
 }
-
-# this resource supports import using identity attribute from Terraform version 1.12 or higher
-
-import {
-to = cloudfoundry_app.<resource_name>
-identity = {
-  app_guid = "<app_guid>"
-  }
-}
 ```

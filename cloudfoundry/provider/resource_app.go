@@ -24,7 +24,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
@@ -49,14 +48,9 @@ const (
 )
 
 var (
-	_ resource.Resource                = &appResource{}
-	_ resource.ResourceWithConfigure   = &appResource{}
-	_ resource.ResourceWithImportState = &appResource{}
+	_ resource.Resource              = &appResource{}
+	_ resource.ResourceWithConfigure = &appResource{}
 )
-
-type appResourceIdentityModel struct {
-	AppGUID types.String `tfsdk:"app_guid"`
-}
 
 func NewAppResource() resource.Resource {
 	return &appResource{}
@@ -345,16 +339,6 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 	}
 }
 
-func (r *appResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
-	resp.IdentitySchema = identityschema.Schema{
-		Attributes: map[string]identityschema.Attribute{
-			"app_guid": identityschema.StringAttribute{
-				RequiredForImport: true,
-			},
-		},
-	}
-}
-
 func (r *appResource) ProcessSchemaAttributes() map[string]schema.Attribute {
 	pSchema := map[string]schema.Attribute{
 		"type": schema.StringAttribute{
@@ -502,18 +486,6 @@ func (r *appResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		plan.Stopped = appType.Stopped
 	}
 	resp.State.Set(ctx, &plan)
-
-	var identity appResourceIdentityModel
-
-	diags = req.Identity.Get(ctx, &identity)
-	if diags.HasError() {
-		identity = appResourceIdentityModel{
-			AppGUID: types.StringValue(appType.ID.ValueString()),
-		}
-
-		diags = resp.Identity.Set(ctx, identity)
-		resp.Diagnostics.Append(diags...)
-	}
 }
 
 func (r *appResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -585,12 +557,6 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	plan.Stopped = desiredState.Stopped
 	respDiags.Append(respState.Set(ctx, &plan)...)
 
-	identity := appResourceIdentityModel{
-		AppGUID: types.StringValue(plan.ID.ValueString()),
-	}
-
-	diags = (*respIdentity).Set(ctx, identity)
-	respDiags.Append(diags...)
 }
 func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppManifest, ctx context.Context) (*cfv3resource.App, error) {
 	var file *os.File
@@ -664,11 +630,7 @@ func (r *appResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 }
 
 func (r *appResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	if req.ID != "" {
-		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
-		return
-	}
-	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("app_guid"), req, resp)
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
 func getAppLogTrace(ctx context.Context, r *appResource, desiredState AppType, curTime time.Time) []string {
