@@ -236,13 +236,6 @@ func setClientMetadataForUpdate(ctx context.Context, StateLabels basetypes.MapVa
 	return metadata, diagnostics
 }
 
-// Returns a pointer to an uint.
-//
-//go:fix inline
-func uinttouintptr(s uint) *uint {
-	return new(s)
-}
-
 func copyFields(dst, src any) {
 	dstValue := reflect.ValueOf(dst).Elem()
 	srcValue := reflect.ValueOf(src).Elem()
