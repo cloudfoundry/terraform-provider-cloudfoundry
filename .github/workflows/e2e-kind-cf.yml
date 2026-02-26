@@ -198,7 +198,12 @@ jobs:
           echo ""
           echo "Terraform apply completed successfully"
 
-
+      - name: CF List stuff
+        run: |
+          cf spaces
+          cf orgs
+          cf target -o test-org -s test-space
+          cf apps
       # ============================================
       # Step 14: Terraform Destroy
       # ============================================
