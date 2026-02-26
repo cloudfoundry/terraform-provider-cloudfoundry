@@ -48,9 +48,8 @@ const (
 )
 
 var (
-	_ resource.Resource                = &appResource{}
-	_ resource.ResourceWithConfigure   = &appResource{}
-	_ resource.ResourceWithImportState = &appResource{}
+	_ resource.Resource              = &appResource{}
+	_ resource.ResourceWithConfigure = &appResource{}
 )
 
 func NewAppResource() resource.Resource {
@@ -557,6 +556,7 @@ func (r *appResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	plan.CopyConfigAttributes(&desiredState)
 	plan.Stopped = desiredState.Stopped
 	respDiags.Append(respState.Set(ctx, &plan)...)
+
 }
 func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppManifest, ctx context.Context) (*cfv3resource.App, error) {
 	var file *os.File
