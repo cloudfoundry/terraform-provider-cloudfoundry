@@ -300,6 +300,16 @@ func (r *spaceQuotaResource) Update(ctx context.Context, req resource.UpdateRequ
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := SpaceQuotaResouerceIdentityModel{
+		SpaceQuotaGUID: types.StringValue(spacesQuotaType.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (r *spaceQuotaResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

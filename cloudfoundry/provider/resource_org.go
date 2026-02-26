@@ -259,6 +259,15 @@ func (r *orgResource) Update(ctx context.Context, req resource.UpdateRequest, re
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := OrgResouerceIdentityModel{
+		OrgGUID: types.StringValue(plan.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 // Delete the resource and removes the Terraform state on success.

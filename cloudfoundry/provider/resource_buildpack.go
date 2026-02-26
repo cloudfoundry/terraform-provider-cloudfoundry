@@ -34,7 +34,7 @@ type BuildpackResource struct {
 	cfClient *cfv3client.Client
 }
 
-type buildpackResouerceIdentityModel struct {
+type buildpackResourceIdentityModel struct {
 	BuildpackGUID types.String `tfsdk:"buildpack_guid"`
 }
 
@@ -191,7 +191,7 @@ func (r *BuildpackResource) Create(ctx context.Context, req resource.CreateReque
 	tflog.Trace(ctx, "created a buildpack resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 
-	identity := buildpackResouerceIdentityModel{
+	identity := buildpackResourceIdentityModel{
 		BuildpackGUID: types.StringValue(data.Id.ValueString()),
 	}
 
@@ -222,11 +222,11 @@ func (rs *BuildpackResource) Read(ctx context.Context, req resource.ReadRequest,
 	tflog.Trace(ctx, "read a buildpack resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 
-	var identity buildpackResouerceIdentityModel
+	var identity buildpackResourceIdentityModel
 
 	diags = req.Identity.Get(ctx, &identity)
 	if diags.HasError() {
-		identity = buildpackResouerceIdentityModel{
+		identity = buildpackResourceIdentityModel{
 			BuildpackGUID: types.StringValue(data.Id.ValueString()),
 		}
 
@@ -295,6 +295,16 @@ func (rs *BuildpackResource) Update(ctx context.Context, req resource.UpdateRequ
 
 	tflog.Trace(ctx, "updated a buildpack resource")
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := buildpackResourceIdentityModel{
+		BuildpackGUID: types.StringValue(data.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (rs *BuildpackResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
