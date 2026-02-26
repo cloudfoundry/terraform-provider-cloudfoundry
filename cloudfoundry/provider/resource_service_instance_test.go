@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 func TestResourceServiceInstance(t *testing.T) {
@@ -21,6 +23,9 @@ func TestResourceServiceInstance(t *testing.T) {
 		testTags               = `["test-tag"]`
 		testCredentials        = `{"user" : "test","password": "hello"}`
 		testInvalidCredentials = `{"hello"}`
+
+		testSpaceGUIDNew      = "bb77a8bc-00f9-4cca-9df1-2e63641ff1a2"
+		testServicePanGUIDNew = "75d7c3f6-e629-4db0-abf7-bc9c804d379d"
 	)
 	t.Parallel()
 	t.Run("happy path - create service instance managed", func(t *testing.T) {
@@ -81,6 +86,48 @@ func TestResourceServiceInstance(t *testing.T) {
 					ImportState:             true,
 					ImportStateVerifyIgnore: []string{"parameters"},
 					ImportStateVerify:       true,
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - import service instance using resource identity", func(t *testing.T) {
+		resourceName := "cloudfoundry_service_instance.si"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_instance_import_identity")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "si",
+						Name:          new(testServiceInstanceManagedCreate),
+						Type:          new(managedSerivceInstance),
+						Space:         new(testSpaceGUIDNew),
+						ServicePlan:   new(testServicePanGUIDNew),
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", testServiceInstanceManagedCreate),
+						resource.TestCheckResourceAttr(resourceName, "type", managedSerivceInstance),
+						resource.TestCheckResourceAttr(resourceName, "space", testSpaceGUIDNew),
+						resource.TestCheckResourceAttr(resourceName, "service_plan", testServicePanGUIDNew),
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
+						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_service_instance.si", map[string]knownvalue.Check{
+							"service_instance_guid": knownvalue.NotNull(),
+						}),
+					},
+				},
+				{
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})

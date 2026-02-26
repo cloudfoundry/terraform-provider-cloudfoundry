@@ -13,10 +13,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 type serviceCredentialBindingResource struct {
@@ -27,12 +29,17 @@ var (
 	_ resource.ResourceWithConfigure      = &serviceCredentialBindingResource{}
 	_ resource.ResourceWithImportState    = &serviceCredentialBindingResource{}
 	_ resource.ResourceWithValidateConfig = &serviceCredentialBindingResource{}
+	_ resource.ResourceWithIdentity       = &serviceCredentialBindingResource{}
 )
 
 const (
 	appServiceCredentialBinding = "app"
 	keyServiceCredentialBinding = "key"
 )
+
+type serviceCredentialBindingResourceIdentityModel struct {
+	ServiceCredentialBindingGUID types.String `tfsdk:"service_credential_binding_guid"`
+}
 
 func NewServiceCredentialBindingResource() resource.Resource {
 	return &serviceCredentialBindingResource{}
@@ -102,6 +109,16 @@ func (r *serviceCredentialBindingResource) Schema(ctx context.Context, req resou
 			annotationsKey:   resourceAnnotationsSchema(),
 			createdAtKey:     createdAtSchema(),
 			updatedAtKey:     updatedAtSchema(),
+		},
+	}
+}
+
+func (r *serviceCredentialBindingResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"service_credential_binding_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -244,6 +261,13 @@ func (r *serviceCredentialBindingResource) Create(ctx context.Context, req resou
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	identity := serviceCredentialBindingResourceIdentityModel{
+		ServiceCredentialBindingGUID: types.StringValue(data.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (r *serviceCredentialBindingResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -278,6 +302,18 @@ func (r *serviceCredentialBindingResource) Read(ctx context.Context, req resourc
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+
+	var identity serviceCredentialBindingResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = serviceCredentialBindingResourceIdentityModel{
+			ServiceCredentialBindingGUID: types.StringValue(data.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 
 }
 
@@ -320,6 +356,16 @@ func (r *serviceCredentialBindingResource) Update(ctx context.Context, req resou
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceCredentialBindingResourceIdentityModel{
+		ServiceCredentialBindingGUID: types.StringValue(previousState.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (r *serviceCredentialBindingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -350,5 +396,9 @@ func (r *serviceCredentialBindingResource) Delete(ctx context.Context, req resou
 }
 
 func (rs *serviceCredentialBindingResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("service_credential_binding_guid"), req, resp)
 }

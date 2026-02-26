@@ -7,6 +7,8 @@ import (
 	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
+	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
 
 type ResourceServiceCredentialBindingModelPtr struct {
@@ -203,12 +205,16 @@ func TestResourceServiceCredentialBinding(t *testing.T) {
 						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
 						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
 					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectIdentity("cloudfoundry_service_credential_binding.si_user_provided", map[string]knownvalue.Check{
+							"service_credential_binding_guid": knownvalue.NotNull(),
+						}),
+					},
 				},
 				{
-					ResourceName:      resourceName,
-					ImportStateIdFunc: getIdForImport(resourceName),
-					ImportState:       true,
-					ImportStateVerify: true,
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})

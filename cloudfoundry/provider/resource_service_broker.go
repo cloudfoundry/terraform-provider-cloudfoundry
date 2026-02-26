@@ -9,9 +9,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 type serviceBrokerResource struct {
@@ -21,10 +23,15 @@ type serviceBrokerResource struct {
 var (
 	_ resource.ResourceWithConfigure   = &serviceBrokerResource{}
 	_ resource.ResourceWithImportState = &serviceBrokerResource{}
+	_ resource.ResourceWithIdentity    = &serviceBrokerResource{}
 )
 
 func NewServiceBrokerResource() resource.Resource {
 	return &serviceBrokerResource{}
+}
+
+type serviceBrokerResourceIdentityModel struct {
+	ServiceBrokerGUID types.String `tfsdk:"service_broker_guid"`
 }
 
 func (r *serviceBrokerResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -65,6 +72,16 @@ func (r *serviceBrokerResource) Schema(ctx context.Context, req resource.SchemaR
 			annotationsKey: resourceAnnotationsSchema(),
 			createdAtKey:   createdAtSchema(),
 			updatedAtKey:   updatedAtSchema(),
+		},
+	}
+}
+
+func (r *serviceBrokerResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"service_broker_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
+			},
 		},
 	}
 }
@@ -132,6 +149,13 @@ func (r *serviceBrokerResource) Create(ctx context.Context, req resource.CreateR
 	data.Username = plan.Username
 	data.Password = plan.Password
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	identity := serviceBrokerResourceIdentityModel{
+		ServiceBrokerGUID: types.StringValue(data.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (r *serviceBrokerResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -153,6 +177,18 @@ func (r *serviceBrokerResource) Read(ctx context.Context, req resource.ReadReque
 	state.Username = data.Username
 	state.Password = data.Password
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+
+	var identity serviceBrokerResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = serviceBrokerResourceIdentityModel{
+			ServiceBrokerGUID: types.StringValue(data.ID.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 
 }
 
@@ -200,6 +236,16 @@ func (r *serviceBrokerResource) Update(ctx context.Context, req resource.UpdateR
 	data.Username = plan.Username
 	data.Password = plan.Password
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceBrokerResourceIdentityModel{
+		ServiceBrokerGUID: types.StringValue(previousState.ID.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
+	// END WORKAROUND
 }
 
 func (r *serviceBrokerResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -229,5 +275,9 @@ func (r *serviceBrokerResource) Delete(ctx context.Context, req resource.DeleteR
 }
 
 func (rs *serviceBrokerResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("service_broker_guid"), req, resp)
 }

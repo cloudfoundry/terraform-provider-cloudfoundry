@@ -179,10 +179,9 @@ func TestResourceServiceRouteBinding(t *testing.T) {
 					),
 				},
 				{
-					ResourceName:      resourceName,
-					ImportStateIdFunc: getIdForImport(resourceName),
-					ImportState:       true,
-					ImportStateVerify: true,
+					ResourceName:    resourceName,
+					ImportState:     true,
+					ImportStateKind: resource.ImportBlockWithResourceIdentity,
 				},
 			},
 		})

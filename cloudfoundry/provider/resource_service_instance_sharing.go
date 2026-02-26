@@ -16,6 +16,7 @@ import (
 	cfv3resource "github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -30,7 +31,12 @@ type serviceInstanceSharingResource struct {
 var (
 	_ resource.Resource              = &serviceInstanceSharingResource{}
 	_ resource.ResourceWithConfigure = &serviceInstanceSharingResource{}
+	_ resource.ResourceWithIdentity  = &serviceInstanceSharingResource{}
 )
+
+type serviceInstanceSharingResourceIdentityModel struct {
+	ServiceInstanceGUID types.String `tfsdk:"service_instance_guid"`
+}
 
 func NewServiceInstanceSharingResource() resource.Resource {
 	return &serviceInstanceSharingResource{}
@@ -65,6 +71,16 @@ func (r *serviceInstanceSharingResource) Schema(ctx context.Context, req resourc
 					setvalidator.ValueStringsAre(validation.ValidUUID()),
 					setvalidator.SizeAtLeast(1),
 				},
+			},
+		},
+	}
+}
+
+func (rs *serviceInstanceSharingResource) IdentitySchema(_ context.Context, _ resource.IdentitySchemaRequest, resp *resource.IdentitySchemaResponse) {
+	resp.IdentitySchema = identityschema.Schema{
+		Attributes: map[string]identityschema.Attribute{
+			"service_instance_guid": identityschema.StringAttribute{
+				RequiredForImport: true,
 			},
 		},
 	}
@@ -116,6 +132,13 @@ func (r *serviceInstanceSharingResource) Create(ctx context.Context, req resourc
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
+
+	identity := serviceInstanceSharingResourceIdentityModel{
+		ServiceInstanceGUID: types.StringValue(newState.Id.ValueString()),
+	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 }
 
 func (r *serviceInstanceSharingResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -144,6 +167,18 @@ func (r *serviceInstanceSharingResource) Read(ctx context.Context, req resource.
 	tflog.Trace(ctx, "read a service instance sharing resource")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	var identity serviceInstanceSharingResourceIdentityModel
+
+	diags = req.Identity.Get(ctx, &identity)
+	if diags.HasError() {
+		identity = serviceInstanceSharingResourceIdentityModel{
+			ServiceInstanceGUID: types.StringValue(data.Id.ValueString()),
+		}
+
+		diags = resp.Identity.Set(ctx, identity)
+		resp.Diagnostics.Append(diags...)
+	}
 }
 
 func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -231,6 +266,15 @@ func (r *serviceInstanceSharingResource) Update(ctx context.Context, req resourc
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
 	tflog.Trace(ctx, "updated a service instance sharing resource")
+
+	// WORKAROUND for OpenTofu compatibility
+	// https://github.com/cloudfoundry/terraform-provider-cloudfoundry/issues/418
+	identity := serviceInstanceSharingResourceIdentityModel{
+		ServiceInstanceGUID: types.StringValue(previousState.Id.ValueString()),
+	}
+
+	resp.Diagnostics.Append(resp.Identity.Set(ctx, identity)...)
+	// END WORKAROUND
 }
 
 func (r *serviceInstanceSharingResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -280,5 +324,9 @@ func mapSharedSpacesValuesToType(relationship *cfv3resource.ServiceInstanceShare
 }
 
 func (r *serviceInstanceSharingResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	if req.ID != "" {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+		return
+	}
+	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("service_instance_guid"), req, resp)
 }
