@@ -82,7 +82,7 @@ variable "broker_app_name" {
 
 variable "broker_app_memory" {
   type        = string
-  default     = "256M"
+  default     = "64M"
   description = "Memory allocation for the service broker application"
 }
 

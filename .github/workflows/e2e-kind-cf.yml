@@ -1,6 +1,6 @@
 # End-to-end test workflow running Cloud Foundry on Kind
 # This workflow sets up a local CF environment and runs Terraform provider tests
-name: E2E Test with Kind and Cloud Foundry
+name: Basic E2E Test - CF on Kind
 
 on:
   workflow_dispatch:
@@ -148,10 +148,7 @@ jobs:
           
           echo "Bootstrapping Cloud Foundry (creating org, space, uploading buildpacks)..."
           make bootstrap-complete
-          
-          echo "Cloud Foundry is ready!"
-          cf target
-
+          sleep 60
       # ============================================
       # Step 10: Store CF credentials for Terraform
       # ============================================
