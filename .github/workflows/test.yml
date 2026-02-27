@@ -112,7 +112,7 @@ jobs:
         uses: robherley/go-test-action@v0
         with:
           testArguments: -v -cover -coverprofile=cover.out -timeout=900s -parallel=4 ./...
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: ${{ matrix.terraform == env.LATEST_VERSION }}
         with:
           name: coverage-report
