@@ -4,6 +4,11 @@ on:
     types:
       - closed
 
+# Security: restrict GITHUB_TOKEN to least privilege.
+# See: https://www.upwind.io/feed/hackerbot-claw-github-actions-pull-request-rce
+permissions:
+  actions: write
+
 jobs:
   cleanup:
     runs-on: ubuntu-latest

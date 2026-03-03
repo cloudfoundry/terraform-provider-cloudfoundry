@@ -4,6 +4,13 @@ on:
   issue_comment:
     types: [created]
 
+# Security: issue_comment triggers fire for any authenticated GitHub user on public repos.
+# Restrict token to only the permissions this workflow needs.
+# See: https://www.upwind.io/feed/hackerbot-claw-github-actions-pull-request-rce
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   issue_comment_triage:
     runs-on: ubuntu-latest
