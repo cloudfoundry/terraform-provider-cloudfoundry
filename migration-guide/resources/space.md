@@ -13,7 +13,7 @@ Provides a Cloud Foundry resource for managing Cloud Foundry spaces within organ
 
 | Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
-| quota | 🟠 | 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota  use resource [`cloudfoundry_space_quota`](/docs/resources/space_quota.md). |
-| asgs| 🔴 | 🟢 | Security groups not present in space resource as part of V3 API Spec. One can however set it with `running_spaces` attribute from resource [`cloudfoundry_security_group`](/docs/resources/security_group.md). |
-| staging_asgs| 🔴 | 🟢 | Staging Security groups not present in space resource as part of V3 API Spec. One can however set it with `staging_spaces` attribute from resource [`cloudfoundry_security_group`](/docs/resources/security_group.md). |
+| quota | 🟠 | 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota  use resource [`cloudfoundry_space_quota`](space_quota.md). |
+| asgs| 🔴 | 🟢 | Security groups not present in space resource as part of V3 API Spec. One can however set it with `running_spaces` attribute from resource [`cloudfoundry_security_group`](security_group.md). |
+| staging_asgs| 🔴 | 🟢 | Staging Security groups not present in space resource as part of V3 API Spec. One can however set it with `staging_spaces` attribute from resource [`cloudfoundry_security_group`](security_group.md). |
 | delete_recursive_allowed | 🔴 | 🟢 | V3 API by default follows recursive deletion. |
