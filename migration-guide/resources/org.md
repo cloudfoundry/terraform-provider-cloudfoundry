@@ -14,6 +14,6 @@ Provides a Cloud Foundry resource for managing Cloud Foundry organizations
 
 | Attribute name | Cloud Foundry Provider|  Community Cloud Foundry Provider (old) | Description |
 | --- | --- | --- | --- |
-| quota | 🟠| 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota use resource [`cloudfoundry_org_quota`](/docs/resources/org_quota.md). |
+| quota | 🟠| 🟢 | One cannot set quota as it is a read-only attribute in the current provider. For setting quota use resource [`cloudfoundry_org_quota`](org_quota.md). |
 | suspended | 🟢 | 🔴 | - |
 | delete_recursive_allowed | 🔴 | 🟢 | V3 API by default follows recursive deletion. |

@@ -20,7 +20,7 @@ Provides a Cloud Foundry resource to manage applications.
 | enable_ssh | 🔴 | 🟢 | It can be enabled on a space level. For further details, refer [here](https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-apps.html#config-ssh-access-apps). |
 | stopped | 🔴 | 🟢 | `stopped` attribute functionality can be achieved by setting `instances` to 0. |
 | routes.route | 🟢 | 🟢 | In the new provider, FQDN needs to be specified instead of the route GUID in the community provider. Route resource is automatically created if not present. |
-| routes.port | 🔴 | 🟢 | Not present in V3 manifest schema. Can be set in `port` attribute of  [`cloudfoundry_route`]( /docs/resources/route.md) resource. |
+| routes.port | 🔴 | 🟢 | Not present in V3 manifest schema. Can be set in `port` attribute of  [`cloudfoundry_route`](route.md) resource. |
 | routes.protocol | 🟢 | 🔴 | - |
 | health_check_interval | 🟢 | 🔴 | - |
 | log_rate_limit_per_second | 🟢 | 🔴 | - |
