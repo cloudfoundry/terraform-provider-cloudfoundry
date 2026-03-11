@@ -9,12 +9,12 @@ require (
 	github.com/cloudfoundry-community/go-uaa v0.3.6
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.20
 	github.com/google/uuid v1.6.0
-	github.com/hashicorp/terraform-plugin-framework v1.18.0
+	github.com/hashicorp/terraform-plugin-framework v1.19.0
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.7.0
 	github.com/hashicorp/terraform-plugin-framework-validators v0.19.0
-	github.com/hashicorp/terraform-plugin-go v0.30.0
+	github.com/hashicorp/terraform-plugin-go v0.31.0
 	github.com/hashicorp/terraform-plugin-log v0.10.0
-	github.com/hashicorp/terraform-plugin-testing v1.14.0
+	github.com/hashicorp/terraform-plugin-testing v1.15.0
 	github.com/samber/lo v1.53.0
 	github.com/stretchr/testify v1.11.1
 	gopkg.in/dnaeon/go-vcr.v3 v3.2.0
@@ -23,23 +23,23 @@ require (
 
 require (
 	code.cloudfoundry.org/cf-networking-helpers v0.77.0 // indirect
-	code.cloudfoundry.org/go-loggregator/v10 v10.2.0 // indirect
+	code.cloudfoundry.org/go-loggregator/v10 v10.3.1 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20260302011040-a15ffb7f9dcc // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.8 // indirect
-	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0 // indirect
+	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/onsi/ginkgo/v2 v2.28.1 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/tools v0.42.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20260209200024-4cfbd4190f57 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260226221140-a57be14db171 // indirect
 )
 
 require (
-	github.com/ProtonMail/go-crypto v1.1.6 // indirect
+	github.com/ProtonMail/go-crypto v1.3.0 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/cloudflare/circl v1.6.1 // indirect
@@ -57,16 +57,16 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-plugin v1.7.0 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
-	github.com/hashicorp/go-version v1.7.0 // indirect
-	github.com/hashicorp/hc-install v0.9.2 // indirect
+	github.com/hashicorp/go-version v1.8.0 // indirect
+	github.com/hashicorp/hc-install v0.9.3 // indirect
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
-	github.com/hashicorp/terraform-exec v0.24.0 // indirect
+	github.com/hashicorp/terraform-exec v0.25.0 // indirect
 	github.com/hashicorp/terraform-json v0.27.2 // indirect
 	github.com/hashicorp/terraform-plugin-framework-jsontypes v0.2.0
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1 // indirect
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.40.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.4.0 // indirect
-	github.com/hashicorp/terraform-svchost v0.2.0 // indirect
+	github.com/hashicorp/terraform-svchost v0.2.1 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/martini-contrib/render v0.0.0-20150707142108-ec18f8345a11 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
@@ -86,12 +86,12 @@ require (
 	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/mod v0.33.0 // indirect
 	golang.org/x/net v0.51.0 // indirect
-	golang.org/x/oauth2 v0.35.0 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/text v0.34.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260209200024-4cfbd4190f57 // indirect
-	google.golang.org/grpc v1.79.1 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260226221140-a57be14db171 // indirect
+	google.golang.org/grpc v1.79.2 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
