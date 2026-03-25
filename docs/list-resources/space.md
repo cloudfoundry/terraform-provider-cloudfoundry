@@ -32,19 +32,19 @@ list "cloudfoundry_space" "within_org" {
   provider         = cloudfoundry
   config {
   # Required 
-  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a56"
+  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
 
   }
 }
 
 // List block to discover all spaces within an organization and include the resource data in the output.
-list "btp_subaccount" "with_include_resource" {
+list "cloudfoundry_space" "with_include_resource" {
   provider         = cloudfoundry
   include_resource = true
 
   config {
   # Required
-  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a56"
+  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
   }
 }
 ```

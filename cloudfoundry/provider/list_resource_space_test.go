@@ -110,7 +110,7 @@ func TestSpaceListResource(t *testing.T) {
 func listSpaceQueryConfig(label, providerName string, orgGuID string) string {
 	return fmt.Sprintf(`
 list "cloudfoundry_space" "%s" {
-  provider = "%s"
+  provider = %s
   config {
    org = "%s"
   }
@@ -120,7 +120,7 @@ list "cloudfoundry_space" "%s" {
 func listSpaceQueryConfigWithIncludeResource(label, providerName string, orgGuID string) string {
 	return fmt.Sprintf(`
 list "cloudfoundry_space" "%s" {
-  provider = "%s"
+  provider = %s
   config {
    org = "%s"
   }
