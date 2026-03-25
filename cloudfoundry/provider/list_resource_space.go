@@ -21,8 +21,7 @@ type spaceListResource struct {
 }
 
 type spaceListResourceFilter struct {
-	Org          types.String `tfsdk:"org"`
-	LabelsFilter types.String `tfsdk:"labels_filter"`
+	Org types.String `tfsdk:"org"`
 }
 
 func NewSpaceListResource() list.ListResource {

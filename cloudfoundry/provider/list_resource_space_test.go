@@ -35,11 +35,11 @@ func TestSpaceListResource(t *testing.T) {
 					Config: hclProvider(nil) + listSpaceQueryConfig(
 						"space_list",
 						"cloudfoundry",
-						"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9",
+						"7c8b9705-bc7c-4a96-9af0-6674c8290615",
 					),
 
 					QueryResultChecks: []querycheck.QueryResultCheck{
-						querycheck.ExpectLength("cloudfoundry_space.space_list", 3),
+						querycheck.ExpectLength("cloudfoundry_space.space_list", 1),
 
 						querycheck.ExpectIdentity(
 							"cloudfoundry_space.space_list",
@@ -55,22 +55,22 @@ func TestSpaceListResource(t *testing.T) {
 					Config: hclProvider(nil) + listSpaceQueryConfigWithIncludeResource(
 						"space_list",
 						"cloudfoundry",
-						"b4da43cd-2055-4d4d-ae6e-4066ce53a8b9",
+						"7c8b9705-bc7c-4a96-9af0-6674c8290615",
 					),
 
 					QueryResultChecks: []querycheck.QueryResultCheck{
-						querycheck.ExpectLength("cloudfoundry_space.space_list", 3),
+						querycheck.ExpectLength("cloudfoundry_space.space_list", 1),
 
 						// Verify full resource data is populated
 						querycheck.ExpectResourceKnownValues(
 							"cloudfoundry_space.space_list",
 							queryfilter.ByResourceIdentity(map[string]knownvalue.Check{
-								"space_guid": knownvalue.StringExact("bb77a8bc-00f9-4cca-9df1-2e63641ff1a2"),
+								"space_guid": knownvalue.StringExact("10b8f9bd-0731-49f3-9e88-a17b6eec090e"),
 							}),
 							[]querycheck.KnownValueCheck{
 								{
 									Path:       tfjsonpath.New("name"),
-									KnownValue: knownvalue.StringExact("space"),
+									KnownValue: knownvalue.StringExact("test"),
 								},
 								{
 									Path:       tfjsonpath.New("id"),
@@ -78,7 +78,7 @@ func TestSpaceListResource(t *testing.T) {
 								},
 								{
 									Path:       tfjsonpath.New("org"),
-									KnownValue: knownvalue.StringExact("b4da43cd-2055-4d4d-ae6e-4066ce53a8b9"),
+									KnownValue: knownvalue.StringExact("7c8b9705-bc7c-4a96-9af0-6674c8290615"),
 								},
 							},
 						),
