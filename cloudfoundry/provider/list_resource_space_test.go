@@ -89,7 +89,10 @@ func TestSpaceListResource(t *testing.T) {
 	})
 
 	t.Run("error path - configure", func(t *testing.T) {
-		r := NewSpaceListResource().(list.ListResourceWithConfigure)
+		r, ok := NewSpaceListResource().(list.ListResourceWithConfigure)
+		if !ok {
+			t.Fatalf("Resource does not implement ListResourceWithConfigure")
+		}
 		resp := &res.ConfigureResponse{}
 		req := res.ConfigureRequest{
 			ProviderData: struct{}{}, // Wrong type

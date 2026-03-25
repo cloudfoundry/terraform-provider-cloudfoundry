@@ -66,7 +66,7 @@ func (r *spaceListResource) ListResourceConfigSchema(
 	}
 }
 
-// List streams all space within an organization from the API
+// List streams all space within an organization from the API.
 func (r *spaceListResource) List(
 	ctx context.Context,
 	req list.ListRequest,
