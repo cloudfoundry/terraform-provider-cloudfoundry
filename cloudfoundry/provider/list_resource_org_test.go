@@ -79,7 +79,10 @@ func TestOrgListResource(t *testing.T) {
 	})
 
 	t.Run("error path - configure", func(t *testing.T) {
-		r := NewOrgListResource().(list.ListResourceWithConfigure)
+		r, ok := NewOrgListResource().(list.ListResourceWithConfigure)
+		if !ok {
+			t.Fatalf("Resource does not implement ListResourceWithConfigure")
+		}
 		resp := &res.ConfigureResponse{}
 		req := res.ConfigureRequest{
 			ProviderData: struct{}{}, // Wrong type

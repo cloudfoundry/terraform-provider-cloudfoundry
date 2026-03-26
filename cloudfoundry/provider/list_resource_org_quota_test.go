@@ -77,7 +77,10 @@ func TestOrgQuotaListResource(t *testing.T) {
 	})
 
 	t.Run("error path - configure", func(t *testing.T) {
-		r := NewOrgQuotaListResource().(list.ListResourceWithConfigure)
+		r, ok := NewOrgQuotaListResource().(list.ListResourceWithConfigure)
+		if !ok {
+			t.Fatalf("Resource does not implement ListResourceWithConfigure")
+		}
 		resp := &res.ConfigureResponse{}
 		req := res.ConfigureRequest{
 			ProviderData: struct{}{},
