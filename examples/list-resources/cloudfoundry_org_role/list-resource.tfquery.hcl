@@ -1,0 +1,42 @@
+# This feature requires Terraform v1.14.0 or later (Stable as of 2026)
+# List resources must be defined in .tfquery.hcl files.
+
+# Generic template for a list block
+list "cloudfoundry_org_role" "<label_name>" {
+  # (Required) Provider instance to use
+  provider = provider_name
+
+  config {
+    # (Required) GUID of the organization to list roles for
+    org = "<org_guid>"
+  }
+}
+
+# List block to discover all roles in an organization.
+list "cloudfoundry_org_role" "all_org_roles" {
+  provider = cloudfoundry
+
+  config {
+    org = "261e5031-3e54-4b12-b316-94b3195b5f8e"
+  }
+}
+
+# List block to discover all roles in an organization, filtered by type.
+list "cloudfoundry_org_role" "org_managers" {
+  provider = cloudfoundry
+
+  config {
+    org  = "261e5031-3e54-4b12-b316-94b3195b5f8e"
+    type = "organization_manager"
+  }
+}
+
+# List block to discover all roles in an organization and include the resource data in the output.
+list "cloudfoundry_org_role" "all_org_roles_with_data" {
+  provider         = cloudfoundry
+  include_resource = true
+
+  config {
+    org = "261e5031-3e54-4b12-b316-94b3195b5f8e"
+  }
+}

@@ -19,10 +19,6 @@ type orgListResource struct {
 	cfClient *cfv3client.Client
 }
 
-// type orgListResourceFilter struct {
-// 	LabelsFilter types.String `tfsdk:"labels_filter"`
-// }
-
 func NewOrgListResource() list.ListResource {
 	return &orgListResource{}
 }
@@ -56,7 +52,6 @@ func (r *orgListResource) ListResourceConfigSchema(
 ) {
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "This list resource allows you to discover all organizations the user has access to.",
-		//Attributes:          map[string]schema.Attribute{},
 	}
 }
 
