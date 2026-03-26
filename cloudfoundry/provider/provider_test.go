@@ -11,6 +11,7 @@ import (
 
 	cfconfig "github.com/cloudfoundry/go-cfclient/v3/config"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
@@ -391,4 +392,38 @@ func TestProvider_HasDataSources(t *testing.T) {
 	}
 
 	assert.ElementsMatch(t, expectedDataSources, registeredDataSources)
+}
+
+func TestCloudFoundryProvider_HasListResources(t *testing.T) {
+	ctx := context.Background()
+
+	expected := []string{
+		"cloudfoundry_org",
+		"cloudfoundry_org_quota",
+		"cloudfoundry_org_role",
+	}
+
+	p := New("test", &http.Client{})()
+	listProvider, ok := p.(provider.ProviderWithListResources)
+	if !ok {
+		t.Fatalf("provider does not implement ProviderWithListResources")
+	}
+
+	var registered []string
+
+	for _, listResourceFunc := range listProvider.ListResources(ctx) {
+		var resp resource.MetadataResponse
+
+		listResourceFunc().Metadata(
+			ctx,
+			resource.MetadataRequest{
+				ProviderTypeName: "cloudfoundry",
+			},
+			&resp,
+		)
+
+		registered = append(registered, resp.TypeName)
+	}
+
+	assert.ElementsMatch(t, expected, registered)
 }
