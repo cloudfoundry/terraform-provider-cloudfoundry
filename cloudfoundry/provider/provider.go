@@ -12,6 +12,7 @@ import (
 	"github.com/cloudfoundry/terraform-provider-cloudfoundry/cloudfoundry/provider/managers"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/list"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
@@ -20,7 +21,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ provider.Provider = &CloudFoundryProvider{}
+var _ provider.ProviderWithListResources = &CloudFoundryProvider{}
 
 type CloudFoundryProvider struct {
 	version    string
@@ -292,6 +293,7 @@ func (p *CloudFoundryProvider) Configure(ctx context.Context, req provider.Confi
 	// type Configure methods.
 	resp.DataSourceData = session
 	resp.ResourceData = session
+	resp.ListResourceData = session
 }
 
 func (p *CloudFoundryProvider) Resources(ctx context.Context) []func() resource.Resource {
@@ -368,6 +370,15 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 		NewOrgQuotasDataSource,
 		NewSecurityGroupsDataSource,
 		NewStacksDataSource,
+	}
+}
+
+// ListResources defines the ListResources implemented in the provider.
+func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.ListResource {
+	return []func() list.ListResource{
+		NewOrgListResource,
+		NewOrgQuotaListResource,
+		NewOrgRoleListResource,
 	}
 }
 
