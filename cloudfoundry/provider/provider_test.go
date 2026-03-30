@@ -398,7 +398,8 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 	ctx := context.Background()
 
 	expected := []string{
-		"cloudfoundry_org",
+		"cloudfoundry_space",
+    "cloudfoundry_org",
 		"cloudfoundry_org_quota",
 		"cloudfoundry_org_role",
 	}

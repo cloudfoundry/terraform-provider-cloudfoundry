@@ -5,7 +5,7 @@ go 1.26
 require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.1
 	code.cloudfoundry.org/lager/v3 v3.64.0
-	code.cloudfoundry.org/policy_client v0.94.0
+	code.cloudfoundry.org/policy_client v0.95.0
 	github.com/cloudfoundry-community/go-uaa v0.3.6
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.20
 	github.com/google/uuid v1.6.0
@@ -22,7 +22,7 @@ require (
 )
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.78.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.79.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.3.1 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect

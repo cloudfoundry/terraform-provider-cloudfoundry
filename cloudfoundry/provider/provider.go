@@ -390,3 +390,10 @@ func New(version string, httpClient *http.Client) func() provider.Provider {
 		}
 	}
 }
+
+// ListResources defines the ListResources implemented in the provider.
+func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.ListResource {
+	return []func() list.ListResource{
+		NewSpaceListResource,
+	}
+}
