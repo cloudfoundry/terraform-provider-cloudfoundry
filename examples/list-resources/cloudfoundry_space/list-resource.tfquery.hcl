@@ -1,0 +1,34 @@
+# This feature requires Terraform v1.14.0 or later (Stable as of 2026)
+# List resources must be defined in .tfquery.hcl files.
+
+# Generic template for a list block
+list "cloudfoundry_space" "<label_name>" {
+  # (Required) Provider instance to use
+  provider = provider_name
+
+   config {
+    # Provider specific filters
+  }
+}
+
+
+# List block to discover all spaces within an organization.
+list "cloudfoundry_space" "within_org" {
+  provider         = cloudfoundry
+  config {
+  # Required 
+  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+
+  }
+}
+
+// List block to discover all spaces within an organization and include the resource data in the output.
+list "cloudfoundry_space" "with_include_resource" {
+  provider         = cloudfoundry
+  include_resource = true
+
+  config {
+  # Required
+  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+  }
+}
