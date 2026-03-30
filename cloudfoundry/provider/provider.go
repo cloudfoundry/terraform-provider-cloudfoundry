@@ -376,6 +376,7 @@ func (p *CloudFoundryProvider) DataSources(ctx context.Context) []func() datasou
 // ListResources defines the ListResources implemented in the provider.
 func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.ListResource {
 	return []func() list.ListResource{
+		NewSpaceListResource,
 		NewOrgListResource,
 		NewOrgQuotaListResource,
 		NewOrgRoleListResource,
@@ -388,12 +389,5 @@ func New(version string, httpClient *http.Client) func() provider.Provider {
 			version:    version,
 			httpClient: httpClient,
 		}
-	}
-}
-
-// ListResources defines the ListResources implemented in the provider.
-func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.ListResource {
-	return []func() list.ListResource{
-		NewSpaceListResource,
 	}
 }
