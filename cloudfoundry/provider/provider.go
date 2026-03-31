@@ -386,5 +386,7 @@ func New(version string, httpClient *http.Client) func() provider.Provider {
 func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.ListResource {
 	return []func() list.ListResource{
 		NewSpaceListResource,
+		NewSpaceRoleListResource,
+		NewSpaceQuotaListResource,
 	}
 }

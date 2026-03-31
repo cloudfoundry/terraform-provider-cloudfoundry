@@ -1,0 +1,50 @@
+# This feature requires Terraform v1.14.0 or later (Stable as of 2026)
+# List resources must be defined in .tfquery.hcl files.
+
+# Generic template for a list block
+list "cloudfoundry_space_role" "<label_name>" {
+  # (Required) Provider instance to use
+  provider = provider_name
+
+  config {
+    # Provider specific filters
+  }
+}
+
+
+# List block to discover all roles within a space.
+list "cloudfoundry_space_role" "within_space" {
+  provider = cloudfoundry
+
+  config {
+    # Required
+    space = "dd457c79-f7c9-4828-862b-35843d3b646d"
+  }
+}
+
+# List block to discover all space_manager roles within a space.
+list "cloudfoundry_space_role" "managers_in_space" {
+  provider = cloudfoundry
+
+  config {
+    # Required
+    space = "dd457c79-f7c9-4828-862b-35843d3b646d"
+
+    # Optional: filter by role type (space_auditor, space_developer, space_manager, space_supporter)
+    type = "space_manager"
+  }
+}
+
+# List block to discover all roles for a specific user within a space, including resource data.
+list "cloudfoundry_space_role" "user_roles_with_resource" {
+  provider         = cloudfoundry
+  include_resource = true
+
+  config {
+    # Required
+    space = "dd457c79-f7c9-4828-862b-35843d3b646d"
+
+    # Optional: filter by user GUID
+    user = "a4e8c8c7-3d1b-4c9a-bf2e-7f4d9e1a3b5c"
+  }
+}
