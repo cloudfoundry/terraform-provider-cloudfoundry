@@ -1,0 +1,241 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=e0c4ced36d274820910d6ba8410e13b7-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - e0c4ced36d274820910d6ba8410e13b7-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"e0c4ced36d274820910d6ba8410e13b7-r","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"95789feb353749c8911a759e26086392"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 02 Apr 2026 17:19:57 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Xss-Protection:
+                - "0"
+        status: '200 '
+        code: 200
+        duration: 1.401046917s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?page=1&per_page=50&stacks=cflinuxfs4
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 3126
+        uncompressed: false
+        body: '{"pagination":{"total_results":5,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"next":null,"previous":null},"resources":[{"guid":"f9b585c7-fec6-4236-8754-b4852b4066df","created_at":"2026-03-03T10:07:30Z","updated_at":"2026-03-03T10:07:32Z","name":"java-buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"java-buildpack-cflinuxfs4.zip","position":1,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/f9b585c7-fec6-4236-8754-b4852b4066df"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/f9b585c7-fec6-4236-8754-b4852b4066df/upload","method":"POST"}}},{"guid":"5c8762ab-4fff-4127-9d0c-6d04ebe991bc","created_at":"2026-03-17T09:29:27Z","updated_at":"2026-03-17T09:29:31Z","name":"hi","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"cf-sample-app-nodejs.zip","position":2,"enabled":false,"locked":false,"metadata":{"labels":{"hi":"fi"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/5c8762ab-4fff-4127-9d0c-6d04ebe991bc"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/5c8762ab-4fff-4127-9d0c-6d04ebe991bc/upload","method":"POST"}}},{"guid":"ace2eef0-b245-4fa1-8e4c-7b536a9324b5","created_at":"2026-03-03T10:07:34Z","updated_at":"2026-03-03T10:07:38Z","name":"nodejs_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"nodejs_buildpack-cflinuxfs4.zip","position":3,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/ace2eef0-b245-4fa1-8e4c-7b536a9324b5"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/ace2eef0-b245-4fa1-8e4c-7b536a9324b5/upload","method":"POST"}}},{"guid":"b5f0e8c9-119c-4bcb-ba14-dded60fecb1a","created_at":"2026-03-03T10:07:39Z","updated_at":"2026-03-03T10:07:43Z","name":"go_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"go_buildpack-cflinuxfs4.zip","position":4,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/b5f0e8c9-119c-4bcb-ba14-dded60fecb1a"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/b5f0e8c9-119c-4bcb-ba14-dded60fecb1a/upload","method":"POST"}}},{"guid":"c4daabe6-aa72-47da-be17-c15769b0d34d","created_at":"2026-03-03T10:07:46Z","updated_at":"2026-03-03T10:07:48Z","name":"binary_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"binary_buildpack-cflinuxfs4.zip","position":5,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c4daabe6-aa72-47da-be17-c15769b0d34d"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c4daabe6-aa72-47da-be17-c15769b0d34d/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "3126"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Apr 2026 17:19:58 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Server:
+                - istio-envoy
+            X-B3-Spanid:
+                - 494f30108d49e779
+            X-B3-Traceid:
+                - 8ed2de6e314e4bd6494f30108d49e779
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Envoy-Upstream-Service-Time:
+                - "843"
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.600538"
+            X-Vcap-Request-Id:
+                - 8ed2de6e-314e-4bd6-494f-30108d49e779::5942f5a5-8597-42ef-94da-0ba0176c9fa0
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 1.30357875s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=e0c4ced36d274820910d6ba8410e13b7-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - e0c4ced36d274820910d6ba8410e13b7-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"e0c4ced36d274820910d6ba8410e13b7-r","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"b2b92b340d444907ab3ff6d3bc103046"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 02 Apr 2026 17:19:58 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000 ; includeSubDomains
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Xss-Protection:
+                - "0"
+        status: '200 '
+        code: 200
+        duration: 36.005333ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/buildpacks?page=1&per_page=50&stacks=cflinuxfs4
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 3126
+        uncompressed: false
+        body: '{"pagination":{"total_results":5,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"last":{"href":"https://api.x.x.x.x.com/v3/buildpacks?page=1\u0026per_page=50\u0026stacks=cflinuxfs4"},"next":null,"previous":null},"resources":[{"guid":"f9b585c7-fec6-4236-8754-b4852b4066df","created_at":"2026-03-03T10:07:30Z","updated_at":"2026-03-03T10:07:32Z","name":"java-buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"java-buildpack-cflinuxfs4.zip","position":1,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/f9b585c7-fec6-4236-8754-b4852b4066df"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/f9b585c7-fec6-4236-8754-b4852b4066df/upload","method":"POST"}}},{"guid":"5c8762ab-4fff-4127-9d0c-6d04ebe991bc","created_at":"2026-03-17T09:29:27Z","updated_at":"2026-03-17T09:29:31Z","name":"hi","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"cf-sample-app-nodejs.zip","position":2,"enabled":false,"locked":false,"metadata":{"labels":{"hi":"fi"},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/5c8762ab-4fff-4127-9d0c-6d04ebe991bc"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/5c8762ab-4fff-4127-9d0c-6d04ebe991bc/upload","method":"POST"}}},{"guid":"ace2eef0-b245-4fa1-8e4c-7b536a9324b5","created_at":"2026-03-03T10:07:34Z","updated_at":"2026-03-03T10:07:38Z","name":"nodejs_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"nodejs_buildpack-cflinuxfs4.zip","position":3,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/ace2eef0-b245-4fa1-8e4c-7b536a9324b5"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/ace2eef0-b245-4fa1-8e4c-7b536a9324b5/upload","method":"POST"}}},{"guid":"b5f0e8c9-119c-4bcb-ba14-dded60fecb1a","created_at":"2026-03-03T10:07:39Z","updated_at":"2026-03-03T10:07:43Z","name":"go_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"go_buildpack-cflinuxfs4.zip","position":4,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/b5f0e8c9-119c-4bcb-ba14-dded60fecb1a"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/b5f0e8c9-119c-4bcb-ba14-dded60fecb1a/upload","method":"POST"}}},{"guid":"c4daabe6-aa72-47da-be17-c15769b0d34d","created_at":"2026-03-03T10:07:46Z","updated_at":"2026-03-03T10:07:48Z","name":"binary_buildpack","stack":"cflinuxfs4","state":"READY","lifecycle":"buildpack","filename":"binary_buildpack-cflinuxfs4.zip","position":5,"enabled":true,"locked":false,"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c4daabe6-aa72-47da-be17-c15769b0d34d"},"upload":{"href":"https://api.x.x.x.x.com/v3/buildpacks/c4daabe6-aa72-47da-be17-c15769b0d34d/upload","method":"POST"}}}]}'
+        headers:
+            Content-Length:
+                - "3126"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 02 Apr 2026 17:19:59 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Server:
+                - istio-envoy
+            X-B3-Spanid:
+                - 49569792649b4cfe
+            X-B3-Traceid:
+                - 62c6b58c81ee4d0b49569792649b4cfe
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Envoy-Upstream-Service-Time:
+                - "331"
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Runtime:
+                - "0.248738"
+            X-Vcap-Request-Id:
+                - 62c6b58c-81ee-4d0b-4956-9792649b4cfe::a3f8f1b7-8444-4032-8847-3cb51e29ca31
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 334.821875ms

@@ -382,6 +382,7 @@ func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.Li
 		NewOrgRoleListResource,
 		NewDomainListResource,
 		NewRouteListResource,
+		NewBuildpackListResource,
 	}
 }
 
