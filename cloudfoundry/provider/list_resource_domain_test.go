@@ -37,7 +37,7 @@ func TestDomainListResource(t *testing.T) {
 						testDomainListOrgGUID,
 					),
 					QueryResultChecks: []querycheck.QueryResultCheck{
-						querycheck.ExpectLength("cloudfoundry_domain.domain_list", 2),
+						querycheck.ExpectLength("cloudfoundry_domain.domain_list", 1),
 						querycheck.ExpectIdentity(
 							"cloudfoundry_domain.domain_list",
 							map[string]knownvalue.Check{
@@ -55,7 +55,7 @@ func TestDomainListResource(t *testing.T) {
 						testDomainListOrgGUID,
 					),
 					QueryResultChecks: []querycheck.QueryResultCheck{
-						querycheck.ExpectLength("cloudfoundry_domain.domain_list", 2),
+						querycheck.ExpectLength("cloudfoundry_domain.domain_list", 1),
 						// Verify full resource data is populated
 						querycheck.ExpectResourceKnownValues(
 							"cloudfoundry_domain.domain_list",
