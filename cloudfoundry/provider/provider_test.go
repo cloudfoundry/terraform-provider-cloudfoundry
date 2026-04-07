@@ -404,6 +404,9 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 		"cloudfoundry_org",
 		"cloudfoundry_org_quota",
 		"cloudfoundry_org_role",
+		"cloudfoundry_domain",
+		"cloudfoundry_route",
+		"cloudfoundry_buildpack",
 		"cloudfoundry_isolation_segment",
 		"cloudfoundry_security_group",
 	}

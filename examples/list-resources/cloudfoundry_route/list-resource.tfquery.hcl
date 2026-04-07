@@ -1,0 +1,60 @@
+# This feature requires Terraform v1.14.0 or later (Stable as of 2026)
+# List resources must be defined in .tfquery.hcl files.
+
+# Generic template for a list block
+list "cloudfoundry_route" "<label_name>" {
+  # (Required) Provider instance to use
+  provider = provider_name
+
+  config {
+    # Provider specific filters
+  }
+}
+
+# List block to discover all routes.
+list "cloudfoundry_route" "all_routes" {
+  provider = cloudfoundry
+}
+
+# List block to discover all routes and include the resource data in the output.
+list "cloudfoundry_route" "all_routes_with_data" {
+  provider         = cloudfoundry
+  include_resource = true
+}
+
+# List block to discover all routes within a space.
+list "cloudfoundry_route" "space_routes" {
+  provider = cloudfoundry
+
+  config {
+    space = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+  }
+}
+
+# List block to discover all routes within a space and include the resource data in the output.
+list "cloudfoundry_route" "space_routes_with_data" {
+  provider         = cloudfoundry
+  include_resource = true
+
+  config {
+    space = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+  }
+}
+
+# List block to discover all routes for a specific domain.
+list "cloudfoundry_route" "domain_routes" {
+  provider = cloudfoundry
+
+  config {
+    domain = "9aa474f9-3f82-4967-a2e1-dfe0cd155064"
+  }
+}
+
+# List block to discover all routes within an organization.
+list "cloudfoundry_route" "org_routes" {
+  provider = cloudfoundry
+
+  config {
+    org = "261e5031-3e54-4b12-b316-94b3195b5f8e"
+  }
+}
