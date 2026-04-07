@@ -1,0 +1,40 @@
+# This feature requires Terraform v1.14.0 or later (Stable as of 2026)
+# List resources must be defined in .tfquery.hcl files.
+
+# Generic template for a list block
+list "cloudfoundry_security_group" "<label_name>" {
+  # (Required) Provider instance to use
+  provider = provider_name
+
+  config {
+    # Provider specific filters
+  }
+}
+
+# List block to discover all security groups.
+list "cloudfoundry_security_group" "all_security_groups" {
+  provider = cloudfoundry
+}
+
+# List block to discover all security groups and include the resource data in the output.
+list "cloudfoundry_security_group" "all_security_groups_with_data" {
+  provider         = cloudfoundry
+  include_resource = true
+}
+
+# List block to discover security groups bound for running in a specific space.
+list "cloudfoundry_security_group" "running_space_security_groups" {
+  provider = cloudfoundry
+  config {
+    running_space = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  }
+}
+
+# List block to discover security groups bound for staging in a specific space and include the resource data.
+list "cloudfoundry_security_group" "staging_space_security_groups_with_data" {
+  provider         = cloudfoundry
+  include_resource = true
+  config {
+    staging_space = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  }
+}

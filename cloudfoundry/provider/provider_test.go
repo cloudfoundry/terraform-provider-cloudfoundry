@@ -399,12 +399,16 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 
 	expected := []string{
 		"cloudfoundry_space",
+		"cloudfoundry_space_role",
+		"cloudfoundry_space_quota",
 		"cloudfoundry_org",
 		"cloudfoundry_org_quota",
 		"cloudfoundry_org_role",
 		"cloudfoundry_domain",
 		"cloudfoundry_route",
 		"cloudfoundry_buildpack",
+		"cloudfoundry_isolation_segment",
+		"cloudfoundry_security_group",
 	}
 
 	p := New("test", &http.Client{})()
