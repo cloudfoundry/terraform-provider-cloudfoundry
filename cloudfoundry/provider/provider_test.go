@@ -404,6 +404,8 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 		"cloudfoundry_org",
 		"cloudfoundry_org_quota",
 		"cloudfoundry_org_role",
+		"cloudfoundry_isolation_segment",
+		"cloudfoundry_security_group",
 	}
 
 	p := New("test", &http.Client{})()
