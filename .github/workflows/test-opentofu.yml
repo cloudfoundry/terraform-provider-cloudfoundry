@@ -71,7 +71,7 @@ jobs:
           TF_ACC: "1"
         timeout-minutes: 20
       # For the latest version we use a dedicated action for a visual display of the test results
-      - uses: robherley/go-test-action@v0
+      - uses: robherley/go-test-action@v1
         if: ${{ matrix.opentofu == env.LATEST_VERSION }}
         env:
           TF_ACC: "1"
