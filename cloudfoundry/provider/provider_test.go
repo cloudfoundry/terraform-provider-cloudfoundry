@@ -409,6 +409,8 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 		"cloudfoundry_buildpack",
 		"cloudfoundry_isolation_segment",
 		"cloudfoundry_security_group",
+		"cloudfoundry_service_instance",
+		"cloudfoundry_service_broker",
 	}
 
 	p := New("test", &http.Client{})()
