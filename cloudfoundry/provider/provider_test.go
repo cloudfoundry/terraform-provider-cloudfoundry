@@ -411,6 +411,7 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 		"cloudfoundry_security_group",
 		"cloudfoundry_service_instance",
 		"cloudfoundry_service_broker",
+		"cloudfoundry_service_credential_binding",
 	}
 
 	p := New("test", &http.Client{})()

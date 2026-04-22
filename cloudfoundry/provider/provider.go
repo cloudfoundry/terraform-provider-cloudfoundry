@@ -389,6 +389,7 @@ func (p *CloudFoundryProvider) ListResources(_ context.Context) []func() list.Li
 		NewSecurityGroupListResource,
 		NewServiceInstanceListResource,
 		NewServiceBrokerListResource,
+		NewServiceCredentialBindingListResource,
 	}
 }
 
