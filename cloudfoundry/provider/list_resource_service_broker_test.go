@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/tfversion"
 )
 
-const testServiceBrokerListSpaceGUID = "dd457c79-f7c9-4828-862b-35843d3b646d"
+const testServiceBrokerListSpaceGUID = "6243642c-232b-486b-beec-bb13771b2546"
 
 func TestServiceBrokerListResource(t *testing.T) {
 	t.Parallel()
@@ -59,16 +59,16 @@ func TestServiceBrokerListResource(t *testing.T) {
 						querycheck.ExpectResourceKnownValues(
 							"cloudfoundry_service_broker.broker_list",
 							queryfilter.ByResourceIdentity(map[string]knownvalue.Check{
-								"service_broker_guid": knownvalue.StringExact("44faadbe-f56b-4ee2-bf40-e31113aa7324"),
+								"service_broker_guid": knownvalue.StringExact("0ca93e74-0682-4e06-ac4b-949d3362a146"),
 							}),
 							[]querycheck.KnownValueCheck{
 								{
 									Path:       tfjsonpath.New("name"),
-									KnownValue: knownvalue.StringExact("url-broker"),
+									KnownValue: knownvalue.StringExact("my-broker1"),
 								},
 								{
 									Path:       tfjsonpath.New("url"),
-									KnownValue: knownvalue.NotNull(),
+									KnownValue: knownvalue.StringExact("https://simple-service-broker.apps.127-0-0-1.nip.io"),
 								},
 								{
 									Path:       tfjsonpath.New("space"),

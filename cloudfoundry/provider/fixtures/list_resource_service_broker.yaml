@@ -6,64 +6,47 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 0
+        content_length: 73
         transfer_encoding: []
         trailer: {}
-        host: api.x.x.x.x.com
+        host: uaa.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: ""
-        form: {}
+        body: grant_type=refresh_token&refresh_token=e0c4ced36d274820910d6ba8410e13b7-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - e0c4ced36d274820910d6ba8410e13b7-r
         headers:
             Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_brokers?page=1&per_page=50&space_guids=6243642c-232b-486b-beec-bb13771b2546
-        method: GET
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
       response:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        transfer_encoding: []
+        transfer_encoding:
+            - chunked
         trailer: {}
-        content_length: 1724
+        content_length: -1
         uncompressed: false
-        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"next":null,"previous":null},"resources":[{"guid":"d8fa2ac8-9654-4e8c-90ce-d47751844b73","created_at":"2026-04-21T12:05:17Z","updated_at":"2026-04-21T12:05:20Z","name":"my-broker","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}},{"guid":"0ca93e74-0682-4e06-ac4b-949d3362a146","created_at":"2026-04-21T12:05:51Z","updated_at":"2026-04-21T12:05:55Z","name":"my-broker1","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/0ca93e74-0682-4e06-ac4b-949d3362a146"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=0ca93e74-0682-4e06-ac4b-949d3362a146"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}}]}'
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"e0c4ced36d274820910d6ba8410e13b7-r","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"cfe8d0df228e4dc8a4cab44c4f6c2b5e"}'
         headers:
-            Content-Length:
-                - "1724"
+            Cache-Control:
+                - no-store
             Content-Type:
-                - application/json; charset=utf-8
+                - application/json
             Date:
-                - Wed, 22 Apr 2026 08:01:12 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Server:
-                - istio-envoy
-            X-B3-Spanid:
-                - 74f18cdca7546c16
-            X-B3-Traceid:
-                - 4cd143d5bfd4410e74f18cdca7546c16
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Envoy-Upstream-Service-Time:
-                - "247"
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Runtime:
-                - "0.152711"
-            X-Vcap-Request-Id:
-                - 4cd143d5-bfd4-410e-74f1-8cdca7546c16::54de29a6-3620-4fcf-9975-e0d124fdf386
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - Thu, 23 Apr 2026 10:44:10 GMT
+            Pragma:
+                - no-cache
+        status: '200 '
         code: 200
-        duration: 266.773417ms
+        duration: 569.64675ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -92,38 +75,99 @@ interactions:
         trailer: {}
         content_length: 1724
         uncompressed: false
-        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"next":null,"previous":null},"resources":[{"guid":"d8fa2ac8-9654-4e8c-90ce-d47751844b73","created_at":"2026-04-21T12:05:17Z","updated_at":"2026-04-21T12:05:20Z","name":"my-broker","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}},{"guid":"0ca93e74-0682-4e06-ac4b-949d3362a146","created_at":"2026-04-21T12:05:51Z","updated_at":"2026-04-21T12:05:55Z","name":"my-broker1","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/0ca93e74-0682-4e06-ac4b-949d3362a146"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=0ca93e74-0682-4e06-ac4b-949d3362a146"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}}]}'
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"next":null,"previous":null},"resources":[{"guid":"d8fa2ac8-9654-4e8c-90ce-d47751844b73","created_at":"2026-04-21T12:05:17Z","updated_at":"2026-04-21T12:05:20Z","name":"my-broker","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}},{"guid":"0ca93e74-0682-4e06-ac4b-949d3362a146","created_at":"2026-04-21T12:05:51Z","updated_at":"2026-04-21T12:05:55Z","name":"my-broker1","url":"https://simple-service-broker.apps.127-0-0-1.nip.io","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/0ca93e74-0682-4e06-ac4b-949d3362a146"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=0ca93e74-0682-4e06-ac4b-949d3362a146"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}}]}'
         headers:
             Content-Length:
                 - "1724"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Wed, 22 Apr 2026 08:01:12 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Server:
-                - istio-envoy
-            X-B3-Spanid:
-                - 551988866903b71f
-            X-B3-Traceid:
-                - e4ad4b194d634db3551988866903b71f
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Envoy-Upstream-Service-Time:
-                - "448"
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Runtime:
-                - "0.239298"
-            X-Vcap-Request-Id:
-                - e4ad4b19-4d63-4db3-5519-88866903b71f::64545e2d-c91a-4763-bca0-989da0408533
-            X-Xss-Protection:
-                - 1; mode=block
+                - Thu, 23 Apr 2026 10:44:11 GMT
+        status: 200 OK
+        code: 200
+        duration: 822.889292ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=e0c4ced36d274820910d6ba8410e13b7-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - e0c4ced36d274820910d6ba8410e13b7-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"e0c4ced36d274820910d6ba8410e13b7-r","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"4cd6ea89b83c44ee9daac69ca3fdc324"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 23 Apr 2026 10:44:12 GMT
+            Pragma:
+                - no-cache
+        status: '200 '
+        code: 200
+        duration: 18ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_brokers?page=1&per_page=50&space_guids=6243642c-232b-486b-beec-bb13771b2546
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1724
+        uncompressed: false
+        body: '{"pagination":{"total_results":2,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"last":{"href":"https://api.x.x.x.x.com/v3/service_brokers?page=1\u0026per_page=50\u0026space_guids=6243642c-232b-486b-beec-bb13771b2546"},"next":null,"previous":null},"resources":[{"guid":"d8fa2ac8-9654-4e8c-90ce-d47751844b73","created_at":"2026-04-21T12:05:17Z","updated_at":"2026-04-21T12:05:20Z","name":"my-broker","url":"https://simple-service-broker.apps.x.x.x.x.com","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=d8fa2ac8-9654-4e8c-90ce-d47751844b73"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}},{"guid":"0ca93e74-0682-4e06-ac4b-949d3362a146","created_at":"2026-04-21T12:05:51Z","updated_at":"2026-04-21T12:05:55Z","name":"my-broker1","url":"https://simple-service-broker.apps.127-0-0-1.nip.io","relationships":{"space":{"data":{"guid":"6243642c-232b-486b-beec-bb13771b2546"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_brokers/0ca93e74-0682-4e06-ac4b-949d3362a146"},"service_offerings":{"href":"https://api.x.x.x.x.com/v3/service_offerings?service_broker_guids=0ca93e74-0682-4e06-ac4b-949d3362a146"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/6243642c-232b-486b-beec-bb13771b2546"}}}]}'
+        headers:
+            Content-Length:
+                - "1724"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 23 Apr 2026 10:44:12 GMT
         status: 200 OK
         code: 200
         duration: 451.720708ms
