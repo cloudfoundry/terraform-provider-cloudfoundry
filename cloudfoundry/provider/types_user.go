@@ -247,3 +247,31 @@ func mapSpaceOrgUsersValuesToType(ctx context.Context, data spaceOrgUsersType, u
 
 	return spaceOrgUsersType, diagnostics
 }
+
+// Maps CF API user to userResourceType using only data available from the CF API.
+func mapUserCFValuesToResourceType(ctx context.Context, user *resource.User) (userResourceType, diag.Diagnostics) {
+	userResourceType := userResourceType{
+		Id:        types.StringValue(user.GUID),
+		CreatedAt: types.StringValue(user.CreatedAt.Format(time.RFC3339)),
+		UpdatedAt: types.StringValue(user.UpdatedAt.Format(time.RFC3339)),
+	}
+
+	if user.Username != nil {
+		userResourceType.UserName = types.StringValue(*user.Username)
+	}
+
+	if user.Origin != nil {
+		userResourceType.Origin = types.StringValue(*user.Origin)
+	}
+
+	var diags, diagnostics diag.Diagnostics
+	userResourceType.Labels, diags = mapMetadataValueToType(ctx, user.Metadata.Labels)
+	diagnostics.Append(diags...)
+	userResourceType.Annotations, diags = mapMetadataValueToType(ctx, user.Metadata.Annotations)
+	diagnostics.Append(diags...)
+
+	userResourceType.Groups, diags = types.SetValueFrom(ctx, types.StringType, []string{})
+	diagnostics.Append(diags...)
+
+	return userResourceType, diagnostics
+}
