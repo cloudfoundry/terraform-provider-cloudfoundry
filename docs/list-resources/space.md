@@ -21,7 +21,7 @@ list "cloudfoundry_space" "<label_name>" {
   # (Required) Provider instance to use
   provider = provider_name
 
-   config {
+  config {
     # Provider specific filters
   }
 }
@@ -29,10 +29,10 @@ list "cloudfoundry_space" "<label_name>" {
 
 # List block to discover all spaces within an organization.
 list "cloudfoundry_space" "within_org" {
-  provider         = cloudfoundry
+  provider = cloudfoundry
   config {
-  # Required 
-  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+    # Required 
+    org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
 
   }
 }
@@ -43,8 +43,8 @@ list "cloudfoundry_space" "with_include_resource" {
   include_resource = true
 
   config {
-  # Required
-  org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
+    # Required
+    org = "b4da43cd-2055-4d4d-ae6e-4066ce34a563"
   }
 }
 ```
