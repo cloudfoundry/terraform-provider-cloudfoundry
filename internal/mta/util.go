@@ -6,8 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"strings"
+	"syscall"
 	"time"
 
 	"gopkg.in/yaml.v3"
@@ -17,7 +19,15 @@ const (
 	defaultDescriptorPath string = "META-INF/mtad.yaml"
 	FinishedState         string = "FINISHED"
 	AbortedState          string = "ABORTED"
+
+	// maxConsecutiveTransientErrors is the number of consecutive transient network
+	// errors tolerated before aborting the poll. Each poll sleeps 2 seconds, so
+	// this allows ~10 seconds of network instability before giving up.
+	maxConsecutiveTransientErrors = 5
 )
+
+// pollSleepInterval is the delay between poll attempts.
+var pollSleepInterval = 2 * time.Second
 
 type MtaDescriptor struct {
 	SchemaVersion string `yaml:"_schema-version,omitempty"`
@@ -129,15 +139,21 @@ func isConflicting(operation Operation, mtaID string, namespace string, spaceGui
 func PollMtaOperation(ctx context.Context, client *APIClient, spaceGuid string, operationId string, targetState string) (string, error) {
 
 	var (
-		operationResponse Operation
-		err               error
+		operationResponse        Operation
+		err                      error
+		consecutiveTransientErrs int
 	)
 	for operationState := "RUNNING"; operationState != targetState; {
-		time.Sleep(2 * time.Second)
+		time.Sleep(pollSleepInterval)
 		operationResponse, _, err = client.DefaultApi.GetMtaOperation(ctx, spaceGuid, operationId, "messages")
 		if err != nil {
+			if isTransientNetworkError(err) && consecutiveTransientErrs < maxConsecutiveTransientErrors {
+				consecutiveTransientErrs++
+				continue
+			}
 			return "", err
 		}
+		consecutiveTransientErrs = 0
 		operationState = operationResponse.State
 		if operationState == "ERROR" {
 			if messageCount := len(operationResponse.Messages); messageCount > 0 {
@@ -147,6 +163,18 @@ func PollMtaOperation(ctx context.Context, client *APIClient, spaceGuid string, 
 		}
 	}
 	return messagesToString(operationResponse.Messages), nil
+}
+
+// isTransientNetworkError returns true for errors that are likely transient and
+// safe to retry: connection reset by peer, unexpected EOF, and read/write timeouts.
+func isTransientNetworkError(err error) bool {
+	var netErr net.Error
+	if errors.As(err, &netErr) && netErr.Timeout() {
+		return true
+	}
+	return errors.Is(err, syscall.ECONNRESET) ||
+		errors.Is(err, io.EOF) ||
+		errors.Is(err, io.ErrUnexpectedEOF)
 }
 
 // ref - https://github.com/cloudfoundry/go-cfclient/blob/main/internal/http/response.go
@@ -180,7 +208,7 @@ func decodeOperationJobID(resp *http.Response) (string, error) {
 // Keeps polling the MTA job by its ID for completion.
 func PollMtaJob(ctx context.Context, client *APIClient, spaceGuid string, jobId string, targetState string, xInstance string, namespace string) (jobResponse UploadStatus, err error) {
 	for jobState := "RUNNING"; jobState != targetState; {
-		time.Sleep(2 * time.Second)
+		time.Sleep(pollSleepInterval)
 		jobResponse, _, err = client.DefaultApi.GetAsyncUploadJob(ctx, spaceGuid, jobId, xInstance, namespace)
 		if err != nil {
 			return jobResponse, err

@@ -462,7 +462,7 @@ func (r *mtaResource) upsert(ctx context.Context, reqPlan *tfsdk.Plan, reqState 
 	if err != nil {
 		respDiags.AddError(
 			"Failure in polling MTA operation",
-			fmt.Sprintf("Request failed with %s ", err.Error()),
+			fmt.Sprintf("Request failed with %s for operation %s", err.Error(), operationId),
 		)
 		return
 	}
