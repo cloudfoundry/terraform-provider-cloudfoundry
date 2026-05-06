@@ -1,0 +1,243 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0b9951837159482b8216afb4f55d4b9b-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0b9951837159482b8216afb4f55d4b9b-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0b9951837159482b8216afb4f55d4b9b-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"591f63167c084f4baebe02a393d0508a"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 24 Apr 2026 08:42:11 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 9fe2c63b-ba5a-4427-6896-83aa419cf448
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 891.215875ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: deploy-service.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/7c34d82b-5aec-4e66-b233-34d947459ad3/mtas
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: true
+        body: '[{"metadata":{"id":"my-mta","version":"1.0.0","namespace":"test"},"modules":[{"moduleName":"my-app","appName":"test-my-app","providedDendencyNames":[],"services":["test-my-service"],"uris":["test-terraform-integration-canary-test-cred-8633u6tv-tesaa31fae.cfapps.eu12.hana.ondemand.com"]}],"services":["test-my-service"]}]'
+        headers:
+            Cache-Control:
+                - no-cache, no-store, max-age=0, must-revalidate
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 24 Apr 2026 08:42:12 GMT
+            Expires:
+                - "0"
+            Pragma:
+                - no-cache
+            Server:
+                - ""
+            Set-Cookie:
+                - JSESSIONID=7BB2A62C7DB18131CC2D2D252A567C65; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=d891a646-8138-4c4c-67ac-6219; Path=/; HttpOnly; Secure
+                - __VCAP_ID_META__=secure; Path=/; HttpOnly; Secure
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            Vary:
+                - accept-encoding
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - e8577b0c-b874-484c-7b9e-655c5c4b4bc6
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 872.131875ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 73
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: grant_type=refresh_token&refresh_token=0b9951837159482b8216afb4f55d4b9b-r
+        form:
+            grant_type:
+                - refresh_token
+            refresh_token:
+                - 0b9951837159482b8216afb4f55d4b9b-r
+        headers:
+            Authorization:
+                - Basic Y2Y6
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"0b9951837159482b8216afb4f55d4b9b-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"ba0d79969c944380a35be93f8551c809"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 24 Apr 2026 08:42:13 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - ccc85d3e-bb2d-4b65-422e-ac18a44f036b
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 209.66725ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: deploy-service.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://deploy-service.x.x.x.x.com/api/v2/spaces/7c34d82b-5aec-4e66-b233-34d947459ad3/mtas
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: true
+        body: '[{"metadata":{"id":"my-mta","version":"1.0.0","namespace":"test"},"modules":[{"moduleName":"my-app","appName":"test-my-app","providedDendencyNames":[],"services":["test-my-service"],"uris":["test-terraform-integration-canary-test-cred-8633u6tv-tesaa31fae.cfapps.eu12.hana.ondemand.com"]}],"services":["test-my-service"]}]'
+        headers:
+            Cache-Control:
+                - no-cache, no-store, max-age=0, must-revalidate
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 24 Apr 2026 08:42:13 GMT
+            Expires:
+                - "0"
+            Pragma:
+                - no-cache
+            Server:
+                - ""
+            Set-Cookie:
+                - JSESSIONID=43C634AAC3E9559FE610624E02448B91; Path=/; Secure; HttpOnly
+                - __VCAP_ID__=90f2bf15-4940-4318-6ef0-70d6; Path=/; HttpOnly; Secure
+                - __VCAP_ID_META__=secure; Path=/; HttpOnly; Secure
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            Vary:
+                - accept-encoding
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - 922236f4-bed0-4590-433d-63498e76205d
+            X-Xss-Protection:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 779.615ms

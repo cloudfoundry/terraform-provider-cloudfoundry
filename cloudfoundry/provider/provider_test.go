@@ -409,6 +409,7 @@ func TestCloudFoundryProvider_HasListResources(t *testing.T) {
 		"cloudfoundry_buildpack",
 		"cloudfoundry_isolation_segment",
 		"cloudfoundry_security_group",
+		"cloudfoundry_mta",
 		"cloudfoundry_service_instance",
 		"cloudfoundry_service_broker",
 		"cloudfoundry_service_credential_binding",

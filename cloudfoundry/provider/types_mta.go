@@ -158,6 +158,29 @@ func mapMtaMetadataValuesToType(metadata mta.Metadata) MtaMetadataType {
 	return mtaMetadataType
 }
 
+// Maps a mta.Mta to MtarType using only data available from the list API.
+// Fields requiring local file or deploy context (mtar_path, mtar_url, etc.) are left null.
+func mapMtaToResourceType(ctx context.Context, m mta.Mta, space types.String, namespace types.String) (MtarType, diag.Diagnostics) {
+	mtarType := MtarType{
+		Space:     space,
+		Namespace: namespace,
+		Id:        types.StringValue(m.Metadata.Id),
+	}
+
+	var diags, diagnostics diag.Diagnostics
+	mtaValue, diags := mapMtaValuesToType(ctx, m)
+	diagnostics.Append(diags...)
+
+	mtarType.Mta, diags = types.ObjectValueFrom(ctx, mtaObjAttributes, mtaValue)
+	diagnostics.Append(diags...)
+
+	mtarType.ExtensionDescriptors = types.SetNull(types.StringType)
+	mtarType.ExtensionDescriptorsString = types.SetNull(types.StringType)
+	mtarType.Modules = types.SetNull(types.StringType)
+
+	return mtarType, diagnostics
+}
+
 func mapMtaModuleValuesToType(ctx context.Context, module mta.Module) (MtaModuleType, diag.Diagnostics) {
 	var diags, diagnostics diag.Diagnostics
 	mtaModuleType := MtaModuleType{
