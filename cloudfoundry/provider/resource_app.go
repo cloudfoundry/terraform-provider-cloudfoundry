@@ -2,6 +2,7 @@ package provider
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -45,6 +46,7 @@ const (
 	AppDeployedRunningCheckIntervalSecondsMinimum        = 1
 	AppDeployedRunningCheckIntervalSecondsMaximum        = 30
 	AppDeployedRunningTimeoutMinutesMinimum              = 1
+	venerableSuffix                                      = "-venerable"
 )
 
 var (
@@ -584,6 +586,9 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 	}
 	appResp, err := manifestOp.Push(ctx, appManifestValue, file)
 	if err != nil {
+		if appType.Strategy.ValueString() == "blue-green" && isServiceBindingInProgressError(err) {
+			return r.cleanupVenerableApp(ctx, appType)
+		}
 		return nil, err
 	}
 	return appResp, nil
@@ -602,6 +607,94 @@ func (r *appResource) getBlueGreenDeploymentStrategyOptions(appType AppType) (ui
 		checkInterval = uint(appType.AppDeployedRunningCheckInterval.ValueInt64())
 	}
 	return timeout, checkInterval
+}
+
+func isServiceBindingInProgressError(err error) bool {
+	return strings.Contains(err.Error(), "An operation for the service binding") &&
+		strings.Contains(err.Error(), "is in progress")
+}
+
+func (r *appResource) waitForServiceBindingsReady(ctx context.Context, appGUID string) error {
+	opts := cfv3client.NewServiceCredentialBindingListOptions()
+	opts.AppGUIDs = cfv3client.Filter{Values: []string{appGUID}}
+
+	deadline := time.Now().Add(defaultTimeout)
+	for {
+		if time.Now().After(deadline) {
+			return fmt.Errorf("timed out waiting for service bindings to reach a terminal state for app %s", appGUID)
+		}
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+
+		bindings, err := r.cfClient.ServiceCredentialBindings.ListAll(ctx, opts)
+		if err != nil {
+			return fmt.Errorf("failed to list service bindings for app %s: %w", appGUID, err)
+		}
+		allTerminal := true
+		for _, b := range bindings {
+			if b.LastOperation.State == "in progress" || b.LastOperation.State == "initial" {
+				allTerminal = false
+				break
+			}
+		}
+		if allTerminal {
+			return nil
+		}
+		time.Sleep(5 * time.Second)
+	}
+}
+
+func (r *appResource) cleanupVenerableApp(ctx context.Context, appType AppType) (*cfv3resource.App, error) {
+	venerableName := appType.Name.ValueString() + venerableSuffix
+
+	org, err := r.cfClient.Organizations.Single(ctx, &cfv3client.OrganizationListOptions{
+		Names: cfv3client.Filter{Values: []string{appType.Org.ValueString()}},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to find org %s during venerable cleanup: %w", appType.Org.ValueString(), err)
+	}
+
+	space, err := r.cfClient.Spaces.Single(ctx, &cfv3client.SpaceListOptions{
+		Names:             cfv3client.Filter{Values: []string{appType.Space.ValueString()}},
+		OrganizationGUIDs: cfv3client.Filter{Values: []string{org.GUID}},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to find space %s during venerable cleanup: %w", appType.Space.ValueString(), err)
+	}
+
+	venerableApp, err := r.cfClient.Applications.Single(ctx, &cfv3client.AppListOptions{
+		Names:      cfv3client.Filter{Values: []string{venerableName}},
+		SpaceGUIDs: cfv3client.Filter{Values: []string{space.GUID}},
+	})
+	if err != nil && !errors.Is(err, cfv3client.ErrExactlyOneResultNotReturned) {
+		return nil, fmt.Errorf("failed to find venerable app %s: %w", venerableName, err)
+	}
+
+	if venerableApp != nil {
+		if err := r.waitForServiceBindingsReady(ctx, venerableApp.GUID); err != nil {
+			return nil, err
+		}
+		if _, err := r.cfClient.Applications.Stop(ctx, venerableApp.GUID); err != nil {
+			return nil, fmt.Errorf("failed to stop venerable app %s: %w", venerableName, err)
+		}
+		jobID, err := r.cfClient.Applications.Delete(ctx, venerableApp.GUID)
+		if err != nil {
+			return nil, fmt.Errorf("failed to delete venerable app %s: %w", venerableName, err)
+		}
+		if err := pollJob(ctx, *r.cfClient, jobID, defaultTimeout); err != nil {
+			return nil, fmt.Errorf("failed waiting for venerable app %s deletion: %w", venerableName, err)
+		}
+	}
+
+	newApp, err := r.cfClient.Applications.Single(ctx, &cfv3client.AppListOptions{
+		Names:      cfv3client.Filter{Values: []string{appType.Name.ValueString()}},
+		SpaceGUIDs: cfv3client.Filter{Values: []string{space.GUID}},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to find app %s after venerable cleanup: %w", appType.Name.ValueString(), err)
+	}
+	return newApp, nil
 }
 
 func (r *appResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
