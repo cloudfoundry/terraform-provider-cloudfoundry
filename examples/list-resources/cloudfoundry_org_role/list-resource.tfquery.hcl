@@ -40,3 +40,13 @@ list "cloudfoundry_org_role" "all_org_roles_with_data" {
     org = "261e5031-3e54-4b12-b316-94b3195b5f8e"
   }
 }
+
+# List block to discover all roles for a specific user in an organization, filtered by username.
+list "cloudfoundry_org_role" "roles_by_username" {
+  provider = cloudfoundry
+
+  config {
+    org      = "261e5031-3e54-4b12-b316-94b3195b5f8e"
+    username = "testuser@sap.com"
+  }
+}
