@@ -282,7 +282,7 @@ interactions:
         headers:
             Content-Type:
                 - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token?login_hint=%7B%22origin%22%3A%22ddummy-origin%22%7D
+        url: https://uaa.x.x.x.x.com/oauth/token?login_hint=%7B%22origin%22%3A%22dummy-origin%22%7D
         method: POST
       response:
         proto: HTTP/2.0
@@ -598,3 +598,117 @@ interactions:
         status: 200 OK
         code: 200
         duration: 286.948667ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 787
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: assertion=redacted&client_id=cf&grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
+        form:
+            assertion:
+                - redacted
+            client_id:
+                - cf
+            grant_type:
+                - urn:ietf:params:oauth:grant-type:jwt-bearer
+        headers:
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token?login_hint=%7B%22origin%22%3A%22dummy-origin%22%7D
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6-r","expires_in":1199,"scope":"openid uaa.user cloud_controller.read password.write cloud_controller.write","jti":"b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 17 Jul 2025 12:33:01 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 2.1s
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 787
+        transfer_encoding: []
+        trailer: {}
+        host: uaa.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: assertion=redacted&client_id=cf&grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
+        form:
+            assertion:
+                - redacted
+            client_id:
+                - cf
+            grant_type:
+                - urn:ietf:params:oauth:grant-type:jwt-bearer
+        headers:
+            Content-Type:
+                - application/x-www-form-urlencoded
+        url: https://uaa.x.x.x.x.com/oauth/token?login_hint=%7B%22origin%22%3A%22dummy-origin%22%7D
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7-r","expires_in":1199,"scope":"openid uaa.user cloud_controller.read password.write cloud_controller.write","jti":"c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7"}'
+        headers:
+            Cache-Control:
+                - no-store
+            Content-Security-Policy:
+                - script-src 'self'
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 17 Jul 2025 12:33:02 GMT
+            Pragma:
+                - no-cache
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Vcap-Request-Id:
+                - c2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 2.1s
