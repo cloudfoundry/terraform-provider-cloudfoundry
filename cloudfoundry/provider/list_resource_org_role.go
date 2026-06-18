@@ -24,9 +24,11 @@ type orgRoleListResource struct {
 }
 
 type orgRoleListResourceFilter struct {
-	Org  types.String `tfsdk:"org"`
-	Type types.String `tfsdk:"type"`
-	User types.String `tfsdk:"user"`
+	Org      types.String `tfsdk:"org"`
+	Type     types.String `tfsdk:"type"`
+	User     types.String `tfsdk:"user"`
+	UserName types.String `tfsdk:"username"`
+	Origin   types.String `tfsdk:"origin"`
 }
 
 func NewOrgRoleListResource() list.ListResource {
@@ -78,10 +80,25 @@ func (r *orgRoleListResource) ListResourceConfigSchema(
 				},
 			},
 			"user": schema.StringAttribute{
-				MarkdownDescription: "The GUID of the user to filter roles by.",
+				MarkdownDescription: "The GUID of the user to filter roles by. Mutually exclusive with username",
 				Optional:            true,
 				Validators: []validator.String{
 					validation.ValidUUID(),
+					stringvalidator.ConflictsWith(path.MatchRoot("username")),
+				},
+			},
+			"username": schema.StringAttribute{
+				MarkdownDescription: "The username of the user to filter roles by. Mutually exclusive with user.",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.ConflictsWith(path.MatchRoot("user")),
+				},
+			},
+			"origin": schema.StringAttribute{
+				MarkdownDescription: "The identity provider of the user to filter by. It requires username to be specified in the configuration",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.AlsoRequires(path.MatchRoot("username")),
 				},
 			},
 		},
@@ -127,6 +144,26 @@ func (r *orgRoleListResource) List(
 		roleListOptions.UserGUIDs = cfv3client.Filter{
 			Values: []string{filter.User.ValueString()},
 		}
+	} else if !filter.UserName.IsNull() {
+		uslo := cfv3client.NewUserListOptions()
+		uslo.UserNames = cfv3client.Filter{Values: []string{filter.UserName.ValueString()}}
+		if !filter.Origin.IsNull() {
+			uslo.Origins = cfv3client.Filter{Values: []string{filter.Origin.ValueString()}}
+		}
+		users, err := r.cfClient.Users.ListAll(ctx, uslo)
+		if err != nil {
+			var diags diag.Diagnostics
+			diags.AddError("API Error Fetching User", "Could not find user with username "+filter.UserName.ValueString()+": "+err.Error())
+			stream.Results = list.ListResultsStreamDiagnostics(diags)
+			return
+		}
+		if len(users) == 0 {
+			var diags diag.Diagnostics
+			diags.AddError("User Not Found", "No user found with username "+filter.UserName.ValueString())
+			stream.Results = list.ListResultsStreamDiagnostics(diags)
+			return
+		}
+		roleListOptions.UserGUIDs = cfv3client.Filter{Values: []string{users[0].GUID}}
 	}
 
 	roles, err := r.cfClient.Roles.ListAll(ctx, roleListOptions)
