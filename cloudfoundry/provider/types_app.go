@@ -531,7 +531,9 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					appType.ReadinessHealthCheckHttpEndpoint = types.StringValue(process.ReadinessHealthCheckHttpEndpoint)
 				}
 				if process.ReadinessHealthInvocationTimeout != 0 {
-					appType.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.HealthCheckInvocationTimeout))
+					appType.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.ReadinessHealthInvocationTimeout))
+				} else if !reqPlanType.ReadinessHealthCheckInvocationTimeout.IsNull() && !reqPlanType.ReadinessHealthCheckInvocationTimeout.IsUnknown() {
+					appType.ReadinessHealthCheckInvocationTimeout = reqPlanType.ReadinessHealthCheckInvocationTimeout
 				}
 				if process.ReadinessHealthCheckInterval != 0 {
 					appType.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
@@ -601,7 +603,9 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 					p.ReadinessHealthCheckHttpEndpoint = types.StringValue(process.ReadinessHealthCheckHttpEndpoint)
 				}
 				if process.ReadinessHealthInvocationTimeout != 0 {
-					p.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.HealthCheckInvocationTimeout))
+					p.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.ReadinessHealthInvocationTimeout))
+				} else if plannedProcess != nil && !plannedProcess.ReadinessHealthCheckInvocationTimeout.IsNull() && !plannedProcess.ReadinessHealthCheckInvocationTimeout.IsUnknown() {
+					p.ReadinessHealthCheckInvocationTimeout = plannedProcess.ReadinessHealthCheckInvocationTimeout
 				}
 				if process.ReadinessHealthCheckInterval != 0 {
 					p.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
@@ -857,7 +861,7 @@ func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operatio
 				p.ReadinessHealthCheckHttpEndpoint = types.StringValue(process.ReadinessHealthCheckHttpEndpoint)
 			}
 			if process.ReadinessHealthInvocationTimeout != 0 {
-				p.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.HealthCheckInvocationTimeout))
+				p.ReadinessHealthCheckInvocationTimeout = types.Int64Value(int64(process.ReadinessHealthInvocationTimeout))
 			}
 			if process.ReadinessHealthCheckInterval != 0 {
 				p.ReadinessHealthCheckInterval = types.Int64Value(int64(process.ReadinessHealthCheckInterval))
