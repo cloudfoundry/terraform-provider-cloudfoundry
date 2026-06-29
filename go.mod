@@ -5,7 +5,7 @@ go 1.26
 require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
 	code.cloudfoundry.org/lager/v3 v3.75.0
-	code.cloudfoundry.org/policy_client v0.108.0
+	code.cloudfoundry.org/policy_client v0.109.0
 	github.com/cloudfoundry-community/go-uaa v0.4.0
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.20.0.20260613154013-2a4e83dd820b
 	github.com/google/uuid v1.6.0
@@ -22,7 +22,7 @@ require (
 )
 
 require (
-	code.cloudfoundry.org/cf-networking-helpers v0.89.0 // indirect
+	code.cloudfoundry.org/cf-networking-helpers v0.90.0 // indirect
 	code.cloudfoundry.org/go-loggregator/v10 v10.3.1 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
@@ -34,7 +34,7 @@ require (
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/sync v0.21.0 // indirect
-	golang.org/x/tools v0.46.0 // indirect
+	golang.org/x/tools v0.47.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260414002931-afd174a4e478 // indirect
 )
 
