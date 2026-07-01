@@ -870,6 +870,23 @@ func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operatio
 				p.LogRateLimitPerSecond = types.StringValue(process.LogRateLimitPerSecond)
 			}
 			processes = append(processes, p)
+			// Mirror the web process fields onto the top-level datasource attributes
+			if string(process.Type) == "web" {
+				appType.Command = p.Command
+				appType.DiskQuota = p.DiskQuota
+				appType.HealthCheckHttpEndpoint = p.HealthCheckHttpEndpoint
+				appType.HealthCheckInvocationTimeout = p.HealthCheckInvocationTimeout
+				appType.HealthCheckType = p.HealthCheckType
+				appType.Instances = p.Instances
+				appType.Memory = p.Memory
+				appType.Timeout = p.Timeout
+				appType.HealthCheckInterval = p.HealthCheckInterval
+				appType.ReadinessHealthCheckType = p.ReadinessHealthCheckType
+				appType.ReadinessHealthCheckHttpEndpoint = p.ReadinessHealthCheckHttpEndpoint
+				appType.ReadinessHealthCheckInvocationTimeout = p.ReadinessHealthCheckInvocationTimeout
+				appType.ReadinessHealthCheckInterval = p.ReadinessHealthCheckInterval
+				appType.LogRateLimitPerSecond = p.LogRateLimitPerSecond
+			}
 		}
 		appType.Processes = processes
 	}
