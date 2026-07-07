@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
 	code.cloudfoundry.org/lager/v3 v3.76.0
 	code.cloudfoundry.org/policy_client v0.110.0
-	github.com/cloudfoundry-community/go-uaa v0.4.0
+	github.com/cloudfoundry-community/go-uaa v0.4.1
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-alpha.20.0.20260613154013-2a4e83dd820b
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
