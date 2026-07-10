@@ -90,9 +90,9 @@ resource "cloudfoundry_service_instance" "dev-usp" {
 
 # Create a service plan instance by plan and offering name - no data source lookup of ID needed
 resource "cloudfoundry_service_instance" "dev-autoscaler" {
-  name         = "tf-autoscaler-test"
-  space        = data.cloudfoundry_space.team_space.id
-  type = "managed"
+  name                  = "tf-autoscaler-test"
+  space                 = data.cloudfoundry_space.team_space.id
+  type                  = "managed"
   service_plan_name     = "standard"
   service_offering_name = "autoscaler"
 }
@@ -188,7 +188,7 @@ identity = {
 ```
 
 
-## Usage of `service_offering_name` and `serviceplan_name` instead of `serviceplan_id`
+## Usage of `service_offering_name` and `service_plan_name` instead of `serviceplan`
 
 As of release 1.17.0 it is possible to use `service_offering_name` and `serviceplan_name` instead of `serviceplan` id, when creating a service instance. This is more user friendly as the names are more descriptive than the id. This will allow you to get rid of data sources that are used to get the service plan id and can cause side effects during the planning phase i.e. make the plan hard to interpret.
 
@@ -243,4 +243,4 @@ This cannot be mitigated from the provider side. However, as the resource config
 
 ## Switch from `serviceplan` to `service_offering_name` and `service_plan_name` for existing service instance configurations
 
-You can switch from using `serviceplan` id to `service_offering_name` and `service_plan_name` for existing service instance configurations. The procedure is described in the guide [Switch to Service Instance Configuration by Service offering and Service Plan Name](https://github.com/SAP/terraform-provider-cloudfoundry/blob/main/guides/SERVICEINSTANCEBYNAME.md).
+You can switch from using `serviceplan` id to `service_offering_name` and `service_plan_name` for existing service instance configurations. The procedure is described in the guide [Switch to Service Instance Configuration by Service offering and Service Plan Name](https://github.com/cloudfoundry/terraform-provider-cloudfoundry/blob/main/guides/SERVICEINSTANCEBYNAME.md).

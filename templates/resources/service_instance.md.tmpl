@@ -26,7 +26,7 @@ Import is supported using the following syntax:
 {{- end }}
 
 
-## Usage of `service_offering_name` and `serviceplan_name` instead of `serviceplan_id`
+## Usage of `service_offering_name` and `service_plan_name` instead of `serviceplan`
 
 As of release 1.17.0 it is possible to use `service_offering_name` and `serviceplan_name` instead of `serviceplan` id, when creating a service instance. This is more user friendly as the names are more descriptive than the id. This will allow you to get rid of data sources that are used to get the service plan id and can cause side effects during the planning phase i.e. make the plan hard to interpret.
 
