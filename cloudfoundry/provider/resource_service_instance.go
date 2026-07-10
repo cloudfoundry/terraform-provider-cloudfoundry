@@ -88,10 +88,37 @@ https://docs.cloudfoundry.org/devguide/services`,
 				},
 			},
 			"service_plan": schema.StringAttribute{
-				MarkdownDescription: "The ID of the service plan from which to create the service instance",
+				MarkdownDescription: "The ID of the service plan from which to create the service instance. Conflicts with `service_plan_name` and `service_offering_name`.",
 				Optional:            true,
+				Computed:            true,
 				Validators: []validator.String{
 					validation.ValidUUID(),
+					stringvalidator.ConflictsWith(path.MatchRoot("service_plan_name")),
+					stringvalidator.ConflictsWith(path.MatchRoot("service_offering_name")),
+				},
+			},
+			"service_plan_name": schema.StringAttribute{
+				MarkdownDescription: "The name of the service plan. Must be set together with `service_offering_name`. Conflicts with `service_plan`.",
+				Optional:            true,
+				Computed:            true,
+				Validators: []validator.String{
+					stringvalidator.ConflictsWith(path.MatchRoot("service_plan")),
+					stringvalidator.AlsoRequires(path.MatchRoot("service_offering_name")),
+					stringvalidator.LengthAtLeast(1),
+				},
+			},
+			"service_offering_name": schema.StringAttribute{
+				MarkdownDescription: "The name of the service offering. Must be set together with `service_plan_name`. Conflicts with `service_plan`.",
+				Optional:            true,
+				Computed:            true,
+				Validators: []validator.String{
+					stringvalidator.ConflictsWith(path.MatchRoot("service_plan")),
+					stringvalidator.AlsoRequires(path.MatchRoot("service_plan_name")),
+					stringvalidator.LengthAtLeast(1),
+				},
+				PlanModifiers: []planmodifier.String{
+					//If the offering chnages a new service instance needs to be created
+					stringplanmodifier.RequiresReplace(),
 				},
 			},
 			"parameters": schema.StringAttribute{
@@ -195,23 +222,32 @@ func (r *serviceInstanceResource) ValidateConfig(ctx context.Context, req resour
 		return
 	}
 
-	if config.Type.ValueString() == userProvidedServiceInstance && !config.ServicePlan.IsNull() {
-		resp.Diagnostics.AddAttributeError(
-			path.Root("service_plan"),
-			"Conflicting attribute service instance",
-			"Service plan is not allowed for user-provided service instance",
-		)
-		return
+	if config.Type.ValueString() == userProvidedServiceInstance {
+		if !config.ServicePlan.IsNull() || !config.ServicePlanName.IsNull() || !config.ServiceOfferingName.IsNull() {
+			resp.Diagnostics.AddAttributeError(
+				path.Root("service_plan"),
+				"Conflicting attribute service instance",
+				"service_plan, service_plan_name, and service_offering_name are not allowed for user-provided service instances",
+			)
+			return
+		}
 	}
 
-	if config.Type.ValueString() == managedSerivceInstance && config.ServicePlan.IsNull() {
-		resp.Diagnostics.AddAttributeError(
-			path.Root("service_plan"),
-			"Missing attribute service instance",
-			"Service plan is required for managed service instance",
-		)
-		return
+	if config.Type.ValueString() == managedSerivceInstance {
+		hasPlanGUID := !config.ServicePlan.IsNull()
+		hasPlanName := !config.ServicePlanName.IsNull()
+		hasOfferingName := !config.ServiceOfferingName.IsNull()
 
+		//anyUnknown := config.ServicePlan.IsUnknown() || config.ServicePlanName.IsUnknown() || config.ServiceOfferingName.IsUnknown()
+
+		if !hasPlanGUID && !hasPlanName && !hasOfferingName {
+			resp.Diagnostics.AddAttributeError(
+				path.Root("service_plan"),
+				"Missing attribute for managed service instance",
+				"Either service_plan (GUID) or both service_plan_name and service_offering_name must be set for managed service instances",
+			)
+			return
+		}
 	}
 
 	// If Service Instance is of type managed only parameters is allowed to pass
@@ -257,13 +293,33 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 
 	switch plan.Type.ValueString() {
 	case managedSerivceInstance:
+		// Resolve plan GUID
+		planGUID := plan.ServicePlan.ValueString()
+		planName := plan.ServicePlanName.ValueString()
+		offeringName := plan.ServiceOfferingName.ValueString()
+		if planName != "" && offeringName != "" {
+			resolved, resolveErr := r.resolvePlanGUID(ctx, planName, offeringName)
+			if resolveErr != nil {
+				resp.Diagnostics.AddError("Error resolving service plan", resolveErr.Error())
+				return
+			}
+			planGUID = resolved
+		} else {
+			planName, offeringName, err = r.lookupPlanNames(ctx, planGUID)
+			if err != nil {
+				resp.Diagnostics.AddError("Error resolving service plan", fmt.Sprintf("%s", err))
+				return
+			}
+
+		}
+
 		createServiceInstance := cfv3resource.ServiceInstanceManagedCreate{
 			Type: plan.Type.ValueString(),
 			Name: plan.Name.ValueString(),
 			Relationships: cfv3resource.ServiceInstanceRelationships{
 				ServicePlan: &cfv3resource.ToOneRelationship{
 					Data: &cfv3resource.Relationship{
-						GUID: plan.ServicePlan.ValueString(),
+						GUID: planGUID,
 					},
 				},
 				Space: &cfv3resource.ToOneRelationship{
@@ -335,6 +391,8 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 
 		state, diags = mapResourceServiceInstanceValuesToType(ctx, serviceInstance, plan.Parameters)
 		resp.Diagnostics.Append(diags...)
+		state.ServicePlanName = types.StringValue(planName)
+		state.ServiceOfferingName = types.StringValue(offeringName)
 
 	case userProvidedServiceInstance:
 
@@ -443,6 +501,18 @@ func (r *serviceInstanceResource) Read(ctx context.Context, req resource.ReadReq
 	switch svcInstance.Type {
 	case managedSerivceInstance:
 		newState, diags = mapResourceServiceInstanceValuesToType(ctx, svcInstance, data.Parameters)
+		newState.ServicePlanName = data.ServicePlanName
+		newState.ServiceOfferingName = data.ServiceOfferingName
+		// Update plan and offering name during a refresh
+		if data.ServicePlanName.ValueString() == "" && data.ServiceOfferingName.ValueString() == "" {
+			planName, offeringName, err := r.lookupPlanNames(ctx, newState.ServicePlan.ValueString())
+			if err != nil {
+				resp.Diagnostics.AddError("API Error Reading Resource Service Plan", fmt.Sprintf("%s", err))
+				return
+			}
+			newState.ServicePlanName = types.StringValue(planName)
+			newState.ServiceOfferingName = types.StringValue(offeringName)
+		}
 	case userProvidedServiceInstance:
 		newState, diags = mapResourceServiceInstanceValuesToType(ctx, svcInstance, data.Credentials)
 	}
@@ -457,10 +527,10 @@ func (r *serviceInstanceResource) Read(ctx context.Context, req resource.ReadReq
 		identity = serviceInstanceResourceIdentityModel{
 			ServiceInstanceGUID: types.StringValue(data.ID.ValueString()),
 		}
-
-		diags = resp.Identity.Set(ctx, identity)
-		resp.Diagnostics.Append(diags...)
 	}
+
+	diags = resp.Identity.Set(ctx, identity)
+	resp.Diagnostics.Append(diags...)
 
 }
 
@@ -481,17 +551,40 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 	}
 	switch plan.Type.ValueString() {
 	case managedSerivceInstance:
+		planGUID := previousState.ServicePlan.ValueString()
+		planName := previousState.ServicePlanName.ValueString()
+		offeringName := previousState.ServiceOfferingName.ValueString()
+		resolveErr := error(nil)
+		if plan.ServicePlanName.ValueString() != "" && plan.ServicePlanName.ValueString() != previousState.ServicePlanName.ValueString() {
+
+			planGUID, resolveErr = r.resolvePlanGUID(ctx, plan.ServicePlanName.ValueString(), plan.ServiceOfferingName.ValueString())
+			if resolveErr != nil {
+				resp.Diagnostics.AddError("Error resolving service plan", resolveErr.Error())
+				return
+			}
+			planName = plan.ServicePlanName.ValueString()
+			offeringName = plan.ServiceOfferingName.ValueString()
+		} else if plan.ServicePlan.ValueString() != "" && plan.ServicePlan.ValueString() != previousState.ServicePlan.ValueString() {
+
+			planGUID = plan.ServicePlan.ValueString()
+
+			planName, offeringName, resolveErr = r.lookupPlanNames(ctx, planGUID)
+			if resolveErr != nil {
+				resp.Diagnostics.AddError("API Error Reading Resource Service Plan (Subaccount)", fmt.Sprintf("%s", resolveErr))
+				return
+			}
+
+		}
 
 		updateServiceInstance := cfv3resource.ServiceInstanceManagedUpdate{}
 		if plan.Name.ValueString() != previousState.Name.ValueString() {
 			updateServiceInstance.Name = plan.Name.ValueStringPointer()
 		}
-		//Check if service plan is different from the previous state
-		if plan.ServicePlan.ValueString() != previousState.ServicePlan.ValueString() {
+		if planGUID != previousState.ServicePlan.ValueString() {
 			updateServiceInstance.Relationships = &cfv3resource.ServiceInstanceRelationships{
 				ServicePlan: &cfv3resource.ToOneRelationship{
 					Data: &cfv3resource.Relationship{
-						GUID: plan.ServicePlan.ValueString(),
+						GUID: planGUID,
 					},
 				},
 			}
@@ -547,6 +640,8 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		}
 		state, diags = mapResourceServiceInstanceValuesToType(ctx, serviceInstance, plan.Parameters)
 		resp.Diagnostics.Append(diags...)
+		state.ServicePlanName = types.StringValue(planName)
+		state.ServiceOfferingName = types.StringValue(offeringName)
 	case userProvidedServiceInstance:
 
 		updateServiceInstance := cfv3resource.ServiceInstanceUserProvidedUpdate{}
@@ -652,4 +747,34 @@ func (rs *serviceInstanceResource) ImportState(ctx context.Context, req resource
 		return
 	}
 	resource.ImportStatePassthroughWithIdentity(ctx, path.Root("id"), path.Root("service_instance_guid"), req, resp)
+}
+
+// resolvePlanGUID looks up a service plan GUID from its offering name and plan name.
+func (r *serviceInstanceResource) resolvePlanGUID(ctx context.Context, servicePlanName, serviceOfferingName string) (string, error) {
+	opts := &cfv3client.ServicePlanListOptions{
+		Names:                cfv3client.Filter{Values: []string{servicePlanName}},
+		ServiceOfferingNames: cfv3client.Filter{Values: []string{serviceOfferingName}},
+	}
+	plan, err := r.cfClient.ServicePlans.Single(ctx, opts)
+	if err != nil {
+		return "", fmt.Errorf("could not find unique service plan %q for offering %q: %w", servicePlanName, serviceOfferingName, err)
+	}
+	return plan.GUID, nil
+}
+
+// lookupPlanNames resolves the service plan name and offering name from a plan GUID.
+func (r *serviceInstanceResource) lookupPlanNames(ctx context.Context, planGUID string) (planName, offeringName string, err error) {
+	plan, err := r.cfClient.ServicePlans.Get(ctx, planGUID)
+	if err != nil {
+		err = fmt.Errorf("could not look up service plan %q: %w", planGUID, err)
+		return
+	}
+	planName = plan.Name
+	offering, offeringErr := r.cfClient.ServiceOfferings.Get(ctx, plan.Relationships.ServiceOffering.Data.GUID)
+	if offeringErr != nil {
+		err = fmt.Errorf("could not look up service offering for plan %q: %w", planGUID, offeringErr)
+		return
+	}
+	offeringName = offering.Name
+	return
 }
