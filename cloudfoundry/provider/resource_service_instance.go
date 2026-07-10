@@ -117,7 +117,7 @@ https://docs.cloudfoundry.org/devguide/services`,
 					stringvalidator.LengthAtLeast(1),
 				},
 				PlanModifiers: []planmodifier.String{
-					//If the offering chnages a new service instance needs to be created
+					//If the offering changes a new service instance needs to be created
 					stringplanmodifier.RequiresReplace(),
 				},
 			},
