@@ -554,7 +554,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		planGUID := previousState.ServicePlan.ValueString()
 		planName := previousState.ServicePlanName.ValueString()
 		offeringName := previousState.ServiceOfferingName.ValueString()
-		resolveErr := error(nil)
+		var resolveErr error
 		if plan.ServicePlanName.ValueString() != "" && plan.ServicePlanName.ValueString() != previousState.ServicePlanName.ValueString() {
 
 			planGUID, resolveErr = r.resolvePlanGUID(ctx, plan.ServicePlanName.ValueString(), plan.ServiceOfferingName.ValueString())
