@@ -67,35 +67,36 @@ To switch to the new configuration, execute the following steps:
 
 5. Update the resource configuration of `cloudfoundry_service_instance` to use the new attributes `service_offering_name` and `service_plan_name` instead of `serviceplan` and remove the data source `cloudfoundry_service_plan`. The updated configuration should look like this:
 
-```terraform
-terraform {
-  required_providers {
-    cloudfoundry = {
-    source  = "cloudfoundry/cloudfoundry"
-    version = "1.16.0"
+  ```terraform
+  terraform {
+    required_providers {
+      cloudfoundry = {
+      source  = "cloudfoundry/cloudfoundry"
+      version = "1.16.0"
+      }
     }
   }
-}
   
-provider "cloudfoundry" {
-}
+  provider "cloudfoundry" {
+  }
 
-data "cloudfoundry_org" "team_org" {
-  name = "PerformanceTeamBLR"
-}
+  data "cloudfoundry_org" "team_org" {
+    name = "PerformanceTeamBLR"
+  }
 
-data "cloudfoundry_space" "team_space" {
-  name = "tf-space-1"
-  org  = data.cloudfoundry_org.team_org.id
-}
+  data "cloudfoundry_space" "team_space" {
+    name = "tf-space-1"
+    org  = data.cloudfoundry_org.team_org.id
+  }
 
-resource "cloudfoundry_service_instance" "destination" {
-  name           = "my-destination-instance"
-  type = "managed"
-  space = data.cloudfoundry_space.team_space.id
-  service_offering_name = "destination"
-  service_plan_name = "lite"
-}
+  resource "cloudfoundry_service_instance" "destination" {
+    name           = "my-destination-instance"
+    type = "managed"
+    space = data.cloudfoundry_space.team_space.id
+    service_offering_name = "destination"
+    service_plan_name = "lite"
+  }
 
-```
-5. Execute the command `terraform plan` to review the changes. You should see that Terraform does not plan any changes to be applied.
+  ```
+  
+6. Execute the command `terraform plan` to review the changes. You should see that Terraform does not plan any changes to be applied.
