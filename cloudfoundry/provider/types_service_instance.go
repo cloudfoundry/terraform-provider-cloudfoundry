@@ -2,35 +2,38 @@ package provider
 
 import (
 	"context"
+	"time"
+
 	"github.com/cloudfoundry/go-cfclient/v3/resource"
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"time"
 )
 
 type serviceInstanceType struct {
-	Name             types.String         `tfsdk:"name"`
-	ID               types.String         `tfsdk:"id"`
-	Type             types.String         `tfsdk:"type"`
-	Space            types.String         `tfsdk:"space"`
-	ServicePlan      types.String         `tfsdk:"service_plan"`
-	Parameters       jsontypes.Normalized `tfsdk:"parameters"`
-	LastOperation    types.Object         `tfsdk:"last_operation"` //LastOperationType
-	Tags             types.List           `tfsdk:"tags"`
-	DashboardURL     types.String         `tfsdk:"dashboard_url"`
-	Credentials      jsontypes.Normalized `tfsdk:"credentials"`
-	SyslogDrainURL   types.String         `tfsdk:"syslog_drain_url"`
-	RouteServiceURL  types.String         `tfsdk:"route_service_url"`
-	MaintenanceInfo  types.Object         `tfsdk:"maintenance_info"` //maintenanceInfoType
-	UpgradeAvailable types.Bool           `tfsdk:"upgrade_available"`
-	Labels           types.Map            `tfsdk:"labels"`
-	Annotations      types.Map            `tfsdk:"annotations"`
-	CreatedAt        types.String         `tfsdk:"created_at"`
-	UpdatedAt        types.String         `tfsdk:"updated_at"`
-	Timeouts         timeouts.Value       `tfsdk:"timeouts"`
+	Name                types.String         `tfsdk:"name"`
+	ID                  types.String         `tfsdk:"id"`
+	Type                types.String         `tfsdk:"type"`
+	Space               types.String         `tfsdk:"space"`
+	ServicePlan         types.String         `tfsdk:"service_plan"`
+	ServicePlanName     types.String         `tfsdk:"service_plan_name"`
+	ServiceOfferingName types.String         `tfsdk:"service_offering_name"`
+	Parameters          jsontypes.Normalized `tfsdk:"parameters"`
+	LastOperation       types.Object         `tfsdk:"last_operation"` //LastOperationType
+	Tags                types.List           `tfsdk:"tags"`
+	DashboardURL        types.String         `tfsdk:"dashboard_url"`
+	Credentials         jsontypes.Normalized `tfsdk:"credentials"`
+	SyslogDrainURL      types.String         `tfsdk:"syslog_drain_url"`
+	RouteServiceURL     types.String         `tfsdk:"route_service_url"`
+	MaintenanceInfo     types.Object         `tfsdk:"maintenance_info"` //maintenanceInfoType
+	UpgradeAvailable    types.Bool           `tfsdk:"upgrade_available"`
+	Labels              types.Map            `tfsdk:"labels"`
+	Annotations         types.Map            `tfsdk:"annotations"`
+	CreatedAt           types.String         `tfsdk:"created_at"`
+	UpdatedAt           types.String         `tfsdk:"updated_at"`
+	Timeouts            timeouts.Value       `tfsdk:"timeouts"`
 }
 
 type singleDatasourceServiceInstanceType struct {

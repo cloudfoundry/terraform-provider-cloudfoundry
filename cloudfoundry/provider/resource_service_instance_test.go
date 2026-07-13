@@ -1,13 +1,91 @@
 package provider
 
 import (
+	"bytes"
 	"regexp"
 	"testing"
+	"text/template"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
 	"github.com/hashicorp/terraform-plugin-testing/statecheck"
 )
+
+type ResourceServiceInstanceModelPtr struct {
+	HclType             string
+	HclObjectName       string
+	Name                *string
+	Type                *string
+	Space               *string
+	ServicePlan         *string
+	ServicePlanName     *string
+	ServiceOfferingName *string
+	Parameters          *string
+	Tags                *string
+	Labels              *string
+	Annotations         *string
+	Credentials         *string
+	SyslogDrainURL      *string
+	RouteServiceURL     *string
+}
+
+func hclResourceServiceInstance(r *ResourceServiceInstanceModelPtr) string {
+	s := `
+	{{.HclType}} "cloudfoundry_service_instance" {{.HclObjectName}} {
+		{{- if .Name}}
+			name  = "{{.Name}}"
+		{{- end -}}
+		{{if .Type}}
+			type = "{{.Type}}"
+		{{- end}}
+		{{if .Space}}
+			space = "{{.Space}}"
+		{{- end}}
+		{{if .ServicePlan}}
+			service_plan = "{{.ServicePlan}}"
+		{{- end}}
+		{{if .ServicePlanName}}
+			service_plan_name = "{{.ServicePlanName}}"
+		{{- end}}
+		{{if .ServiceOfferingName}}
+			service_offering_name = "{{.ServiceOfferingName}}"
+		{{- end}}
+		{{if .Parameters}}
+			parameters = <<EOT
+			{{.Parameters}}
+			EOT
+		{{- end}}
+		{{if .Tags}}
+			tags = {{.Tags}}
+		{{- end}}
+		{{if .Labels}}
+			labels = {{.Labels}}
+		{{- end}}
+		{{if .Annotations}}
+			annotations = {{.Annotations}}
+		{{- end}}
+		{{if .Credentials}}
+			credentials = <<EOT
+			{{.Credentials}}
+			EOT
+		{{- end}}
+		{{if .SyslogDrainURL}}
+			syslog_drain_url = "{{.SyslogDrainURL}}"
+		{{- end}}
+		{{if .RouteServiceURL}}
+			route_service_url = "{{.RouteServiceURL}}"
+		{{- end}}
+	}`
+	tmpl, err := template.New("resource_service_instance").Parse(s)
+	if err != nil {
+		panic(err)
+	}
+	buf := new(bytes.Buffer)
+	if err = tmpl.Execute(buf, r); err != nil {
+		panic(err)
+	}
+	return buf.String()
+}
 
 func TestResourceServiceInstance(t *testing.T) {
 	var (
@@ -23,9 +101,6 @@ func TestResourceServiceInstance(t *testing.T) {
 		testTags               = `["test-tag"]`
 		testCredentials        = `{"user" : "test","password": "hello"}`
 		testInvalidCredentials = `{"hello"}`
-
-		testSpaceGUIDNew      = "bb77a8bc-00f9-4cca-9df1-2e63641ff1a2"
-		testServicePanGUIDNew = "75d7c3f6-e629-4db0-abf7-bc9c804d379d"
 	)
 	t.Parallel()
 	t.Run("happy path - create service instance managed", func(t *testing.T) {
@@ -38,7 +113,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si",
 						Name:          new(testServiceInstanceManagedCreate),
@@ -58,7 +133,7 @@ func TestResourceServiceInstance(t *testing.T) {
 					),
 				},
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si",
 						Name:          new(testServiceInstanceManagedCreate),
@@ -84,7 +159,7 @@ func TestResourceServiceInstance(t *testing.T) {
 					ResourceName:            resourceName,
 					ImportStateIdFunc:       getIdForImport(resourceName),
 					ImportState:             true,
-					ImportStateVerifyIgnore: []string{"parameters"},
+					ImportStateVerifyIgnore: []string{"parameters", "service_plan_name", "service_offering_name"},
 					ImportStateVerify:       true,
 				},
 			},
@@ -101,19 +176,19 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si",
 						Name:          new(testServiceInstanceManagedCreate),
 						Type:          new(managedSerivceInstance),
-						Space:         new(testSpaceGUIDNew),
-						ServicePlan:   new(testServicePanGUIDNew),
+						Space:         new(testSpaceGUID),
+						ServicePlan:   new(testServicePanGUID),
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
 						resource.TestCheckResourceAttr(resourceName, "name", testServiceInstanceManagedCreate),
 						resource.TestCheckResourceAttr(resourceName, "type", managedSerivceInstance),
-						resource.TestCheckResourceAttr(resourceName, "space", testSpaceGUIDNew),
-						resource.TestCheckResourceAttr(resourceName, "service_plan", testServicePanGUIDNew),
+						resource.TestCheckResourceAttr(resourceName, "space", testSpaceGUID),
+						resource.TestCheckResourceAttr(resourceName, "service_plan", testServicePanGUID),
 						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
 						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
 						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
@@ -142,7 +217,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_user_provided",
 						Name:          new(testServiceInstanceUserProvidedCreate),
@@ -159,7 +234,7 @@ func TestResourceServiceInstance(t *testing.T) {
 					),
 				},
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_user_provided",
 						Name:          new(testServiceInstanceUserProvidedUpdate),
@@ -199,7 +274,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_wrong_service_plan",
 						Name:          new("test-si-wrong-service-plan"),
@@ -207,7 +282,7 @@ func TestResourceServiceInstance(t *testing.T) {
 						Space:         new(testSpaceGUID),
 						ServicePlan:   new(invalidOrgGUID),
 					}),
-					ExpectError: regexp.MustCompile(`Invalid service plan`),
+					ExpectError: regexp.MustCompile(`Error resolving service plan`),
 				},
 			},
 		})
@@ -221,7 +296,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_wrong_space",
 						Name:          new("test-si-wrong-space"),
@@ -243,7 +318,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_wrong_credentials",
 						Name:          new("test-si-wrong-credentials"),
@@ -265,7 +340,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_managed_already_exists",
 						Name:          new("tf-test-do-not-delete-managed"),
@@ -287,7 +362,7 @@ func TestResourceServiceInstance(t *testing.T) {
 			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
 			Steps: []resource.TestStep{
 				{
-					Config: hclProvider(nil) + hclServiceInstance(&ServiceInstanceModelPtr{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
 						HclType:       hclObjectResource,
 						HclObjectName: "si_user_provided_already_exists",
 						Name:          new("tf-test-do-not-delete"),
@@ -295,6 +370,50 @@ func TestResourceServiceInstance(t *testing.T) {
 						Type:          new(userProvidedServiceInstance),
 					}),
 					ExpectError: regexp.MustCompile(`Error: API Error in creating user-provided service instance`),
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - create managed service instance by offering and plan name", func(t *testing.T) {
+		// canary --> XSUAA --> application
+		testServiceOfferingName := "xsuaa"
+		testServicePlanNameStr := "application"
+		resourceName := "cloudfoundry_service_instance.si_by_name"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_instance_managed_by_name")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
+						HclType:             hclObjectResource,
+						HclObjectName:       "si_by_name",
+						Name:                new("test-si-managed-by-name"),
+						Type:                new(managedSerivceInstance),
+						Space:               new(testSpaceGUID),
+						ServiceOfferingName: &testServiceOfferingName,
+						ServicePlanName:     &testServicePlanNameStr,
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", "test-si-managed-by-name"),
+						resource.TestCheckResourceAttr(resourceName, "type", managedSerivceInstance),
+						resource.TestCheckResourceAttr(resourceName, "service_offering_name", testServiceOfferingName),
+						resource.TestCheckResourceAttr(resourceName, "service_plan_name", testServicePlanNameStr),
+						resource.TestMatchResourceAttr(resourceName, "service_plan", regexpValidUUID),
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+						resource.TestMatchResourceAttr(resourceName, "created_at", regexpValidRFC3999Format),
+						resource.TestMatchResourceAttr(resourceName, "updated_at", regexpValidRFC3999Format),
+					),
+				},
+				{
+					ResourceName:            resourceName,
+					ImportStateIdFunc:       getIdForImport(resourceName),
+					ImportState:             true,
+					ImportStateVerify:       true,
+					ImportStateVerifyIgnore: []string{"service_plan_name", "service_offering_name"},
 				},
 			},
 		})

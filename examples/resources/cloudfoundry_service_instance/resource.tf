@@ -68,3 +68,12 @@ resource "cloudfoundry_service_instance" "dev-usp" {
   }
   EOT
 }
+
+# Create a service plan instance by plan and offering name - no data source lookup of ID needed
+resource "cloudfoundry_service_instance" "dev-autoscaler" {
+  name                  = "tf-autoscaler-test"
+  space                 = data.cloudfoundry_space.team_space.id
+  type                  = "managed"
+  service_plan_name     = "standard"
+  service_offering_name = "autoscaler"
+}
