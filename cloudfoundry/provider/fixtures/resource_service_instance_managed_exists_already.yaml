@@ -6,63 +6,6 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=4f6d0cca5eba4107b726ba121c722512-r
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - 4f6d0cca5eba4107b726ba121c722512-r
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"4f6d0cca5eba4107b726ba121c722512-r","expires_in":1199,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"a30da582bc3c48f9864a41d47073c6e5"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Fri, 10 Jul 2026 09:19:35 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Vcap-Request-Id:
-                - 7eded876-5564-4e86-7361-27a70b5db5c4
-            X-Xss-Protection:
-                - "0"
-        status: 200 OK
-        code: 200
-        duration: 883.015875ms
-    - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
         content_length: 0
         transfer_encoding: []
         trailer: {}
@@ -86,22 +29,22 @@ interactions:
         trailer: {}
         content_length: 1770
         uncompressed: false
-        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-07-10T09:19:29Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
+        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-07-13T08:08:52Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
         headers:
             Content-Length:
                 - "1770"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 09:19:36 GMT
+                - Mon, 13 Jul 2026 08:16:14 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 4fbca65303eec130
+                - 5a4c359f10a0ae55
             X-B3-Traceid:
-                - ffd2006079eb44514fbca65303eec130
+                - cf127c94966e46c95a4c359f10a0ae55
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -115,17 +58,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783676131"
+                - "1783931731"
             X-Runtime:
-                - "0.063770"
+                - "0.061281"
             X-Vcap-Request-Id:
-                - ffd20060-79eb-4451-4fbc-a65303eec130::c48c7b4b-ce72-49b5-a21c-20c8e0a0d7e2
+                - cf127c94-966e-46c9-5a4c-359f10a0ae55::b9305d54-793d-4bd3-9195-2ecbfe962a51
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 845.1395ms
-    - id: 2
+        duration: 837.791583ms
+    - id: 1
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -153,22 +96,22 @@ interactions:
         trailer: {}
         content_length: 5150
         uncompressed: false
-        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-07-10T08:15:57Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
+        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-07-12T16:31:18Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
         headers:
             Content-Length:
                 - "5150"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 09:19:36 GMT
+                - Mon, 13 Jul 2026 08:16:15 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 64814db11d865c16
+                - 7111853e3322591e
             X-B3-Traceid:
-                - 9343901ec9cc458664814db11d865c16
+                - a95fff49c03e4f267111853e3322591e
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -182,17 +125,17 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783676131"
+                - "1783931731"
             X-Runtime:
-                - "0.014223"
+                - "0.010944"
             X-Vcap-Request-Id:
-                - 9343901e-c9cc-4586-6481-4db11d865c16::386156be-fed8-4a3f-8b49-abdff9b082ee
+                - a95fff49-c03e-4f26-7111-853e3322591e::803fc305-2168-421e-8e99-e334b1e54031
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 222.608334ms
-    - id: 3
+        duration: 239.399959ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -230,15 +173,15 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 09:19:36 GMT
+                - Mon, 13 Jul 2026 08:16:15 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 66b0ecb69971a057
+                - 4b49f8232a155a24
             X-B3-Traceid:
-                - fffb6c1d7c6e423e66b0ecb69971a057
+                - 39d5e6b1bd9e471e4b49f8232a155a24
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -252,13 +195,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783676131"
+                - "1783931731"
             X-Runtime:
-                - "0.101165"
+                - "0.118278"
             X-Vcap-Request-Id:
-                - fffb6c1d-7c6e-423e-66b0-ecb69971a057::ed3653e6-b4f3-4e62-88b0-1e55803a9bed
+                - 39d5e6b1-bd9e-471e-4b49-f8232a155a24::cdb8a009-abfe-42b2-9d2e-596c02e26092
             X-Xss-Protection:
                 - 1; mode=block
         status: 422 Unprocessable Entity
         code: 422
-        duration: 312.873167ms
+        duration: 363.530083ms
