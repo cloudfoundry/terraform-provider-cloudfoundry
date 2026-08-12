@@ -573,9 +573,10 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 	if !appType.Strategy.IsNull() {
 		switch appType.Strategy.ValueString() {
 		case "rolling":
-			manifestOp.WithStrategy(cfv3operation.StrategyRolling)
+			timeout, checkInterval := r.getDeploymentStrategyOptions(appType)
+			manifestOp.WithRollingStrategy(timeout, checkInterval)
 		case "blue-green":
-			timeout, checkInterval := r.getBlueGreenDeploymentStrategyOptions(appType)
+			timeout, checkInterval := r.getDeploymentStrategyOptions(appType)
 			manifestOp.WithBlueGreenStrategy(timeout, checkInterval)
 		default:
 			manifestOp.WithStrategy(cfv3operation.StrategyNone)
@@ -594,7 +595,7 @@ func (r *appResource) push(appType AppType, appManifestValue *cfv3operation.AppM
 	return appResp, nil
 }
 
-func (r *appResource) getBlueGreenDeploymentStrategyOptions(appType AppType) (uint, uint) {
+func (r *appResource) getDeploymentStrategyOptions(appType AppType) (uint, uint) {
 	if appType.AppDeployedRunningTimeout.IsNull() && appType.AppDeployedRunningCheckInterval.IsNull() {
 		return AppDeployedRunningTimeoutMinutesFeatureNotUsed, AppDeployedRunningCheckIntervalSecondsFeatureNotUsed
 	}
