@@ -18,7 +18,7 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87
         method: GET
       response:
@@ -29,22 +29,22 @@ interactions:
         trailer: {}
         content_length: 1770
         uncompressed: false
-        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-07-10T06:46:21Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
+        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-08-18T09:58:32Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
         headers:
             Content-Length:
                 - "1770"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:28 GMT
+                - Tue, 18 Aug 2026 10:00:52 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 5cdc9c4212972018
+                - 4c730c7d8c945168
             X-B3-Traceid:
-                - c99c2e042084495f5cdc9c4212972018
+                - eab1a5f85379448a4c730c7d8c945168
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -58,16 +58,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047530"
             X-Runtime:
-                - "0.059849"
+                - "0.065373"
             X-Vcap-Request-Id:
-                - c99c2e04-2084-495f-5cdc-9c4212972018::273a52a3-ff0a-4f73-bcc1-1e4bacdf8f7d
+                - eab1a5f8-5379-448a-4c73-0c7d8c945168::e895d590-b56f-4401-80ae-dceb322bffa6
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 753.424375ms
+        duration: 852.295625ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -85,7 +85,7 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad
         method: GET
       response:
@@ -96,22 +96,22 @@ interactions:
         trailer: {}
         content_length: 5150
         uncompressed: false
-        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-07-09T09:06:15Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
+        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-08-17T13:02:38Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
         headers:
             Content-Length:
                 - "5150"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:28 GMT
+                - Tue, 18 Aug 2026 10:00:53 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7c11f95e99834c42
+                - 44300d82e8d98a1c
             X-B3-Traceid:
-                - 3e5660d7730145367c11f95e99834c42
+                - f310210e03d14c6044300d82e8d98a1c
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -125,16 +125,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.011512"
+                - "0.011904"
             X-Vcap-Request-Id:
-                - 3e5660d7-7301-4536-7c11-f95e99834c42::6e423789-b7b4-4b54-ac9a-142cfd48076b
+                - f310210e-03d1-4c60-4430-0d82e8d98a1c::1faaa220-260b-49da-bd03-552fb19f26d2
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 202.763583ms
+        duration: 250.763833ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -155,7 +155,7 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
         url: https://api.x.x.x.x.com/v3/service_instances
         method: POST
       response:
@@ -173,17 +173,17 @@ interactions:
             Content-Type:
                 - text/html
             Date:
-                - Fri, 10 Jul 2026 06:49:28 GMT
+                - Tue, 18 Aug 2026 10:00:53 GMT
             Location:
-                - https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5
+                - https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 43247847b1402238
+                - 75133a6483fdcc10
             X-B3-Traceid:
-                - b63cf675a997486743247847b1402238
+                - d7cc66891442465375133a6483fdcc10
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -197,16 +197,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.122987"
+                - "0.126769"
             X-Vcap-Request-Id:
-                - b63cf675-a997-4867-4324-7847b1402238::3f6bbf7f-5930-4b95-9e74-b7d4480a42af
+                - d7cc6689-1442-4653-7513-3a6483fdcc10::ab84a8ea-7b26-4d58-aa43-1b03c5e5b35f
             X-Xss-Protection:
                 - 1; mode=block
         status: 202 Accepted
         code: 202
-        duration: 312.741208ms
+        duration: 364.927625ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -224,8 +224,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
         method: GET
       response:
         proto: HTTP/2.0
@@ -235,22 +235,22 @@ interactions:
         trailer: {}
         content_length: 437
         uncompressed: false
-        body: '{"guid":"a3e5d9b8-5f58-4e4b-b820-527025e90cc5","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:29Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"}}}'
+        body: '{"guid":"1a20d537-929c-4ae9-9f7b-1839f1c633fc","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
                 - "437"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:30 GMT
+                - Tue, 18 Aug 2026 10:00:55 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 57dc99348c5efa62
+                - 4c675dccaa2cf4c1
             X-B3-Traceid:
-                - 93466261c27e4b0657dc99348c5efa62
+                - 6488b09397a84e744c675dccaa2cf4c1
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -264,16 +264,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.006259"
+                - "0.006013"
             X-Vcap-Request-Id:
-                - 93466261-c27e-4b06-57dc-99348c5efa62::6a0bc1fe-066c-4975-99dc-1d08eec6c2ed
+                - 6488b093-97a8-4e74-4c67-5dccaa2cf4c1::4027f3a7-86df-46f1-a48c-8d76123d000b
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 507.291334ms
+        duration: 250.060625ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -291,8 +291,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
         method: GET
       response:
         proto: HTTP/2.0
@@ -302,22 +302,22 @@ interactions:
         trailer: {}
         content_length: 437
         uncompressed: false
-        body: '{"guid":"a3e5d9b8-5f58-4e4b-b820-527025e90cc5","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:29Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"}}}'
+        body: '{"guid":"1a20d537-929c-4ae9-9f7b-1839f1c633fc","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
                 - "437"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:32 GMT
+                - Tue, 18 Aug 2026 10:00:57 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 449229ceb7e4531f
+                - 5e64f4ea912e1c94
             X-B3-Traceid:
-                - c30e96f9aaa24a80449229ceb7e4531f
+                - 232c9dde4dca43b55e64f4ea912e1c94
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -331,16 +331,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667130"
+                - "1787047530"
             X-Runtime:
-                - "0.005272"
+                - "0.005441"
             X-Vcap-Request-Id:
-                - c30e96f9-aaa2-4a80-4492-29ceb7e4531f::a276b250-fc88-42fd-a1ff-72e264627b40
+                - 232c9dde-4dca-43b5-5e64-f4ea912e1c94::84557702-8410-4f31-b3e0-440ba08a68b5
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 605.601833ms
+        duration: 340.177625ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -358,8 +358,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
         method: GET
       response:
         proto: HTTP/2.0
@@ -367,24 +367,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 438
+        content_length: 437
         uncompressed: false
-        body: '{"guid":"a3e5d9b8-5f58-4e4b-b820-527025e90cc5","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:34Z","operation":"service_instance.create","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/a3e5d9b8-5f58-4e4b-b820-527025e90cc5"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"}}}'
+        body: '{"guid":"1a20d537-929c-4ae9-9f7b-1839f1c633fc","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
-                - "438"
+                - "437"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:34 GMT
+                - Tue, 18 Aug 2026 10:00:59 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 70ea68ee923940c8
+                - 6bbae406fb7c7c05
             X-B3-Traceid:
-                - b28fa55996494d6670ea68ee923940c8
+                - e88c5aa3d3924ec26bbae406fb7c7c05
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -398,16 +398,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.005042"
+                - "0.007568"
             X-Vcap-Request-Id:
-                - b28fa559-9649-4d66-70ea-68ee923940c8::c75ba7d6-a7c4-4f82-b016-39cbfeb65d94
+                - e88c5aa3-d392-4ec2-6bba-e406fb7c7c05::9e7a8a33-72a0-4fef-b9bd-e0d379fad871
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 194.886791ms
+        duration: 241.399625ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -425,8 +425,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
         method: GET
       response:
         proto: HTTP/2.0
@@ -434,24 +434,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1988
+        content_length: 437
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"417f4649-945d-4c5d-b598-71b06d3d994d","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:29Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:34Z","created_at":"2026-07-10T06:49:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/relationships/shared_spaces"}}}]}'
+        body: '{"guid":"1a20d537-929c-4ae9-9f7b-1839f1c633fc","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
-                - "1988"
+                - "437"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:35 GMT
+                - Tue, 18 Aug 2026 10:01:01 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 689f915c6f85eb3c
+                - 799bd9b112f6f9d8
             X-B3-Traceid:
-                - 249c5a2d05e34fbf689f915c6f85eb3c
+                - f3c7724847704024799bd9b112f6f9d8
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -465,16 +465,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047530"
             X-Runtime:
-                - "0.015314"
+                - "0.005366"
             X-Vcap-Request-Id:
-                - 249c5a2d-05e3-4fbf-689f-915c6f85eb3c::a0f8df95-462c-4db9-96c3-f6c9ef3c4ca1
+                - f3c77248-4770-4024-799b-d9b112f6f9d8::e05adf82-fbe6-41bd-bb2d-1618ec16dffe
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 207.2105ms
+        duration: 233.568375ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -492,8 +492,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc
         method: GET
       response:
         proto: HTTP/2.0
@@ -501,24 +501,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1532
+        content_length: 438
         uncompressed: false
-        body: '{"guid":"417f4649-945d-4c5d-b598-71b06d3d994d","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:29Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:34Z","created_at":"2026-07-10T06:49:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/relationships/shared_spaces"}}}'
+        body: '{"guid":"1a20d537-929c-4ae9-9f7b-1839f1c633fc","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:01:02Z","operation":"service_instance.create","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/1a20d537-929c-4ae9-9f7b-1839f1c633fc"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
-                - "1532"
+                - "438"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:35 GMT
+                - Tue, 18 Aug 2026 10:01:03 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 789b26850351d99c
+                - 62414cfad04d605c
             X-B3-Traceid:
-                - 13e6acc934334bb4789b26850351d99c
+                - 8cd321314b794a3a62414cfad04d605c
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -532,16 +532,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047530"
             X-Runtime:
-                - "0.014827"
+                - "0.010146"
             X-Vcap-Request-Id:
-                - 13e6acc9-3433-4bb4-789b-26850351d99c::23a0bd8b-4bf3-4a7e-ad74-318dc4dbca18
+                - 8cd32131-4b79-4a3a-6241-4cfad04d605c::8d340156-c09a-47cc-bcde-acf7b5b16052
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 262.260584ms
+        duration: 369.570875ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -559,8 +559,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
         method: GET
       response:
         proto: HTTP/2.0
@@ -568,24 +568,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1532
+        content_length: 1988
         uncompressed: false
-        body: '{"guid":"417f4649-945d-4c5d-b598-71b06d3d994d","created_at":"2026-07-10T06:49:28Z","updated_at":"2026-07-10T06:49:29Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:34Z","created_at":"2026-07-10T06:49:34Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=417f4649-945d-4c5d-b598-71b06d3d994d"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d/relationships/shared_spaces"}}}'
+        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:02Z","created_at":"2026-08-18T10:01:02Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}]}'
         headers:
             Content-Length:
-                - "1532"
+                - "1988"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:35 GMT
+                - Tue, 18 Aug 2026 10:01:04 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 66e16303c00daffe
+                - 75fbf08664b22892
             X-B3-Traceid:
-                - 1085de892f3546ae66e16303c00daffe
+                - 6a33faf36bbb4fe375fbf08664b22892
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -599,16 +599,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.009298"
+                - "0.016657"
             X-Vcap-Request-Id:
-                - 1085de89-2f35-46ae-66e1-6303c00daffe::8d852621-5b3a-42c2-a3e9-7054a6afa45f
+                - 6a33faf3-6bbb-4fe3-75fb-f08664b22892::bec60cf5-3b56-4adb-9325-b893c2345470
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 258.04875ms
+        duration: 250.337417ms
     - id: 9
       request:
         proto: HTTP/1.1
@@ -626,35 +626,33 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/417f4649-945d-4c5d-b598-71b06d3d994d
-        method: DELETE
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
+        method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 0
+        content_length: 1532
         uncompressed: false
-        body: ""
+        body: '{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:02Z","created_at":"2026-08-18T10:01:02Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}'
         headers:
             Content-Length:
-                - "0"
+                - "1532"
             Content-Type:
-                - text/html
+                - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:36 GMT
-            Location:
-                - https://api.x.x.x.x.com/v3/jobs/a9bf7bc6-dad1-422d-879c-2bfa27bfe341
+                - Tue, 18 Aug 2026 10:01:05 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 4d585e6ac39b14b3
+                - 522c76bf93ab7307
             X-B3-Traceid:
-                - 75a24bc716324cb84d585e6ac39b14b3
+                - 644bd5ee07304d89522c76bf93ab7307
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -668,16 +666,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.026875"
+                - "0.012792"
             X-Vcap-Request-Id:
-                - 75a24bc7-1632-4cb8-4d58-5e6ac39b14b3::242f7750-a1ca-4fd9-bb96-5638e7439659
+                - 644bd5ee-0730-4d89-522c-76bf93ab7307::7b6174aa-591a-4455-ad8b-83c22de68906
             X-Xss-Protection:
                 - 1; mode=block
-        status: 202 Accepted
-        code: 202
-        duration: 625.93675ms
+        status: 200 OK
+        code: 200
+        duration: 242.907958ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -695,8 +693,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/a9bf7bc6-dad1-422d-879c-2bfa27bfe341
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
         method: GET
       response:
         proto: HTTP/2.0
@@ -704,24 +702,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 312
+        content_length: 1532
         uncompressed: false
-        body: '{"guid":"a9bf7bc6-dad1-422d-879c-2bfa27bfe341","created_at":"2026-07-10T06:49:36Z","updated_at":"2026-07-10T06:49:36Z","operation":"service_instance.delete","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/a9bf7bc6-dad1-422d-879c-2bfa27bfe341"}}}'
+        body: '{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:00:54Z","name":"test-si-managed","tags":[],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:02Z","created_at":"2026-08-18T10:01:02Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}'
         headers:
             Content-Length:
-                - "312"
+                - "1532"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:38 GMT
+                - Tue, 18 Aug 2026 10:01:05 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 7b5b079a5fc9faa9
+                - 48df2c6edf5d7147
             X-B3-Traceid:
-                - 3d5864ab7a8d4a2d7b5b079a5fc9faa9
+                - 7b6b46b81832430048df2c6edf5d7147
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -735,60 +733,65 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667130"
+                - "1787047531"
             X-Runtime:
-                - "0.005294"
+                - "0.017681"
             X-Vcap-Request-Id:
-                - 3d5864ab-7a8d-4a2d-7b5b-079a5fc9faa9::46957a48-d93c-4a04-b246-c20d400f4a46
+                - 7b6b46b8-1832-4300-48df-2c6edf5d7147::127adbeb-2d7b-4e15-b574-84ee1c2e7056
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 202.699126ms
+        duration: 260.473875ms
     - id: 11
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 0
+        content_length: 363
         transfer_encoding: []
         trailer: {}
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: ""
+        body: |
+            {"parameters":{"xsappname":"tf-unit-test","tenant-mode":"dedicated","description":"tf test1-update","foreign-scope-references":["user_attributes"],"scopes":[{"name":"uaa.user","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]},"tags":["test-tag"],"metadata":{"labels":null,"annotations":null}}
         form: {}
         headers:
             Authorization:
                 - Bearer redacted
+            Content-Type:
+                - application/json
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87
-        method: GET
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
+        method: PATCH
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1770
+        content_length: 0
         uncompressed: false
-        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-07-10T06:46:21Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
+        body: ""
         headers:
             Content-Length:
-                - "1770"
+                - "0"
             Content-Type:
-                - application/json; charset=utf-8
+                - text/html
             Date:
-                - Fri, 10 Jul 2026 06:49:39 GMT
+                - Tue, 18 Aug 2026 10:01:06 GMT
+            Location:
+                - https://api.x.x.x.x.com/v3/jobs/8df063c3-953f-49b9-9d6f-35c7c284bbaf
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 51d29e413a1987eb
+                - 424679119fdfa258
             X-B3-Traceid:
-                - 32e79365b9024db051d29e413a1987eb
+                - 66af7bc85c23478a424679119fdfa258
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -802,16 +805,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667132"
+                - "1787047531"
             X-Runtime:
-                - "0.060760"
+                - "0.052615"
             X-Vcap-Request-Id:
-                - 32e79365-b902-4db0-51d2-9e413a1987eb::f352d6a3-a359-4d4a-a779-18b8fa4f74eb
+                - 66af7bc8-5c23-478a-4246-79119fdfa258::746d781a-05bd-417a-8988-3cb1064c2658
             X-Xss-Protection:
                 - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 250.620292ms
+        status: 202 Accepted
+        code: 202
+        duration: 288.589ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -829,8 +832,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/8df063c3-953f-49b9-9d6f-35c7c284bbaf
         method: GET
       response:
         proto: HTTP/2.0
@@ -838,24 +841,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 5150
+        content_length: 438
         uncompressed: false
-        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-07-09T09:06:15Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
+        body: '{"guid":"8df063c3-953f-49b9-9d6f-35c7c284bbaf","created_at":"2026-08-18T10:01:06Z","updated_at":"2026-08-18T10:01:08Z","operation":"service_instance.update","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/8df063c3-953f-49b9-9d6f-35c7c284bbaf"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"}}}'
         headers:
             Content-Length:
-                - "5150"
+                - "438"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:39 GMT
+                - Tue, 18 Aug 2026 10:01:08 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 613c9ca228d29581
+                - 5ac0b9a21221f521
             X-B3-Traceid:
-                - e8994d3e94be46d5613c9ca228d29581
+                - 46ce3890d5ff46735ac0b9a21221f521
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -869,65 +872,60 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.012801"
+                - "0.006563"
             X-Vcap-Request-Id:
-                - e8994d3e-94be-46d5-613c-9ca228d29581::3d5f8736-3bfc-4593-8d8c-2392690d5414
+                - 46ce3890-d5ff-4673-5ac0-b9a21221f521::01f3daa1-edfb-4d48-8ee8-3e9cd110b94f
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 206.448417ms
+        duration: 245.125583ms
     - id: 13
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 560
+        content_length: 0
         transfer_encoding: []
         trailer: {}
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: |
-            {"type":"managed","name":"test-si-managed","relationships":{"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}},"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}}},"metadata":{"labels":null,"annotations":null},"parameters":{"xsappname":"tf-unit-test","tenant-mode":"dedicated","description":"tf test1-update","foreign-scope-references":["user_attributes"],"scopes":[{"name":"uaa.user","description":"UAA"}],"role-templates":[{"name":"Token_Exchange","description":"UAA","scope-references":["uaa.user"]}]},"tags":["test-tag"]}
+        body: ""
         form: {}
         headers:
             Authorization:
                 - Bearer redacted
-            Content-Type:
-                - application/json
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances
-        method: POST
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
+        method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 0
+        content_length: 1542
         uncompressed: false
-        body: ""
+        body: '{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:01:08Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"update","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:08Z","created_at":"2026-08-18T10:01:08Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}'
         headers:
             Content-Length:
-                - "0"
+                - "1542"
             Content-Type:
-                - text/html
+                - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:39 GMT
-            Location:
-                - https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3
+                - Tue, 18 Aug 2026 10:01:08 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 74fdbada3d4973b1
+                - 4f4a321ec1cf2f1a
             X-B3-Traceid:
-                - e50f31e05bf8412174fdbada3d4973b1
+                - 234ac0f14ce248724f4a321ec1cf2f1a
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -941,16 +939,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047530"
             X-Runtime:
-                - "0.120323"
+                - "0.011342"
             X-Vcap-Request-Id:
-                - e50f31e0-5bf8-4121-74fd-bada3d4973b1::d356e513-5f12-4e88-bb36-1d709a4c49b6
+                - 234ac0f1-4ce2-4872-4f4a-321ec1cf2f1a::85b57363-81c5-4722-bcf5-2bd71bbcafc5
             X-Xss-Protection:
                 - 1; mode=block
-        status: 202 Accepted
-        code: 202
-        duration: 309.537167ms
+        status: 200 OK
+        code: 200
+        duration: 243.120875ms
     - id: 14
       request:
         proto: HTTP/1.1
@@ -968,8 +966,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
         method: GET
       response:
         proto: HTTP/2.0
@@ -977,24 +975,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 437
+        content_length: 1542
         uncompressed: false
-        body: '{"guid":"52a734d0-7fe9-4b4e-bd4d-b93826112eb3","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:40Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"}}}'
+        body: '{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:01:08Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"update","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:08Z","created_at":"2026-08-18T10:01:08Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}'
         headers:
             Content-Length:
-                - "437"
+                - "1542"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:41 GMT
+                - Tue, 18 Aug 2026 10:01:09 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 40df3fd65f30e3c0
+                - 70c20016ef88a1e6
             X-B3-Traceid:
-                - 64bd3c6668e5498b40df3fd65f30e3c0
+                - cdb6f45ae8e0408e70c20016ef88a1e6
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1008,16 +1006,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.007371"
+                - "0.020002"
             X-Vcap-Request-Id:
-                - 64bd3c66-68e5-498b-40df-3fd65f30e3c0::296019a5-77c6-49af-b496-486f6b693546
+                - cdb6f45a-e8e0-408e-70c2-0016ef88a1e6::80dfa218-9bf7-4a79-bf0e-450eb1c49804
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 631.632542ms
+        duration: 273.172709ms
     - id: 15
       request:
         proto: HTTP/1.1
@@ -1035,8 +1033,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
         method: GET
       response:
         proto: HTTP/2.0
@@ -1044,24 +1042,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 437
+        content_length: 1542
         uncompressed: false
-        body: '{"guid":"52a734d0-7fe9-4b4e-bd4d-b93826112eb3","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:40Z","operation":"service_instance.create","state":"POLLING","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"}}}'
+        body: '{"guid":"2c819795-98ea-4200-93f3-4c959f09fa4a","created_at":"2026-08-18T10:00:53Z","updated_at":"2026-08-18T10:01:08Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"update","state":"succeeded","description":"","updated_at":"2026-08-18T10:01:08Z","created_at":"2026-08-18T10:01:08Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=2c819795-98ea-4200-93f3-4c959f09fa4a"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a/relationships/shared_spaces"}}}'
         headers:
             Content-Length:
-                - "437"
+                - "1542"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:43 GMT
+                - Tue, 18 Aug 2026 10:01:10 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 530bfec83c959cdd
+                - 6e1db142b6aa13cb
             X-B3-Traceid:
-                - 9bc73cb7b46d4c95530bfec83c959cdd
+                - 1f62a0e0dcb84cc36e1db142b6aa13cb
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1075,16 +1073,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667130"
+                - "1787047531"
             X-Runtime:
-                - "0.010698"
+                - "0.017609"
             X-Vcap-Request-Id:
-                - 9bc73cb7-b46d-4c95-530b-fec83c959cdd::667a72ec-e17f-4580-b285-cd9f853b1d8c
+                - 1f62a0e0-dcb8-4cc3-6e1d-b142b6aa13cb::5595092f-a859-4e37-8d61-e2629254a842
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 205.160166ms
+        duration: 290.930875ms
     - id: 16
       request:
         proto: HTTP/1.1
@@ -1102,8 +1100,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87
         method: GET
       response:
         proto: HTTP/2.0
@@ -1111,24 +1109,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 438
+        content_length: 1770
         uncompressed: false
-        body: '{"guid":"52a734d0-7fe9-4b4e-bd4d-b93826112eb3","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:45Z","operation":"service_instance.create","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/52a734d0-7fe9-4b4e-bd4d-b93826112eb3"},"service_instances":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"}}}'
+        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-08-18T10:01:08Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
         headers:
             Content-Length:
-                - "438"
+                - "1770"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:45 GMT
+                - Tue, 18 Aug 2026 10:01:10 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 50393ce2b4080ada
+                - 5833de649d7a4775
             X-B3-Traceid:
-                - 3a87b350511d49d450393ce2b4080ada
+                - 38df8a7d592f461b5833de649d7a4775
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1142,16 +1140,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.004166"
+                - "0.062928"
             X-Vcap-Request-Id:
-                - 3a87b350-511d-49d4-5039-3ce2b4080ada::68d0f030-f457-41bb-87b5-9210171da45e
+                - 38df8a7d-592f-461b-5833-de649d7a4775::64e10664-2e49-41f4-b9f8-1fd818cfd878
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 267.90625ms
+        duration: 290.745333ms
     - id: 17
       request:
         proto: HTTP/1.1
@@ -1169,8 +1167,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed&space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad
         method: GET
       response:
         proto: HTTP/2.0
@@ -1178,24 +1176,24 @@ interactions:
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1998
+        content_length: 5150
         uncompressed: false
-        body: '{"pagination":{"total_results":1,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"last":{"href":"https://api.x.x.x.x.com/v3/service_instances?names=test-si-managed\u0026page=1\u0026per_page=50\u0026space_guids=02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"next":null,"previous":null},"resources":[{"guid":"421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:40Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:45Z","created_at":"2026-07-10T06:49:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/relationships/shared_spaces"}}}]}'
+        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-08-17T13:02:38Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
         headers:
             Content-Length:
-                - "1998"
+                - "5150"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:46 GMT
+                - Tue, 18 Aug 2026 10:01:11 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 57832f47f0d0ef9b
+                - 54ce7d5d916c17a9
             X-B3-Traceid:
-                - 469b669c0f0141f057832f47f0d0ef9b
+                - 8eec5db4353b490654ce7d5d916c17a9
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1209,16 +1207,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047532"
             X-Runtime:
-                - "0.013928"
+                - "0.013012"
             X-Vcap-Request-Id:
-                - 469b669c-0f01-41f0-5783-2f47f0d0ef9b::b622ebfc-50d2-44e6-9574-c17c4e3027f3
+                - 8eec5db4-353b-4906-54ce-7d5d916c17a9::6331ed38-ceed-4c85-acf4-fdda3eb32a83
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 208.70075ms
+        duration: 242.045166ms
     - id: 18
       request:
         proto: HTTP/1.1
@@ -1236,33 +1234,35 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae
-        method: GET
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/service_instances/2c819795-98ea-4200-93f3-4c959f09fa4a
+        method: DELETE
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         transfer_encoding: []
         trailer: {}
-        content_length: 1542
+        content_length: 0
         uncompressed: false
-        body: '{"guid":"421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:40Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:45Z","created_at":"2026-07-10T06:49:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/relationships/shared_spaces"}}}'
+        body: ""
         headers:
             Content-Length:
-                - "1542"
+                - "0"
             Content-Type:
-                - application/json; charset=utf-8
+                - text/html
             Date:
-                - Fri, 10 Jul 2026 06:49:46 GMT
+                - Tue, 18 Aug 2026 10:01:11 GMT
+            Location:
+                - https://api.x.x.x.x.com/v3/jobs/259546d1-4728-47cf-a8a0-6476b4e04bb0
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 51ce93e932f57b84
+                - 516d4d3ed46fbeb7
             X-B3-Traceid:
-                - d3ebae0c5d594cb251ce93e932f57b84
+                - aa1bb10492ce41d9516d4d3ed46fbeb7
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1276,16 +1276,16 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047531"
             X-Runtime:
-                - "0.012612"
+                - "0.043457"
             X-Vcap-Request-Id:
-                - d3ebae0c-5d59-4cb2-51ce-93e932f57b84::8af82f9b-9c83-427b-97c9-3331f2209a7d
+                - aa1bb104-92ce-41d9-516d-4d3ed46fbeb7::b2a4aeec-81f6-48dd-bf04-90fd47c62278
             X-Xss-Protection:
                 - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 201.464375ms
+        status: 202 Accepted
+        code: 202
+        duration: 274.913958ms
     - id: 19
       request:
         proto: HTTP/1.1
@@ -1303,278 +1303,8 @@ interactions:
             Authorization:
                 - Bearer redacted
             User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 1542
-        uncompressed: false
-        body: '{"guid":"421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae","created_at":"2026-07-10T06:49:39Z","updated_at":"2026-07-10T06:49:40Z","name":"test-si-managed","tags":["test-tag"],"last_operation":{"type":"create","state":"succeeded","description":"","updated_at":"2026-07-10T06:49:45Z","created_at":"2026-07-10T06:49:45Z"},"type":"managed","maintenance_info":{},"upgrade_available":false,"dashboard_url":null,"relationships":{"space":{"data":{"guid":"02c0cc92-6ecc-44b1-b7b2-096ca19ee143"}},"service_plan":{"data":{"guid":"432bd9db-20e2-4997-825f-e4a937705b87"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"space":{"href":"https://api.x.x.x.x.com/v3/spaces/02c0cc92-6ecc-44b1-b7b2-096ca19ee143"},"service_credential_bindings":{"href":"https://api.x.x.x.x.com/v3/service_credential_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_route_bindings":{"href":"https://api.x.x.x.x.com/v3/service_route_bindings?service_instance_guids=421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae"},"service_plan":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"parameters":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/parameters"},"shared_spaces":{"href":"https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae/relationships/shared_spaces"}}}'
-        headers:
-            Content-Length:
-                - "1542"
-            Content-Type:
-                - application/json; charset=utf-8
-            Date:
-                - Fri, 10 Jul 2026 06:49:46 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5d4ca0d85bffe3d9
-            X-B3-Traceid:
-                - ee8fcfc4255f43375d4ca0d85bffe3d9
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1783667131"
-            X-Runtime:
-                - "0.011876"
-            X-Vcap-Request-Id:
-                - ee8fcfc4-255f-4337-5d4c-a0d85bffe3d9::651b1069-d441-4bb2-9d51-76f30944ff22
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 199.859042ms
-    - id: 20
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 1770
-        uncompressed: false
-        body: '{"guid":"432bd9db-20e2-4997-825f-e4a937705b87","created_at":"2016-10-27T07:56:51Z","updated_at":"2026-07-10T06:46:21Z","name":"application","visibility_type":"organization","available":true,"free":true,"costs":[],"description":"Application plan to be used for business applications","maintenance_info":{},"broker_catalog":{"id":"ThGdx5loQ6XhvcdY6dLlEXcTgQD7641pDKXJfzwYGLg=","metadata":{"supportsInstanceSharing":true,"supportedPlatforms":["cloudfoundry","sapbtp","kubernetes"],"supportedMinOSBVersion":"2.11","sibling_resolution":{"resolution_property":"siblingIds","name_paths":["scopes.#.granted-apps","scopes.#.grant-as-authority-to-apps","foreign-scope-references","authorities","role-collections.#.role-template-references"],"value_regexp":"\\$XSSERVICENAME\\((.*)\\)","enabled":true},"bullets":["Tenant isolation","Supports different OAuth flows (Client credentials, authorization code, SAML bearer assertion)","One OAuth client per service instance"],"supportedMaxOSBVersion":"2.14","sm_plan_id":"037e7df6-5843-4174-9cb4-69a1f9a4da7e"},"maximum_polling_duration":null,"features":{"bindable":true,"plan_updateable":false}},"schemas":{"service_instance":{"create":{"parameters":{}},"update":{"parameters":{}}},"service_binding":{"create":{"parameters":{}}}},"relationships":{"service_offering":{"data":{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87"},"service_offering":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"visibility":{"href":"https://api.x.x.x.x.com/v3/service_plans/432bd9db-20e2-4997-825f-e4a937705b87/visibility"}}}'
-        headers:
-            Content-Length:
-                - "1770"
-            Content-Type:
-                - application/json; charset=utf-8
-            Date:
-                - Fri, 10 Jul 2026 06:49:47 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5abfe6e131f4df40
-            X-B3-Traceid:
-                - 68753714912a408c5abfe6e131f4df40
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1783667130"
-            X-Runtime:
-                - "0.060788"
-            X-Vcap-Request-Id:
-                - 68753714-912a-408c-5abf-e6e131f4df40::a524f9c2-72a9-4650-819d-a3500b8fc157
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 249.8795ms
-    - id: 21
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 5150
-        uncompressed: false
-        body: '{"guid":"c1876449-7493-43dc-a36b-0a8215fa46ad","created_at":"2016-07-25T09:18:30Z","updated_at":"2026-07-09T09:06:15Z","name":"xsuaa","description":"Manage application authorizations and trust to identity providers.","available":true,"tags":["xsuaa"],"requires":[],"shareable":false,"documentation_url":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","broker_catalog":{"id":"xsuaa","metadata":{"longDescription":"Configure trust to identity providers for authentication. Manage your authorization model consisting of roles, groups and role collections, and assigning them to users. Use RESTful APIs to automate and integrate with other systems.","documentationUrl":"https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/6373bb7a96114d619bfdfdc6f505d1b9.html","createInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","sap":{"support_btp_brand":true},"serviceInventoryId":"SERVICE-92","displayName":"Authorization and Trust Management Service","imageUrl":"data:image/svg+xml;base64,PHN2ZyBpZD0iYXV0aG9yaXphdGlvbi1tYW5hZ2VtZW50IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NiA1NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM1YTdhOTQ7fS5jbHMtMntmaWxsOiMwMDkyZDE7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hdXRob3JpemF0aW9uLW1hbmFnZW1lbnQ8L3RpdGxlPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTM1LjIyMSwxMy4xNDFsLjAzOS0zLjUxNmE0Ljk3OCw0Ljk3OCwwLDAsMSwuNDg4LTIuMTg3QTUuNzE0LDUuNzE0LDAsMCwxLDM3LjA3Niw1LjY2YTYuMzY1LDYuMzY1LDAsMCwxLDEuOTkyLTEuMjExQTYuNjY5LDYuNjY5LDAsMCwxLDQxLjUxLDRhNi41MTksNi41MTksMCwwLDEsMi40MjIuNDQ5QTYuNzE4LDYuNzE4LDAsMCwxLDQ1LjkyNCw1LjY2YTUuNjA5LDUuNjA5LDAsMCwxLDEuMzQ4LDEuNzc3LDUsNSwwLDAsMSwuNDg4LDIuMTg4djMuNTE2TTM2Ljk3MSwxMi43NUg0Ni4wMVY5LjYwNWEzLjY0MiwzLjY0MiwwLDAsMC0xLjUtMi45OTQsNC4xNzYsNC4xNzYsMCwwLDAtMy0xLjExMSw0LjE1LDQuMTUsMCwwLDAtMywuOTEyLDQuMDE3LDQuMDE3LDAsMCwwLTEuNSwzLjE5M1oiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik00OC42NTgsMTQuMDJhMi40LDIuNCwwLDAsMC0uOTA4LS44NzlBNC40LDQuNCwwLDAsMCw0NiwxMi43NUgzNi45NjFhNC4zMjQsNC4zMjQsMCwwLDAtMS43NS4zOTEsMi40OTIsMi40OTIsMCwwLDAtLjg3OS44NzlBMi40NTYsMi40NTYsMCwwLDAsMzQsMTUuMjg5VjIxLjVBMi40NjgsMi40NjgsMCwwLDAsMzYuNSwyNGgxMGEyLjQ0MSwyLjQ0MSwwLDAsMCwxLjc1OC0uNzIzQTIuMzg2LDIuMzg2LDAsMCwwLDQ5LDIxLjVWMTUuMjg5QTIuMzUxLDIuMzUxLDAsMCwwLDQ4LjY1OCwxNC4wMlpNNDIuNSwxNy44MzR2Mi45MzFhLjgzMS44MzEsMCwwLDEtMS42NjMsMFYxNy44MzRhMS41MzMsMS41MzMsMCwwLDEtLjY1Ni0xLjI2OSwxLjQ4OCwxLjQ4OCwwLDAsMSwyLjk3NSwwQTEuNTMzLDEuNTMzLDAsMCwxLDQyLjUsMTcuODM0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxLjM2MywzNi42MzdBOS4wNjYsOS4wNjYsMCwwLDAsMjguNDgsMzQuNyw4LjgxMyw4LjgxMywwLDAsMCwyNSwzNEgxNmE4LjczMiw4LjczMiwwLDAsMC0zLjUxNi43LDkuMTQ4LDkuMTQ4LDAsMCwwLTIuODQ4LDEuOTM0QTkuMDMsOS4wMywwLDAsMCw3LjcsMzkuNTIsOC43OTQsOC43OTQsMCwwLDAsNyw0M3Y5SDM0VjQzYTguODEzLDguODEzLDAsMCwwLS43LTMuNDhBOS4wNjYsOS4wNjYsMCwwLDAsMzEuMzYzLDM2LjYzN1pNMzEsNDlIMTBWNDNhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDE2LDM3aDlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwzMSw0M1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNi44NjMsMzEuMzYzQTkuMTQ4LDkuMTQ4LDAsMCwwLDI4LjgsMjguNTE2YTkuMDUzLDkuMDUzLDAsMCwwLDAtN0E4Ljk3Niw4Ljk3NiwwLDAsMCwyMy45OCwxNi43YTkuMDUzLDkuMDUzLDAsMCwwLTcsMCw5LjE0OCw5LjE0OCwwLDAsMC0yLjg0OCwxLjkzNEE5LjAzLDkuMDMsMCwwLDAsMTIuMiwyMS41MmE5LjA1Myw5LjA1MywwLDAsMCwwLDdBOS4xNjUsOS4xNjUsMCwwLDAsMTYuOTg0LDMzLjNhOS4wNTMsOS4wNTMsMCwwLDAsNywwQTkuMDMsOS4wMywwLDAsMCwyNi44NjMsMzEuMzYzWk0yMC41LDMxYTUuNyw1LjcsMCwwLDEtMi4zMjItLjQ1NSw2LjE2Myw2LjE2MywwLDAsMS0zLjIyNC0zLjIyN0E1LjcsNS43LDAsMCwxLDE0LjUsMjVhNS43NzMsNS43NzMsMCwwLDEsLjQ2NC0yLjMwNyw2LDYsMCwwLDEsMS4yOTQtMS45MzUsNi4xMTYsNi4xMTYsMCwwLDEsMS45MjEtMS4zQTUuNzEyLDUuNzEyLDAsMCwxLDIwLjUsMTlhNS43ODQsNS43ODQsMCwwLDEsMi4zLjQ2Myw1Ljk3OCw1Ljk3OCwwLDAsMSwzLjIzMSwzLjIyOUE1Ljc5Miw1Ljc5MiwwLDAsMSwyNi41LDI1YTUuNzEzLDUuNzEzLDAsMCwxLS40NTQsMi4zMTksNi4xMTYsNi4xMTYsMCwwLDEtMS4zLDEuOTIzLDYsNiwwLDAsMS0xLjkzNywxLjI5NUE1Ljc3MSw1Ljc3MSwwLDAsMSwyMC41LDMxWiIvPjwvc3ZnPg==","updateInstanceDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/application-security-descriptor-configuration-syntax","createBindingDocumentationUrl":"https://help.sap.com/docs/btp/sap-business-technology-platform/binding-parameters-of-sap-authorization-and-trust-management-service?version=Cloud","sm_offering_id":"a3199d59-3fdc-41f5-a258-8ea36ff26762"},"features":{"plan_updateable":false,"bindable":true,"instances_retrievable":false,"bindings_retrievable":false,"allow_context_updates":false}},"relationships":{"service_broker":{"data":{"guid":"01724e33-93c4-4564-a7b5-84d9c7298786"}}},"metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/service_offerings/c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_plans":{"href":"https://api.x.x.x.x.com/v3/service_plans?service_offering_guids=c1876449-7493-43dc-a36b-0a8215fa46ad"},"service_broker":{"href":"https://api.x.x.x.x.com/v3/service_brokers/01724e33-93c4-4564-a7b5-84d9c7298786"}}}'
-        headers:
-            Content-Length:
-                - "5150"
-            Content-Type:
-                - application/json; charset=utf-8
-            Date:
-                - Fri, 10 Jul 2026 06:49:47 GMT
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5e336337868c2439
-            X-B3-Traceid:
-                - 09aa81a16d2d46165e336337868c2439
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1783667132"
-            X-Runtime:
-                - "0.009330"
-            X-Vcap-Request-Id:
-                - 09aa81a1-6d2d-4616-5e33-6337868c2439::3466683b-7f69-449f-9385-00098663b5ed
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
-        code: 200
-        duration: 198.496833ms
-    - id: 22
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/service_instances/421a97e8-8fc8-4fe1-a9eb-69a0ab3044ae
-        method: DELETE
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
-        trailer: {}
-        content_length: 0
-        uncompressed: false
-        body: ""
-        headers:
-            Content-Length:
-                - "0"
-            Content-Type:
-                - text/html
-            Date:
-                - Fri, 10 Jul 2026 06:49:47 GMT
-            Location:
-                - https://api.x.x.x.x.com/v3/jobs/b35fdb22-cea2-40c9-ae4f-6b611137b2d0
-            Referrer-Policy:
-                - strict-origin-when-cross-origin
-            Strict-Transport-Security:
-                - max-age=31536000; includeSubDomains; preload;
-            X-B3-Spanid:
-                - 5660a83a69e0ada3
-            X-B3-Traceid:
-                - 60d2ac67bce64d3d5660a83a69e0ada3
-            X-Content-Type-Options:
-                - nosniff
-            X-Download-Options:
-                - noopen
-            X-Frame-Options:
-                - SAMEORIGIN
-            X-Permitted-Cross-Domain-Policies:
-                - none
-            X-Ratelimit-Limit:
-                - "20000"
-            X-Ratelimit-Remaining:
-                - "18000"
-            X-Ratelimit-Reset:
-                - "1783667131"
-            X-Runtime:
-                - "0.028526"
-            X-Vcap-Request-Id:
-                - 60d2ac67-bce6-4d3d-5660-a83a69e0ada3::ea4a1dd7-1434-4b7d-8609-66bf2e6caa37
-            X-Xss-Protection:
-                - 1; mode=block
-        status: 202 Accepted
-        code: 202
-        duration: 217.360125ms
-    - id: 23
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        transfer_encoding: []
-        trailer: {}
-        host: api.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: ""
-        form: {}
-        headers:
-            Authorization:
-                - Bearer redacted
-            User-Agent:
-                - Terraform/1.15.5 terraform-provider-cloudfoundry/dev
-        url: https://api.x.x.x.x.com/v3/jobs/b35fdb22-cea2-40c9-ae4f-6b611137b2d0
+                - Terraform/1.14.3 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/jobs/259546d1-4728-47cf-a8a0-6476b4e04bb0
         method: GET
       response:
         proto: HTTP/2.0
@@ -1584,22 +1314,22 @@ interactions:
         trailer: {}
         content_length: 312
         uncompressed: false
-        body: '{"guid":"b35fdb22-cea2-40c9-ae4f-6b611137b2d0","created_at":"2026-07-10T06:49:47Z","updated_at":"2026-07-10T06:49:48Z","operation":"service_instance.delete","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/b35fdb22-cea2-40c9-ae4f-6b611137b2d0"}}}'
+        body: '{"guid":"259546d1-4728-47cf-a8a0-6476b4e04bb0","created_at":"2026-08-18T10:01:11Z","updated_at":"2026-08-18T10:01:13Z","operation":"service_instance.delete","state":"COMPLETE","errors":[],"warnings":[],"links":{"self":{"href":"https://api.x.x.x.x.com/v3/jobs/259546d1-4728-47cf-a8a0-6476b4e04bb0"}}}'
         headers:
             Content-Length:
                 - "312"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Fri, 10 Jul 2026 06:49:49 GMT
+                - Tue, 18 Aug 2026 10:01:13 GMT
             Referrer-Policy:
                 - strict-origin-when-cross-origin
             Strict-Transport-Security:
                 - max-age=31536000; includeSubDomains; preload;
             X-B3-Spanid:
-                - 64115ab4fa9de1fa
+                - 780962ce0567f856
             X-B3-Traceid:
-                - 510b6a97b20941ae64115ab4fa9de1fa
+                - 35af1a34f11b4f2b780962ce0567f856
             X-Content-Type-Options:
                 - nosniff
             X-Download-Options:
@@ -1613,13 +1343,13 @@ interactions:
             X-Ratelimit-Remaining:
                 - "18000"
             X-Ratelimit-Reset:
-                - "1783667131"
+                - "1787047530"
             X-Runtime:
-                - "0.005753"
+                - "0.005727"
             X-Vcap-Request-Id:
-                - 510b6a97-b209-41ae-6411-5ab4fa9de1fa::07384a0f-af17-41a9-a8cc-8660b7ac3fb6
+                - 35af1a34-f11b-4f2b-7809-62ce0567f856::2d88e429-686e-4610-ada1-16ee615fb473
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 199.26025ms
+        duration: 236.310292ms

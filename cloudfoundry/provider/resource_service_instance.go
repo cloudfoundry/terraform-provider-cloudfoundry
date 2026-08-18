@@ -118,7 +118,8 @@ https://docs.cloudfoundry.org/devguide/services`,
 				},
 				PlanModifiers: []planmodifier.String{
 					//If the offering changes a new service instance needs to be created
-					stringplanmodifier.RequiresReplace(),
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"parameters": schema.StringAttribute{
