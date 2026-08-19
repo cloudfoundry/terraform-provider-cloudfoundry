@@ -28,6 +28,7 @@ type AppType struct {
 	EnableSSH                             types.Bool         `tfsdk:"enable_ssh"`
 	Stack                                 types.String       `tfsdk:"stack"`
 	Buildpacks                            types.List         `tfsdk:"buildpacks"`
+	Lifecycle                             types.String       `tfsdk:"lifecycle_type"`
 	Path                                  types.String       `tfsdk:"path"`
 	SourceCodeHash                        types.String       `tfsdk:"source_code_hash"`
 	DockerImage                           types.String       `tfsdk:"docker_image"`
@@ -71,6 +72,7 @@ type DatasourceAppType struct {
 	EnableSSH                             types.Bool                   `tfsdk:"enable_ssh"`
 	Stack                                 types.String                 `tfsdk:"stack"`
 	Buildpacks                            types.List                   `tfsdk:"buildpacks"`
+	Lifecycle                             types.String                 `tfsdk:"lifecycle_type"`
 	DockerImage                           types.String                 `tfsdk:"docker_image"`
 	DockerCredentials                     *DataSourceDockerCredentials `tfsdk:"docker_credentials"`
 	ServiceBindings                       types.Set                    `tfsdk:"service_bindings"`
@@ -196,6 +198,9 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 			}
 		}
 		appmanifest.Docker = &appManifestDocker
+	}
+	if !appType.Lifecycle.IsNull() && !appType.Lifecycle.IsUnknown() {
+		appmanifest.Lifecycle = cfv3operation.AppLifecycle(appType.Lifecycle.ValueString())
 	}
 	if !appType.ServiceBindings.IsUnknown() {
 		var services cfv3operation.AppManifestServices
@@ -385,6 +390,16 @@ func (appType *AppType) mapAppTypeToValues(ctx context.Context) (*cfv3operation.
 	reqPlanType is required here to identify whether attributes like "health-check-interval", "readiness-health-check-interval"
 	are present as part of app spec or not, since cf api controller converts them to be part of process spec internally
 */
+func mapLifecycleToStringType(appManifest *cfv3operation.AppManifest, app *cfv3resource.App) types.String {
+	if app.Lifecycle.Type != "" {
+		return types.StringValue(app.Lifecycle.Type)
+	}
+	if appManifest.Lifecycle != "" {
+		return types.StringValue(string(appManifest.Lifecycle))
+	}
+	return types.StringNull()
+}
+
 func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManifest, app *cfv3resource.App, reqPlanType *AppType, sshResp *cfv3resource.AppFeature) (AppType, diag.Diagnostics) {
 	var diags, tempDiags diag.Diagnostics
 	var appType AppType
@@ -396,6 +411,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 	} else {
 		appType.Buildpacks = types.ListNull(types.StringType)
 	}
+	appType.Lifecycle = mapLifecycleToStringType(appManifest, app)
 	if appManifest.Docker != nil {
 		appType.DockerImage = types.StringValue(appManifest.Docker.Image)
 		if appManifest.Docker.Username != "" {
@@ -406,6 +422,7 @@ func mapAppValuesToType(ctx context.Context, appManifest *cfv3operation.AppManif
 			}
 		}
 	}
+
 	if appManifest.Services != nil {
 		var serviceBindings []ServiceBinding
 		for _, service := range *appManifest.Services {
@@ -774,6 +791,7 @@ func mapAppDatasourceValuesToType(ctx context.Context, appManifest *cfv3operatio
 	} else {
 		appType.Buildpacks = types.ListNull(types.StringType)
 	}
+	appType.Lifecycle = mapLifecycleToStringType(appManifest, app)
 	if appManifest.Docker != nil {
 		appType.DockerImage = types.StringValue(appManifest.Docker.Image)
 		if appManifest.Docker.Username != "" {

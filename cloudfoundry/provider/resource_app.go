@@ -50,8 +50,9 @@ const (
 )
 
 var (
-	_ resource.Resource              = &appResource{}
-	_ resource.ResourceWithConfigure = &appResource{}
+	_ resource.Resource                   = &appResource{}
+	_ resource.ResourceWithConfigure      = &appResource{}
+	_ resource.ResourceWithValidateConfig = &appResource{}
 )
 
 func NewAppResource() resource.Resource {
@@ -109,6 +110,14 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					listvalidator.SizeAtLeast(1),
 				},
 				Optional: true,
+			},
+			"lifecycle_type": schema.StringAttribute{
+				MarkdownDescription: "The lifecycle type used to stage the application. Common values include `buildpack` and `docker`. Defaults to `docker` when `docker_image` is set, otherwise `buildpack`. Support for additional lifecycle identifiers depends on the target Cloud Foundry platform.",
+				Optional:            true,
+				Computed:            true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtLeast(1),
+				},
 			},
 			"path": schema.StringAttribute{
 				MarkdownDescription: "The path to the zip file for the application.",
@@ -338,6 +347,35 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 		if _, ok := resp.Schema.Attributes[k]; !ok {
 			resp.Schema.Attributes[k] = v
 		}
+	}
+}
+
+func (r *appResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
+	var config AppType
+	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if !config.Lifecycle.IsNull() && !config.Lifecycle.IsUnknown() && config.Lifecycle.ValueString() == string(cfv3operation.Docker) &&
+		!config.DockerImage.IsUnknown() && config.DockerImage.IsNull() {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("docker_image"),
+			"Missing docker image",
+			"docker_image must be set when lifecycle_type is docker",
+		)
+		return
+	}
+
+	if !config.Lifecycle.IsNull() && !config.Lifecycle.IsUnknown() && config.Lifecycle.ValueString() != string(cfv3operation.Docker) &&
+		!config.DockerImage.IsUnknown() && !config.DockerImage.IsNull() {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("lifecycle_type"),
+			"Invalid attribute combination",
+			"lifecycle_type must be docker or omitted when docker_image is set",
+		)
+		return
 	}
 }
 

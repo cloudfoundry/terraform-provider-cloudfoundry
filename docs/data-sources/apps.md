@@ -55,6 +55,7 @@ Read-Only:
 - `id` (String) The GUID of the object.
 - `instances` (Number) The number of app instances started.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
+- `lifecycle_type` (String) The lifecycle type used to stage the application. Common values include `buildpack` and `docker`. Support for additional lifecycle identifiers depends on the target Cloud Foundry platform.
 - `log_rate_limit_per_second` (String) The attribute specifies the log rate limit for all instances of an app.
 - `memory` (String) The memory limit for each application instance.
 - `name` (String) The name of the application to look up
