@@ -358,8 +358,14 @@ func (r *appResource) ValidateConfig(ctx context.Context, req resource.ValidateC
 		return
 	}
 
-	if !config.Lifecycle.IsNull() && !config.Lifecycle.IsUnknown() && config.Lifecycle.ValueString() == string(cfv3operation.Docker) &&
-		!config.DockerImage.IsUnknown() && config.DockerImage.IsNull() {
+	if config.Lifecycle.IsNull() || config.Lifecycle.IsUnknown() {
+		return
+	}
+
+	isDockerLifecycle := config.Lifecycle.ValueString() == string(cfv3operation.Docker)
+	hasDockerImage := !config.DockerImage.IsUnknown() && !config.DockerImage.IsNull()
+
+	if isDockerLifecycle && !hasDockerImage {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("docker_image"),
 			"Missing docker image",
@@ -368,14 +374,12 @@ func (r *appResource) ValidateConfig(ctx context.Context, req resource.ValidateC
 		return
 	}
 
-	if !config.Lifecycle.IsNull() && !config.Lifecycle.IsUnknown() && config.Lifecycle.ValueString() != string(cfv3operation.Docker) &&
-		!config.DockerImage.IsUnknown() && !config.DockerImage.IsNull() {
+	if !isDockerLifecycle && hasDockerImage {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("lifecycle_type"),
 			"Invalid attribute combination",
 			"lifecycle_type must be docker or omitted when docker_image is set",
 		)
-		return
 	}
 }
 
