@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
 	code.cloudfoundry.org/lager/v3 v3.82.0
 	code.cloudfoundry.org/policy_client v0.116.0
-	github.com/cloudfoundry-community/go-uaa v0.4.2
+	github.com/cloudfoundry-community/go-uaa v0.5.0
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-beta.1
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
@@ -91,6 +91,6 @@ require (
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260414002931-afd174a4e478 // indirect
 	google.golang.org/grpc v1.82.1 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
+	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
