@@ -4,7 +4,7 @@ go 1.26
 
 require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
-	code.cloudfoundry.org/lager/v3 v3.84.0
+	code.cloudfoundry.org/lager/v3 v3.85.0
 	code.cloudfoundry.org/policy_client v0.117.0
 	github.com/cloudfoundry-community/go-uaa v0.5.0
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-beta.1
@@ -27,7 +27,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
-	github.com/google/pprof v0.0.0-20260825171938-4d453200e7d9 // indirect
+	github.com/google/pprof v0.0.0-20260830191439-4932ad3515ea // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/onsi/ginkgo/v2 v2.32.1 // indirect
