@@ -112,11 +112,15 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 				Optional: true,
 			},
 			"lifecycle_type": schema.StringAttribute{
-				MarkdownDescription: "The lifecycle type used to stage the application. Common values include `buildpack` and `docker`. Defaults to `docker` when `docker_image` is set, otherwise `buildpack`. Support for additional lifecycle identifiers depends on the target Cloud Foundry platform.",
+				MarkdownDescription: "The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks). Defaults to `docker` when `docker_image` is set, otherwise `buildpack`.",
 				Optional:            true,
 				Computed:            true,
 				Validators: []validator.String{
-					stringvalidator.LengthAtLeast(1),
+					stringvalidator.OneOf(
+						string(cfv3operation.Buildpack),
+						string(cfv3operation.Docker),
+						string(cfv3operation.CNB),
+					),
 				},
 			},
 			"path": schema.StringAttribute{

@@ -61,7 +61,7 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 				Computed:            true,
 			},
 			"lifecycle_type": schema.StringAttribute{
-				MarkdownDescription: "The lifecycle type used to stage the application. Common values include `buildpack` and `docker`. Support for additional lifecycle identifiers depends on the target Cloud Foundry platform.",
+				MarkdownDescription: "The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks).",
 				Computed:            true,
 			},
 			"docker_image": schema.StringAttribute{
