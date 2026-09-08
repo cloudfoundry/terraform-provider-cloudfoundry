@@ -362,11 +362,11 @@ func (r *appResource) ValidateConfig(ctx context.Context, req resource.ValidateC
 		return
 	}
 
-	if config.Lifecycle.IsNull() || config.Lifecycle.IsUnknown() {
+	if config.LifecycleType.IsNull() || config.LifecycleType.IsUnknown() {
 		return
 	}
 
-	isDockerLifecycle := config.Lifecycle.ValueString() == string(cfv3operation.Docker)
+	isDockerLifecycle := config.LifecycleType.ValueString() == string(cfv3operation.Docker)
 	hasDockerImage := !config.DockerImage.IsUnknown() && !config.DockerImage.IsNull()
 
 	if isDockerLifecycle && !hasDockerImage {
