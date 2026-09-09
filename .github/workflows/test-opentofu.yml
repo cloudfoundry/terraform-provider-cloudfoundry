@@ -48,12 +48,9 @@ jobs:
       matrix:
         # List of OpenTofu versions to be tested - last three versions are in scope
         # Check https://endoflife.date/opentofu for end of support dates
-        # '1.6.*' end of security support 09 Jan 2025
         opentofu:
-          - '1.7.*'
-          - '1.8.*'
-          - '1.9.*'
           - '1.10.*'
+          - '1.12.*'
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
@@ -66,7 +63,7 @@ jobs:
           tofu_wrapper: false
       - run: go mod download
       - run: go test -v -timeout=900s -parallel=4 ./...
-        if: ${{ matrix.opentofu }} != ${{ env.LATEST_VERSION }}
+        if: ${{ matrix.opentofu != env.LATEST_VERSION }}
         env:
           TF_ACC: "1"
         timeout-minutes: 20
