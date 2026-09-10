@@ -211,8 +211,12 @@ func mapResourceServiceInstanceValuesToType(ctx context.Context, value *resource
 		if value.DashboardURL != nil {
 			serviceInstanceType.DashboardURL = types.StringValue(*value.DashboardURL)
 		}
-		serviceInstanceType.MaintenanceInfo, diags = types.ObjectValueFrom(ctx, maintenanceInfoAttrTypes, mapMaintenanceInfo(*value.MaintenanceInfo))
-		diagnostics.Append(diags...)
+		if value.MaintenanceInfo != nil {
+			serviceInstanceType.MaintenanceInfo, diags = types.ObjectValueFrom(ctx, maintenanceInfoAttrTypes, mapMaintenanceInfo(*value.MaintenanceInfo))
+			diagnostics.Append(diags...)
+		} else {
+			serviceInstanceType.MaintenanceInfo = types.ObjectNull(maintenanceInfoAttrTypes)
+		}
 
 		if !paramCreds.IsNull() {
 			serviceInstanceType.Parameters = jsontypes.NewNormalizedValue(paramCreds.ValueString())
