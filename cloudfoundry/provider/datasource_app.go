@@ -60,6 +60,10 @@ func (d *appDataSource) Schema(ctx context.Context, req datasource.SchemaRequest
 				ElementType:         types.StringType,
 				Computed:            true,
 			},
+			"lifecycle_type": schema.StringAttribute{
+				MarkdownDescription: "The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks).",
+				Computed:            true,
+			},
 			"docker_image": schema.StringAttribute{
 				MarkdownDescription: "The URL to the docker image with tag",
 				Computed:            true,

@@ -177,6 +177,12 @@ func (cfg *CloudFoundryProviderConfigPtr) GetHook() func(i *cassette.Interaction
 		// `[A-Z]+[A-Za-z0-9_]` part added to enforce some capital letter to prevent cases like 12.1.2
 		jwtTokenPattern := regexp.MustCompile(`([A-Za-z0-9_]*[A-Z]+[A-Za-z0-9_]*\.){2}[A-Za-z0-9-_]*`)
 		interactionFinal = jwtTokenPattern.ReplaceAllString(interactionFinal, "redacted")
+		// UAA opaque refresh tokens are lowercase/hyphenated and don't match the JWT pattern above,
+		// so redact them explicitly wherever the literal value appears in the interaction.
+		refreshTokenValuePattern := regexp.MustCompile(`refresh_token=([A-Za-z0-9_.\-]+)`)
+		if m := refreshTokenValuePattern.FindStringSubmatch(interactionFinal); len(m) == 2 && m[1] != "" {
+			interactionFinal = strings.ReplaceAll(interactionFinal, m[1], "redacted")
+		}
 		err = json.Unmarshal([]byte(interactionFinal), &casInteraction)
 		if err != nil {
 			panic(err)

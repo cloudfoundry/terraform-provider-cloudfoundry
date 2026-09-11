@@ -50,8 +50,9 @@ const (
 )
 
 var (
-	_ resource.Resource              = &appResource{}
-	_ resource.ResourceWithConfigure = &appResource{}
+	_ resource.Resource                   = &appResource{}
+	_ resource.ResourceWithConfigure      = &appResource{}
+	_ resource.ResourceWithValidateConfig = &appResource{}
 )
 
 func NewAppResource() resource.Resource {
@@ -109,6 +110,18 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 					listvalidator.SizeAtLeast(1),
 				},
 				Optional: true,
+			},
+			"lifecycle_type": schema.StringAttribute{
+				MarkdownDescription: "The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks). Defaults to `docker` when `docker_image` is set, otherwise `buildpack`.",
+				Optional:            true,
+				Computed:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						string(cfv3operation.Buildpack),
+						string(cfv3operation.Docker),
+						string(cfv3operation.CNB),
+					),
+				},
 			},
 			"path": schema.StringAttribute{
 				MarkdownDescription: "The path to the zip file for the application.",
@@ -338,6 +351,39 @@ func (r *appResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *
 		if _, ok := resp.Schema.Attributes[k]; !ok {
 			resp.Schema.Attributes[k] = v
 		}
+	}
+}
+
+func (r *appResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
+	var config AppType
+	resp.Diagnostics.Append(req.Config.Get(ctx, &config)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if config.LifecycleType.IsNull() || config.LifecycleType.IsUnknown() {
+		return
+	}
+
+	isDockerLifecycle := config.LifecycleType.ValueString() == string(cfv3operation.Docker)
+	hasDockerImage := !config.DockerImage.IsUnknown() && !config.DockerImage.IsNull()
+
+	if isDockerLifecycle && !hasDockerImage {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("docker_image"),
+			"Missing docker image",
+			"docker_image must be set when lifecycle_type is docker",
+		)
+		return
+	}
+
+	if !isDockerLifecycle && hasDockerImage {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("lifecycle_type"),
+			"Invalid attribute combination",
+			"lifecycle_type must be docker or omitted when docker_image is set",
+		)
 	}
 }
 
