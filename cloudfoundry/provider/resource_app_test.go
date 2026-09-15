@@ -291,11 +291,6 @@ resource "cloudfoundry_app" "app" {
 			},
 		})
 	})
-}
-
-func TestAppResource_Lifecycle(t *testing.T) {
-	t.Parallel()
-	resourceName := "cloudfoundry_app.app"
 
 	t.Run("happy path - create app with buildpack lifecycle", func(t *testing.T) {
 		cfg := getCFHomeConf()
@@ -388,12 +383,9 @@ resource "cloudfoundry_app" "app" {
 	})
 
 	t.Run("error path - docker_image conflicts with buildpack lifecycle_type", func(t *testing.T) {
-		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_conflict")
-		defer stopQuietly(rec)
 		resource.Test(t, resource.TestCase{
 			IsUnitTest:               true,
-			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			ProtoV6ProviderFactories: getProviders(nil),
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + `
@@ -412,12 +404,9 @@ resource "cloudfoundry_app" "invalid" {
 	})
 
 	t.Run("error path - docker_image conflicts with cnb lifecycle_type", func(t *testing.T) {
-		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_conflict")
-		defer stopQuietly(rec)
 		resource.Test(t, resource.TestCase{
 			IsUnitTest:               true,
-			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			ProtoV6ProviderFactories: getProviders(nil),
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + `
@@ -436,12 +425,9 @@ resource "cloudfoundry_app" "invalid" {
 	})
 
 	t.Run("error path - lifecycle_type must be a known value", func(t *testing.T) {
-		cfg := getCFHomeConf()
-		rec := cfg.SetupVCR(t, "fixtures/resource_app_lifecycle_invalid_value")
-		defer stopQuietly(rec)
 		resource.Test(t, resource.TestCase{
 			IsUnitTest:               true,
-			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			ProtoV6ProviderFactories: getProviders(nil),
 			Steps: []resource.TestStep{
 				{
 					Config: hclProvider(nil) + `
