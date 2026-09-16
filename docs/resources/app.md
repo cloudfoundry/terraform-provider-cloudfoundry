@@ -151,6 +151,7 @@ resource "cloudfoundry_app" "http-bin-sidecar" {
 - `health_check_type` (String) The health check type which can be one of 'port', 'process', 'http'.
 - `instances` (Number) The number of app instances that you want to start. Defaults to 1.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
+- `lifecycle_type` (String) The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks). Defaults to `docker` when `docker_image` is set, otherwise `buildpack`.
 - `log_rate_limit_per_second` (String) The attribute specifies the log rate limit for all instances of an app.
 - `memory` (String) The memory limit for each application instance. If not provided, value is computed and retreived from Cloud Foundry.
 - `no_route` (Boolean) The attribute with a value of true to prevent a route from being created for your app.

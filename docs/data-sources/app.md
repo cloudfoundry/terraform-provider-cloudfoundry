@@ -79,6 +79,7 @@ output "service_bindings" {
 - `id` (String) The GUID of the object.
 - `instances` (Number) The number of app instances started.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources.
+- `lifecycle_type` (String) The lifecycle type used to stage the application. Valid values are `buildpack`, `docker`, and `cnb` (Cloud Native Buildpacks).
 - `log_rate_limit_per_second` (String) The attribute specifies the log rate limit for all instances of an app.
 - `memory` (String) The memory limit for each application instance.
 - `processes` (Attributes Set) List of configurations for individual process types. (see [below for nested schema](#nestedatt--processes))
