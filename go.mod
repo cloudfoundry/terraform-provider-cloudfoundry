@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
 	code.cloudfoundry.org/lager/v3 v3.89.0
 	code.cloudfoundry.org/policy_client v0.121.0
-	github.com/cloudfoundry-community/go-uaa v0.5.0
+	github.com/cloudfoundry-community/go-uaa v0.5.1
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-beta.1
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
@@ -85,7 +85,7 @@ require (
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/net v0.59.0 // indirect
-	golang.org/x/oauth2 v0.36.0 // indirect
+	golang.org/x/oauth2 v0.37.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
