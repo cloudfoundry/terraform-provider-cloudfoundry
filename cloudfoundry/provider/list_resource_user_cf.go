@@ -71,7 +71,21 @@ func (r *userCFListResource) List(ctx context.Context, req list.ListRequest, str
 			result.Identity.SetAttribute(ctx, path.Root("user_guid"), user.GUID)
 
 			if req.IncludeResource {
-				resourceUser, diags := mapUserValuesToType(ctx, user)
+				// Fetch the user individually so the resource returned by the list
+				// operation is populated through the same API path as Resource.Read.
+				cfUser, err := r.cfClient.Users.Get(ctx, user.GUID)
+				if err != nil {
+					result.Diagnostics.AddError(
+						"API Error Reading CF User",
+						"Could not read User "+user.GUID+": "+err.Error(),
+					)
+					if !push(result) {
+						return
+					}
+					continue
+				}
+
+				resourceUser, diags := mapUserValuesToType(ctx, cfUser)
 				result.Diagnostics.Append(diags...)
 
 				if !result.Diagnostics.HasError() {
