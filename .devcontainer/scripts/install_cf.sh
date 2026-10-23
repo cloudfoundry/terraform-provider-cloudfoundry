@@ -12,7 +12,8 @@ fi
 temporary_directory=$(mktemp -d)
 trap 'rm -rf "${temporary_directory}"' EXIT
 
-curl -fsSL "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" \
+curl -fsSL --proto '=https' --proto-redir '=https' \
+  "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" \
   | tar -xzf - -C "${temporary_directory}"
 
 # The archive provides cf8 and a cf symlink that points to it.
@@ -21,7 +22,7 @@ curl -fsSL "https://packages.cloudfoundry.org/stable?release=linux64-binary&vers
 
 # Bash completion takes effect after opening a new shell.
 "${sudo_command[@]}" mkdir -p /usr/share/bash-completion/completions
-"${sudo_command[@]}" curl -fsSL \
+"${sudo_command[@]}" curl -fsSL --proto '=https' --proto-redir '=https' \
   -o /usr/share/bash-completion/completions/cf8 \
   https://raw.githubusercontent.com/cloudfoundry/cli-ci/master/ci/installers/completion/cf8
 
