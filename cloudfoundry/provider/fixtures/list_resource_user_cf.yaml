@@ -1,0 +1,673 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1867
+        uncompressed: false
+        body: '{"pagination":{"total_results":4,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"0ad97474-e6ca-4473-8466-e317ce4e1ded","created_at":"2023-06-13T08:55:40Z","updated_at":"2023-06-13T12:57:06Z","username":"john.doe1@sap.com","presentation_name":"john.doe1@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/0ad97474-e6ca-4473-8466-e317ce4e1ded"}}},{"guid":"6c05946f-f32b-46f3-8ce5-a9c2020c2aa5","created_at":"2023-06-27T04:56:30Z","updated_at":"2023-06-27T04:56:30Z","username":"john.doe2@sap.com","presentation_name":"john.doe2@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"}}},{"guid":"897d153b-c944-4997-ab89-dc8042c23a3c","created_at":"2024-05-21T06:18:24Z","updated_at":"2024-05-21T06:18:24Z","username":"test@example.com","presentation_name":"test@example.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c"}}},{"guid":"7e7afcba-15ae-4a6b-a709-23aa98646299","created_at":"2026-08-27T04:57:32Z","updated_at":"2026-08-27T04:57:32Z","username":"john.doe3@sap.com","presentation_name":"john.doe3@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299"}}}]}'
+        headers:
+            Content-Length:
+                - "1867"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:43 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 4d82ac1e307e0fde
+            X-B3-Traceid:
+                - 4acc277980d447554d82ac1e307e0fde
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.061428"
+            X-Vcap-Request-Id:
+                - 4acc2779-80d4-4755-4d82-ac1e307e0fde::7be28704-0968-4c0f-be3f-90b7660206ef
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 189.328833ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1867
+        uncompressed: false
+        body: '{"pagination":{"total_results":4,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/organizations/aafd584c-623a-427c-83ea-182115b5f854/users?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"0ad97474-e6ca-4473-8466-e317ce4e1ded","created_at":"2023-06-13T08:55:40Z","updated_at":"2023-06-13T12:57:06Z","username":"john.doe1@sap.com","presentation_name":"john.doe1@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/0ad97474-e6ca-4473-8466-e317ce4e1ded"}}},{"guid":"6c05946f-f32b-46f3-8ce5-a9c2020c2aa5","created_at":"2023-06-27T04:56:30Z","updated_at":"2023-06-27T04:56:30Z","username":"john.doe2@sap.com","presentation_name":"john.doe2@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"}}},{"guid":"897d153b-c944-4997-ab89-dc8042c23a3c","created_at":"2024-05-21T06:18:24Z","updated_at":"2024-05-21T06:18:24Z","username":"test@example.com","presentation_name":"test@example.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c"}}},{"guid":"7e7afcba-15ae-4a6b-a709-23aa98646299","created_at":"2026-08-27T04:57:32Z","updated_at":"2026-08-27T04:57:32Z","username":"john.doe3@sap.com","presentation_name":"john.doe3@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299"}}}]}'
+        headers:
+            Content-Length:
+                - "1867"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:43 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7874007df038ef6a
+            X-B3-Traceid:
+                - b43430cd8302464e7874007df038ef6a
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.056211"
+            X-Vcap-Request-Id:
+                - b43430cd-8302-464e-7874-007df038ef6a::974c4d82-2f86-45d4-8422-53edee87dfed
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 82.45675ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/0ad97474-e6ca-4473-8466-e317ce4e1ded
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 379
+        uncompressed: false
+        body: '{"guid":"0ad97474-e6ca-4473-8466-e317ce4e1ded","created_at":"2023-06-13T08:55:40Z","updated_at":"2023-06-13T12:57:06Z","username":"john.doe1@sap.com","presentation_name":"john.doe1@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/0ad97474-e6ca-4473-8466-e317ce4e1ded"}}}'
+        headers:
+            Content-Length:
+                - "379"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:43 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 729596f7025c0c3f
+            X-B3-Traceid:
+                - 13f23fb881da4821729596f7025c0c3f
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.051000"
+            X-Vcap-Request-Id:
+                - 13f23fb8-81da-4821-7295-96f7025c0c3f::2e3866ad-f743-4a00-8b2e-63d03e76241d
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 76.398667ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 375
+        uncompressed: false
+        body: '{"guid":"6c05946f-f32b-46f3-8ce5-a9c2020c2aa5","created_at":"2023-06-27T04:56:30Z","updated_at":"2023-06-27T04:56:30Z","username":"john.doe2@sap.com","presentation_name":"john.doe2@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"}}}'
+        headers:
+            Content-Length:
+                - "375"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:43 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 7f021e8de2f0453c
+            X-B3-Traceid:
+                - 59a201888a4f44b47f021e8de2f0453c
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.045099"
+            X-Vcap-Request-Id:
+                - 59a20188-8a4f-44b4-7f02-1e8de2f0453c::d058e38e-3e1f-4985-8079-9b25f26af940
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 67.798125ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 361
+        uncompressed: false
+        body: '{"guid":"897d153b-c944-4997-ab89-dc8042c23a3c","created_at":"2024-05-21T06:18:24Z","updated_at":"2024-05-21T06:18:24Z","username":"test@example.com","presentation_name":"test@example.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c"}}}'
+        headers:
+            Content-Length:
+                - "361"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 61482ab7e3fc7279
+            X-B3-Traceid:
+                - 1dddf8b4f297417261482ab7e3fc7279
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768448"
+            X-Runtime:
+                - "0.049583"
+            X-Vcap-Request-Id:
+                - 1dddf8b4-f297-4172-6148-2ab7e3fc7279::a0a970de-4f3c-4273-9a52-dfdf8d5e9c1b
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 74.174291ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 375
+        uncompressed: false
+        body: '{"guid":"7e7afcba-15ae-4a6b-a709-23aa98646299","created_at":"2026-08-27T04:57:32Z","updated_at":"2026-08-27T04:57:32Z","username":"john.doe3@sap.com","presentation_name":"john.doe3@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299"}}}'
+        headers:
+            Content-Length:
+                - "375"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 53167ced884171e8
+            X-B3-Traceid:
+                - e5e27f24a9354ae653167ced884171e8
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.057003"
+            X-Vcap-Request-Id:
+                - e5e27f24-a935-4ae6-5316-7ced884171e8::1a19ecaf-7692-431f-a4b7-c8982000a337
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 84.153126ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/spaces/d809bfcb-3c74-4687-9740-b4fc1fa4b3d2/users?page=1&per_page=50
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 1473
+        uncompressed: false
+        body: '{"pagination":{"total_results":3,"total_pages":1,"first":{"href":"https://api.x.x.x.x.com/v3/spaces/d809bfcb-3c74-4687-9740-b4fc1fa4b3d2/users?page=1\u0026per_page=50"},"last":{"href":"https://api.x.x.x.x.com/v3/spaces/d809bfcb-3c74-4687-9740-b4fc1fa4b3d2/users?page=1\u0026per_page=50"},"next":null,"previous":null},"resources":[{"guid":"6c05946f-f32b-46f3-8ce5-a9c2020c2aa5","created_at":"2023-06-27T04:56:30Z","updated_at":"2023-06-27T04:56:30Z","username":"john.doe2@sap.com","presentation_name":"john.doe2@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"}}},{"guid":"897d153b-c944-4997-ab89-dc8042c23a3c","created_at":"2024-05-21T06:18:24Z","updated_at":"2024-05-21T06:18:24Z","username":"test@example.com","presentation_name":"test@example.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c"}}},{"guid":"7e7afcba-15ae-4a6b-a709-23aa98646299","created_at":"2026-08-27T04:57:32Z","updated_at":"2026-08-27T04:57:32Z","username":"john.doe3@sap.com","presentation_name":"john.doe3@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299"}}}]}'
+        headers:
+            Content-Length:
+                - "1473"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 6f805d0df5ff5cac
+            X-B3-Traceid:
+                - 17d393b9716c41596f805d0df5ff5cac
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.052612"
+            X-Vcap-Request-Id:
+                - 17d393b9-716c-4159-6f80-5d0df5ff5cac::75069d9b-8df5-412a-9cff-16e280c994d6
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 75.449459ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 375
+        uncompressed: false
+        body: '{"guid":"6c05946f-f32b-46f3-8ce5-a9c2020c2aa5","created_at":"2023-06-27T04:56:30Z","updated_at":"2023-06-27T04:56:30Z","username":"john.doe2@sap.com","presentation_name":"john.doe2@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/6c05946f-f32b-46f3-8ce5-a9c2020c2aa5"}}}'
+        headers:
+            Content-Length:
+                - "375"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 75a7e7af38c524ca
+            X-B3-Traceid:
+                - b5ca550e902249ad75a7e7af38c524ca
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.041263"
+            X-Vcap-Request-Id:
+                - b5ca550e-9022-49ad-75a7-e7af38c524ca::9d9e52d5-cbbd-451b-be4c-f2af01d55bdf
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 66.680084ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 361
+        uncompressed: false
+        body: '{"guid":"897d153b-c944-4997-ab89-dc8042c23a3c","created_at":"2024-05-21T06:18:24Z","updated_at":"2024-05-21T06:18:24Z","username":"test@example.com","presentation_name":"test@example.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/897d153b-c944-4997-ab89-dc8042c23a3c"}}}'
+        headers:
+            Content-Length:
+                - "361"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 44e6ff02b197d577
+            X-B3-Traceid:
+                - 3f1b015a001e4bec44e6ff02b197d577
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768450"
+            X-Runtime:
+                - "0.055623"
+            X-Vcap-Request-Id:
+                - 3f1b015a-001e-4bec-44e6-ff02b197d577::8f389eca-8c99-4559-b86a-65dd9713d9db
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 79.04625ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.x.x.x.x.com
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer redacted
+            User-Agent:
+                - Terraform/1.17.0 terraform-provider-cloudfoundry/dev
+        url: https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 375
+        uncompressed: false
+        body: '{"guid":"7e7afcba-15ae-4a6b-a709-23aa98646299","created_at":"2026-08-27T04:57:32Z","updated_at":"2026-08-27T04:57:32Z","username":"john.doe3@sap.com","presentation_name":"john.doe3@sap.com","origin":"sap.ids","metadata":{"labels":{},"annotations":{}},"links":{"self":{"href":"https://api.x.x.x.x.com/v3/users/7e7afcba-15ae-4a6b-a709-23aa98646299"}}}'
+        headers:
+            Content-Length:
+                - "375"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 23 Oct 2026 15:11:44 GMT
+            Referrer-Policy:
+                - strict-origin-when-cross-origin
+            Strict-Transport-Security:
+                - max-age=31536000; includeSubDomains; preload;
+            X-B3-Spanid:
+                - 51b0a2e93b41451f
+            X-B3-Traceid:
+                - 8338d1c1f87f40c151b0a2e93b41451f
+            X-Content-Type-Options:
+                - nosniff
+            X-Download-Options:
+                - noopen
+            X-Frame-Options:
+                - SAMEORIGIN
+            X-Permitted-Cross-Domain-Policies:
+                - none
+            X-Ratelimit-Limit:
+                - "20000"
+            X-Ratelimit-Remaining:
+                - "18000"
+            X-Ratelimit-Reset:
+                - "1792768449"
+            X-Runtime:
+                - "0.042233"
+            X-Vcap-Request-Id:
+                - 8338d1c1-f87f-40c1-51b0-a2e93b41451f::efd770b9-fa03-4572-933b-2edad047c8cb
+            X-Xss-Protection:
+                - 1; mode=block
+        status: 200 OK
+        code: 200
+        duration: 71.184916ms

@@ -19,10 +19,10 @@ import (
 )
 
 var (
-	_ resource.Resource                = &UserResource{}
-	_ resource.ResourceWithConfigure   = &UserResource{}
-	_ resource.ResourceWithImportState = &UserResource{}
-	_ resource.ResourceWithIdentity    = &UserResource{}
+	_ resource.Resource                = &UserCFResource{}
+	_ resource.ResourceWithConfigure   = &UserCFResource{}
+	_ resource.ResourceWithImportState = &UserCFResource{}
+	_ resource.ResourceWithIdentity    = &UserCFResource{}
 )
 
 // Instantiates a user resource.

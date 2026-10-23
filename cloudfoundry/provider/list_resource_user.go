@@ -57,11 +57,15 @@ func (r *userListResource) Configure(_ context.Context,
 
 func (r *userListResource) ListResourceConfigSchema(
 	_ context.Context,
-	req list.ListResourceSchemaRequest,
+	_ list.ListResourceSchemaRequest,
 	resp *list.ListResourceSchemaResponse,
 ) {
-	resp.Schema = schema.Schema{
-		MarkdownDescription: "This list resource allows you to discover all users the caller has access to, optionally scoped to an organization or space.",
+	resp.Schema = userListResourceConfigSchema("This list resource allows you to discover all users the caller has access to, optionally scoped to an organization or space.")
+}
+
+func userListResourceConfigSchema(description string) schema.Schema {
+	return schema.Schema{
+		MarkdownDescription: description,
 		Attributes: map[string]schema.Attribute{
 			"org": schema.StringAttribute{
 				MarkdownDescription: "The GUID of the organization to filter users by. Returns only users that are members of this organization.",
@@ -69,10 +73,6 @@ func (r *userListResource) ListResourceConfigSchema(
 				Validators: []validator.String{
 					validation.ValidUUID(),
 					stringvalidator.ConflictsWith(path.MatchRoot("space")),
-					// stringvalidator.ExactlyOneOf(path.Expressions{
-					// 	path.MatchRoot("space"),
-					// 	path.MatchRoot("org"),
-					// }...),
 				},
 			},
 			"space": schema.StringAttribute{
@@ -96,47 +96,10 @@ func (r *userListResource) List(ctx context.Context, req list.ListRequest, strea
 		return
 	}
 
-	opts := cfv3client.NewUserListOptions()
-
-	var (
-		users []*cfv3resource.User
-		err   error
-	)
-
-	switch {
-	case !filter.Space.IsNull():
-		users, err = r.cfClient.Spaces.ListUsersAll(ctx, filter.Space.ValueString(), opts)
-		if err != nil {
-			var diags diag.Diagnostics
-			diags.AddError(
-				"API Error Fetching Users for Space",
-				"Could not list users for space "+filter.Space.ValueString()+": "+err.Error(),
-			)
-			stream.Results = list.ListResultsStreamDiagnostics(diags)
-			return
-		}
-	case !filter.Org.IsNull():
-		users, err = r.cfClient.Organizations.ListUsersAll(ctx, filter.Org.ValueString(), opts)
-		if err != nil {
-			var diags diag.Diagnostics
-			diags.AddError(
-				"API Error Fetching Users for Organization",
-				"Could not list users for organization "+filter.Org.ValueString()+": "+err.Error(),
-			)
-			stream.Results = list.ListResultsStreamDiagnostics(diags)
-			return
-		}
-	default:
-		users, err = r.cfClient.Users.ListAll(ctx, opts)
-		if err != nil {
-			var diags diag.Diagnostics
-			diags.AddError(
-				"API Error Fetching Users",
-				"Could not list users: "+err.Error(),
-			)
-			stream.Results = list.ListResultsStreamDiagnostics(diags)
-			return
-		}
+	users, diags := listUsersFromCAPI(ctx, r.cfClient, filter)
+	if diags.HasError() {
+		stream.Results = list.ListResultsStreamDiagnostics(diags)
+		return
 	}
 
 	stream.Results = func(push func(list.ListResult) bool) {
@@ -159,4 +122,43 @@ func (r *userListResource) List(ctx context.Context, req list.ListRequest, strea
 			}
 		}
 	}
+}
+
+func listUsersFromCAPI(ctx context.Context, cfClient *cfv3client.Client, filter userListResourceFilter) ([]*cfv3resource.User, diag.Diagnostics) {
+	opts := cfv3client.NewUserListOptions()
+
+	var (
+		users       []*cfv3resource.User
+		err         error
+		diagnostics diag.Diagnostics
+	)
+
+	switch {
+	case !filter.Space.IsNull():
+		users, err = cfClient.Spaces.ListUsersAll(ctx, filter.Space.ValueString(), opts)
+		if err != nil {
+			diagnostics.AddError(
+				"API Error Fetching Users for Space",
+				"Could not list users for space "+filter.Space.ValueString()+": "+err.Error(),
+			)
+		}
+	case !filter.Org.IsNull():
+		users, err = cfClient.Organizations.ListUsersAll(ctx, filter.Org.ValueString(), opts)
+		if err != nil {
+			diagnostics.AddError(
+				"API Error Fetching Users for Organization",
+				"Could not list users for organization "+filter.Org.ValueString()+": "+err.Error(),
+			)
+		}
+	default:
+		users, err = cfClient.Users.ListAll(ctx, opts)
+		if err != nil {
+			diagnostics.AddError(
+				"API Error Fetching Users",
+				"Could not list users: "+err.Error(),
+			)
+		}
+	}
+
+	return users, diagnostics
 }
