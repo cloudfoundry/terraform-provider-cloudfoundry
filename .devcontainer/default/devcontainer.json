@@ -23,7 +23,7 @@
 		},
 		"codespaces": {}
 	},
-	"postCreateCommand": "cp ./assets/provider-config-local.txt ~/.terraformrc && ./assets/install_cf.sh && bash ./.devcontainer/scripts/install-tflint.sh",
+	"postCreateCommand": "cp ./assets/provider-config-local.txt ~/.terraformrc && ./.devcontainer/scripts/install_cf.sh && bash ./.devcontainer/scripts/install-tflint.sh",
 	"hostRequirements": {
 		"memory": "4gb"
 	},
