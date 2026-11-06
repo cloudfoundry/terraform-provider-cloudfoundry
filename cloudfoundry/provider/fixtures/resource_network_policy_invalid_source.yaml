@@ -6,62 +6,6 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 73
-        transfer_encoding: []
-        trailer: {}
-        host: uaa.x.x.x.x.com
-        remote_addr: ""
-        request_uri: ""
-        body: grant_type=refresh_token&refresh_token=redacted
-        form:
-            grant_type:
-                - refresh_token
-            refresh_token:
-                - redacted
-        headers:
-            Authorization:
-                - Basic Y2Y6
-            Content-Type:
-                - application/x-www-form-urlencoded
-        url: https://uaa.x.x.x.x.com/oauth/token
-        method: POST
-      response:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        transfer_encoding:
-            - chunked
-        trailer: {}
-        content_length: -1
-        uncompressed: false
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"b75de6222ee5498e90a245732404957d"}'
-        headers:
-            Cache-Control:
-                - no-store
-            Content-Security-Policy:
-                - script-src 'self'
-            Content-Type:
-                - application/json
-            Date:
-                - Fri, 06 Nov 2026 16:09:03 GMT
-            Pragma:
-                - no-cache
-            Strict-Transport-Security:
-                - max-age=31536000 ; includeSubDomains
-            X-Content-Type-Options:
-                - nosniff
-            X-Frame-Options:
-                - DENY
-            X-Xss-Protection:
-                - "0"
-        status: '200 '
-        code: 200
-        duration: 32.085791ms
-    - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
         content_length: 182
         transfer_encoding: []
         trailer: {}
@@ -76,9 +20,9 @@ interactions:
         url: https://api.x.x.x.x.com/networking/v1/external/policies
         method: POST
       response:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
         transfer_encoding: []
         trailer: {}
         content_length: 109
@@ -92,19 +36,17 @@ interactions:
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Fri, 06 Nov 2026 16:09:03 GMT
-            Server:
-                - istio-envoy
+                - Wed, 26 Mar 2025 15:39:22 GMT
+            Strict-Transport-Security:
+                - max-age=31536000
             X-Content-Type-Options:
                 - nosniff
-            X-Envoy-Upstream-Service-Time:
-                - "13"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 9d555328-878a-4119-7f68-e3d05bbab252::9241af1a-a704-4c3a-478c-53d068deea33
+                - 50e51627-c5f0-447e-7992-47d92864e57d::ace404b7-cc88-46a5-45cb-3021f3151077
             X-Xss-Protection:
                 - 1; mode=block
         status: 400 Bad Request
         code: 400
-        duration: 28.479334ms
+        duration: 590.478333ms
