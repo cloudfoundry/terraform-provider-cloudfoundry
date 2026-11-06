@@ -6,7 +6,7 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -26,40 +26,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"c7723671f8244a3dad9d2065d8faa480"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"8454dac7096e456993f6184bdd9736c0"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:10 GMT
+                - Fri, 06 Nov 2026 16:08:57 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - 2bc062ad-d677-4235-7998-7c84095e82b1
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 576.115667ms
+        duration: 1.391384833s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -71,7 +68,7 @@ interactions:
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: '{"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        body: '{"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
         form: {}
         headers:
             Authorization:
@@ -79,9 +76,9 @@ interactions:
         url: https://api.x.x.x.x.com/networking/v1/external/policies
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
         content_length: 2
@@ -95,26 +92,28 @@ interactions:
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:11 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
+                - Fri, 06 Nov 2026 16:08:57 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "221"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 42aca5c7-f42d-43a2-7967-e9dbab5d87b4::31e31c8e-cde9-4e5b-5582-40f5771ddffd
+                - d87d6a9a-e26b-4b47-4908-f0caad1f819f::8a67ccc1-eb94-4eb7-6659-9397d98893ce
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 901.660708ms
+        duration: 532.446ms
     - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -134,40 +133,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"acd604cbbacf4a18828533c296d5611e"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"047e90944ea44c07ae49a2af00d10612"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:12 GMT
+                - Fri, 06 Nov 2026 16:08:58 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - 55504f69-5b5b-439e-5143-1ee79950c065
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 202.13625ms
+        duration: 30.352958ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -184,45 +180,47 @@ interactions:
         headers:
             Authorization:
                 - Bearer redacted
-        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=d7574c2b-6a04-4f8c-a629-92e9cd08b026,a2ec5785-5c64-455e-a768-7a92215848c2
+        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=5ab05ad7-445f-4f6e-ada4-3ed908945b2a,4bc946d0-25aa-4d9d-915a-f14b20cbd128
         method: GET
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
-        content_length: -1
-        uncompressed: true
-        body: '{"total_policies":1,"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        content_length: 203
+        uncompressed: false
+        body: '{"total_policies":1,"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
         headers:
+            Content-Length:
+                - "203"
             Content-Security-Policy:
                 - frame-ancestors 'none'
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:12 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
-            Vary:
-                - Accept-Encoding
+                - Fri, 06 Nov 2026 16:08:58 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "38"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 9fec30d7-9258-4b97-7987-5f8c4ff21935::3fcee38c-25f4-4367-64d0-6c58ffe0fe53
+                - 81514f08-a8d5-4ebb-7c49-8f3e152e693a::57e6f71c-eb22-4319-70e4-cec139770327
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 238.949875ms
+        duration: 40.677041ms
     - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -242,40 +240,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"6285ad3b74054d5daee7a6abc024ec4c"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"d21e6cc6a2b94a8daf8494c87a7211f3"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:12 GMT
+                - Fri, 06 Nov 2026 16:08:58 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - 25ac0889-1210-4208-5c76-cc15e32f1759
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 173.118792ms
+        duration: 26.74475ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -292,45 +287,47 @@ interactions:
         headers:
             Authorization:
                 - Bearer redacted
-        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=d7574c2b-6a04-4f8c-a629-92e9cd08b026,a2ec5785-5c64-455e-a768-7a92215848c2
+        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=5ab05ad7-445f-4f6e-ada4-3ed908945b2a,4bc946d0-25aa-4d9d-915a-f14b20cbd128
         method: GET
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
-        content_length: -1
-        uncompressed: true
-        body: '{"total_policies":1,"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        content_length: 203
+        uncompressed: false
+        body: '{"total_policies":1,"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
         headers:
+            Content-Length:
+                - "203"
             Content-Security-Policy:
                 - frame-ancestors 'none'
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:13 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
-            Vary:
-                - Accept-Encoding
+                - Fri, 06 Nov 2026 16:08:58 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "28"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - ee989042-82f9-4b80-6cd1-09c23cb49f01::9ab32ab0-e275-4f1d-7da4-605555644bc1
+                - df5a0a8d-0657-4376-512e-b925de9eec86::12aad138-d7ca-47ad-4a9a-9da2d41839d9
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 217.541958ms
+        duration: 29.468125ms
     - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -350,40 +347,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"e85f4de8192f4de8849e66b92535d8ff"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"9d89da0076044fb78fc86d8550a8293c"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:13 GMT
+                - Fri, 06 Nov 2026 16:08:59 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - d468d4a0-e530-43f8-7009-366210e8207d
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 174.542459ms
+        duration: 35.941667ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -395,7 +389,7 @@ interactions:
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: '{"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
+        body: '{"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"tcp","ports":{"start":61443,"end":61443}}}]}'
         form: {}
         headers:
             Authorization:
@@ -403,9 +397,9 @@ interactions:
         url: https://api.x.x.x.x.com/networking/v1/external/policies/delete
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
         content_length: 2
@@ -419,20 +413,22 @@ interactions:
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:13 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
+                - Fri, 06 Nov 2026 16:08:59 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "27"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 1803535a-ba4d-42a2-7789-af70864ace33::e979f979-ff1e-415a-5f4d-1171de525fd5
+                - 6714dd8e-5ff6-4150-4e6d-da4a5801df3c::9ea6dbef-f390-439c-4b8c-ee5c012f3b8c
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 302.658334ms
+        duration: 29.341292ms
     - id: 8
       request:
         proto: HTTP/1.1
@@ -444,7 +440,7 @@ interactions:
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: '{"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
+        body: '{"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
         form: {}
         headers:
             Authorization:
@@ -452,9 +448,9 @@ interactions:
         url: https://api.x.x.x.x.com/networking/v1/external/policies
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
         content_length: 2
@@ -468,26 +464,28 @@ interactions:
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:14 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
+                - Fri, 06 Nov 2026 16:08:59 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "28"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - aad3546e-510e-4b6b-53ef-f8b64ff52977::b5ae321b-d754-4b95-7fea-9026c09b29c4
+                - c2b40e0b-4b0a-4769-68d4-356ffe11835c::128ce3f5-91a7-46ac-4534-9c09d2c96f7f
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 354.260958ms
+        duration: 29.565875ms
     - id: 9
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -507,40 +505,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"37964b3e55454cc68598d6030efd23e4"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"566a6a7a5eea4e7fab999023a18555ca"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:14 GMT
+                - Fri, 06 Nov 2026 16:08:59 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - 5a86e978-d17e-4928-7086-95ab4f4c074a
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 177.944ms
+        duration: 24.533291ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -557,45 +552,47 @@ interactions:
         headers:
             Authorization:
                 - Bearer redacted
-        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=d7574c2b-6a04-4f8c-a629-92e9cd08b026,a2ec5785-5c64-455e-a768-7a92215848c2
+        url: https://api.x.x.x.x.com/networking/v1/external/policies?id=5ab05ad7-445f-4f6e-ada4-3ed908945b2a,4bc946d0-25aa-4d9d-915a-f14b20cbd128
         method: GET
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
-        content_length: -1
-        uncompressed: true
-        body: '{"total_policies":1,"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
+        content_length: 203
+        uncompressed: false
+        body: '{"total_policies":1,"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
         headers:
+            Content-Length:
+                - "203"
             Content-Security-Policy:
                 - frame-ancestors 'none'
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:14 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
-            Vary:
-                - Accept-Encoding
+                - Fri, 06 Nov 2026 16:08:59 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "26"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 16105dbc-ebb8-4432-7e13-72fd31cb0938::e524c0ec-a3c9-4817-47a0-97cd0c2713df
+                - 8f5cc65b-594e-4fd4-6b96-fadad85a00fb::4cf5dcfa-42b4-4c3a-580c-9bbfa99deb57
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 258.478042ms
+        duration: 27.169125ms
     - id: 11
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 1225
+        content_length: 73
         transfer_encoding: []
         trailer: {}
         host: uaa.x.x.x.x.com
@@ -615,40 +612,37 @@ interactions:
         url: https://uaa.x.x.x.x.com/oauth/token
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        transfer_encoding: []
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
         trailer: {}
         content_length: -1
-        uncompressed: true
-        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":599,"scope":"cloud_controller.read password.write cloud_controller.write openid uaa.user","jti":"9c03939baa9e4e1e905440d52dd9f33e"}'
+        uncompressed: false
+        body: '{"access_token":"redacted","token_type":"bearer","id_token":"redacted","refresh_token":"redacted","expires_in":1199,"scope":"clients.read openid routing.router_groups.write scim.read cloud_controller.admin uaa.user routing.router_groups.read cloud_controller.read password.write cloud_controller.write network.admin doppler.firehose scim.write","jti":"92763adfdf59414cafa49cd2617bb96f"}'
         headers:
             Cache-Control:
                 - no-store
             Content-Security-Policy:
                 - script-src 'self'
             Content-Type:
-                - application/json;charset=UTF-8
+                - application/json
             Date:
-                - Thu, 27 Mar 2025 12:14:15 GMT
+                - Fri, 06 Nov 2026 16:09:00 GMT
             Pragma:
                 - no-cache
             Strict-Transport-Security:
                 - max-age=31536000 ; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Frame-Options:
                 - DENY
-            X-Vcap-Request-Id:
-                - ec530c0c-f03b-482d-4d73-c2b9e00cd216
             X-Xss-Protection:
-                - 1; mode=block
-        status: 200 OK
+                - "0"
+        status: '200 '
         code: 200
-        duration: 154.174792ms
+        duration: 33.168958ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -660,7 +654,7 @@ interactions:
         host: api.x.x.x.x.com
         remote_addr: ""
         request_uri: ""
-        body: '{"policies":[{"source":{"id":"d7574c2b-6a04-4f8c-a629-92e9cd08b026"},"destination":{"id":"a2ec5785-5c64-455e-a768-7a92215848c2","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
+        body: '{"policies":[{"source":{"id":"5ab05ad7-445f-4f6e-ada4-3ed908945b2a"},"destination":{"id":"4bc946d0-25aa-4d9d-915a-f14b20cbd128","protocol":"udp","ports":{"start":61443,"end":61443}}}]}'
         form: {}
         headers:
             Authorization:
@@ -668,9 +662,9 @@ interactions:
         url: https://api.x.x.x.x.com/networking/v1/external/policies/delete
         method: POST
       response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         transfer_encoding: []
         trailer: {}
         content_length: 2
@@ -684,17 +678,19 @@ interactions:
             Content-Type:
                 - text/plain; charset=utf-8
             Date:
-                - Thu, 27 Mar 2025 12:14:15 GMT
-            Strict-Transport-Security:
-                - max-age=31536000
+                - Fri, 06 Nov 2026 16:09:00 GMT
+            Server:
+                - istio-envoy
             X-Content-Type-Options:
                 - nosniff
+            X-Envoy-Upstream-Service-Time:
+                - "17"
             X-Frame-Options:
                 - deny
             X-Vcap-Request-Id:
-                - 1b89da06-1613-4def-4434-bcf54e7c8c13::9bed1490-3cf5-4b04-6620-c407c6b08152
+                - 87b07254-67da-4b62-742b-2a9a7872f420::4a5b55d0-22c7-4483-680f-c6ee5707e803
             X-Xss-Protection:
                 - 1; mode=block
         status: 200 OK
         code: 200
-        duration: 332.315542ms
+        duration: 19.663167ms

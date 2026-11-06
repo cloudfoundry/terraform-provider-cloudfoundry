@@ -151,6 +151,11 @@ func (r *NetworkPolicyResource) Delete(ctx context.Context, req resource.DeleteR
 		return
 	}
 
+	if len(policies) == 0 {
+		tflog.Debug(ctx, "no network policies left to delete, nothing to do")
+		return
+	}
+
 	if err := r.client.DeletePolicies("", policies); err != nil {
 		resp.Diagnostics.AddError(
 			"API Error Deleting Policies",
@@ -187,6 +192,10 @@ func (r *NetworkPolicyResource) Read(ctx context.Context, req resource.ReadReque
 	mappedPolicies := mapPolicyClientPoliciesToNetworkPoliciesSlice(policies)
 
 	data.Policies = lo.Intersect(mappedPolicies, data.Policies)
+	if len(data.Policies) == 0 {
+		resp.State.RemoveResource(ctx)
+		return
+	}
 	tflog.Trace(ctx, "read a network_policy resource")
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
