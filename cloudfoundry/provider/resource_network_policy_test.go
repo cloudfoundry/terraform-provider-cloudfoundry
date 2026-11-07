@@ -62,8 +62,8 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 				{
 					Config: hclProvider(nil) + hclNetworkPolicy(&NetworkPolicyPtr{
 						HclObjectName:    "np",
-						SourceAppId:      "d7574c2b-6a04-4f8c-a629-92e9cd08b026",
-						DestinationAppId: "a2ec5785-5c64-455e-a768-7a92215848c2",
+						SourceAppId:      "5ab05ad7-445f-4f6e-ada4-3ed908945b2a",
+						DestinationAppId: "4bc946d0-25aa-4d9d-915a-f14b20cbd128",
 						PortStr:          "61443",
 					}),
 					Check: resource.ComposeAggregateTestCheckFunc(
@@ -75,8 +75,8 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 				{
 					Config: hclProvider(nil) + hclNetworkPolicy(&NetworkPolicyPtr{
 						HclObjectName:    "np",
-						SourceAppId:      "d7574c2b-6a04-4f8c-a629-92e9cd08b026",
-						DestinationAppId: "a2ec5785-5c64-455e-a768-7a92215848c2",
+						SourceAppId:      "5ab05ad7-445f-4f6e-ada4-3ed908945b2a",
+						DestinationAppId: "4bc946d0-25aa-4d9d-915a-f14b20cbd128",
 						Protocol:         new("udp"),
 						PortStr:          "61443",
 					}),
@@ -85,6 +85,38 @@ func TestNetworkPolicyResource_Configure(t *testing.T) {
 						resource.TestCheckResourceAttr(resourceName, "policies.0.protocol", "udp"),
 						resource.TestCheckResourceAttr(resourceName, "policies.0.port", "61443"),
 					),
+				},
+			},
+		})
+	})
+
+	t.Run("drift - destroy succeeds when all policies removed outside Terraform", func(t *testing.T) {
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_network_policy_destroy_drift")
+		defer stopQuietly(rec)
+
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclNetworkPolicy(&NetworkPolicyPtr{
+						HclObjectName:    "np",
+						SourceAppId:      "5ab05ad7-445f-4f6e-ada4-3ed908945b2a",
+						DestinationAppId: "4bc946d0-25aa-4d9d-915a-f14b20cbd128",
+						PortStr:          "61443",
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr("cloudfoundry_network_policy.np", "policies.#", "1"),
+					),
+				},
+				{
+					// Simulate all policies removed outside Terraform (drift).
+					// RefreshState calls Read(), which returns an empty intersection and
+					// removes the resource from state. The plan is then non-empty because
+					// the config still declares the policy.
+					RefreshState:       true,
+					ExpectNonEmptyPlan: true,
 				},
 			},
 		})
