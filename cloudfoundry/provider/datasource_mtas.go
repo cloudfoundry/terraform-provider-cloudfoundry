@@ -53,7 +53,7 @@ func (d *MtasDataSource) Configure(ctx context.Context, req datasource.Configure
 	conf := mta.NewConfiguration(apiEndpointURL, session.CFClient.UserAgent(), session.CFClient.HTTPAuthClient())
 	d.mtaClient = mta.NewAPIClient(conf)
 
-	subDomainWithProtocol := strings.Split(apiEndpointURL, ".")[0]
+	subDomainWithProtocol, _, _ := strings.Cut(apiEndpointURL, ".")
 	subDomain := strings.Split(subDomainWithProtocol, "//")[1]
 	deploySubdomainWithProtocol := strings.Replace(subDomainWithProtocol, subDomain, "deploy-service", 1)
 	deployURL := strings.Replace(apiEndpointURL, subDomainWithProtocol, deploySubdomainWithProtocol, 1)

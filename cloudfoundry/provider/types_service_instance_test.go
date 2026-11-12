@@ -23,11 +23,9 @@ func TestMapResourceServiceInstanceValuesToType_NilMaintenanceInfo(t *testing.T)
 		},
 		Metadata:        &resource.Metadata{},
 		MaintenanceInfo: nil,
-		Resource: resource.Resource{
-			GUID:      "instance-guid",
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		},
+		GUID:            "instance-guid",
+		CreatedAt:       time.Now(),
+		UpdatedAt:       time.Now(),
 	}
 
 	result, diags := mapResourceServiceInstanceValuesToType(context.Background(), managedInstance, jsontypes.NewNormalizedNull())
