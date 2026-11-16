@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/identityschema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -127,6 +128,24 @@ https://docs.cloudfoundry.org/devguide/services`,
 				Optional:            true,
 				Sensitive:           true,
 				CustomType:          jsontypes.NormalizedType{},
+				Validators: []validator.String{
+					stringvalidator.ConflictsWith(path.MatchRoot("parameters_wo")),
+				},
+			},
+			"parameters_wo": schema.StringAttribute{
+				MarkdownDescription: "Write-only variant of `parameters`. Use instead of `parameters` to prevent the JSON from being stored in Terraform state. Cannot be used together with `parameters`.",
+				Optional:            true,
+				WriteOnly:           true,
+				CustomType:          jsontypes.NormalizedType{},
+				Validators: []validator.String{
+					stringvalidator.ConflictsWith(path.MatchRoot("parameters")),
+				},
+			},
+			"parameters_wo_version": schema.Int64Attribute{
+				MarkdownDescription: "Increment this value to trigger a re-send of `parameters_wo` on the next apply. Use when the secret value changes but the Terraform config reference stays the same (e.g., after rotating a Vault secret).",
+				Optional:            true,
+				Computed:            true,
+				Default:             int64default.StaticInt64(0),
 			},
 			"tags": schema.ListAttribute{
 				ElementType:         types.StringType,
@@ -252,7 +271,7 @@ func (r *serviceInstanceResource) ValidateConfig(ctx context.Context, req resour
 	}
 
 	// If Service Instance is of type managed only parameters is allowed to pass
-	if !config.Parameters.IsNull() && config.Type.ValueString() == userProvidedServiceInstance {
+	if (!config.Parameters.IsNull() || !config.ParametersWO.IsNull()) && config.Type.ValueString() == userProvidedServiceInstance {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("type"),
 			"Parameters can only passed to service instance of type managed",
@@ -342,6 +361,17 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 				return
 			}
 			createServiceInstance.Parameters = &params
+		} else if !plan.ParametersWO.IsNull() {
+			var params json.RawMessage
+			err := json.Unmarshal([]byte(plan.ParametersWO.ValueString()), &params)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error in unmarshalling parameters_wo",
+					"Unable to unmarshal json parameters_wo of service instance"+plan.Name.ValueString()+": "+err.Error(),
+				)
+				return
+			}
+			createServiceInstance.Parameters = &params
 		}
 		if !plan.Tags.IsNull() {
 			tags, diags := toTagsList(ctx, plan.Tags)
@@ -394,6 +424,7 @@ func (r *serviceInstanceResource) Create(ctx context.Context, req resource.Creat
 		resp.Diagnostics.Append(diags...)
 		state.ServicePlanName = types.StringValue(planName)
 		state.ServiceOfferingName = types.StringValue(offeringName)
+		state.ParametersWOVersion = plan.ParametersWOVersion
 
 	case userProvidedServiceInstance:
 
@@ -518,6 +549,11 @@ func (r *serviceInstanceResource) Read(ctx context.Context, req resource.ReadReq
 		newState, diags = mapResourceServiceInstanceValuesToType(ctx, svcInstance, data.Credentials)
 	}
 	newState.Timeouts = data.Timeouts
+	if !data.ParametersWOVersion.IsNull() && !data.ParametersWOVersion.IsUnknown() {
+		newState.ParametersWOVersion = data.ParametersWOVersion
+	} else {
+		newState.ParametersWOVersion = types.Int64Value(0)
+	}
 	resp.Diagnostics.Append(diags...)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &newState)...)
 
@@ -601,6 +637,17 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 				return
 			}
 			updateServiceInstance.Parameters = &params
+		} else if !plan.ParametersWO.IsNull() {
+			var params json.RawMessage
+			err := json.Unmarshal([]byte(plan.ParametersWO.ValueString()), &params)
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error in unmarshalling parameters_wo",
+					"Unable to unmarshal json parameters_wo during update of service instance"+plan.Name.ValueString()+": "+err.Error(),
+				)
+				return
+			}
+			updateServiceInstance.Parameters = &params
 		}
 
 		tags, diags := toTagsList(ctx, plan.Tags)
@@ -643,6 +690,7 @@ func (r *serviceInstanceResource) Update(ctx context.Context, req resource.Updat
 		resp.Diagnostics.Append(diags...)
 		state.ServicePlanName = types.StringValue(planName)
 		state.ServiceOfferingName = types.StringValue(offeringName)
+		state.ParametersWOVersion = plan.ParametersWOVersion
 	case userProvidedServiceInstance:
 
 		updateServiceInstance := cfv3resource.ServiceInstanceUserProvidedUpdate{}

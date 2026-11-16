@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/knownvalue"
 	"github.com/hashicorp/terraform-plugin-testing/statecheck"
+	"github.com/hashicorp/terraform-plugin-testing/tfjsonpath"
 )
 
 type ResourceServiceInstanceModelPtr struct {
@@ -21,6 +22,8 @@ type ResourceServiceInstanceModelPtr struct {
 	ServicePlanName     *string
 	ServiceOfferingName *string
 	Parameters          *string
+	ParametersWO        *string
+	ParametersWOVersion *int
 	Tags                *string
 	Labels              *string
 	Annotations         *string
@@ -54,6 +57,14 @@ func hclResourceServiceInstance(r *ResourceServiceInstanceModelPtr) string {
 			parameters = <<EOT
 			{{.Parameters}}
 			EOT
+		{{- end}}
+		{{if .ParametersWO}}
+			parameters_wo = <<EOT
+			{{.ParametersWO}}
+			EOT
+		{{- end}}
+		{{if .ParametersWOVersion}}
+			parameters_wo_version = {{.ParametersWOVersion}}
 		{{- end}}
 		{{if .Tags}}
 			tags = {{.Tags}}
@@ -159,8 +170,60 @@ func TestResourceServiceInstance(t *testing.T) {
 					ResourceName:            resourceName,
 					ImportStateIdFunc:       getIdForImport(resourceName),
 					ImportState:             true,
-					ImportStateVerifyIgnore: []string{"parameters", "service_plan_name", "service_offering_name"},
+					ImportStateVerifyIgnore: []string{"parameters", "parameters_wo_version", "service_plan_name", "service_offering_name"},
 					ImportStateVerify:       true,
+				},
+			},
+		})
+	})
+
+	t.Run("happy path - create managed service instance with write-only parameters", func(t *testing.T) {
+		resourceName := "cloudfoundry_service_instance.si"
+		cfg := getCFHomeConf()
+		rec := cfg.SetupVCR(t, "fixtures/resource_service_instance_managed_wo")
+		defer stopQuietly(rec)
+		resource.Test(t, resource.TestCase{
+			IsUnitTest:               true,
+			ProtoV6ProviderFactories: getProviders(rec.GetDefaultClient()),
+			Steps: []resource.TestStep{
+				{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
+						HclType:       hclObjectResource,
+						HclObjectName: "si",
+						Name:          new(testServiceInstanceManagedCreate),
+						Type:          new(managedSerivceInstance),
+						Space:         new(testSpaceGUID),
+						ServicePlan:   new(testServicePanGUID),
+						ParametersWO:  new(testParameters),
+					}),
+					Check: resource.ComposeAggregateTestCheckFunc(
+						resource.TestCheckResourceAttr(resourceName, "name", testServiceInstanceManagedCreate),
+						resource.TestCheckResourceAttr(resourceName, "type", managedSerivceInstance),
+						resource.TestMatchResourceAttr(resourceName, "id", regexpValidUUID),
+					),
+					ConfigStateChecks: []statecheck.StateCheck{
+						// parameters_wo must not be stored in state
+						statecheck.ExpectKnownValue(resourceName, tfjsonpath.New("parameters_wo"), knownvalue.Null()),
+						// parameters_wo_version defaults to 0
+						statecheck.ExpectKnownValue(resourceName, tfjsonpath.New("parameters_wo_version"), knownvalue.Int64Exact(0)),
+					},
+				},
+				{
+					Config: hclProvider(nil) + hclResourceServiceInstance(&ResourceServiceInstanceModelPtr{
+						HclType:             hclObjectResource,
+						HclObjectName:       "si",
+						Name:                new(testServiceInstanceManagedCreate),
+						Type:                new(managedSerivceInstance),
+						Space:               new(testSpaceGUID),
+						ServicePlan:         new(testServicePanGUID),
+						ParametersWO:        new(testParametersUpdated),
+						ParametersWOVersion: func() *int { v := 1; return &v }(),
+						Tags:                new(testTags),
+					}),
+					ConfigStateChecks: []statecheck.StateCheck{
+						statecheck.ExpectKnownValue(resourceName, tfjsonpath.New("parameters_wo"), knownvalue.Null()),
+						statecheck.ExpectKnownValue(resourceName, tfjsonpath.New("parameters_wo_version"), knownvalue.Int64Exact(1)),
+					},
 				},
 			},
 		})
@@ -259,7 +322,7 @@ func TestResourceServiceInstance(t *testing.T) {
 					ResourceName:            resourceName,
 					ImportStateIdFunc:       getIdForImport(resourceName),
 					ImportState:             true,
-					ImportStateVerifyIgnore: []string{"credentials"},
+					ImportStateVerifyIgnore: []string{"credentials", "parameters_wo_version"},
 					ImportStateVerify:       true,
 				},
 			},
@@ -413,7 +476,7 @@ func TestResourceServiceInstance(t *testing.T) {
 					ImportStateIdFunc:       getIdForImport(resourceName),
 					ImportState:             true,
 					ImportStateVerify:       true,
-					ImportStateVerifyIgnore: []string{"service_plan_name", "service_offering_name"},
+					ImportStateVerifyIgnore: []string{"service_plan_name", "service_offering_name", "parameters_wo_version"},
 				},
 			},
 		})
