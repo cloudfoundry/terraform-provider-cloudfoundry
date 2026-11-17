@@ -109,10 +109,14 @@ resource "cloudfoundry_service_instance" "dev-autoscaler" {
 
 ### Optional
 
+> **NOTE**: [Write-only arguments](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments) are supported in Terraform 1.11 and later.
+
 - `annotations` (Map of String) The annotations associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
 - `credentials` (String, Sensitive) A JSON object that is made available to apps bound to this service instance of type user-provided.
 - `labels` (Map of String) The labels associated with Cloud Foundry resources. Add as described [here](https://docs.cloudfoundry.org/adminguide/metadata.html#-view-metadata-for-an-object).
 - `parameters` (String, Sensitive) A JSON object that is passed to the service broker for managed service instance.
+- `parameters_wo` (String, [Write-only](https://developer.hashicorp.com/terraform/language/resources/ephemeral#write-only-arguments)) Write-only variant of `parameters`. Use instead of `parameters` to prevent the JSON from being stored in Terraform state. Cannot be used together with `parameters`.
+- `parameters_wo_version` (Number) Increment this value to trigger a re-send of `parameters_wo` on the next apply. Use when the secret value changes but the Terraform config reference stays the same (e.g., after rotating a Vault secret).
 - `route_service_url` (String) URL to which requests for bound routes will be forwarded; only shown when type is user-provided.
 - `service_offering_name` (String) The name of the service offering. Must be set together with `service_plan_name`. Conflicts with `service_plan`.
 - `service_plan` (String) The ID of the service plan from which to create the service instance. Conflicts with `service_plan_name` and `service_offering_name`.
