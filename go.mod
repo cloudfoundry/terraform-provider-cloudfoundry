@@ -4,7 +4,7 @@ go 1.27.3
 
 require (
 	code.cloudfoundry.org/go-log-cache/v3 v3.1.2
-	code.cloudfoundry.org/lager/v3 v3.95.0
+	code.cloudfoundry.org/lager/v3 v3.96.0
 	code.cloudfoundry.org/policy_client v0.128.0
 	github.com/cloudfoundry-community/go-uaa v0.5.1
 	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-beta.2
