@@ -21,6 +21,8 @@ type serviceInstanceType struct {
 	ServicePlanName     types.String         `tfsdk:"service_plan_name"`
 	ServiceOfferingName types.String         `tfsdk:"service_offering_name"`
 	Parameters          jsontypes.Normalized `tfsdk:"parameters"`
+	ParametersWO        jsontypes.Normalized `tfsdk:"parameters_wo"`
+	ParametersWOVersion types.Int64          `tfsdk:"parameters_wo_version"`
 	LastOperation       types.Object         `tfsdk:"last_operation"` //LastOperationType
 	Tags                types.List           `tfsdk:"tags"`
 	DashboardURL        types.String         `tfsdk:"dashboard_url"`
@@ -223,6 +225,8 @@ func mapResourceServiceInstanceValuesToType(ctx context.Context, value *resource
 		} else {
 			serviceInstanceType.Parameters = jsontypes.NewNormalizedNull()
 		}
+		serviceInstanceType.ParametersWO = jsontypes.NewNormalizedNull()
+		serviceInstanceType.ParametersWOVersion = types.Int64Value(0)
 	case userProvidedServiceInstance:
 		if value.SyslogDrainURL != nil {
 			serviceInstanceType.SyslogDrainURL = types.StringValue(*value.SyslogDrainURL)
@@ -236,6 +240,8 @@ func mapResourceServiceInstanceValuesToType(ctx context.Context, value *resource
 		} else {
 			serviceInstanceType.Credentials = jsontypes.NewNormalizedNull()
 		}
+		serviceInstanceType.ParametersWO = jsontypes.NewNormalizedNull()
+		serviceInstanceType.ParametersWOVersion = types.Int64Value(0)
 	}
 	serviceInstanceType.Labels, diags = mapMetadataValueToType(ctx, value.Metadata.Labels)
 	diagnostics.Append(diags...)
