@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/lager/v3 v3.96.0
 	code.cloudfoundry.org/policy_client v0.128.0
 	github.com/cloudfoundry-community/go-uaa v0.5.1
-	github.com/cloudfoundry/go-cfclient/v3 v3.0.0-beta.2
+	github.com/cloudfoundry/go-cfclient/v3 v3.0.0
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
 	github.com/hashicorp/terraform-plugin-framework-jsontypes v0.2.0
