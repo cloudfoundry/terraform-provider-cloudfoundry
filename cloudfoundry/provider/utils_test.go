@@ -1,6 +1,7 @@
 package provider
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -222,11 +223,18 @@ func (cfg *CloudFoundryProviderConfigPtr) SetupVCR(t *testing.T, cassetteName st
 		mode = recorder.ModeRecordOnly
 	}
 
+	realTransport := http.DefaultTransport
+	if cfg.SkipSslValidation != nil && *cfg.SkipSslValidation {
+		realTransport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, //nolint:gosec // intentional for self-signed certs
+		}
+	}
+
 	rec, err := recorder.NewWithOptions(&recorder.Options{
 		CassetteName:       cassetteName,
 		Mode:               mode,
 		SkipRequestLatency: true,
-		RealTransport:      http.DefaultTransport,
+		RealTransport:      realTransport,
 	})
 
 	if rec.IsRecording() {

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"testing"
 	"text/template"
 
@@ -281,8 +282,10 @@ func getCFHomeConf() *CloudFoundryProviderConfigPtr {
 		}
 	}
 	apiEndpointURL := cfConf.ApiURL("")
+	skipSsl, _ := strconv.ParseBool(os.Getenv("CF_SKIP_SSL_VALIDATION"))
 	cfg := CloudFoundryProviderConfigPtr{
-		Endpoint: &apiEndpointURL,
+		Endpoint:          &apiEndpointURL,
+		SkipSslValidation: &skipSsl,
 	}
 	return &cfg
 }
@@ -318,6 +321,7 @@ func TestCloudFoundryProvider_HasResources(t *testing.T) {
 		"cloudfoundry_service_plan_visibility",
 		"cloudfoundry_user_cf",
 		"cloudfoundry_network_policy",
+		"cloudfoundry_env_var_group",
 	}
 
 	ctx := context.Background()
